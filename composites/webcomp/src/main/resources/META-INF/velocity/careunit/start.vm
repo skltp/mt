@@ -1,0 +1,26 @@
+<div class="sub-panel-header">
+    <h2>#springMessage('start.welcome')</h2>
+</div>
+<div class="sub-panel">	
+	<table>
+		<form action="#springUrl("/web/questions/")" method="POST">
+		<tr>
+			<td>#springMessage('question.careunit'):</td>
+			<td><input name="careUnit" id="careUnit"/></td>
+			<td>
+				<input type="submit" name="button.show" value="#springMessage('question.show')"/>
+			</td>
+		<tr>
+		</form>
+		<form action="#springUrl("/web/answers/")" method="POST">
+		<tr>
+			<td>#springMessage('answer.careunit'):</td>
+			<td><input name="careUnit" id="careUnit"/></td>
+			<td>
+				<input type="submit" name="button.show" value="#springMessage('answer.show')"/>
+			</td>
+		</tr>
+		</form>
+	</table>
+</div>
+	

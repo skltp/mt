@@ -1,0 +1,68 @@
+<form action="#springUrl("/web/admin/user/create")" method="POST">
+<div>
+	<div style="float:right;">
+		<input type="submit" name="button.save" value="#springMessage('button.save')"/>
+	</div>
+	<div>
+		&nbsp;
+	</div>
+</div>
+<div class="panel-data">
+	<div class="panel-data-header">
+		#springMessage('admin.user.create')
+	</div>
+	<div class="table-data">
+		<div class="panel-data-left">
+			<div class="data-header">#springMessage('admin.user.username'):</div>
+	        <div class="data-header">#springMessage('admin.user.password'):</div>
+	        <div class="data-header">#springMessage('admin.user.firstname'):</div>
+	        <div class="data-header">#springMessage('admin.user.lastname'):</div>
+		</div>
+		<div class="panel-data-right">
+			<div class="data-row">
+				#springFormInput("form.username", "")
+        		#springShowErrors("" "") 
+			</div>
+			<div class="data-row">
+				#springFormInput("form.password", "")
+        		#springShowErrors("" "") 
+	        </div>
+			<div class="data-row">
+				#springFormInput("form.firstname", "")
+        		#springShowErrors("" "") 
+        	</div> 
+        	<div class="data-row">
+	        	#springFormInput("form.lastname", "")
+        		#springShowErrors("" "") 
+	        </div>
+		</div>
+	</div>
+</div>
+</form>
+
+<div class="panel-data">
+	<div class="panel-data-header">
+		#springMessage('admin.user.allusers')
+	</div>
+	<div class="data-table">
+		<table class="fullWidthTable">
+			<tr>
+				<th>#springMessage('admin.user.username')</th>
+				<th>#springMessage('admin.user.firstname')</th>
+				<th>#springMessage('admin.user.lastname')</th>
+				<th>&nbsp;</th>
+			</tr>
+		  	#set($count=0)
+			#foreach( $user in $users )
+			<tr #if($count%2==0)class="evenRow linkedTableRow"#else class="oddRow linkedTableRow"#end>
+		  		<td>$user.username</td>
+		  		<td>$user.firstname</td>
+		  		<td>$user.lastname</td>
+		  		<td class="notClickable">
+		  			<a href="#springUrl("/web/admin/user/delete/$user.username")">#springMessage('button.delete')</a>
+		  		</td>
+		  	</tr>
+		  	#end
+		</table>
+	</div>
+</div>

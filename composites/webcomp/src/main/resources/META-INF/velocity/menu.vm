@@ -1,0 +1,12 @@
+<div class="menu">
+	<ul class="menu">
+		<li class="menu-item">
+			<a  href="#springUrl("/web/")">#springMessage("menu.start")</a>
+		</li>
+	</ul>
+	<ul class="menu">
+		<li class="menu-item">
+			<a href="#springUrl("/web/admin/user")">#springMessage("menu.admin.user")</a>
+		</li>
+	</ul>
+</div>

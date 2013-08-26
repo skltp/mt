@@ -1,0 +1,57 @@
+<div class="panel-data">
+	<div class="panel-data-header">
+		#springMessage('start.welcome')
+	</div>
+	<div class="data-table">
+		#springMessage('start.info')
+	</div>
+</div>
+<div class="panel-data">
+	<div class="panel-data-header">
+		#springMessage('start.status')
+	</div>
+	<div class="data-table">
+		<table class="fullWidthTable">
+			<tr class="formRow">
+				<th>#springMessage('overview.careunit')</th>
+				<th>#springMessage('overview.questions.retreived')</th>
+				<th>#springMessage('overview.questions.arrived')</th>
+				<th>#springMessage('overview.answers.retreived')</th>
+				<th>#springMessage('overview.answers.arrived')</th>
+			</tr>
+		  	#set($count=0)
+			#foreach( $careUnit in $careUnits )
+			<tr #if($count%2==0)class="evenRow linkedTableRow"#else class="oddRow linkedTableRow"#end>
+		  		<td>$careUnit.name</td>
+		  		<td>$careUnit.questionsInRetrieved</td>
+		  		<td>$careUnit.questionsInArrived</td>
+		  		<td>$careUnit.answersInRetrieved</td>
+		  		<td>$careUnit.answersInArrived</td>	  	
+		  	</tr>
+		  	</form>
+		  	#end
+		</table>
+	</div>
+</div>
+
+<div class="panel-data">
+	<div class="panel-data-header">
+		#springMessage('start.statistic')
+	</div>
+	<div class="data-table">
+		<table class="fullWidthTable">
+			<tr class="formRow">
+				<th>#springMessage('statistic.careunit')</th>
+				<th>#springMessage('statistic.numberofmessages')</th>
+			</tr>
+		  	#set($count=0)
+			#foreach( $statistic in $statistics )
+			<tr #if($count%2==0)class="evenRow linkedTableRow"#else class="oddRow linkedTableRow"#end>
+		  		<td>$statistic.careUnit</td>
+		  		<td>$statistic.numberOfMessages</td>
+		  	</tr>
+		  	</form>
+		  	#end
+		</table>
+	</div>
+</div>

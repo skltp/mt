@@ -1,0 +1,21 @@
+
+<div>
+	<h2>#springMessage('question.careunit') $careunit</h2>
+	
+	<table>
+		<tr>
+	  		<th>#springMessage('question.status'):</th>
+	  	</tr>
+	  	#foreach($question in $questions)
+	  	<tr>
+	  		<td>$question.status</td>
+	  		<td>$question.arrived</td>
+	  	</tr>
+	  	#end
+	  	#if ($questions.size() == 0)
+	  	<tr>
+	  		<td>#springMessage('result.empty')</td>
+	  	</tr>
+	  	#end
+	</table>
+</div>
