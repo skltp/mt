@@ -1,0 +1,17 @@
+.cache
+.classpath
+.project
+.settings
+
+.idea
+*.iml
+
+*.log
+rebel.xml
+
+.DS_Store
+
+bin
+target
+
+specifications/src/test/fitnesse/FitNesseRoot/ErrorLogs/
