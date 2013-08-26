@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2009 Sjukvårdsrådgivningen
+
+ This library is free software; you can redistribute it and/or modify
+ it under the terms of version 2.1 of the GNU Lesser General Public
+
+ License as published by the Free Software Foundation.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+
+ GNU Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+
+ Boston, MA 02111-1307  USA
+ -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security 
+                        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<http auto-config='true'>
+		<intercept-url pattern="/web/**" access="ROLE_USER" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<!--  user-service>
+				<user name="admin_test" password="casebox" authorities="ROLE_USER" />
+			</user-service-->
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT USERNAME AS username, PASSWORD AS password, 'true' AS enabled FROM USERS WHERE USERNAME = ?"
+				authorities-by-username-query="SELECT USERNAME AS username, AUTHORITY AS authority FROM AUTHORITIES WHERE USERNAME = ?" />
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
