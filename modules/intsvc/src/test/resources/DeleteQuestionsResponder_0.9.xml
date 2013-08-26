@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:DeleteQuestions xmlns:p="urn:iso:21090:dt:1" xmlns:p1="urn:riv:insuranceprocess:healthreporting:1" xmlns:tns="urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1 DeleteQuestionsResponder_0.9.xsd ">
+  <tns:careUnitId controlActExtension="" controlActRoot="" extension="careUnit1" flavorId="" identifierName="" nullFlavor="NI" root="" updateMode="A" validTimeHigh="" validTimeLow=""/>
+  <tns:careGiverId controlActExtension="" controlActRoot="" extension="" flavorId="" identifierName="" nullFlavor="NI" root="" updateMode="A" validTimeHigh="" validTimeLow=""/>
+  <tns:questionId>1</tns:questionId>
+  <tns:questionId>5</tns:questionId>
+  <tns:questionId>6</tns:questionId>
+  <tns:questionId>12</tns:questionId>
+  <tns:questionId>19</tns:questionId>
+  <tns:questionId>23</tns:questionId>
+  <tns:questionId>26</tns:questionId>
+  <tns:questionId>29</tns:questionId>
+</tns:DeleteQuestions>
