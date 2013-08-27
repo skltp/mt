@@ -32,12 +32,12 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<bean id="receiveMedCertQuestion" class="se.inera.ifv.casebox.services.ReceiveMedicalCertificateQuestionImpl"/>
-	<bean id="findAllQuestions" class="se.inera.ifv.casebox.services.FindAllQuestionsImpl"/>
-	<bean id="findAllAnswers" class="se.inera.ifv.casebox.services.FindAllAnswersImpl"/>
-	<bean id="deleteQuestions" class="se.inera.ifv.casebox.services.DeleteQuestionsImpl"/>
-	<bean id="deleteAnswers" class="se.inera.ifv.casebox.services.DeleteAnswersImpl"/>
-	<bean id="receiveMedCertAnswer" class="se.inera.ifv.casebox.services.ReceiveMedicalCertificateAnswerImpl"/>
+	<bean id="receiveMedCertQuestion" class="se.skltp.mt.services.ReceiveMedicalCertificateQuestionImpl"/>
+	<bean id="findAllQuestions" class="se.skltp.mt.services.FindAllQuestionsImpl"/>
+	<bean id="findAllAnswers" class="se.skltp.mt.services.FindAllAnswersImpl"/>
+	<bean id="deleteQuestions" class="se.skltp.mt.services.DeleteQuestionsImpl"/>
+	<bean id="deleteAnswers" class="se.skltp.mt.services.DeleteAnswersImpl"/>
+	<bean id="receiveMedCertAnswer" class="se.skltp.mt.services.ReceiveMedicalCertificateAnswerImpl"/>
 
   	<jaxws:endpoint id="recMedCertQuestion"
                   	implementor="#receiveMedCertQuestion"
