@@ -16,7 +16,7 @@ import se.skltp.mt.core.service.impl.StatisticInfo;
 
 /**
  * Main controller to open the first page with some overview information and statistic about
- * the current state in the casebox. 
+ * the current state in the messagebox. 
  */
 @Controller
 @RequestMapping("/")

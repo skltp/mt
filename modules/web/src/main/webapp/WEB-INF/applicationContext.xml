@@ -37,7 +37,7 @@
         <property name="locations">
         	<list>
         		<value>classpath:default.properties</value>
-        		<value>file:${user.home}/casebox/casebox.properties</value>
+        		<value>file:${user.home}/message/message.properties</value>
         	</list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>

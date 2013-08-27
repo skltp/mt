@@ -40,7 +40,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
  * is finished. Utilty method that is always called after the transaction. 
  * Utility methods for retrieving the dbunit database connection.
  */
-@ContextConfiguration(locations = { "classpath:casebox-services-test.xml" })
+@ContextConfiguration(locations = { "classpath:message-services-test.xml" })
 public abstract class DbunitTestBase extends AbstractTransactionalJUnit4SpringContextTests {
 
     private static String DELETE_DATASET = 

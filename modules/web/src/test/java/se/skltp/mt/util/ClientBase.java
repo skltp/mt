@@ -44,6 +44,6 @@ public abstract class ClientBase extends DbunitTestBase {
         if(port == null) {
             port = "8080";
         }
-        return "http://localhost:" + port +"/casebox-app/ws/";
+        return "http://localhost:" + port +"/message-web/ws/";
     }
 }

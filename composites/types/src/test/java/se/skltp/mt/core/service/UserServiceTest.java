@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.skltp.mt.core.entity.User;
 import se.skltp.mt.core.service.UserService;
-import se.skltp.mt.exception.CaseboxException;
+import se.skltp.mt.exception.MessageException;
 import se.skltp.mt.util.JpaRepositoryTestBase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,7 +37,7 @@ public class UserServiceTest extends JpaRepositoryTestBase {
         try {
             user = userService.createUser("test", "test1", "Kalle", "Anka");
             Assert.fail("Should not be able to create user with same name");
-        } catch (CaseboxException e) {
+        } catch (MessageException e) {
             Assert.assertEquals("error.user.alreadyexist", e.getMessageCode());
         }
 

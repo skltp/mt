@@ -24,7 +24,7 @@
 		<title>#springMessage('start.casebox')</title>
 		<link rel="stylesheet" type="text/css" href="#springUrl("/resources/css/reset.css")" />
         <link rel="stylesheet" type="text/css" href="#springUrl("/resources/css/typography.css")" /> 
-        <link rel="stylesheet" type="text/css" href="#springUrl("/resources/css/casebox.css")" /> 
+        <link rel="stylesheet" type="text/css" href="#springUrl("/resources/css/message.css")" /> 
         <!--[if lt IE 8]><link rel="stylesheet" href="/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]--> 
 	</head>
 	<body>

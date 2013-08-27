@@ -16,7 +16,7 @@ import se.skltp.mt.core.entity.AuthorityRole;
 import se.skltp.mt.core.entity.User;
 import se.skltp.mt.core.repository.UserRepository;
 import se.skltp.mt.core.service.UserService;
-import se.skltp.mt.exception.CaseboxException;
+import se.skltp.mt.exception.MessageException;
 
 
 
@@ -29,12 +29,12 @@ public class UserServiceImpl implements UserService {
     
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    public User createUser(String username, String password, String firstName, String lastName) throws CaseboxException {
+    public User createUser(String username, String password, String firstName, String lastName) throws MessageException {
 
         User user = userRepository.findByUsername(username);
         if (user != null) {
             log.error("Username {} already exist, can not create user.", new Object[] {username});
-            throw new CaseboxException("error.user.alreadyexist");
+            throw new MessageException("error.user.alreadyexist");
         }
         
         user = new User(username, password, true, firstName, lastName);
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public void deleteUser(String username) throws CaseboxException {
+    public void deleteUser(String username) throws MessageException {
         userRepository.remove(username);
     }
 

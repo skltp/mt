@@ -40,7 +40,7 @@ public class CareUnitInfoAnswerInternal extends CareUnitInfoInternal {
     }
 
     /* (non-Javadoc)
-     * @see se.skltp.mt.core.service.impl.CareUnitInfoInternal#handle(se.skl.ifv.casebox.core.service.CareUnitInfo)
+     * @see se.skltp.mt.core.service.impl.CareUnitInfoInternal#handle(se.skltp.mt.service.CareUnitInfo)
      */
     @Override
     public void update(CareUnitInfo info) {

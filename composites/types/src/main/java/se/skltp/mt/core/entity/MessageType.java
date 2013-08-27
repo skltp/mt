@@ -1,7 +1,7 @@
 package se.skltp.mt.core.entity;
 
 /**
- * The type of the message that is handled in the casebox system.
+ * The type of the message that is handled in the message system.
  */
 public enum MessageType {
     

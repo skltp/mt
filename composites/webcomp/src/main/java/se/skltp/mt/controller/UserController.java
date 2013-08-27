@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.skltp.mt.controller.vo.UserForm;
 import se.skltp.mt.core.entity.User;
 import se.skltp.mt.core.service.UserService;
-import se.skltp.mt.exception.CaseboxException;
+import se.skltp.mt.exception.MessageException;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -35,7 +35,7 @@ public class UserController {
         
         try {
             userService.createUser(form.getUsername(), form.getPassword(), form.getFirstname(), form.getLastname());
-        } catch (CaseboxException e) {
+        } catch (MessageException e) {
             log.error(e.getMessage());
             mav.getModel().put("error", e.getMessageCode());
         }
@@ -50,7 +50,7 @@ public class UserController {
         log.debug("Delete user {}", new Object[]{username});
         try {
             userService.deleteUser(username);
-        } catch (CaseboxException e) {
+        } catch (MessageException e) {
             log.error(e.getMessage());
             mav.getModel().put("error", e.getMessageCode());
         }
