@@ -1,6 +1,6 @@
 package se.inera.ifv.casebox.controller.vo;
 
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class UserForm {
 

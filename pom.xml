@@ -16,11 +16,11 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>se.inera.ifv</groupId>
-	<artifactId>casebox-parent</artifactId>
+	<groupId>se.skltp</groupId>
+	<artifactId>message-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.1-SNAPSHOT</version>
-	<name>casebox-parent</name>
+	<name>message-parent</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -351,26 +351,28 @@ encoding/<project>=UTF-8]]>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.1</version>
+				<version>3.0</version>
 				<configuration>
-					<tagBase>https://inera-casebox.googlecode.com/svn/tags/</tagBase>
+					<tagBase>https://inera-message.googlecode.com/svn/tags/</tagBase>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 	<scm>
-		<connection>scm:svn:https://inera-casebox.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://inera-casebox.googlecode.com/svn/trunk</developerConnection>
-		<url>https://inera-casebox.googlecode.com/svn/tags</url>
+		<connection>scm:svn:https://inera-message.googlecode.com/svn/trunk</connection>
+		<developerConnection>scm:svn:https://inera-messag.googlecode.com/svn/trunk</developerConnection>
+		<url>https://inera-message.googlecode.com/svn/tags</url>
 	</scm>
 
 	<modules>
-		<module>composites/casebox-schemas</module>
-		<module>composites/casebox-ws</module>
-		<module>composites/casebox-core</module>
-		<module>composites/casebox-web</module>
-		<module>composites/casebox-ws-test-consumer</module>
+		<module>composites/schemas</module>
+		<module>composites/types</module>
+		<module>composites/webcomp</module>
+		<module>modules/intsvc</module>
 		<module>modules/web</module>
+<!-- Don't know where this should be placed
+		<module>composites/casebox-ws-test-consumer</module>
+-->
 	</modules>
 </project>

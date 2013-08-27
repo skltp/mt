@@ -23,15 +23,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>se.inera.ifv</groupId>
-		<artifactId>casebox-parent</artifactId>
+		<groupId>se.skltp</groupId>
+		<artifactId>message-parent</artifactId>
 		<version>1.1-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
-	<groupId>se.inera.ifv</groupId>
-	<artifactId>casebox-schemas</artifactId>
+	<groupId>se.skltp</groupId>
+	<artifactId>message-schemas</artifactId>
 	<version>1.1-SNAPSHOT</version>
-	<name>casebox-composite-schemas</name>
+	<name>message-composite-schemas</name>
 
 	<properties>
 		<schema.path>src/main/resources/schemas</schema.path>
@@ -58,15 +59,15 @@
 										Note: be careful when changing this - must be in sync for all
 										schemas generations in this namespace!
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20=se.inera.ifv.receivemedicalcertificateanswer.v1.rivtabp20
+											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20=se.skltp.mt.receivemedicalcertificateanswer.v1.rivtabp20
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2
+											urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.inera.ifv.qa.v1
+											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -74,7 +75,7 @@
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.inera.ifv.receivemedicalcertificateanswerresponder.v1
+											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.mt.receivemedicalcertificateanswerresponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -91,15 +92,15 @@
 										Note: be careful when changing this - must be in sync for all
 										schemas generations in this namespace!
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1:rivtabp20=se.inera.ifv.receivemedicalcertificatequestion.v1.rivtabp20
+											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1:rivtabp20=se.skltp.mt.receivemedicalcertificatequestion.v1.rivtabp20
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2
+											urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.inera.ifv.qa.v1
+											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -107,7 +108,7 @@
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.inera.ifv.receivemedicalcertificatequestionsponder.v1
+											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.mt.receivemedicalcertificatequestionsponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -124,15 +125,15 @@
 										Note: be careful when changing this - must be in sync for all
 										schemas generations in this namespace!
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:FindAllQuestions:1:rivtabp20=se.inera.ifv.findallquestions.v1.rivtabp20
+											urn:riv:insuranceprocess:healthreporting:FindAllQuestions:1:rivtabp20=se.skltp.mt.findallquestions.v1.rivtabp20
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2
+											urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.inera.ifv.qa.v1
+											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -140,11 +141,11 @@
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:FindAllQuestionsResponder:1=se.inera.ifv.findallquestionsresponder.v1
+											urn:riv:insuranceprocess:healthreporting:FindAllQuestionsResponder:1=se.skltp.mt.findallquestionsresponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.inera.ifv.receivemedicalcertificatequestionsponder.v1
+											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.mt.receivemedicalcertificatequestionsponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -161,15 +162,15 @@
 										Note: be careful when changing this - must be in sync for all
 										schemas generations in this namespace!
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:FindAllAnswers:1:rivtabp20=se.inera.ifv.findallanswers.v1.rivtabp20
+											urn:riv:insuranceprocess:healthreporting:FindAllAnswers:1:rivtabp20=se.skltp.mt.findallanswers.v1.rivtabp20
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2
+											urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.inera.ifv.qa.v1
+											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -177,11 +178,11 @@
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:FindAllAnswersResponder:1=se.inera.ifv.findallanswersresponder.v1
+											urn:riv:insuranceprocess:healthreporting:FindAllAnswersResponder:1=se.skltp.mt.findallanswersresponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.inera.ifv.receivemedicalcertificateanswerresponder.v1
+											urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.mt.receivemedicalcertificateanswerresponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -198,15 +199,15 @@
 										Note: be careful when changing this - must be in sync for all
 										schemas generations in this namespace!
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:DeleteQuestions:1:rivtabp20=se.inera.ifv.deletequestions.v1.rivtabp20
+											urn:riv:insuranceprocess:healthreporting:DeleteQuestions:1:rivtabp20=se.skltp.mt.deletequestions.v1.rivtabp20
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2
+											urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.inera.ifv.qa.v1
+											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -214,7 +215,7 @@
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1=se.inera.ifv.deletequestionsresponder.v1
+											urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1=se.skltp.mt.deletequestionsresponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -231,15 +232,15 @@
 										Note: be careful when changing this - must be in sync for all
 										schemas generations in this namespace!
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:DeleteAnswers:1:rivtabp20=se.inera.ifv.deleteanswers.v1.rivtabp20
+											urn:riv:insuranceprocess:healthreporting:DeleteAnswers:1:rivtabp20=se.skltp.mt.deleteanswers.v1.rivtabp20
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:2=se.inera.ifv.v2
+											urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.inera.ifv.qa.v1
+											urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
@@ -247,7 +248,7 @@
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>
-											urn:riv:insuranceprocess:healthreporting:DeleteAnswersResponder:1=se.inera.ifv.deleteanswersresponder.v1
+											urn:riv:insuranceprocess:healthreporting:DeleteAnswersResponder:1=se.skltp.mt.deleteanswersresponder.v1
 										</extraarg>
 										<extraarg>-p</extraarg>
 										<extraarg>

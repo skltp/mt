@@ -23,19 +23,20 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>se.inera.ifv</groupId>
-		<artifactId>casebox-parent</artifactId>
+		<groupId>se.skltp</groupId>
+		<artifactId>message-parent</artifactId>
 		<version>1.1-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
-	<groupId>se.inera.ifv</groupId>
-	<artifactId>casebox-app</artifactId>
+	<groupId>se.skltp</groupId>
+	<artifactId>message-app</artifactId>
 	<version>1.1-SNAPSHOT</version>
-	<name>casebox-module-web</name>
+	<name>message-module-web</name>
 	<packaging>war</packaging>
 
 	<build>
-		<finalName>casebox</finalName>
+		<finalName>message</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -79,9 +80,9 @@
 				        <!-- common configuration shared by all executions -->
 				<configuration>
 					<driver>com.mysql.jdbc.Driver</driver>
-					<url>jdbc:mysql://localhost/casebox</url>
-					<username>caseboxuser</username>
-					<password>caseboxpassword</password>
+					<url>jdbc:mysql://localhost/message</url>
+					<username>messageuser</username>
+					<password>messagepassword</password>
 					<autocommit>true</autocommit>
 					<srcFiles>
 						<srcFile>src/main/resources/insert_user.sql</srcFile>
@@ -101,13 +102,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>casebox-ws</artifactId>
+			<artifactId>message-intsvc</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>casebox-web</artifactId>
+			<artifactId>message-webcomp</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
