@@ -1,0 +1,10 @@
+
+!contents -R2 -g -p -f -h
+
+!*> '''Classpath'''
+${maven.classpath}
+*!
+
+!*> '''Variables Defined'''
+!define TEST_SYSTEM {slim}
+*!

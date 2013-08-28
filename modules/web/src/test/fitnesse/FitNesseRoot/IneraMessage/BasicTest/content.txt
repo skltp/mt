@@ -1,0 +1,10 @@
+|Import|
+|se.skltp.mt.fitnesse|
+
+|Greet the world|
+|name|text?|
+|patrik|Hello patrik|
+|mats|Hello Matz|
+
+
+!contents -R2 -g -p -f -h
