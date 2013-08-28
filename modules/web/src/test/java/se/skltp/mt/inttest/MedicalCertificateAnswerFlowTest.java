@@ -23,7 +23,10 @@ package se.skltp.mt.inttest;
 
 import static org.junit.Assert.*;
 
+import javax.sql.DataSource;
+
 import org.junit.Test;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.w3.wsaddressing10.AttributedURIType;
 
 import se.skltp.mt.findallanswersresponder.v1.FindAllAnswersResponseType;
@@ -38,13 +41,15 @@ import se.skltp.mt.util.DbunitTestBase;
 public class MedicalCertificateAnswerFlowTest extends DbunitTestBase {
     
     private AnswersClient client = new AnswersClient();
-    
+	
     @Test
     public void testSuccess() throws Exception {
         
         AttributedURIType logicalAddress = new AttributedURIType();
         logicalAddress.setValue("testCareUnit");
 
+        assertEquals(0, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM ANSWER"));
+        
         for(int i = 0; i < 26 ; i++) {
             client.receive(logicalAddress);
         }
@@ -53,11 +58,14 @@ public class MedicalCertificateAnswerFlowTest extends DbunitTestBase {
         
         FindAllAnswersResponseType resp = client.findAllAnswers(logicalAddress);
         
+        assertNull(resp.getResult().getErrorId());
+        
         assertEquals(10, resp.getAnswers().getAnswer().size());
         assertEquals(16, resp.getAnswersLeft());
 
         client.deleteQuestions(logicalAddress, resp.getAnswers().getAnswer());
 
+        
         assertEquals(16, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM ANSWER"));
        
         resp = client.findAllAnswers(logicalAddress);

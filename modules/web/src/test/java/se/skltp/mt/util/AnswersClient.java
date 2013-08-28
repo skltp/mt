@@ -21,6 +21,8 @@
 
 package se.skltp.mt.util;
 
+import iso.v21090.dt.v1.II;
+
 import java.util.List;
 
 import org.w3.wsaddressing10.AttributedURIType;
@@ -62,7 +64,8 @@ public class AnswersClient extends ClientBase {
         for(AnswerType a : answer) {
             parameters.getAnswerId().add(a.getId());
         }
-        
+    	parameters.setCareUnitId(createCareUnitId(logicalAddress));
+       
         service.deleteAnswers(logicalAddress, parameters);
         
     }
@@ -103,8 +106,17 @@ public class AnswersClient extends ClientBase {
                 .getFindAllAnswersResponderPort();
         
         FindAllAnswersType parameters = new FindAllAnswersType();
+    	parameters.setCareUnitId(createCareUnitId(logicalAddress));
         
         return service.findAllAnswers(logicalAddress, parameters);
     }
+
+	private II createCareUnitId(AttributedURIType logicalAddress) {
+		II value = new II();
+    	value.setRoot("root");
+    	value.setExtension(logicalAddress.getValue());
+    	value.setIdentifierName(logicalAddress.getValue());
+		return value;
+	}
 
 }

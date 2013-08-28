@@ -23,6 +23,8 @@ package se.skltp.mt.services;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 
+import org.apache.cxf.interceptor.InInterceptors;
+import org.apache.cxf.interceptor.OutInterceptors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,8 @@ import se.skltp.mt.v2.ResultOfCall;
 	    portName = "ReceiveMedicalCertificateAnswerResponderPort", 
 	    targetNamespace = "urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20",
 	    wsdlLocation = "schemas/interactions/ReceiveMedicalCertificateAnswerInteraction/ReceiveMedicalCertificateAnswerInteraction_1.0_rivtabp20.wsdl")
+@InInterceptors(interceptors = "org.apache.cxf.interceptor.LoggingInInterceptor")
+@OutInterceptors(interceptors = "org.apache.cxf.interceptor.LoggingOutInterceptor")
 public class ReceiveMedicalCertificateAnswerImpl implements ReceiveMedicalCertificateAnswerResponderInterface {
 	
     private final static Logger log = LoggerFactory.getLogger(ReceiveMedicalCertificateAnswerImpl.class);
@@ -57,7 +61,10 @@ public class ReceiveMedicalCertificateAnswerImpl implements ReceiveMedicalCertif
 
 		ReceiveMedicalCertificateAnswerResponseType response = new ReceiveMedicalCertificateAnswerResponseType();
 
-		try {			
+		try {	
+			// FIXME: Why do we extract caregiver/careunit from logical address when we ignore logicalAddress in
+			// findAllAnswers/deleteAnswers?
+			
 			// The adress consist of an address in the format XX#caregiver#careunit or caregiver#careunit or only careunit
 			String careGiverAndCareUnit = logicalAddress.getValue();
 			String careUnit = "";

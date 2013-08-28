@@ -54,7 +54,7 @@ public abstract class DbunitTestBase extends AbstractTransactionalJUnit4SpringCo
     private IDatabaseConnection conn;
 
     @Autowired
-    private DriverManagerDataSource dataSource;
+    protected DriverManagerDataSource dataSource;
 
     /**
      * Should not be possible to override the onSetup method that is always called before the transaction.
