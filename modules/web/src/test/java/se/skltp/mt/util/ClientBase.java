@@ -21,8 +21,12 @@
 
 package se.skltp.mt.util;
 
+import iso.v21090.dt.v1.II;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.w3.wsaddressing10.AttributedURIType;
 
 
 /**
@@ -46,4 +50,12 @@ public abstract class ClientBase extends DbunitTestBase {
         }
         return "http://localhost:" + port +"/message-web/ws/";
     }
+
+	protected II createCareUnitId(AttributedURIType logicalAddress) {
+		II value = new II();
+		value.setRoot("root");
+		value.setExtension(logicalAddress.getValue());
+		value.setIdentifierName(logicalAddress.getValue());
+		return value;
+	}
 }

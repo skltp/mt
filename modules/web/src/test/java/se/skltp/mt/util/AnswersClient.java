@@ -21,8 +21,6 @@
 
 package se.skltp.mt.util;
 
-import iso.v21090.dt.v1.II;
-
 import java.util.List;
 
 import org.w3.wsaddressing10.AttributedURIType;
@@ -110,13 +108,5 @@ public class AnswersClient extends ClientBase {
         
         return service.findAllAnswers(logicalAddress, parameters);
     }
-
-	private II createCareUnitId(AttributedURIType logicalAddress) {
-		II value = new II();
-    	value.setRoot("root");
-    	value.setExtension(logicalAddress.getValue());
-    	value.setIdentifierName(logicalAddress.getValue());
-		return value;
-	}
 
 }

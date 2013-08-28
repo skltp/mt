@@ -61,6 +61,7 @@ public class QuestionsClient extends ClientBase {
         for(QuestionType q : questions) {
             parameters.getQuestionId().add(q.getId());
         }
+    	parameters.setCareUnitId(createCareUnitId(logicalAddress));
         
         service.deleteQuestions(logicalAddress, parameters);
         
@@ -102,7 +103,8 @@ public class QuestionsClient extends ClientBase {
                 .getFindAllQuestionsResponderPort();
         
         FindAllQuestionsType parameters = new FindAllQuestionsType();
-        
+    	parameters.setCareUnitId(createCareUnitId(logicalAddress));
+    	
         return service.findAllQuestions(logicalAddress, parameters);
     }    
 
