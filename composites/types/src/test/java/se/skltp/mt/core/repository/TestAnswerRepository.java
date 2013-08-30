@@ -33,8 +33,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import se.skltp.mt.core.entity.Answer;
 import se.skltp.mt.core.repository.AnswerRepository;
@@ -52,13 +54,19 @@ public class TestAnswerRepository extends JpaRepositoryTestBase {
 
     @Test
     public void persist() throws Exception {
-        Answer answer = new Answer("kalle", "Some serializable object");
-        answerRepository.persist(answer);
+        String careUnit = "careUnitId";
+		Answer answer = new Answer(careUnit, "Some serializable object");
+		answerRepository.persist(answer);
 
-        ITable result = getConnection().createQueryTable("ANSWER", "SELECT * FROM ANSWER");
-        Assert.assertNotNull(result.getValue(0, "ID"));
-        Assert.assertEquals("kalle", result.getValue(0, "CARE_UNIT"));
+		answerRepository.flush();
+		
+		Assert.assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM ANSWER"));
+
     }
+
+    @Transactional
+    public void createAnswer(String careUnit) {
+	}
 
     @Test
     public void testFindMaxNumberOfAnswers() throws Exception {

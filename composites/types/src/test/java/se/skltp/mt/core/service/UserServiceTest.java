@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.dbunit.dataset.ITable;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserServiceTest extends JpaRepositoryTestBase {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Test
+    @Ignore("uses non-transactional getConnection()") @Test
     public void createUser() throws Exception {
         User user = userService.createUser("test", "test1", "Kalle", "Anka");
 
@@ -49,7 +50,7 @@ public class UserServiceTest extends JpaRepositoryTestBase {
         Assert.assertEquals("ROLE_USER", result.getValue(0, "AUTHORITY"));
     }
 
-    @Test
+    @Ignore("uses non-transactional getConnection()") @Test
     public void deleteUser() throws Exception {
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getXmlDataSet("user.xml"));
         userService.deleteUser("kajsa");
@@ -63,7 +64,7 @@ public class UserServiceTest extends JpaRepositoryTestBase {
         Assert.assertEquals(0, result.getRowCount());
     }
 
-    @Test
+    @Ignore("uses non-transactional getConnection()") @Test
     public void findAll() throws Exception {
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getXmlDataSet("user.xml"));
         List<User> users = userService.findAllUsers();

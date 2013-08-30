@@ -34,7 +34,7 @@ import se.skltp.mt.core.repository.QuestionRepository;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
-public class JpaQuestionRepository extends DefaultJpaRepository<Question> implements QuestionRepository {
+public class JpaQuestionRepository extends DefaultJpaRepository<Question, Long> implements QuestionRepository {
 
     /* (non-Javadoc)
      * @see se.skltp.mt.core.repository.QuestionRepository#findAllForCareUnit(java.lang.String)

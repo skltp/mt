@@ -19,7 +19,7 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  */
 @Entity
 @Table(name = "AUTHORITIES")
-public class Authority extends AbstractEntity<Authority, Long> {
+public class Authority extends AbstractEntity<Long> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

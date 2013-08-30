@@ -31,6 +31,7 @@ import javax.persistence.PersistenceContext;
 import junit.framework.Assert;
 
 import org.dbunit.dataset.ITable;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,7 @@ public class QuestionServiceTest extends JpaRepositoryTestBase {
         assertEquals(4, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM QUESTION WHERE STATUS='RETRIEVED'"));
     }
 
-    @Test
+    @Ignore("uses non-transactional getConnection()") @Test
     public void testDelete() throws Exception {
         Question[] questions = new Question[5];
         questions[0] = new Question("careUnit1", "Some Serializable1");

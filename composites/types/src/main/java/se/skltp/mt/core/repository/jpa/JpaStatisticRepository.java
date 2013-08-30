@@ -32,7 +32,7 @@ import se.skltp.mt.core.repository.StatisticRepository;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
-public class JpaStatisticRepository extends DefaultJpaRepository<Statistic> implements StatisticRepository {
+public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long> implements StatisticRepository {
 
     public Statistic find(MessageType messageType, String careUnit, Date created) {
         try {

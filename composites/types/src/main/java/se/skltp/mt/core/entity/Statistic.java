@@ -47,7 +47,7 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 })
 @Entity
 @Table(name = "STATISTIC")
-public class Statistic extends AbstractEntity<Statistic, Long> {
+public class Statistic extends AbstractEntity<Long> {
 
     private static final long serialVersionUID = 1L;
 

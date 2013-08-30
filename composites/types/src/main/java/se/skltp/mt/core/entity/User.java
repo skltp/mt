@@ -22,7 +22,7 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 @NamedQueries({ @NamedQuery(name = "User.findByUsername", query = "select u from User u where u.username = :username") })
 @Entity
 @Table(name = "USERS")
-public class User extends AbstractEntity<User, String> {
+public class User extends AbstractEntity<String> {
 
     @Id
     @Column(name = "USERNAME", nullable = false)

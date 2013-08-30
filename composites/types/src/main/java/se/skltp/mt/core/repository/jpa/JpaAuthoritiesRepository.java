@@ -27,5 +27,5 @@ import se.skltp.mt.core.repository.AuthoritiesRepository;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
-public class JpaAuthoritiesRepository extends DefaultJpaRepository<Authority> implements AuthoritiesRepository {
+public class JpaAuthoritiesRepository extends DefaultJpaRepository<Authority, Long> implements AuthoritiesRepository {
 }

@@ -55,7 +55,7 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 })
 @Entity()
 @Table(name="QUESTION")
-public class Question extends AbstractEntity<Question, Long> {
+public class Question extends AbstractEntity<Long> {
 
     @SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;

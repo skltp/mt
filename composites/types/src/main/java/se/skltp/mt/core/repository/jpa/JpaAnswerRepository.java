@@ -34,7 +34,7 @@ import se.skltp.mt.core.repository.AnswerRepository;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
-public class JpaAnswerRepository extends DefaultJpaRepository<Answer> implements AnswerRepository {
+public class JpaAnswerRepository extends DefaultJpaRepository<Answer, Long> implements AnswerRepository {
 
     @SuppressWarnings("unchecked")
     public List<Answer> findAllForCareUnit(String careUnit) {
