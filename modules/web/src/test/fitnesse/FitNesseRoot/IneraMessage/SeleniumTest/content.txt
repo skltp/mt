@@ -1,0 +1,29 @@
+|Import|
+|se.skltp.mt.web.pages|
+|se.skltp.mt.web.spec|
+
+!|Config|
+|property|value|
+|geb.env|${geb.env}|
+|geb.build.baseUrl|${message.web.baseUrl}|
+#|certificate.baseUrl|${certificate.baseUrl}|
+
+!define geb.env {firefox}
+
+!3 Skapa och ta bort en användare
+
+|script|!-HandleUsers-!|
+|loginsidan visas|
+|logga på som användare|admin|med lösen|casebox|
+|huvudsidan visas|
+|välj hantera användare|
+|hantera användaresidan visas|
+|check|räkna användare|1|
+|skapa användare|testuser|med lösen|test|
+|check|räkna användare|2|
+|ta bort användare|testuser|
+|check|räkna användare|1|
+|välj huvudsida|
+|huvudsidan visas|
+
+!contents -R2 -g -p -f -h

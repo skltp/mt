@@ -40,6 +40,7 @@
 		<skipTests>true</skipTests>
 		<checkstyle.basedir>${project.basedir}/..</checkstyle.basedir>
 		<modules.baseUrl>http://localhost:8080/</modules.baseUrl>
+		<message.web.baseUrl>http://localhost:8080/message-web/</message.web.baseUrl>	
 	</properties>
 
 
