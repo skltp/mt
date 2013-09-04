@@ -4,11 +4,12 @@
 
 !|Config|
 |property|value|
-|geb.env|${geb.env}|
+|geb.env|safari|
 |geb.build.baseUrl|${message.web.baseUrl}|
+
+#|geb.env|headless|
 #|certificate.baseUrl|${certificate.baseUrl}|
 
-!define geb.env {firefox}
 
 !3 Skapa och ta bort en användare
 
