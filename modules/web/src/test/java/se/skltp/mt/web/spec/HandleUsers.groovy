@@ -7,35 +7,42 @@ public class HandleUsers {
 
 		
 	public boolean loginsidanVisas() {
+		def result = false
 		Browser.drive {
 			go()
 			waitFor {
 				at LoginPage
+				result = true
 			}
-		} 
-
+		}
+		return result
 	}
 
 	public boolean huvudsidanVisas() {
-		Browser.drive {
+		def result = false
+		Browser b = Browser.drive {
 			waitFor {
 				at MainPage
+				result = true
 			}
 		}
+		println "Browser driver: " + b.driver
+		return result
 	}
 	
 	public boolean hanteraAnvändaresidanVisas() {
-		println "hantAnvVisas"
+		def result = false
 		Browser.drive {
 			waitFor {
 				at HandleUsersPage
+				result = true
 			}
 		}
+		return result
 	}
 
 	
 	public void väljHanteraAnvändare() {
-		println "väljHA"
 		Browser.drive {
 			at MainPage
 			page.gotoHandleUsers()

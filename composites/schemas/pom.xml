@@ -50,7 +50,7 @@
 						<id>generate-sources</id>
 						<phase>generate-sources</phase>
 						<configuration>
-							<sourceRoot>${basedir}/target/generated</sourceRoot>
+							<sourceRoot>${basedir}/src/generated</sourceRoot>
 							<wsdlOptions>
 
 								<wsdlOption>

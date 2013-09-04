@@ -345,6 +345,9 @@
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
+				    <sourceIncludes>
+            			<sourceInclude>**/*.groovy</sourceInclude>
+          			</sourceIncludes>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
 					<additionalConfig>

@@ -41,7 +41,6 @@ public class JpaUsersRepository extends AbstractJpaRepository<User, String, Stri
     }
 
 	public User find(String id) {
-		// TODO No idea if this is correct /matso
 		return findByUsername(id);
 	} 
 }

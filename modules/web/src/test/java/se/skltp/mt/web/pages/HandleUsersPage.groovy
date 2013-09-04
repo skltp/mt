@@ -1,6 +1,5 @@
 package se.skltp.mt.web.pages
 
-
 import geb.Page;
 
 /**
@@ -29,8 +28,6 @@ public class HandleUsersPage extends Page {
 	}
 	
 	def countUsers() {
-		println "URWH: " + userRowsWithHeaders
-		println "size: " + userRowsWithHeaders.size()
 		return userRowsWithHeaders.size() - 1
 	}
 	
@@ -42,7 +39,6 @@ public class HandleUsersPage extends Page {
 	
 	def deleteUser(String username) {
 		def userNameCell = userRowsWithHeaders.find("td", 0, text: username)
-		println userNameCell
 		if (userNameCell.size() == 1) {
 			// find the first href-entry in the row for the user and click it
 			// not very stable, but if we did this for real we would have an id 

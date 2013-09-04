@@ -20,10 +20,7 @@ public class MainPage extends Page {
 	}
 	
 	def gotoHandleUsers() {
-		println "enter gotoHandleUsers"
-		println handleUsers.text()
 		handleUsers.click()
-		println "exit gotoHandleUsers"
 	}
 		
 }
