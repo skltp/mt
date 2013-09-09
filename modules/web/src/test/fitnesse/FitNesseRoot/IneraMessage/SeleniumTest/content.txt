@@ -4,7 +4,7 @@
 
 !|Config|
 |property|value|
-|geb.env|safari|
+|geb.env|firefox|
 |geb.build.baseUrl|${message.web.baseUrl}|
 
 #|geb.env|headless|
@@ -14,6 +14,7 @@
 !3 Skapa och ta bort en användare
 
 |script|!-HandleUsers-!|
+|starta|
 |loginsidan visas|
 |logga på som användare|admin|med lösen|casebox|
 |huvudsidan visas|

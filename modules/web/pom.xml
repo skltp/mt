@@ -39,8 +39,8 @@
 		<!-- This example has no unit tests, just integration tests -->
 		<skipTests>true</skipTests>
 		<checkstyle.basedir>${project.basedir}/..</checkstyle.basedir>
-		<modules.baseUrl>http://localhost:8080/</modules.baseUrl>
-		<message.web.baseUrl>http://localhost:8080/message-web/</message.web.baseUrl>	
+		<modules.baseUrl>http://localhost:8081/</modules.baseUrl>
+		<message.web.baseUrl>http://localhost:8081/message-web/</message.web.baseUrl>	
 	</properties>
 
 
@@ -55,7 +55,7 @@
 					<systemProperties>
 						<systemProperty>
 							<name>jetty.port</name>
-							<value>8080</value>
+							<value>8081</value>
 						</systemProperty>
 						<systemProperty>
 							<name>catalina.home</name>

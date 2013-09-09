@@ -5,11 +5,15 @@ import se.skltp.mt.web.pages.*
 
 public class HandleUsers {
 
+	public void starta() {
+		Browser.drive {
+			go()
+		}
+	}
 		
 	public boolean loginsidanVisas() {
 		def result = false
 		Browser.drive {
-			go()
 			waitFor {
 				at LoginPage
 				result = true
