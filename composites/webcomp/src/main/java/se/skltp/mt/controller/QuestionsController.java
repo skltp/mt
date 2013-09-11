@@ -1,4 +1,4 @@
-package se.skltp.mt.controller;
+package se.skltp.messagebox.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import se.skltp.mt.core.entity.Question;
-import se.skltp.mt.core.service.QuestionService;
+import se.skltp.messagebox.core.entity.Question;
+import se.skltp.messagebox.core.service.QuestionService;
 
 @Controller
 @RequestMapping("/questions")

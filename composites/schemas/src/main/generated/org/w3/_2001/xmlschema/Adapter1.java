@@ -10,11 +10,11 @@ public class Adapter1
 
 
     public Date unmarshal(String value) {
-        return (se.skltp.mt.schema.jaxb.DateTimeAdapter.parseDateTime(value));
+        return (se.skltp.messagebox.schema.jaxb.DateTimeAdapter.parseDateTime(value));
     }
 
     public String marshal(Date value) {
-        return (se.skltp.mt.schema.jaxb.DateTimeAdapter.printDateTime(value));
+        return (se.skltp.messagebox.schema.jaxb.DateTimeAdapter.printDateTime(value));
     }
 
 }

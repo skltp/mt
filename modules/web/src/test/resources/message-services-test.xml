@@ -25,7 +25,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>file:${user.home}/message/message.properties</value>
+				<value>file:${user.home}/messagebox/messagebox.properties</value>
 			</list>
 		</property>
 	</bean>

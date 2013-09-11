@@ -1,4 +1,4 @@
-package se.skltp.mt.controller;
+package se.skltp.messagebox.controller;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import se.skltp.mt.core.service.CareUnitInfo;
-import se.skltp.mt.core.service.OverviewService;
-import se.skltp.mt.core.service.StatisticService;
-import se.skltp.mt.core.service.impl.StatisticInfo;
+import se.skltp.messagebox.core.service.CareUnitInfo;
+import se.skltp.messagebox.core.service.OverviewService;
+import se.skltp.messagebox.core.service.StatisticService;
+import se.skltp.messagebox.core.service.impl.StatisticInfo;
 
 /**
  * Main controller to open the first page with some overview information and statistic about

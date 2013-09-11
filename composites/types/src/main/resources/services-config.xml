@@ -13,8 +13,7 @@
   	<!-- post-processors for all standard annotations -->
 	<context:annotation-config />
 
-	<context:component-scan base-package="se.skltp.mt.core.repository" />
-	<context:component-scan base-package="se.skltp.mt.core.service.impl" />
+	<context:component-scan base-package="se.skltp.messagebox.core" />
 
 	<tx:annotation-driven />
 	

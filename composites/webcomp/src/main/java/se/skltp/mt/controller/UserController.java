@@ -1,4 +1,4 @@
-package se.skltp.mt.controller;
+package se.skltp.messagebox.controller;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import se.skltp.mt.controller.vo.UserForm;
-import se.skltp.mt.core.entity.User;
-import se.skltp.mt.core.service.UserService;
-import se.skltp.mt.exception.MessageException;
+import se.skltp.messagebox.controller.vo.UserForm;
+import se.skltp.messagebox.core.entity.User;
+import se.skltp.messagebox.core.service.UserService;
+import se.skltp.messagebox.exception.MessageException;
 
 @Controller
 @RequestMapping("/admin/user")

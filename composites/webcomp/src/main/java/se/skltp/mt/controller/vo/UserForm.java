@@ -1,4 +1,4 @@
-package se.skltp.mt.controller.vo;
+package se.skltp.messagebox.controller.vo;
 
 import javax.validation.constraints.NotNull;
 

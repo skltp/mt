@@ -34,13 +34,13 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
  
- <bean id="receiveMedCertQuestion" class="se.skltp.mt.services.ReceiveMedicalCertificateQuestionImpl">
+ <bean id="receiveMedCertQuestion" class="se.skltp.messagebox.services.ReceiveMedicalCertificateQuestionImpl">
   <!--
    <property name="vagvalSyncService" ref="vagvalSyncService"/>
   -->
  </bean>
  
- <bean id="receiveMedCertAnswer" class="se.skltp.mt.services.ReceiveMedicalCertificateAnswerImpl">
+ <bean id="receiveMedCertAnswer" class="se.skltp.messagebox.services.ReceiveMedicalCertificateAnswerImpl">
   <!--
    <property name="vagvalSyncService" ref="vagvalSyncService"/>
   -->

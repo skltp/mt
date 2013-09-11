@@ -47,6 +47,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RelatesToType }
+     * 
+     */
+    public RelatesToType createRelatesToType() {
+        return new RelatesToType();
+    }
+
+    /**
+     * Create an instance of {@link EndpointReferenceType }
+     * 
+     */
+    public EndpointReferenceType createEndpointReferenceType() {
+        return new EndpointReferenceType();
+    }
+
+    /**
      * Create an instance of {@link AttributedAnyType }
      * 
      */
@@ -63,35 +79,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RelatesToType }
-     * 
-     */
-    public RelatesToType createRelatesToType() {
-        return new RelatesToType();
-    }
-
-    /**
      * Create an instance of {@link MetadataType }
      * 
      */
     public MetadataType createMetadataType() {
         return new MetadataType();
-    }
-
-    /**
-     * Create an instance of {@link AttributedURIType }
-     * 
-     */
-    public AttributedURIType createAttributedURIType() {
-        return new AttributedURIType();
-    }
-
-    /**
-     * Create an instance of {@link ProblemActionType }
-     * 
-     */
-    public ProblemActionType createProblemActionType() {
-        return new ProblemActionType();
     }
 
     /**
@@ -111,11 +103,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EndpointReferenceType }
+     * Create an instance of {@link ProblemActionType }
      * 
      */
-    public EndpointReferenceType createEndpointReferenceType() {
-        return new EndpointReferenceType();
+    public ProblemActionType createProblemActionType() {
+        return new ProblemActionType();
+    }
+
+    /**
+     * Create an instance of {@link AttributedURIType }
+     * 
+     */
+    public AttributedURIType createAttributedURIType() {
+        return new AttributedURIType();
     }
 
     /**

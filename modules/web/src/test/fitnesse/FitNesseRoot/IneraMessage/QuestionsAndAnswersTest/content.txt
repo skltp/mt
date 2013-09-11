@@ -1,5 +1,5 @@
 |Import|
-|se.skltp.mt.fitnesse|
+|se.skltp.messagebox.fitnesse|
 
 |script|verify question and answer flow|
 |*|setup the care unit and patient we will deal with|

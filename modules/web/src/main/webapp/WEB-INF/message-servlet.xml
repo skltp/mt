@@ -29,7 +29,7 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan base-package="se.skltp.mt.controller"/>
+	<context:component-scan base-package="se.skltp.messagebox.controller"/>
 
 	<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
@@ -57,7 +57,7 @@
   		<property name="attributes">
 	        <map>
 	            <entry key="authentication">
-	                <bean class="se.skltp.mt.domain.AuthenticatedUserDetails"/>
+	                <bean class="se.skltp.messagebox.domain.AuthenticatedUserDetails"/>
 	            </entry>
 	        </map>
 	    </property>

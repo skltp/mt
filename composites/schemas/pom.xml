@@ -61,15 +61,15 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20=se.skltp.mt.receivemedicalcertificateanswer.v1.rivtabp20
+                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20=se.skltp.messagebox.receivemedicalcertificateanswer.v1.rivtabp20
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
+                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
+                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -77,7 +77,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.mt.receivemedicalcertificateanswerresponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.messagebox.receivemedicalcertificateanswerresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -96,15 +96,15 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1:rivtabp20=se.skltp.mt.receivemedicalcertificatequestion.v1.rivtabp20
+                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1:rivtabp20=se.skltp.messagebox.receivemedicalcertificatequestion.v1.rivtabp20
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
+                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
+                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -112,7 +112,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.mt.receivemedicalcertificatequestionsponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.messagebox.receivemedicalcertificatequestionsponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -131,15 +131,15 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllQuestions:1:rivtabp20=se.skltp.mt.findallquestions.v1.rivtabp20
+                                            urn:riv:insuranceprocess:healthreporting:FindAllQuestions:1:rivtabp20=se.skltp.messagebox.findallquestions.v1.rivtabp20
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
+                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
+                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -147,11 +147,11 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllQuestionsResponder:1=se.skltp.mt.findallquestionsresponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:FindAllQuestionsResponder:1=se.skltp.messagebox.findallquestionsresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.mt.receivemedicalcertificatequestionsponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.messagebox.receivemedicalcertificatequestionsponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -170,15 +170,15 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllAnswers:1:rivtabp20=se.skltp.mt.findallanswers.v1.rivtabp20
+                                            urn:riv:insuranceprocess:healthreporting:FindAllAnswers:1:rivtabp20=se.skltp.messagebox.findallanswers.v1.rivtabp20
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
+                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
+                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -186,11 +186,11 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllAnswersResponder:1=se.skltp.mt.findallanswersresponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:FindAllAnswersResponder:1=se.skltp.messagebox.findallanswersresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.mt.receivemedicalcertificateanswerresponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.messagebox.receivemedicalcertificateanswerresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -209,15 +209,15 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteQuestions:1:rivtabp20=se.skltp.mt.deletequestions.v1.rivtabp20
+                                            urn:riv:insuranceprocess:healthreporting:DeleteQuestions:1:rivtabp20=se.skltp.messagebox.deletequestions.v1.rivtabp20
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
+                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
+                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -225,7 +225,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1=se.skltp.mt.deletequestionsresponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1=se.skltp.messagebox.deletequestionsresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -244,15 +244,15 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteAnswers:1:rivtabp20=se.skltp.mt.deleteanswers.v1.rivtabp20
+                                            urn:riv:insuranceprocess:healthreporting:DeleteAnswers:1:rivtabp20=se.skltp.messagebox.deleteanswers.v1.rivtabp20
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.mt.v2
+                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.mt.qa.v1
+                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -260,7 +260,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteAnswersResponder:1=se.skltp.mt.deleteanswersresponder.v1
+                                            urn:riv:insuranceprocess:healthreporting:DeleteAnswersResponder:1=se.skltp.messagebox.deleteanswersresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -279,7 +279,7 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21=se.skltp.mt.ListMessages.v1.rivtabp21
+                                            urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21=se.skltp.messagebox.ListMessages.v1.rivtabp21
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -298,7 +298,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:ListMessagesResponder:1=se.skltp.mt.ListMessagesresponder.v1
+                                            urn:riv:itintegration:messagebox:ListMessagesResponder:1=se.skltp.messagebox.ListMessagesresponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>

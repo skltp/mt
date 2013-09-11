@@ -1,4 +1,4 @@
-package se.skltp.mt.domain;
+package se.skltp.messagebox.domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

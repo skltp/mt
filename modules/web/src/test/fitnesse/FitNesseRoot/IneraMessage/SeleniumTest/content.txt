@@ -1,6 +1,6 @@
 |Import|
-|se.skltp.mt.web.pages|
-|se.skltp.mt.web.spec|
+|se.skltp.messagebox.web.pages|
+|se.skltp.messagebox.web.spec|
 
 !|Config|
 |property|value|

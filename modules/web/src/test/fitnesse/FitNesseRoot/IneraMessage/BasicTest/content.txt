@@ -1,5 +1,5 @@
 |Import|
-|se.skltp.mt.fitnesse|
+|se.skltp.messagebox.fitnesse|
 
 |Greet the world|
 |name|text?|

@@ -30,19 +30,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CD }
-     * 
-     */
-    public CD createCD() {
-        return new CD();
-    }
-
-    /**
      * Create an instance of {@link II }
      * 
      */
     public II createII() {
         return new II();
+    }
+
+    /**
+     * Create an instance of {@link CD }
+     * 
+     */
+    public CD createCD() {
+        return new CD();
     }
 
     /**
