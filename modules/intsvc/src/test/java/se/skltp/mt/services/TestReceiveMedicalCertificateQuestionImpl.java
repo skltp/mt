@@ -20,16 +20,7 @@
  */
 package se.skltp.mt.services;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import java.io.InputStream;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
@@ -37,14 +28,15 @@ import javax.xml.bind.Unmarshaller;
 import org.easymock.Capture;
 import org.junit.Test;
 import org.w3.wsaddressing10.AttributedURIType;
-
 import se.skltp.mt.core.entity.Question;
 import se.skltp.mt.core.service.QuestionService;
 import se.skltp.mt.receivemedicalcertificatequestionsponder.v1.ReceiveMedicalCertificateQuestionResponseType;
 import se.skltp.mt.receivemedicalcertificatequestionsponder.v1.ReceiveMedicalCertificateQuestionType;
-import se.skltp.mt.services.ReceiveMedicalCertificateQuestionImpl;
 import se.skltp.mt.v2.ErrorIdEnum;
 import se.skltp.mt.v2.ResultCodeEnum;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.*;
 
 public class TestReceiveMedicalCertificateQuestionImpl {
 

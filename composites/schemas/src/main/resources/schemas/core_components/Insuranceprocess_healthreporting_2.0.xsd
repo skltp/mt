@@ -17,7 +17,8 @@
 	specific language governing permissions and limitations
 	under the License.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns="urn:riv:insuranceprocess:healthreporting:2"
 	xmlns:iso="urn:iso:21090:dt:1"
 	targetNamespace="urn:riv:insuranceprocess:healthreporting:2" 

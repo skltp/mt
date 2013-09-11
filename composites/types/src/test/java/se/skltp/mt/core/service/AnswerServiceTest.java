@@ -20,27 +20,24 @@
  */
 package se.skltp.mt.core.service;
 
-import static org.junit.Assert.fail;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import junit.framework.Assert;
-
 import org.dbunit.dataset.ITable;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import se.skltp.mt.core.entity.Answer;
-import se.skltp.mt.core.service.AnswerService;
 import se.skltp.mt.util.JpaRepositoryTestBase;
+import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
+
+import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AnswerServiceTest extends JpaRepositoryTestBase {
@@ -50,6 +47,8 @@ public class AnswerServiceTest extends JpaRepositoryTestBase {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    MessageStatusType type;
 
     @Test
     public void deleteAnswers() throws Exception {

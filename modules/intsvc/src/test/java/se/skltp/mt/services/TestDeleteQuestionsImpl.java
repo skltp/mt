@@ -21,12 +21,8 @@
 
 package se.skltp.mt.services;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
-
 import java.io.InputStream;
 import java.util.Set;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
@@ -34,10 +30,11 @@ import javax.xml.bind.Unmarshaller;
 import org.easymock.Capture;
 import org.junit.Test;
 import org.w3.wsaddressing10.AttributedURIType;
-
 import se.skltp.mt.core.service.QuestionService;
 import se.skltp.mt.deletequestionsresponder.v1.DeleteQuestionsType;
-import se.skltp.mt.services.DeleteQuestionsImpl;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.*;
 
 /**
  * @author P�r Wen�ker
