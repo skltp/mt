@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+         <urn1:systemId>theLogicalAddressOfTargetSystem</urn1:systemId>
+         <!--Zero or more repetitions:-
+         <urn1:serviceContractTypes>
+            <urn:ServiceContractNamespace></urn:ServiceContractNamespace>
+         </urn1:serviceContractTypes>
+         -->
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>
