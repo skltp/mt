@@ -21,17 +21,14 @@
 package se.skltp.messagebox.services;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
+import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.riv.itintegration.messagebox.v1.MessageMetaType;
@@ -89,13 +86,13 @@ public class TestListMessagesImpl {
         List<MessageMetaType> messageMetas = responseType.getMessageMetas();
         assertEquals(messages.size(), messageMetas.size());
 
-        Map<String, MessageMetaType> mmMap = new HashMap<String, MessageMetaType>();
+        Map<Long, MessageMetaType> mmMap = new HashMap<>();
         for ( MessageMetaType meta : messageMetas ) {
             mmMap.put(meta.getMessageId(), meta);
         }
 
         for ( Message msg : messages ) {
-            MessageMetaType meta = mmMap.get(msg.getId().toString());
+            MessageMetaType meta = mmMap.get(msg.getId());
             assertNotNull(meta);
             assertEquals(msg.getServiceContract(), meta.getServiceContractType());
             assertEquals(msg.getStatus(), meta.getStatus());

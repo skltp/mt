@@ -27,10 +27,12 @@ import se.skltp.messagebox.core.entity.Message;
 
 public interface MessageService {
 
+    List<Message> getMessagesForSystem(String systemId, Set<Long> ids);
+
     List<Message> getAllMessagesForSystem(String systemId);
 
     Long saveMessage(Message Message);
 
-    void deleteMessagesForCareUnit(String careUnit, Set<Long> ids);
+    void deleteMessagesForSystem(String careUnit, Set<Long> ids);
 
 }

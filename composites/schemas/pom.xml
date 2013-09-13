@@ -61,224 +61,6 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1:rivtabp20=se.skltp.messagebox.receivemedicalcertificateanswer.v1.rivtabp20
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.messagebox.receivemedicalcertificateanswerresponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/ReceiveMedicalCertificateAnswerInteraction/ReceiveMedicalCertificateAnswerInteraction_1.0_rivtabp20.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1:rivtabp20=se.skltp.messagebox.receivemedicalcertificatequestion.v1.rivtabp20
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.messagebox.receivemedicalcertificatequestionsponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/ReceiveMedicalCertificateQuestionInteraction/ReceiveMedicalCertificateQuestionInteraction_1.0_rivtabp20.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllQuestions:1:rivtabp20=se.skltp.messagebox.findallquestions.v1.rivtabp20
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllQuestionsResponder:1=se.skltp.messagebox.findallquestionsresponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestionResponder:1=se.skltp.messagebox.receivemedicalcertificatequestionsponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/FindAllQuestionsInteraction/FindAllQuestionsInteraction_1.0_rivtabp20.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllAnswers:1:rivtabp20=se.skltp.messagebox.findallanswers.v1.rivtabp20
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:FindAllAnswersResponder:1=se.skltp.messagebox.findallanswersresponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1=se.skltp.messagebox.receivemedicalcertificateanswerresponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/FindAllAnswersInteraction/FindAllAnswersInteraction_1.0_rivtabp20.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteQuestions:1:rivtabp20=se.skltp.messagebox.deletequestions.v1.rivtabp20
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteQuestionsResponder:1=se.skltp.messagebox.deletequestionsresponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/DeleteQuestionsInteraction/DeleteQuestionsInteraction_1.0_rivtabp20.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteAnswers:1:rivtabp20=se.skltp.messagebox.deleteanswers.v1.rivtabp20
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:2=se.skltp.messagebox.v2
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:medcertqa:1=se.skltp.messagebox.qa.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:insuranceprocess:healthreporting:DeleteAnswersResponder:1=se.skltp.messagebox.deleteanswersresponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/DeleteAnswersInteraction/DeleteAnswersInteraction_1.0_rivtabp20.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
                                             urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21=se.skltp.messagebox.ListMessages.v1.rivtabp21
                                         </extraarg>
 
@@ -310,6 +92,83 @@
                                         ${schema.path}/interactions/ListMessagesInteraction/ListMessagesInteraction_1.0_rivtabp21.wsdl
                                     </wsdl>
                                 </wsdlOption>
+
+                                <wsdlOption>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        Note: be careful when changing this - must be in sync for all
+                                        schemas generations in this namespace!
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21=se.skltp.messagebox.GetMessages.v1.rivtabp21
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:1=se.skltp.riv.itintegration.messagebox.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:registry:1=se.skltp.riv.itintegration.registry.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
+                                        </extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:GetMessagesResponder:1=se.skltp.messagebox.GetMessagesresponder.v1
+                                        </extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
+                                        </extraarg>
+                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
+                                    </extraargs>
+                                    <wsdl>
+                                        ${schema.path}/interactions/GetMessagesInteraction/GetMessagesInteraction_1.0_rivtabp21.wsdl
+                                    </wsdl>
+                                </wsdlOption>
+
+                                <wsdlOption>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        Note: be careful when changing this - must be in sync for all
+                                        schemas generations in this namespace!
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21=se.skltp.messagebox.DeleteMessages.v1.rivtabp21
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:1=se.skltp.riv.itintegration.messagebox.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:registry:1=se.skltp.riv.itintegration.registry.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
+                                        </extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:DeleteMessagesResponder:1=se.skltp.messagebox.DeleteMessagesresponder.v1
+                                        </extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
+                                        </extraarg>
+                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
+                                    </extraargs>
+                                    <wsdl>
+                                        ${schema.path}/interactions/DeleteMessagesInteraction/DeleteMessagesInteraction_1.0_rivtabp21.wsdl
+                                    </wsdl>
+                                </wsdlOption>
+
                             </wsdlOptions>
                         </configuration>
                         <goals>

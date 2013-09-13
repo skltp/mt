@@ -26,20 +26,19 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.ListMessages.v1.rivtabp21.ListMessagesResponderInterface;
 import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
-import se.skltp.messagebox.ListMessagesresponder.v1.ResultCodeEnum;
+import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.riv.itintegration.messagebox.v1.MessageMetaType;
-import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
 
 @WebService(serviceName = "ListMessagesResponderService", 
-            endpointInterface = "se.skltp.messagebox.ListMessages.v1.rivtabp20.ListMessagesResponderInterface",
+            endpointInterface = "se.skltp.messagebox.ListMessages.v1.rivtabp21.ListMessagesResponderInterface",
             portName = "ListMessagesResponderPort", 
-            targetNamespace = "urn:riv:insuranceprocess:healthreporting:ListMessages:1:rivtabp20", 
-            wsdlLocation = "schemas/interactions/ListMessagesInteraction/ListMessagesInteraction_1.0_rivtabp20.wsdl")
+            targetNamespace = "urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21",
+            wsdlLocation = "schemas/interactions/ListMessagesInteraction/ListMessagesInteraction_1.0_rivtabp21.wsdl")
 public class ListMessagesImpl implements ListMessagesResponderInterface {
 
     private static final Logger log = LoggerFactory.getLogger(ListMessagesImpl.class);
@@ -54,17 +53,18 @@ public class ListMessagesImpl implements ListMessagesResponderInterface {
     public ListMessagesResponseType listMessages(String logicalAddress, ListMessagesType parameters) {
         ListMessagesResponseType response = new ListMessagesResponseType();
         try {
-            String systemID = parameters.getSystemId();
-            List<Message> messages = messageService.getAllMessagesForSystem(systemID);
+            String systemId = parameters.getSystemId();
+            List<Message> messages = messageService.getAllMessagesForSystem(systemId);
                     
             response.setResultCode(ResultCodeEnum.OK);
 
             for (Message msg : messages) {
+
                 MessageMetaType meta = new MessageMetaType();
-                meta.setMessageId(msg.getId().toString());
+                meta.setMessageId(msg.getId());
                 meta.setServiceContractType(msg.getServiceContract());
                 meta.setTimestamp(msg.getArrived());
-                meta.setStatus(MessageStatusType.fromValue(msg.getStatus().toString()));
+                meta.setStatus((msg.getStatus()));
 
                 response.getMessageMetas().add(meta);
             }

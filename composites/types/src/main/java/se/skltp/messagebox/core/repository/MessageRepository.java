@@ -28,8 +28,10 @@ import se.vgregion.dao.domain.patterns.repository.Repository;
 
 public interface MessageRepository extends Repository<Message, Long> {
 
-    List<Message> findAllForSystem(String systemId);
+    List<Message> getMessagesForSystem(String systemId, Set<Long> ids);
     
+    List<Message> getAllMessagesForSystem(String systemId);
+
     Long getNumOfMessagesForSystem(String careUnit);
 
     int delete(String careUnit, Set<Long> ids);

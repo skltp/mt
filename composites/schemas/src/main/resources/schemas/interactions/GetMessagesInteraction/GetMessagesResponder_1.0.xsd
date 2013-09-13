@@ -19,19 +19,20 @@
  -->
 <xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
            xmlns:mb='urn:riv:itintegration:messagebox:1'
-           xmlns:tns='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1'
-           targetNamespace='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1'
+           xmlns:reg='urn:riv:itintegration:registry:1'
+           xmlns:tns='urn:riv:itintegration:messagebox:GetMessagesResponder:1'
+           targetNamespace='urn:riv:itintegration:messagebox:GetMessagesResponder:1'
            elementFormDefault='qualified'
            attributeFormDefault='unqualified' version='1.0'>
     <xs:import schemaLocation='../../core_components/itintegration_messagebox_1.0.xsd'
                namespace='urn:riv:itintegration:messagebox:1'/>
-    <xs:element name='DeleteMessages' type='tns:DeleteMessagesType'/>
-    <xs:element name='DeleteMessagesResponse' type='tns:DeleteMessagesResponseType'/>
+    <xs:element name='GetMessages' type='tns:GetMessagesType'/>
+    <xs:element name='GetMessagesResponse' type='tns:GetMessagesResponseType'/>
 
-    <xs:complexType name='DeleteMessagesType'>
+    <xs:complexType name='GetMessagesType'>
         <xs:annotation>
             <xs:documentation>
-                Request deletion of the identified messages
+                The systemId requests the given messages
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -41,16 +42,29 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="DeleteMessagesResponseType">
-        <xs:annotation>
-            <xs:documentation>
-                If the message was ResultCodeEnum:OK, all messages were deleted
-            </xs:documentation>
-        </xs:annotation>
+    <xs:complexType name="ResponseType">
         <xs:sequence>
-            <xs:element name='resultCode' type='mb:ResultCodeEnum'/>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="serviceContract" type="reg:ServiceContractType"/>
+            <xs:element name="message" type="xs:string"/>
             <xs:any namespace='##other' processContents='lax'/>
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="GetMessagesResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                If the resultCode is ResultCodeEnum:OK, the messages field
+                contains a list of (id, serviceContract, message body) tuples,
+                where the message body is an xml-document representing the
+                web-service call for the given id.
+                Otherwise, the responses list is empty
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name='resultCode' type='mb:ResultCodeEnum'/>
+            <xs:element name="responses" type="tns:ResponseType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any namespace='##other' processContents='lax'/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

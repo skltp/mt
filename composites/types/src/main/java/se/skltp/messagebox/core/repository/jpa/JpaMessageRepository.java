@@ -28,35 +28,47 @@ import javax.persistence.NoResultException;
 import org.springframework.stereotype.Repository;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
-import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
 public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> implements MessageRepository {
 
     @SuppressWarnings("unchecked")
-    public List<Message> findAllForSystem(String systemId) {
+    public List<Message> getMessagesForSystem(String systemId, Set<Long> ids) {
         try {
-            return entityManager.createNamedQuery("Message.findAllForSystem")
-                        .setParameter("systemId", systemId)
-                        .getResultList();
-        } catch(NoResultException e) {
+            return entityManager.createNamedQuery("Message.getForSystemWithIds")
+                    .setParameter("systemId", systemId)
+                    .setParameter("ids", ids)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return Collections.EMPTY_LIST;
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Message> getAllMessagesForSystem(String systemId) {
+        try {
+            return entityManager.createNamedQuery("Message.getForSystem")
+                    .setParameter("systemId", systemId)
+                    .getResultList();
+        } catch (NoResultException e) {
             return Collections.EMPTY_LIST;
         }
     }
 
     public Long getNumOfMessagesForSystem(String systemId) {
         return (Long) entityManager.createNamedQuery("Message.totalCountForSystem")
-                        .setParameter("systemId", systemId)
-                        .getSingleResult();
+                .setParameter("systemId", systemId)
+                .getSingleResult();
     }
-    
+
     public int delete(String systemId, Set<Long> ids) {
         return entityManager.createNamedQuery("Message.deleteForSystemWithIds")
-                    .setParameter("systemId", systemId)
-                    .setParameter("ids", ids)
-                    .setParameter("status", MessageStatusType.RETRIEVED)
-                    .executeUpdate();
+                .setParameter("systemId", systemId)
+                .setParameter("ids", ids)
+//                .setParameter("status", MessageStatusType.RETRIEVED)
+                .executeUpdate();
     }
 
 }

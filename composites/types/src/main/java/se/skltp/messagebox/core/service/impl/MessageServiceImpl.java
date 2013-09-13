@@ -25,8 +25,13 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
+    public List<Message> getMessagesForSystem(String systemId, Set<Long> ids) {
+        return messageRepository.getMessagesForSystem(systemId, ids);
+    }
+
+    @Override
     public List<Message> getAllMessagesForSystem(String systemId) {
-        return messageRepository.findAllForSystem(systemId);
+        return messageRepository.getAllMessagesForSystem(systemId);
     }
 
     public Long saveMessage(Message message) {
@@ -34,8 +39,8 @@ public class MessageServiceImpl implements MessageService {
         return result.getId();
     }
 
-    public void deleteMessagesForCareUnit(String systemId, Set<Long> ids) {
-        int deletedAnswers = messageRepository.delete(systemId, ids);
+    public void deleteMessagesForSystem(String systemId, Set<Long> ids) {
+        int numDeletedMessages = messageRepository.delete(systemId, ids);
 
         // TODO: How to handle partial/failed deletes?
         // how is it supposed to be fixed? What problem can it be? Can we hide the
@@ -43,8 +48,9 @@ public class MessageServiceImpl implements MessageService {
         //
         // potential problem is deleting non-read messages?
 
-        if (deletedAnswers != ids.size()) {
-            throw new IllegalStateException("Cannot delete answers. Illegal ids or state");
+        if (numDeletedMessages != ids.size()) {
+            throw new IllegalStateException("Unable to delete " + ids.size()
+                    + " messages, succeeded with " + numDeletedMessages);
         }
 
     }

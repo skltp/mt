@@ -29,7 +29,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-      classpath*:/services-config.xml, /WEB-INF/applicationContext.xml, /WEB-INF/applicationContext-security.xml 
+      classpath*:/services-config.xml, /WEB-INF/applicationContext.xml, /WEB-INF/applicationContext-security.xml
     </param-value>
 	</context-param>
 

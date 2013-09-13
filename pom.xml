@@ -384,9 +384,10 @@ encoding/<project>=UTF-8]]>
         <module>composites/types</module>
         <!-- disabled for know; this is all about statistics
         <module>composites/webcomp</module>
+        <module>modules/web</module>
         -->
         <module>modules/intsvc</module>
-        <module>modules/web</module>
+        <module>modules/ws</module>
         <!-- Don't know where this should be placed
                 <module>composites/casebox-ws-test-consumer</module>
         -->

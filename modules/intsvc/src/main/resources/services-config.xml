@@ -32,34 +32,23 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<bean id="receiveMedCertQuestion" class="se.skltp.messagebox.services.ReceiveMedicalCertificateQuestionImpl"/>
-	<bean id="findAllQuestions" class="se.skltp.messagebox.services.FindAllQuestionsImpl"/>
-	<bean id="findAllAnswers" class="se.skltp.messagebox.services.FindAllAnswersImpl"/>
-	<bean id="deleteQuestions" class="se.skltp.messagebox.services.DeleteQuestionsImpl"/>
-	<bean id="deleteAnswers" class="se.skltp.messagebox.services.DeleteAnswersImpl"/>
-	<bean id="receiveMedCertAnswer" class="se.skltp.messagebox.services.ReceiveMedicalCertificateAnswerImpl"/>
+	<bean id="listMessages" class="se.skltp.messagebox.services.ListMessagesImpl"/>
+	<bean id="getMessages" class="se.skltp.messagebox.services.GetMessagesImpl"/>
+	<bean id="deleteMessages" class="se.skltp.messagebox.services.DeleteMessagesImpl"/>
+	<bean id="receiveMessage" class="se.skltp.messagebox.services.ReceiveMessagesImpl"/>
 
-  	<jaxws:endpoint id="recMedCertQuestion"
-                  	implementor="#receiveMedCertQuestion"
-                  	address="/RecMedCertQuestion/1/rivtabp20" />
-					
-  	<jaxws:endpoint id="recMedCertAnswer"
-                  	implementor="#receiveMedCertAnswer"
-                  	address="/RecMedCertAnswer/1/rivtabp20" />
+  	<jaxws:endpoint id="listMsgs"
+                  	implementor="#listMessages"
+                  	address="/ListMessages/1/rivtabp21" />
+    <jaxws:endpoint id="getMsgs"
+                   	implementor="#getMessages"
+                   	address="/GetMessages/1/rivtabp21" />
+    <jaxws:endpoint id="deleteMsgs"
+                   	implementor="#deleteMessages"
+                   	address="/DeleteMessages/1/rivtabp21" />
 
-  	<jaxws:endpoint id="findQuestions"
-                  	implementor="#findAllQuestions"
-                  	address="/FindAllQuestions/1/rivtabp20" />
-    
-    <jaxws:endpoint id="findAnswers"
-                  	implementor="#findAllAnswers"
-                  	address="/FindAllAnswers/1/rivtabp20" />
+    <jaxws:endpoint id="receiveMsgs"
+                   	implementor="#receiveMessage"
+                   	address="/ReceiveMessage" />
 
-  	<jaxws:endpoint id="delQuestions"
-                  	implementor="#deleteQuestions"
-                  	address="/DeleteQuestions/1/rivtabp20" />
-                      	
-    <jaxws:endpoint id="delAnswers"
-                  	implementor="#deleteAnswers"
-                  	address="/DeleteAnswers/1/rivtabp20" />
 </beans>

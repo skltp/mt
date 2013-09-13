@@ -37,7 +37,7 @@
         <property name="locations">
         	<list>
         		<value>classpath:default.properties</value>
-        		<value>file:${user.home}/message/message.properties</value>
+        		<value>file:${user.home}/messagebox/messagebox.properties</value>
         	</list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>

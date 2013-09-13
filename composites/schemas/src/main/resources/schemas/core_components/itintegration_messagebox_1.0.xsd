@@ -35,7 +35,7 @@
 
     <xs:complexType name="MessageMetaType">
         <xs:sequence>
-            <xs:element name="messageId" type="xs:string" />
+            <xs:element name="messageId" type="xs:long" />
             <xs:element name="serviceContractType" type="xs:string" />
             <xs:element name="timestamp" type="xs:date" />
             <xs:element name="status" type="tns:MessageStatusType"/>
@@ -49,6 +49,14 @@
             <xs:enumeration value="RECEIVED" />
             <xs:enumeration value="RETRIEVED" />
             <xs:enumeration value="DELETED" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name='ResultCodeEnum'>
+        <xs:restriction base='xs:string'>
+            <xs:enumeration value='OK'/>
+            <xs:enumeration value='ERROR'/>
+            <xs:enumeration value='INFO'/>
         </xs:restriction>
     </xs:simpleType>
 

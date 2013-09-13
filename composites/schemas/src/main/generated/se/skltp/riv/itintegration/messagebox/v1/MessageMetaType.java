@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="messageId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="messageId" type="{http://www.w3.org/2001/XMLSchema}long"/>
  *         &lt;element name="serviceContractType" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="timestamp" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="status" type="{urn:riv:itintegration:messagebox:1}MessageStatusType"/>
@@ -52,8 +52,7 @@ public class MessageMetaType
 {
 
     private final static long serialVersionUID = 2L;
-    @XmlElement(required = true)
-    protected String messageId;
+    protected long messageId;
     @XmlElement(required = true)
     protected String serviceContractType;
     @XmlElement(required = true, type = String.class)
@@ -68,24 +67,16 @@ public class MessageMetaType
     /**
      * Gets the value of the messageId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getMessageId() {
+    public long getMessageId() {
         return messageId;
     }
 
     /**
      * Sets the value of the messageId property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setMessageId(String value) {
+    public void setMessageId(long value) {
         this.messageId = value;
     }
 
