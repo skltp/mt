@@ -43,19 +43,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetMessagesResponseType }
-     * 
-     */
-    public GetMessagesResponseType createGetMessagesResponseType() {
-        return new GetMessagesResponseType();
-    }
-
-    /**
      * Create an instance of {@link GetMessagesType }
      * 
      */
     public GetMessagesType createGetMessagesType() {
         return new GetMessagesType();
+    }
+
+    /**
+     * Create an instance of {@link GetMessagesResponseType }
+     * 
+     */
+    public GetMessagesResponseType createGetMessagesResponseType() {
+        return new GetMessagesResponseType();
     }
 
     /**

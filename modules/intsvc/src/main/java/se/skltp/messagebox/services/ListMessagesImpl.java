@@ -64,8 +64,8 @@ public class ListMessagesImpl implements ListMessagesResponderInterface {
 
         ListMessagesResponseType response = new ListMessagesResponseType();
         try {
-            MessageContext msgCtxt = wsContext.getMessageContext();
-            HttpServletRequest req = (HttpServletRequest)msgCtxt.get(MessageContext.SERVLET_REQUEST);
+            //MessageContext msgCtxt = wsContext.getMessageContext();
+            //HttpServletRequest req = (HttpServletRequest)msgCtxt.get(MessageContext.SERVLET_REQUEST);
 
             String systemId = parameters.getSystemId();
             List<Message> messages = messageService.getAllMessagesForSystem(systemId);
