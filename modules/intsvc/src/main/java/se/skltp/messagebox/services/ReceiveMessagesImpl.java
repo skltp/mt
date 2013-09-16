@@ -104,7 +104,8 @@ public class ReceiveMessagesImpl implements Provider<Source> {
     }
 
     /**
-     * Parses the soap envelope and extracts:
+     * Parses the soap envelope and extracts required data.
+     * 
      * <ol>
      * <li>The logical address of the receiver</li>
      * <li>The service contract (identified by the namespace of the first element in body)</li>
@@ -136,7 +137,7 @@ public class ReceiveMessagesImpl implements Provider<Source> {
         }
 
         /**
-         * Handle the start of an xml-node
+         * Handle the start of an xml-node.
          *
          * @param uri   namespaceURI
          * @param sName simple

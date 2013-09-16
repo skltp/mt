@@ -23,6 +23,9 @@ package se.skltp.messagebox.services;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +45,15 @@ import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
 public class ListMessagesImpl implements ListMessagesResponderInterface {
 
     private static final Logger log = LoggerFactory.getLogger(ListMessagesImpl.class);
-    
+
     private MessageService messageService;
+
+    private WebServiceContext wsContext;
+
+    @Resource
+    public void setWsContext(WebServiceContext wsContext) {
+        this.wsContext = wsContext;
+    }
 
     @Resource
     public void setMessageService(MessageService MessageService) {
@@ -51,8 +61,12 @@ public class ListMessagesImpl implements ListMessagesResponderInterface {
     }
 
     public ListMessagesResponseType listMessages(String logicalAddress, ListMessagesType parameters) {
+
         ListMessagesResponseType response = new ListMessagesResponseType();
         try {
+            MessageContext msgCtxt = wsContext.getMessageContext();
+            HttpServletRequest req = (HttpServletRequest)msgCtxt.get(MessageContext.SERVLET_REQUEST);
+
             String systemId = parameters.getSystemId();
             List<Message> messages = messageService.getAllMessagesForSystem(systemId);
                     
