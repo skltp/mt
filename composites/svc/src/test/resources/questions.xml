@@ -1,0 +1,7 @@
+
+<dataset>
+    <QUESTION id="1" status="1" arrived="2010-12-01 12:01:01.0" careUnit="123" message="Some message1" />
+    <QUESTION id="2" status="1" arrived="2010-12-01 12:01:01.0" careUnit="123" message="Some message2" />
+    <QUESTION id="3" status="1" arrived="2010-12-01 12:01:01.0" careUnit="123" message="Some message3" />
+    <QUESTION id="4" status="1" arrived="2010-12-01 12:01:01.0" careUnit="123" message="Some message4" />
+</dataset>	
