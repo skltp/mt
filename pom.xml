@@ -389,6 +389,7 @@ encoding/<project>=UTF-8]]>
     <modules>
         <module>composites/schemas</module>
         <module>composites/types</module>
+        <module>composites/svc</module>
         <!-- disabled for know; this is all about statistics
         <module>composites/webcomp</module>
         <module>modules/web</module>
