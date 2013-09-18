@@ -30,10 +30,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import se.skltp.messagebox.exception.ServiceContractTypeNotStorableException;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,6 +67,24 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
         }
 
         // TODO: How can we check that the transaction is marked for rolled back?
+    }
+
+    @Test
+    public void testResponses() throws Exception {
+
+        String okServiceContract = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3";
+        String notOkServiceContract = "not ok";
+
+        String response = messageService.getOkResponseForServiceContract(okServiceContract);
+        assertEquals("<result>OK</result>", response);
+
+        try {
+            messageService.getOkResponseForServiceContract(notOkServiceContract);
+            fail("Should have thrown");
+        } catch (ServiceContractTypeNotStorableException e) {
+            // ok
+        }
+
     }
 
 }

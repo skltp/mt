@@ -40,6 +40,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
+import se.skltp.messagebox.exception.ServiceContractTypeNotStorableException;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
 @WebServiceProvider(
@@ -75,20 +76,26 @@ public class ReceiveMessagesImpl implements Provider<Source> {
                 String serviceContract = extractor.getServiceContract();
                 String messageBody = extractor.getBody();
 
+                String okResponse = messageService.getOkResponseForServiceContract(serviceContract);
+
                 Message message = new Message(systemId, serviceContract, messageBody);
                 messageService.saveMessage(message);
+
                 log.info("Saved " + message);
-                return sendSource("Ok");
+
+                return sendBody(okResponse);
             } else {
-                return sendSource("Ok (null)");
+                return sendBody("no request");
             }
 
         } catch (TransformerException e) {
             throw new RuntimeException(e);
+        } catch (ServiceContractTypeNotStorableException e) {
+            return sendBody("can't handle that service contract!"); // TODO: need to send a better message
         }
     }
 
-    private Source sendSource(String input) {
+    private Source sendBody(String input) {
         // TODO: manually(?) construct the required reply
         String body = "<reply>" + input + "</reply>";
         String header = "";
