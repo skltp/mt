@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.messagebox.core.service.MessageService;
-import se.skltp.messagebox.exception.ServiceContractTypeNotStorableException;
+import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 /**
  * @author mats.olsson@callistaenterprise.se
@@ -68,7 +68,7 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public String getOkResponseForServiceContract(String serviceContractType) throws ServiceContractTypeNotStorableException {
+    public String getOkResponseForServiceContract(String serviceContractType) throws InvalidServiceContractTypeException {
         if ( properties == null ) {
             properties = new Properties();
             try {
@@ -79,7 +79,7 @@ public class MessageServiceImpl implements MessageService {
         }
         String result = properties.getProperty(serviceContractType);
         if (result == null) {
-            throw new ServiceContractTypeNotStorableException();
+            throw new InvalidServiceContractTypeException();
         }
         if (result.trim().length() == 0) {
             result = DEFAULT_SERVICE_CONTRACT_OK_RESPONSE;

@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
-import se.skltp.messagebox.exception.ServiceContractTypeNotStorableException;
+import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
 @WebServiceProvider(
@@ -90,7 +90,7 @@ public class ReceiveMessagesImpl implements Provider<Source> {
 
         } catch (TransformerException e) {
             throw new RuntimeException(e);
-        } catch (ServiceContractTypeNotStorableException e) {
+        } catch (InvalidServiceContractTypeException e) {
             return sendBody("can't handle that service contract!"); // TODO: need to send a better message
         }
     }

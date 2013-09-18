@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.exception.ServiceContractTypeNotStorableException;
+import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
@@ -81,7 +81,7 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
         try {
             messageService.getOkResponseForServiceContract(notOkServiceContract);
             fail("Should have thrown");
-        } catch (ServiceContractTypeNotStorableException e) {
+        } catch (InvalidServiceContractTypeException e) {
             // ok
         }
 

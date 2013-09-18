@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.exception.ServiceContractTypeNotStorableException;
+import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 public interface MessageService {
 
@@ -41,8 +41,8 @@ public interface MessageService {
      *
      * @param serviceContractType the service contract name space
      * @return response-body to be used in the response
-     * @trhrows ServiceContractTypeNotStorableException if the service contract cannot be used in the message box
+     * @trhrows InvalidServiceContractTypeException if the service contract cannot be used in the message box
      */
-    public String getOkResponseForServiceContract(String serviceContractType) throws ServiceContractTypeNotStorableException;
+    public String getOkResponseForServiceContract(String serviceContractType) throws InvalidServiceContractTypeException;
 
 }
