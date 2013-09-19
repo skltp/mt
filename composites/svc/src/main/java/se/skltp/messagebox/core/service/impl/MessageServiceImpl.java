@@ -1,6 +1,5 @@
 package se.skltp.messagebox.core.service.impl;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
@@ -36,13 +35,13 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
     private Properties properties;
 
-    public List<Message> getMessagesForSystem(String systemId, Set<Long> ids) {
-        return messageRepository.getMessagesForSystem(systemId, ids);
+    public List<Message> getMessages(String receiverId, Set<Long> ids) {
+        return messageRepository.getMessages(receiverId, ids);
     }
 
     @Override
-    public List<Message> getAllMessagesForSystem(String systemId) {
-        return messageRepository.getAllMessagesForSystem(systemId);
+    public List<Message> getAllMessages(String receiverId) {
+        return messageRepository.getMessages(receiverId);
     }
 
     public Long saveMessage(Message message) {
@@ -50,8 +49,8 @@ public class MessageServiceImpl implements MessageService {
         return result.getId();
     }
 
-    public void deleteMessagesForSystem(String systemId, Set<Long> ids) {
-        int numDeletedMessages = messageRepository.delete(systemId, ids);
+    public void deleteMessages(String receiverId, Set<Long> ids) {
+        int numDeletedMessages = messageRepository.delete(receiverId, ids);
 
         // TODO: How to handle partial/failed deletes?
         // how is it supposed to be fixed? What problem can it be? Can we hide the
@@ -79,7 +78,7 @@ public class MessageServiceImpl implements MessageService {
         }
         String result = properties.getProperty(serviceContractType);
         if (result == null) {
-            throw new InvalidServiceContractTypeException();
+            throw new InvalidServiceContractTypeException(serviceContractType);
         }
         if (result.trim().length() == 0) {
             result = DEFAULT_SERVICE_CONTRACT_OK_RESPONSE;

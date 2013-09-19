@@ -28,13 +28,19 @@ import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 public interface MessageService {
 
-    List<Message> getMessagesForSystem(String systemId, Set<Long> ids);
+    List<Message> getMessages(String receiverId, Set<Long> ids);
 
-    List<Message> getAllMessagesForSystem(String systemId);
+    List<Message> getAllMessages(String receiverId);
 
     Long saveMessage(Message Message);
 
-    void deleteMessagesForSystem(String careUnit, Set<Long> ids);
+    /**
+     * Delete all identified messages.
+     *
+     * @param receiverId all messages must have this receiverId
+     * @param ids set of messages to delete
+     */
+    void deleteMessages(String receiverId, Set<Long> ids);
 
     /**
      * Return the xml-body for the response when this message is successfully stored.

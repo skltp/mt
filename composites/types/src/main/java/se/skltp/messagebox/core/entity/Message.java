@@ -34,19 +34,20 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  * @author mats.olsson@callistaenterprise.se
  */
 @NamedQueries({
-        @NamedQuery(name = "Message.getForSystem",
-                query = "select m from Message m where m.systemId = :systemId order by m.id asc"),
-        @NamedQuery(name = "Message.getForSystemWithIds",
-                query = "select m from Message m where m.systemId = :systemId and m.id in (:ids) order by m.id asc"),
-        @NamedQuery(name = "Message.deleteForSystemWithIds",
-                query = "delete from Message m where m.systemId = :systemId and m.id in (:ids)"),
+        @NamedQuery(name = "Message.getForReceiver",
+                query = "select m from Message m where m.receiverId = :systemId order by m.id asc"),
+        @NamedQuery(name = "Message.getForReceiverWithIds",
+                query = "select m from Message m where m.receiverId = :systemId and m.id in (:ids) order by m.id asc"),
+        @NamedQuery(name = "Message.deleteForReceiverWithIds",
+                query = "delete from Message m where m.receiverId = :systemId and m.id in (:ids)"),
         // TODO: how to delete? with or without status?
-        @NamedQuery(name = "Message.deleteForSystemWithIdsAndStatus",
-                query = "delete from Message m where m.systemId = :systemId and m.id in (:ids) and m.status = :status"),
-        @NamedQuery(name = "Message.totalCountForSystem",
-                query = "select count(m) from Message m where m.systemId = :systemId")
+        @NamedQuery(name = "Message.deleteForReceiverWithIdsAndStatus",
+                query = "delete from Message m where m.receiverId = :systemId and m.id in (:ids) and m.status = :status"),
+        @NamedQuery(name = "Message.totalCountForReceiver",
+                query = "select count(m) from Message m where m.targetOrganization = :systemId")
 })
 @Entity()
+@Table(name="MESSAGE")
 public class Message extends AbstractEntity<Long> {
 
     @SuppressWarnings("unused")
@@ -56,6 +57,22 @@ public class Message extends AbstractEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // the hsaId for the target of this message; the calling system must authenticate using this id
+    @Column(nullable = false)
+    private String receiverId;
+
+    // the hsaId for the target organization (verksamhetsId)
+    @Column(nullable = false)
+    private String targetOrganization;
+
+    // the service contrakt - extracted from messageBody
+    @Column(nullable = false)
+    private String serviceContract;
+
+    @Column(nullable = false)
+    @Lob
+    private String messageBody;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MessageStatusType status;
@@ -63,35 +80,30 @@ public class Message extends AbstractEntity<Long> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrived;
 
-    private String systemId;
-
-    @Column(nullable = false)
-    @Lob
-    private String messageBody;
-
-    // the service contrakt - extracted from messageBody
-    @Column(nullable = false)
-    private String serviceContract;
-
     /* Make JPA happy */
     protected Message() {
     }
 
-    public Message(String systemId, String serviceContract, String message) {
-        this(MessageStatusType.RECEIVED, new Date(), systemId, serviceContract, message);
+    public Message(String receiverId, String targetOrganization, String serviceContract, String message) {
+        this(receiverId, targetOrganization, serviceContract, message, MessageStatusType.RECEIVED, new Date());
     }
 
 
-    public Message(MessageStatusType status, Date arrived, String systemId, String serviceContract, String message) {
+    public Message(String receiverId, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived) {
+        this.receiverId = receiverId;
+        this.targetOrganization = targetOrganization;
+        this.serviceContract = serviceContract;
+        this.messageBody = messageBody;
         this.status = status;
         this.arrived = arrived;
-        this.systemId = systemId;
-        this.serviceContract = serviceContract;
-        this.messageBody = message;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
     }
 
     public MessageStatusType getStatus() {
@@ -102,20 +114,20 @@ public class Message extends AbstractEntity<Long> {
         return (Date) arrived.clone();
     }
 
-    public String getSystemId() {
-        return systemId;
+    public String getTargetOrganization() {
+        return targetOrganization;
     }
 
     public String getMessageBody() {
         return messageBody;
     }
 
-    public void setStatusRetrieved() {
-        this.status = MessageStatusType.RETRIEVED;
-    }
-
     public String getServiceContract() {
         return serviceContract;
+    }
+
+    public void setStatusRetrieved() {
+        this.status = MessageStatusType.RETRIEVED;
     }
 
 }

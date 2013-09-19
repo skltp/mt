@@ -35,7 +35,6 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="systemId" type="xs:string"/>
             <xs:element name="messageIds" type="xs:long" minOccurs="1" maxOccurs="unbounded"/>
             <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded'/>
         </xs:sequence>

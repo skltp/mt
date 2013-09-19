@@ -37,8 +37,10 @@
         <xs:sequence>
             <xs:element name="messageId" type="xs:long" />
             <xs:element name="serviceContractType" type="xs:string" />
+            <xs:element name="messageSize" type="xs:int" />
             <xs:element name="timestamp" type="xs:date" />
             <xs:element name="status" type="tns:MessageStatusType"/>
+
             <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>

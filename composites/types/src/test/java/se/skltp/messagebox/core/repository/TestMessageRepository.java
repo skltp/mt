@@ -48,7 +48,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testPersist() throws Exception {
-        Message message = new Message("systemId", "serviceContrakt", "webcall body");
+        Message message = new Message("hsaId", "orgId", "serviceContrakt", "webcall body");
         messageRepository.persist(message);
 
         entityManager.flush();
@@ -60,14 +60,14 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testFindByCareUnit() throws Exception {
         Set<Long> ids = new HashSet<>();
-        Message message = new Message("systemId", "serviceContrakt", "webcall body");
+        Message message = new Message("hsaId", "orgId", "serviceContrakt", "webcall body");
         messageRepository.persist(message);
         ids.add(message.getId());
 
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.getMessagesForSystem("systemId", ids);
+        List<Message> messages = messageRepository.getMessages("hsaId", ids);
 
         assertEquals(1, messages.size());
     }
@@ -76,7 +76,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testOrder() throws Exception {
         Set<Long> ids = new HashSet<>();
         for(int i = 0 ; i < 5 ; i++) {
-            Message message = new Message("system-1", "serviceContract", "webcallcontent");
+            Message message = new Message("hsaId", "org-1", "serviceContract", "webcallcontent");
             entityManager.persist(message);
             ids.add(message.getId());
         }
@@ -84,7 +84,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
         
-        List<Message> messages = messageRepository.getMessagesForSystem("system-1", ids);
+        List<Message> messages = messageRepository.getMessages("hsaId", ids);
         
         int first = messages.get(0).getId().intValue();
         assertEquals(first + 1, messages.get(1).getId().intValue());
@@ -95,14 +95,14 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testGetNumOfMessages() throws Exception {
-        messageRepository.persist(new Message("systemId", "serviceContrakt", "webcall body"));
-        messageRepository.persist(new Message("systemId", "serviceContrakt", "webcall body"));
-        messageRepository.persist(new Message("systemId", "serviceContrakt", "webcall body"));
+        messageRepository.persist(new Message("hsaId", "orgId", "serviceContrakt", "webcall body"));
+        messageRepository.persist(new Message("hsaId", "orgId", "serviceContrakt", "webcall body"));
+        messageRepository.persist(new Message("hsaId", "orgId", "serviceContrakt", "webcall body"));
 
         entityManager.flush();
         entityManager.clear();
         
-        long cnt = messageRepository.getNumOfMessagesForSystem("systemId");
+        long cnt = messageRepository.getNumOfMessagesForSystem("orgId");
         
         assertEquals(3, cnt);
         
@@ -110,7 +110,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testDelete() throws Exception {
-        Message message = new Message("systemId", "serviceContrakt", "webcall body");
+        Message message = new Message("hsaId", "orgId", "serviceContrakt", "webcall body");
         messageRepository.persist(message);
 
         entityManager.flush();

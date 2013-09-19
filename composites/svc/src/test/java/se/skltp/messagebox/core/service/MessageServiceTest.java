@@ -52,7 +52,7 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
 
     @Test
     public void deleteMessages() throws Exception {
-        Message message = new Message("systemId", "serviceContrakt", "webcall body");
+        Message message = new Message("hsaId", "systemId", "serviceContrakt", "webcall body");
         messageService.saveMessage(message);
 
         entityManager.flush();
@@ -60,7 +60,7 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
         Set<Long> ids = new HashSet<Long>();
         ids.add(message.getId());
         try {
-            messageService.deleteMessagesForSystem("careUnit", ids);
+            messageService.deleteMessages("careUnit", ids);
             fail("Expected IllegalStateException");
         } catch (IllegalStateException e) {
             // Expected

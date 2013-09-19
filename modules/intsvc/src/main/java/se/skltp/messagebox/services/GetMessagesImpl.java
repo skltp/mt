@@ -23,7 +23,6 @@ package se.skltp.messagebox.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Resource;
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
@@ -33,7 +32,6 @@ import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
 import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesType;
 import se.skltp.messagebox.GetMessagesresponder.v1.ResponseType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
@@ -42,16 +40,9 @@ import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
         portName = "GetMessagesResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/GetMessagesInteraction/GetMessagesInteraction_1.0_rivtabp21.wsdl")
-public class GetMessagesImpl implements GetMessagesResponderInterface {
+public class GetMessagesImpl extends BaseService implements GetMessagesResponderInterface {
 
     private static final Logger log = LoggerFactory.getLogger(GetMessagesImpl.class);
-
-    private MessageService messageService;
-
-    @Resource
-    public void setMessageService(MessageService MessageService) {
-        this.messageService = MessageService;
-    }
 
     @Override
     public GetMessagesResponseType getMessages(
@@ -59,23 +50,20 @@ public class GetMessagesImpl implements GetMessagesResponderInterface {
             GetMessagesType parameters) {
         GetMessagesResponseType result = new GetMessagesResponseType();
         try {
-            String systemId = parameters.getSystemId();
+            String receiverId = extractCallerIdFromRequest();
             Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
-            List<Message> messages = messageService.getMessagesForSystem(systemId, messageIdSet);
+            List<Message> messages = messageService.getMessages(receiverId, messageIdSet);
 
             for ( Message msg : messages ) {
-                // TODO: replace this with direct database search ... maybe.
-                if ( messageIdSet.contains(msg.getId()) ) {
 
-                    ResponseType elem = new ResponseType();
-                    elem.setId(msg.getId().toString());
-                    ServiceContractType serverContract = new ServiceContractType();
-                    serverContract.setServiceContractNamespace(msg.getServiceContract());
-                    elem.setServiceContract(serverContract);
-                    elem.setMessage(msg.getMessageBody());
+                ResponseType elem = new ResponseType();
+                elem.setMessageId(msg.getId().toString());
+                ServiceContractType serverContract = new ServiceContractType();
+                serverContract.setServiceContractNamespace(msg.getServiceContract());
+                elem.setServiceContract(serverContract);
+                elem.setMessage(msg.getMessageBody());
 
-                    result.getResponses().add(elem);
-                }
+                result.getResponses().add(elem);
             }
 
         } catch (Exception e) {

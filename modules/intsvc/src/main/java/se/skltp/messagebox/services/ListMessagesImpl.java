@@ -20,12 +20,10 @@
  */
 package se.skltp.messagebox.services;
 
+import java.util.HashSet;
 import java.util.List;
-import javax.annotation.Resource;
+import java.util.Set;
 import javax.jws.WebService;
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,60 +31,67 @@ import se.skltp.messagebox.ListMessages.v1.rivtabp21.ListMessagesResponderInterf
 import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
 import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
-@WebService(serviceName = "ListMessagesResponderService", 
-            endpointInterface = "se.skltp.messagebox.ListMessages.v1.rivtabp21.ListMessagesResponderInterface",
-            portName = "ListMessagesResponderPort", 
-            targetNamespace = "urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21",
-            wsdlLocation = "schemas/interactions/ListMessagesInteraction/ListMessagesInteraction_1.0_rivtabp21.wsdl")
-public class ListMessagesImpl implements ListMessagesResponderInterface {
+@WebService(serviceName = "ListMessagesResponderService",
+        endpointInterface = "se.skltp.messagebox.ListMessages.v1.rivtabp21.ListMessagesResponderInterface",
+        portName = "ListMessagesResponderPort",
+        targetNamespace = "urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21",
+        wsdlLocation = "schemas/interactions/ListMessagesInteraction/ListMessagesInteraction_1.0_rivtabp21.wsdl")
+public class ListMessagesImpl extends BaseService implements ListMessagesResponderInterface {
 
     private static final Logger log = LoggerFactory.getLogger(ListMessagesImpl.class);
-
-    private MessageService messageService;
-
-    private WebServiceContext wsContext;
-
-    @Resource
-    public void setWsContext(WebServiceContext wsContext) {
-        this.wsContext = wsContext;
-    }
-
-    @Resource
-    public void setMessageService(MessageService MessageService) {
-        this.messageService = MessageService;
-    }
 
     public ListMessagesResponseType listMessages(String logicalAddress, ListMessagesType parameters) {
 
         ListMessagesResponseType response = new ListMessagesResponseType();
         try {
-            //MessageContext msgCtxt = wsContext.getMessageContext();
-            //HttpServletRequest req = (HttpServletRequest)msgCtxt.get(MessageContext.SERVLET_REQUEST);
+            String hsaId = extractCallerIdFromRequest();
 
-            String systemId = parameters.getSystemId();
-            List<Message> messages = messageService.getAllMessagesForSystem(systemId);
-                    
+            // the returned list of messages are based on the callers HSA-ID
+            //
+            // The caller can constrain the list by specifying an exact organization id
+            // and/or specifying a list of service contract types to be included.
+            //
+            // if neither is specified, all messages routed to the HSA-ID will be listed.
+            //
+            // Normally, this would be the desired way of doing things.
+            //
+            Set<String> types = new HashSet<>();
+            for ( ServiceContractType type : parameters.getServiceContractTypes() ) {
+                types.add(type.getServiceContractNamespace());
+            }
+            String targetOrg = parameters.getTargetOrganization();
+
+            List<Message> messages = messageService.getAllMessages(hsaId);
+
             response.setResultCode(ResultCodeEnum.OK);
 
-            for (Message msg : messages) {
+            for ( Message msg : messages ) {
 
-                MessageMetaType meta = new MessageMetaType();
-                meta.setMessageId(msg.getId());
-                meta.setServiceContractType(msg.getServiceContract());
-                meta.setTimestamp(msg.getArrived());
-                meta.setStatus((msg.getStatus()));
+                if ( types.isEmpty() || types.contains(msg.getServiceContract()) ) {
 
-                response.getMessageMetas().add(meta);
+                    if ( targetOrg == null || targetOrg.equals(msg.getTargetOrganization()) ) {
+
+                        MessageMetaType meta = new MessageMetaType();
+                        meta.setMessageId(msg.getId());
+                        meta.setServiceContractType(msg.getServiceContract());
+                        meta.setMessageSize(msg.getMessageBody().length());
+                        meta.setTimestamp(msg.getArrived());
+                        meta.setStatus((msg.getStatus()));
+
+                        response.getMessageMetas().add(meta);
+                    }
+                }
             }
 
         } catch (Exception e) {
             log.warn("Failed to handle ListMessages", e);
-            response.setResultCode(ResultCodeEnum.ERROR);      
+            response.setResultCode(ResultCodeEnum.ERROR);
         }
         return response;
     }
+
 }

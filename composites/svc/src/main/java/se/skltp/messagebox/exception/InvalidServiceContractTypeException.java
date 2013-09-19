@@ -12,4 +12,13 @@ package se.skltp.messagebox.exception;
 public class InvalidServiceContractTypeException extends Exception {
 
 
+    private String serviceContract;
+
+    public InvalidServiceContractTypeException(String serviceContract) {
+        this.serviceContract = serviceContract;
+    }
+
+    public String getServiceContract() {
+        return serviceContract;
+    }
 }

@@ -23,7 +23,7 @@
 
     <xs:complexType name='ListMessagesType'>
         <xs:sequence>
-            <xs:element name='systemId' type='reg:LogicalAddressType'/>
+            <xs:element name='targetOrganization' type='reg:LogicalAddressType' minOccurs="0" maxOccurs="1"/>
             <xs:element name='serviceContractTypes' type='reg:ServiceContractType' minOccurs="0" maxOccurs="unbounded"/>
             <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded'/>
         </xs:sequence>
@@ -32,7 +32,6 @@
     <xs:complexType name='ListMessagesResponseType'>
         <xs:sequence>
             <xs:element name='resultCode' type='mb:ResultCodeEnum'/>
-            <xs:element name='remainingMessages' type='xs:integer'/>
             <xs:element name='messageMetas' type='mb:MessageMetaType' minOccurs='0' maxOccurs='unbounded'/>
             <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded'/>
         </xs:sequence>

@@ -28,9 +28,9 @@ import se.vgregion.dao.domain.patterns.repository.Repository;
 
 public interface MessageRepository extends Repository<Message, Long> {
 
-    List<Message> getMessagesForSystem(String systemId, Set<Long> ids);
+    List<Message> getMessages(String systemId, Set<Long> ids);
     
-    List<Message> getAllMessagesForSystem(String systemId);
+    List<Message> getMessages(String systemId);
 
     Long getNumOfMessagesForSystem(String careUnit);
 

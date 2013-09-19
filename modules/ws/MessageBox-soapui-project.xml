@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="MessageBox" resourceRoot="" soapui-version="4.5.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ReceiveMessageHttpServiceSoapBinding" type="wsdl" bindingName="{http://services.messagebox.skltp.se/}ReceiveMessageHttpServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/message-ws/ws/ReceiveMessage?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/message-ws/ws/ReceiveMessage?wsdl"><con:part><con:url>http://localhost:8081/message-ws/ws/ReceiveMessage?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="ReceiveMessageHttpService" targetNamespace="http://services.messagebox.skltp.se/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://services.messagebox.skltp.se/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://services.messagebox.skltp.se/">
+      <xsd:element name="invoke" nillable="true" type="xsd:anyType"/>
+      <xsd:element name="invokeResponse" nillable="true" type="xsd:anyType"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="invokeResponse">
+    <wsdl:part element="tns:invokeResponse" name="invokeResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="invoke">
+    <wsdl:part element="tns:invoke" name="invoke"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ReceiveMessagesImpl">
+    <wsdl:operation name="invoke">
+      <wsdl:input message="tns:invoke" name="invoke"></wsdl:input>
+      <wsdl:output message="tns:invokeResponse" name="invokeResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReceiveMessageHttpServiceSoapBinding" type="tns:ReceiveMessagesImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="invoke">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="invoke">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="invokeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReceiveMessageHttpService">
+    <wsdl:port binding="tns:ReceiveMessageHttpServiceSoapBinding" name="ReceiveMessage">
+      <soap:address location="http://localhost:8081/message-ws/ws/ReceiveMessage"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-1</con:endpoint><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-2</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="invoke" bindingOperationName="invoke" type="Request-Response" outputName="invokeResponse" inputName="invoke" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-Question-hsaid-1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-1</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+  </soapenv:Header>
+  <soapenv:Body>
+      <ser:Question>TheQuestion</ser:Question>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-Question-hsaid-2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-2</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+  </soapenv:Header>
+  <soapenv:Body>
+      <ser:Question>TheQuestion</ser:Question>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ListMessagesResponderBinding" type="wsdl" bindingName="{urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21}ListMessagesResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?wsdl"><con:part><con:url>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="ListMessagesInteraction" targetNamespace="urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsi="urn:riv:itintegration:messagebox:ListMessagesInitiator:1" xmlns:tjsr="urn:riv:itintegration:messagebox:ListMessagesResponder:1" xmlns:tns="urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21">
+      <xs:import namespace="urn:riv:itintegration:messagebox:ListMessagesResponder:1" schemaLocation="http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?xsd=ListMessagesResponder_1.0.xsd"/>
+      <xs:import namespace="urn:riv:itintegration:registry:1" schemaLocation="http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?xsd=../../core_components/itintegration_registry_1.0.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ListMessagesResponse">
+    <wsdl:part element="tjsr:ListMessagesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ListMessagesRequest">
+    <wsdl:part element="itr:LogicalAddress" name="LogicalAddress">
+      <wsdl:documentation>The organisation number of the National Service Platform</wsdl:documentation>
+    </wsdl:part>
+    <wsdl:part element="tjsr:ListMessages" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ListMessagesResponderInterface">
+    <wsdl:operation name="ListMessages">
+      <wsdl:input message="tns:ListMessagesRequest"></wsdl:input>
+      <wsdl:output message="tns:ListMessagesResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ListMessagesResponderBinding" type="tns:ListMessagesResponderInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ListMessages">
+      <soap:operation soapAction="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages" style="document"/>
+      <wsdl:input>
+        <soap:header message="tns:ListMessagesRequest" part="LogicalAddress" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ListMessagesResponderService">
+    <wsdl:port binding="tns:ListMessagesResponderBinding" name="ListMessagesResponderPort">
+      <soap:address location="http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21"/>
+    </wsdl:port>
+  </wsdl:service>
+  <xs:annotation>
+    <xs:documentation>Tjänsteinteraktionens namn: ListMessagesInteraction
+			 Beskrivning: 
+			   Request a list of messages queued for the caller
+			 Revisioner: 
+			 Tjänstedomän: itintegration:messagebox
+			 Tjänsteinteraktionstyp: Fråga-Svar
+			 WS-profil: RIVTABP21
+			 Förvaltas av: Sveriges Kommuner och Landsting</xs:documentation>
+  </xs:annotation>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?xsd=ListMessagesResponder_1.0.xsd</con:url><con:content><![CDATA[<!--Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. Sveriges Kommuner och Landsting 
+	licenses this file to you under the Apache License, Version 2.0 (the "License"); 
+	you may not use this file except in compliance with the License. You may 
+	obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License.-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:messagebox:ListMessagesResponder:1" version="1.0" xmlns:mb="urn:riv:itintegration:messagebox:1" xmlns:reg="urn:riv:itintegration:registry:1" xmlns:tns="urn:riv:itintegration:messagebox:ListMessagesResponder:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="urn:riv:itintegration:messagebox:1" schemaLocation="http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?xsd=../../core_components/itintegration_messagebox_1.0.xsd"/>
+  <xs:element name="ListMessages" type="tns:ListMessagesType"/>
+  <xs:element name="ListMessagesResponse" type="tns:ListMessagesResponseType"/>
+  <xs:complexType name="ListMessagesType">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="targetOrganization" type="reg:LogicalAddressType"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="serviceContractTypes" type="reg:ServiceContractType"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListMessagesResponseType">
+    <xs:sequence>
+      <xs:element name="resultCode" type="mb:ResultCodeEnum"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messageMetas" type="mb:MessageMetaType"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?xsd=../../core_components/itintegration_messagebox_1.0.xsd</con:url><con:content><![CDATA[<!--Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Sveriges Kommuner och Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:messagebox:1" version="1.0" xmlns:tns="urn:riv:itintegration:messagebox:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Beskrivning: Gemensamma element för itintegration_messagebox
+            Revisioner:
+            2013-09-09: Initial version (Mats Olsson, Callista Enterprise AB)</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="MessageMetaType">
+    <xs:sequence>
+      <xs:element name="messageId" type="xs:long"/>
+      <xs:element name="serviceContractType" type="xs:string"/>
+      <xs:element name="messageSize" type="xs:int"/>
+      <xs:element name="timestamp" type="xs:date"/>
+      <xs:element name="status" type="tns:MessageStatusType"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MessageStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RECEIVED"/>
+      <xs:enumeration value="RETRIEVED"/>
+      <xs:enumeration value="DELETED"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResultCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="INFO"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21?xsd=../../core_components/itintegration_registry_1.0.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:registry:1" version="1.0" xmlns="urn:riv:itintegration:registry:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Beskrivning: 	Grundl��ggande informationsobjekt f��r dom��nen itintegration:registry (adressering av tj��nster)
+			
+			Revisionshistorik: 2011-06-27 Mats Ekhammar, Callista Enterprise AB
+				Added ServiceContractType
+			
+			Datum:			2011-05-04
+			Beskrivning:	Initial version
+			F��rfattare:		marcus.krantz@callistaenterprise.se</xs:documentation>
+  </xs:annotation>
+  <xs:element name="LogicalAddress" type="LogicalAddressType"/>
+  <xs:element name="ServiceContract" type="ServiceContractType"/>
+  <xs:simpleType name="LogicalAddressType">
+    <xs:annotation>
+      <xs:documentation>Defines the type for logical address according to national reference architecture.
+				Superseeds wsa:To as type for logical address header in RIVTA 2.1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType name="ServiceContractType">
+    <xs:annotation>
+      <xs:documentation>Type which describes a service contract. Used in interaction GetSupportedServiceContracts.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ServiceContractNamespace" type="xs:anyURI"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages" name="ListMessages" bindingOperationName="ListMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+         <!--Optional:- ->
+         <urn1:targetOrganization>?</urn1:targetOrganization>
+         <!- -Zero or more repetitions:- ->
+         <urn1:serviceContractTypes>
+            <urn:ServiceContractNamespace>?</urn:ServiceContractNamespace>
+            <!- -You may enter ANY elements at this point- ->
+         </urn1:serviceContractTypes>
+         <!- -You may enter ANY elements at this point-->
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-hsaid-2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-2" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+         <!--Optional:- ->
+         <urn1:targetOrganization>?</urn1:targetOrganization>
+         <!- -Zero or more repetitions:- ->
+         <urn1:serviceContractTypes>
+            <urn:ServiceContractNamespace>?</urn:ServiceContractNamespace>
+            <!- -You may enter ANY elements at this point- ->
+         </urn1:serviceContractTypes>
+         <!- -You may enter ANY elements at this point-->
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GetMessagesResponderBinding" type="wsdl" bindingName="{urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21}GetMessagesResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?wsdl"><con:part><con:url>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GetMessagesInteraction" targetNamespace="urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsi="urn:riv:itintegration:messagebox:GetMessagesInitiator:1" xmlns:tjsr="urn:riv:itintegration:messagebox:GetMessagesResponder:1" xmlns:tns="urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21">
+      <xs:import namespace="urn:riv:itintegration:messagebox:GetMessagesResponder:1" schemaLocation="http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?xsd=GetMessagesResponder_1.0.xsd"/>
+      <xs:import namespace="urn:riv:itintegration:registry:1" schemaLocation="http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?xsd=../../core_components/itintegration_registry_1.0.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetMessagesResponse">
+    <wsdl:part element="tjsr:GetMessagesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetMessagesRequest">
+    <wsdl:part element="itr:LogicalAddress" name="LogicalAddress">
+      <wsdl:documentation>The organisation number of the National Service Platform</wsdl:documentation>
+    </wsdl:part>
+    <wsdl:part element="tjsr:GetMessages" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GetMessagesResponderInterface">
+    <wsdl:operation name="GetMessages">
+      <wsdl:input message="tns:GetMessagesRequest"></wsdl:input>
+      <wsdl:output message="tns:GetMessagesResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetMessagesResponderBinding" type="tns:GetMessagesResponderInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetMessages">
+      <soap:operation soapAction="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages" style="document"/>
+      <wsdl:input>
+        <soap:header message="tns:GetMessagesRequest" part="LogicalAddress" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetMessagesResponderService">
+    <wsdl:port binding="tns:GetMessagesResponderBinding" name="GetMessagesResponderPort">
+      <soap:address location="http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21"/>
+    </wsdl:port>
+  </wsdl:service>
+  <xs:annotation>
+    <xs:documentation>Tjänsteinteraktionens namn: GetMessagesInteraction
+			 Beskrivning: 
+			   Get messages from the messagebox
+			 Revisioner: 
+			 Tjänstedomän: itintegration:messagebox
+			 Tjänsteinteraktionstyp: Fråga-Svar
+			 WS-profil: RIVTABP21
+			 Förvaltas av: Sveriges Kommuner och Landsting</xs:documentation>
+  </xs:annotation>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?xsd=GetMessagesResponder_1.0.xsd</con:url><con:content><![CDATA[<!--Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Sveriges Kommuner och Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:messagebox:GetMessagesResponder:1" version="1.0" xmlns:mb="urn:riv:itintegration:messagebox:1" xmlns:reg="urn:riv:itintegration:registry:1" xmlns:tns="urn:riv:itintegration:messagebox:GetMessagesResponder:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="urn:riv:itintegration:messagebox:1" schemaLocation="http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?xsd=../../core_components/itintegration_messagebox_1.0.xsd"/>
+  <xs:element name="GetMessages" type="tns:GetMessagesType"/>
+  <xs:element name="GetMessagesResponse" type="tns:GetMessagesResponseType"/>
+  <xs:complexType name="GetMessagesType">
+    <xs:annotation>
+      <xs:documentation>The systemId requests the given messages</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="messageIds" type="xs:long"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResponseType">
+    <xs:sequence>
+      <xs:element name="messageId" type="xs:string"/>
+      <xs:element name="serviceContract" type="reg:ServiceContractType"/>
+      <xs:element name="message" type="xs:string"/>
+      <xs:any namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetMessagesResponseType">
+    <xs:annotation>
+      <xs:documentation>If the resultCode is ResultCodeEnum:OK, the messages field
+                contains a list of (id, serviceContract, message body) tuples,
+                where the message body is an xml-document representing the
+                web-service call for the given id.
+                Otherwise, the responses list is empty</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="resultCode" type="mb:ResultCodeEnum"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="responses" type="tns:ResponseType"/>
+      <xs:any namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?xsd=../../core_components/itintegration_messagebox_1.0.xsd</con:url><con:content><![CDATA[<!--Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Sveriges Kommuner och Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:messagebox:1" version="1.0" xmlns:tns="urn:riv:itintegration:messagebox:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Beskrivning: Gemensamma element för itintegration_messagebox
+            Revisioner:
+            2013-09-09: Initial version (Mats Olsson, Callista Enterprise AB)</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="MessageMetaType">
+    <xs:sequence>
+      <xs:element name="messageId" type="xs:long"/>
+      <xs:element name="serviceContractType" type="xs:string"/>
+      <xs:element name="messageSize" type="xs:int"/>
+      <xs:element name="timestamp" type="xs:date"/>
+      <xs:element name="status" type="tns:MessageStatusType"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MessageStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RECEIVED"/>
+      <xs:enumeration value="RETRIEVED"/>
+      <xs:enumeration value="DELETED"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResultCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="INFO"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21?xsd=../../core_components/itintegration_registry_1.0.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:registry:1" version="1.0" xmlns="urn:riv:itintegration:registry:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Beskrivning: 	Grundl��ggande informationsobjekt f��r dom��nen itintegration:registry (adressering av tj��nster)
+			
+			Revisionshistorik: 2011-06-27 Mats Ekhammar, Callista Enterprise AB
+				Added ServiceContractType
+			
+			Datum:			2011-05-04
+			Beskrivning:	Initial version
+			F��rfattare:		marcus.krantz@callistaenterprise.se</xs:documentation>
+  </xs:annotation>
+  <xs:element name="LogicalAddress" type="LogicalAddressType"/>
+  <xs:element name="ServiceContract" type="ServiceContractType"/>
+  <xs:simpleType name="LogicalAddressType">
+    <xs:annotation>
+      <xs:documentation>Defines the type for logical address according to national reference architecture.
+				Superseeds wsa:To as type for logical address header in RIVTA 2.1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType name="ServiceContractType">
+    <xs:annotation>
+      <xs:documentation>Type which describes a service contract. Used in interaction GetSupportedServiceContracts.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ServiceContractNamespace" type="xs:anyURI"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages" name="GetMessages" bindingOperationName="GetMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:GetMessages>
+         <!--1 or more repetitions:-->
+         <urn1:messageIds>?</urn1:messageIds>
+         <!--You may enter ANY elements at this point-->
+      </urn1:GetMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DeleteMessagesResponderBinding" type="wsdl" bindingName="{urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21}DeleteMessagesResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?wsdl"><con:part><con:url>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DeleteMessagesInteraction" targetNamespace="urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsi="urn:riv:itintegration:messagebox:DeleteMessagesInitiator:1" xmlns:tjsr="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1" xmlns:tns="urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21">
+      <xs:import namespace="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1" schemaLocation="http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?xsd=DeleteMessagesResponder_1.0.xsd"/>
+      <xs:import namespace="urn:riv:itintegration:registry:1" schemaLocation="http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?xsd=../../core_components/itintegration_registry_1.0.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="DeleteMessagesRequest">
+    <wsdl:part element="itr:LogicalAddress" name="LogicalAddress">
+      <wsdl:documentation>The organisation number of the National Service Platform</wsdl:documentation>
+    </wsdl:part>
+    <wsdl:part element="tjsr:DeleteMessages" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeleteMessagesResponse">
+    <wsdl:part element="tjsr:DeleteMessagesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DeleteMessagesResponderInterface">
+    <wsdl:operation name="DeleteMessages">
+      <wsdl:input message="tns:DeleteMessagesRequest"></wsdl:input>
+      <wsdl:output message="tns:DeleteMessagesResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeleteMessagesResponderBinding" type="tns:DeleteMessagesResponderInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="DeleteMessages">
+      <soap:operation soapAction="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages" style="document"/>
+      <wsdl:input>
+        <soap:header message="tns:DeleteMessagesRequest" part="LogicalAddress" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DeleteMessagesResponderService">
+    <wsdl:port binding="tns:DeleteMessagesResponderBinding" name="DeleteMessagesResponderPort">
+      <soap:address location="http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21"/>
+    </wsdl:port>
+  </wsdl:service>
+  <xs:annotation>
+    <xs:documentation>Tjänsteinteraktionens namn: DeleteMessagesInteraction
+			 Beskrivning: 
+			   Delete messages from the messagebox
+			 Revisioner: 
+			 Tjänstedomän: itintegration:messagebox
+			 Tjänsteinteraktionstyp: Fråga-Svar
+			 WS-profil: RIVTABP21
+			 Förvaltas av: Sveriges Kommuner och Landsting</xs:documentation>
+  </xs:annotation>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?xsd=DeleteMessagesResponder_1.0.xsd</con:url><con:content><![CDATA[<!--Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Sveriges Kommuner och Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1" version="1.0" xmlns:mb="urn:riv:itintegration:messagebox:1" xmlns:tns="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="urn:riv:itintegration:messagebox:1" schemaLocation="http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?xsd=../../core_components/itintegration_messagebox_1.0.xsd"/>
+  <xs:element name="DeleteMessages" type="tns:DeleteMessagesType"/>
+  <xs:element name="DeleteMessagesResponse" type="tns:DeleteMessagesResponseType"/>
+  <xs:complexType name="DeleteMessagesType">
+    <xs:annotation>
+      <xs:documentation>Request deletion of the identified messages</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="messageIds" type="xs:long"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeleteMessagesResponseType">
+    <xs:annotation>
+      <xs:documentation>If the message was ResultCodeEnum:OK, all messages were deleted</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="resultCode" type="mb:ResultCodeEnum"/>
+      <xs:any namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?xsd=../../core_components/itintegration_messagebox_1.0.xsd</con:url><con:content><![CDATA[<!--Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Sveriges Kommuner och Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:messagebox:1" version="1.0" xmlns:tns="urn:riv:itintegration:messagebox:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Beskrivning: Gemensamma element för itintegration_messagebox
+            Revisioner:
+            2013-09-09: Initial version (Mats Olsson, Callista Enterprise AB)</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="MessageMetaType">
+    <xs:sequence>
+      <xs:element name="messageId" type="xs:long"/>
+      <xs:element name="serviceContractType" type="xs:string"/>
+      <xs:element name="messageSize" type="xs:int"/>
+      <xs:element name="timestamp" type="xs:date"/>
+      <xs:element name="status" type="tns:MessageStatusType"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MessageStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RECEIVED"/>
+      <xs:enumeration value="RETRIEVED"/>
+      <xs:enumeration value="DELETED"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResultCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="INFO"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21?xsd=../../core_components/itintegration_registry_1.0.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="urn:riv:itintegration:registry:1" version="1.0" xmlns="urn:riv:itintegration:registry:1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Beskrivning: 	Grundl��ggande informationsobjekt f��r dom��nen itintegration:registry (adressering av tj��nster)
+			
+			Revisionshistorik: 2011-06-27 Mats Ekhammar, Callista Enterprise AB
+				Added ServiceContractType
+			
+			Datum:			2011-05-04
+			Beskrivning:	Initial version
+			F��rfattare:		marcus.krantz@callistaenterprise.se</xs:documentation>
+  </xs:annotation>
+  <xs:element name="LogicalAddress" type="LogicalAddressType"/>
+  <xs:element name="ServiceContract" type="ServiceContractType"/>
+  <xs:simpleType name="LogicalAddressType">
+    <xs:annotation>
+      <xs:documentation>Defines the type for logical address according to national reference architecture.
+				Superseeds wsa:To as type for logical address header in RIVTA 2.1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType name="ServiceContractType">
+    <xs:annotation>
+      <xs:documentation>Type which describes a service contract. Used in interaction GetSupportedServiceContracts.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ServiceContractNamespace" type="xs:anyURI"/>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages" name="DeleteMessages" bindingOperationName="DeleteMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:DeleteMessages>
+         <!--1 or more repetitions:-->
+         <urn1:messageIds>?</urn1:messageIds>
+         <!--You may enter ANY elements at this point-->
+      </urn1:DeleteMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>

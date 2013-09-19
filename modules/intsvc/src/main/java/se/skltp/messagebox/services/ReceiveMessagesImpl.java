@@ -21,7 +21,8 @@
 package se.skltp.messagebox.services;
 
 import java.io.ByteArrayInputStream;
-import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -32,14 +33,15 @@ import javax.xml.ws.Provider;
 import javax.xml.ws.Service;
 import javax.xml.ws.ServiceMode;
 import javax.xml.ws.WebServiceProvider;
+import javax.xml.ws.handler.MessageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.util.UriUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
@@ -51,20 +53,16 @@ import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
         serviceName = "ReceiveMessageHttpService",
         portName = "ReceiveMessage"
 )
-public class ReceiveMessagesImpl implements Provider<Source> {
+public class ReceiveMessagesImpl extends BaseService implements Provider<Source> {
 
     private static final Logger log = LoggerFactory.getLogger(ReceiveMessagesImpl.class);
-
-    private MessageService messageService;
-
-    @Resource
-    public void setMessageService(MessageService MessageService) {
-        this.messageService = MessageService;
-    }
+    private static final String ENDPOINT_NAME = "/ReceiveMessage/";
 
     @Override
     public Source invoke(Source request) {
         try {
+            String receiverId = extractReceivingHsaId();
+            log.info("found hsaId " + receiverId);
 
             if ( request != null ) {
                 // first translate the body into a string
@@ -72,13 +70,13 @@ public class ReceiveMessagesImpl implements Provider<Source> {
                 Extractor extractor = new Extractor();
                 trans.transform(request, new SAXResult(extractor));
 
-                String systemId = extractor.getSystemId();
+                String targetOrg = extractor.getTargetOrganization();
                 String serviceContract = extractor.getServiceContract();
                 String messageBody = extractor.getBody();
 
                 String okResponse = messageService.getOkResponseForServiceContract(serviceContract);
 
-                Message message = new Message(systemId, serviceContract, messageBody);
+                Message message = new Message(receiverId, targetOrg, serviceContract, messageBody);
                 messageService.saveMessage(message);
 
                 log.info("Saved " + message);
@@ -91,7 +89,24 @@ public class ReceiveMessagesImpl implements Provider<Source> {
         } catch (TransformerException e) {
             throw new RuntimeException(e);
         } catch (InvalidServiceContractTypeException e) {
-            return sendBody("can't handle that service contract!"); // TODO: need to send a better message
+            return sendBody("can't handle service contract \"" + e.getServiceContract() + "\"" ); // TODO: need to send a better message
+        }
+    }
+
+    // the hsa-id is the part of the url after the "ReceiveMessage/"
+    private String extractReceivingHsaId() {
+        MessageContext ctx = wsContext.getMessageContext();
+        HttpServletRequest servletRequest = (HttpServletRequest) ctx.get(MessageContext.SERVLET_REQUEST);
+        String uri = servletRequest.getRequestURI();
+        int n = uri.indexOf(ENDPOINT_NAME);
+        if (n == -1) {
+            throw new RuntimeException("Unable to find my own endpoint name \"" + ENDPOINT_NAME + "\" in uri \"" + uri + "\"");
+        }
+        String encodedHsaId = uri.substring(n + ENDPOINT_NAME.length());
+        try {
+            return UriUtils.decode(encodedHsaId, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -221,7 +236,7 @@ public class ReceiveMessagesImpl implements Provider<Source> {
             }
         }
 
-        public String getSystemId() {
+        public String getTargetOrganization() {
             return logicalAddressBuilder.toString();
         }
     }
