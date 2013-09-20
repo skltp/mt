@@ -116,12 +116,13 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
         String body = "<reply>" + input + "</reply>";
         String header = "";
         String result =
-                "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" >\n" +
-                        "   <soapenv:Header/>\n" +
-                        header +
-                        "   <soapenv:Body>\n" +
-                        body +
-                        "   </soapenv:Body>\n" +
+                "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" >" +
+                        "\n  <soapenv:Header>" +
+                        "\n    " + header +
+                        "\n  </soapenv:Header>" +
+                        "\n  <soapenv:Body>" +
+                        "\n    " + body +
+                        "\n  </soapenv:Body>\n" +
                         "</soapenv:Envelope>";
         return new StreamSource(new ByteArrayInputStream(result.getBytes()));
     }
