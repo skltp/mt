@@ -169,7 +169,46 @@
                                     </wsdl>
                                 </wsdlOption>
 
+                                <wsdlOption>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        Note: be careful when changing this - must be in sync for all
+                                        schemas generations in this namespace!
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21=se.skltp.messagebox.GenerateUrl.v1.rivtabp21
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:1=se.skltp.riv.itintegration.messagebox.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:registry:1=se.skltp.riv.itintegration.registry.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
+                                        </extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:messagebox:GenerateUrlResponder:1=se.skltp.messagebox.GenerateUrlresponder.v1
+                                        </extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
+                                        </extraarg>
+                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
+                                    </extraargs>
+                                    <wsdl>
+                                        ${schema.path}/interactions/GenerateUrlInteraction/GenerateUrlInteraction_1.0_rivtabp21.wsdl
+                                    </wsdl>
+                                </wsdlOption>
+
                             </wsdlOptions>
+
                         </configuration>
                         <goals>
                             <goal>wsdl2java</goal>

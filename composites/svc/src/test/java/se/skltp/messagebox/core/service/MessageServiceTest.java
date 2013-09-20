@@ -36,6 +36,7 @@ import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)

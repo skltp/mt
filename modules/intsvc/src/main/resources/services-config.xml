@@ -36,6 +36,7 @@
 	<bean id="getMessages" class="se.skltp.messagebox.services.GetMessagesImpl"/>
 	<bean id="deleteMessages" class="se.skltp.messagebox.services.DeleteMessagesImpl"/>
 	<bean id="receiveMessage" class="se.skltp.messagebox.services.ReceiveMessagesImpl"/>
+	<bean id="generateUrl" class="se.skltp.messagebox.services.GenerateUrlImpl"/>
 
   	<jaxws:endpoint id="listMsgs"
                   	implementor="#listMessages"
@@ -50,5 +51,9 @@
     <jaxws:endpoint id="receiveMsgs"
                    	implementor="#receiveMessage"
                    	address="/ReceiveMessage" />
+
+    <jaxws:endpoint id="generateUrlM"
+                   	implementor="#generateUrl"
+                   	address="/GenerateUrl/1/rivtabp21" />
 
 </beans>
