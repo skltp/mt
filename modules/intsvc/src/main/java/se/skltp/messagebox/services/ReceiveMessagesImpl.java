@@ -62,7 +62,6 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
     public Source invoke(Source request) {
         try {
             String receiverId = extractReceivingHsaId();
-            log.info("found hsaId " + receiverId);
 
             if ( request != null ) {
                 // first translate the body into a string
@@ -104,7 +103,9 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
         }
         String encodedHsaId = uri.substring(n + ENDPOINT_NAME.length());
         try {
-            return UriUtils.decode(encodedHsaId, "utf-8");
+            String result = UriUtils.decode(encodedHsaId, "utf-8");
+            log.info("hsa-id transform from \"" + encodedHsaId + "\" -> \"" + result + "\"" );
+            return result;
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
