@@ -144,9 +144,11 @@ public class TestListMessagesImpl extends BaseTestImpl {
         for ( MessageMetaType meta : messageMetas ) {
             Message msg = msgMap.get(meta.getMessageId());
             assertNotNull("Unexpected message id " + meta.getMessageId() + " found!", msg);
+            assertEquals(msg.getTargetOrganization(), meta.getTargetOrganization());
             assertEquals(msg.getServiceContract(), meta.getServiceContractType());
             assertEquals(msg.getStatus(), meta.getStatus());
             assertEquals(msg.getArrived(), meta.getArrivalTime());
+            assertEquals(msg.getMessageBody().length(), meta.getMessageSize());
         }
     }
 }

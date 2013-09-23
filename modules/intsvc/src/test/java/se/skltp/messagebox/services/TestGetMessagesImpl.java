@@ -104,8 +104,8 @@ public class TestGetMessagesImpl extends BaseTestImpl {
             Message msg = msgMap.get(response.getMessageId());
             assertNotNull("Unexpected message id " + response.getMessageId() + " found!", msg);
             assertEquals(msg.getTargetOrganization(), response.getTargetOrganization());
-            assertEquals(msg.getMessageBody(), response.getMessage());
             assertEquals(msg.getServiceContract(), response.getServiceContractType().getServiceContractNamespace());
+            assertEquals(msg.getMessageBody(), response.getMessage());
         }
     }
 }
