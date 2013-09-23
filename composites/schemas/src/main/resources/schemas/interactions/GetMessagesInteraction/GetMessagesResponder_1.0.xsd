@@ -32,7 +32,7 @@
     <xs:complexType name='GetMessagesType'>
         <xs:annotation>
             <xs:documentation>
-                The systemId requests the given messages
+                Request the given messages
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -43,8 +43,9 @@
 
     <xs:complexType name="ResponseType">
         <xs:sequence>
-            <xs:element name="messageId" type="xs:string"/>
-            <xs:element name="serviceContract" type="reg:ServiceContractType"/>
+            <xs:element name="messageId" type="xs:long"/>
+            <xs:element name="targetOrganization" type="reg:LogicalAddressType"/>
+            <xs:element name="serviceContractType" type="reg:ServiceContractType"/>
             <xs:element name="message" type="xs:string"/>
             <xs:any namespace='##other' processContents='lax'/>
         </xs:sequence>
@@ -61,7 +62,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name='resultCode' type='mb:ResultCodeEnum'/>
+            <xs:element name='result' type='mb:ResultType'/>
             <xs:element name="responses" type="tns:ResponseType" minOccurs="0" maxOccurs="unbounded"/>
             <xs:any namespace='##other' processContents='lax'/>
         </xs:sequence>

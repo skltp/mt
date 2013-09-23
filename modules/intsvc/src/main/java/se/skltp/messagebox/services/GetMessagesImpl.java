@@ -33,6 +33,7 @@ import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesType;
 import se.skltp.messagebox.GetMessagesresponder.v1.ResponseType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
 @WebService(serviceName = "GetMessagesResponderService",
@@ -48,29 +49,42 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
     public GetMessagesResponseType getMessages(
             String logicalAddress,
             GetMessagesType parameters) {
-        GetMessagesResponseType result = new GetMessagesResponseType();
+        GetMessagesResponseType response = new GetMessagesResponseType();
+
+        response.setResult(new ResultType());
+        response.getResult().setCode(ResultCodeEnum.OK);
+
         try {
             String receiverId = extractCallerIdFromRequest();
             Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
+
             List<Message> messages = messageService.getMessages(receiverId, messageIdSet);
+
+            if ( messageIdSet.size() != messages.size() ) {
+                log.info("Receiver " + receiverId + " attempted to delete non-deletable messages "
+                        + describeMessageDiffs(messageIdSet, messages));
+            }
 
             for ( Message msg : messages ) {
 
                 ResponseType elem = new ResponseType();
-                elem.setMessageId(msg.getId().toString());
+                elem.setMessageId(msg.getId());
                 ServiceContractType serverContract = new ServiceContractType();
                 serverContract.setServiceContractNamespace(msg.getServiceContract());
-                elem.setServiceContract(serverContract);
+                elem.setServiceContractType(serverContract);
                 elem.setMessage(msg.getMessageBody());
+                elem.setTargetOrganization(msg.getTargetOrganization());
 
-                result.getResponses().add(elem);
+                response.getResponses().add(elem);
             }
 
         } catch (Exception e) {
             log.warn("Fail!", e);
-            result.setResultCode(ResultCodeEnum.ERROR);
-            result.getResponses().clear();
+            response.getResult().setCode(ResultCodeEnum.ERROR);
+            response.getResult().setErrorMessage(e.getMessage());
+            response.getResponses().clear();
         }
-        return result;
+        return response;
     }
+
 }

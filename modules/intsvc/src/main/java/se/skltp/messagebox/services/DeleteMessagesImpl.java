@@ -21,6 +21,7 @@
 package se.skltp.messagebox.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.jws.WebService;
 
@@ -29,7 +30,9 @@ import org.slf4j.LoggerFactory;
 import se.skltp.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface;
 import se.skltp.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
 import se.skltp.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
+import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
         endpointInterface = "se.skltp.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface",
@@ -44,18 +47,33 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
     @Override
     public DeleteMessagesResponseType deleteMessages(String logicalAddress, DeleteMessagesType parameters) {
         DeleteMessagesResponseType response = new DeleteMessagesResponseType();
-        response.setResultCode(ResultCodeEnum.OK);
-
-        String receiverId = extractCallerIdFromRequest();
-        Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
+        response.setResult(new ResultType());
+        response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
+            String receiverId = extractCallerIdFromRequest();
+            Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
+            List<Message> messages = messageService.getMessages(receiverId, messageIdSet);
+            if ( messageIdSet.size() != messages.size() ) {
+                log.info("Receiver " + receiverId + " attempted to delete non-deletable messages "
+                        + describeMessageDiffs(messageIdSet, messages));
+            }
 
-            messageService.deleteMessages(receiverId, messageIdSet);
+            // now delete those messages
+            List<Long> responseIds = response.getDeletedIds();
+            Set<Long> actualMessageToDelete = new HashSet<Long>();
+            for ( Message msg : messages ) {
+                actualMessageToDelete.add(msg.getId());
+                responseIds.add(msg.getId());
+            }
+
+            // will throw exception if we fail to delete those mes
+            messageService.deleteMessages(receiverId, actualMessageToDelete);
 
         } catch (Exception e) {
             log.warn("Fail!", e);
-            response.setResultCode(ResultCodeEnum.ERROR);
+            response.getResult().setCode(ResultCodeEnum.ERROR);
+            response.getResult().setErrorMessage(e.getMessage());
         }
         return response;
     }

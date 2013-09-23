@@ -1,10 +1,12 @@
 package se.skltp.messagebox.services;
 
+import java.util.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
 
 /**
@@ -30,7 +32,7 @@ public class BaseService {
 
     /**
      * Extract the hsa-id for the caller from the http-header.
-     *
+     * <p/>
      * The hsa-id for caller is placed by the VP in the http-header of the call.
      *
      * @return the hsa-id from the caller
@@ -39,5 +41,29 @@ public class BaseService {
         MessageContext msgCtxt = wsContext.getMessageContext();
         HttpServletRequest req = (HttpServletRequest) msgCtxt.get(MessageContext.SERVLET_REQUEST);
         return req.getHeader(HSA_ID_HEADER_NAME);
+    }
+
+    protected String describeMessageDiffs(Set<Long> messageIds, List<Message> messages) {
+        List<Long> sorted = getMissingMessageIds(messageIds, messages);
+
+        StringBuilder result = new StringBuilder();
+
+        for ( Long messageId : sorted ) {
+            if ( result.length() > 0 ) {
+                result.append(", ");
+            }
+            result.append(messageId);
+        }
+        return result.toString();
+    }
+
+    private List<Long> getMissingMessageIds(Set<Long> messageIds, List<Message> messages) {
+        Set<Long> copy = new HashSet<>(messageIds);
+        for ( Message message : messages ) {
+            copy.remove(message.getId());
+        }
+        List<Long> sorted = new ArrayList<>(copy);
+        Collections.sort(sorted);
+        return sorted;
     }
 }

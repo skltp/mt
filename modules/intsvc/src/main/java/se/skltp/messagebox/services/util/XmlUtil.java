@@ -1,7 +1,6 @@
 package se.skltp.messagebox.services.util;
 
 import java.io.ByteArrayInputStream;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -12,6 +11,7 @@ import org.w3c.dom.ls.LSSerializer;
 
 public class XmlUtil {
     private static final DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
+
     static {
         DBF.setNamespaceAware(true);
     }
@@ -28,7 +28,7 @@ public class XmlUtil {
         try {
             DocumentBuilder builder = DBF.newDocumentBuilder();
             Document document = builder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
-            
+
             return new DOMSource(document.getDocumentElement());
         } catch (Exception e) {
             // typically parsing or configuration exceptions

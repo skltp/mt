@@ -33,6 +33,7 @@ import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
 @WebService(serviceName = "ListMessagesResponderService",
@@ -47,6 +48,9 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
     public ListMessagesResponseType listMessages(String logicalAddress, ListMessagesType parameters) {
 
         ListMessagesResponseType response = new ListMessagesResponseType();
+        response.setResult(new ResultType());
+        response.getResult().setCode(ResultCodeEnum.OK);
+
         try {
             String hsaId = extractCallerIdFromRequest();
 
@@ -63,23 +67,22 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             for ( ServiceContractType type : parameters.getServiceContractTypes() ) {
                 types.add(type.getServiceContractNamespace());
             }
-            String targetOrg = parameters.getTargetOrganization();
+            Set<String> targetOrgs = new HashSet<>(parameters.getTargetOrganizations());
 
             List<Message> messages = messageService.getAllMessages(hsaId);
-
-            response.setResultCode(ResultCodeEnum.OK);
 
             for ( Message msg : messages ) {
 
                 if ( types.isEmpty() || types.contains(msg.getServiceContract()) ) {
 
-                    if ( targetOrg == null || targetOrg.equals(msg.getTargetOrganization()) ) {
+                    if ( targetOrgs.isEmpty() || targetOrgs.contains(msg.getTargetOrganization()) ) {
 
                         MessageMetaType meta = new MessageMetaType();
                         meta.setMessageId(msg.getId());
+                        meta.setTargetOrganization(msg.getTargetOrganization());
                         meta.setServiceContractType(msg.getServiceContract());
                         meta.setMessageSize(msg.getMessageBody().length());
-                        meta.setTimestamp(msg.getArrived());
+                        meta.setArrivalTime(msg.getArrived());
                         meta.setStatus((msg.getStatus()));
 
                         response.getMessageMetas().add(meta);
@@ -89,7 +92,9 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
 
         } catch (Exception e) {
             log.warn("Failed to handle ListMessages", e);
-            response.setResultCode(ResultCodeEnum.ERROR);
+            response.getResult().setCode(ResultCodeEnum.ERROR);
+            response.getResult().setErrorMessage(e.getMessage());
+            response.getMessageMetas().clear();
         }
         return response;
     }

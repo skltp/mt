@@ -50,19 +50,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public void deleteMessages(String receiverId, Set<Long> ids) {
-        int numDeletedMessages = messageRepository.delete(receiverId, ids);
-
-        // TODO: How to handle partial/failed deletes?
-        // how is it supposed to be fixed? What problem can it be? Can we hide the
-        // problem and fix it manually? Who is responsible and should get the error message
-        //
-        // potential problem is deleting non-read messages?
-
-        if ( numDeletedMessages != ids.size() ) {
-            throw new IllegalStateException("Unable to delete " + ids.size()
-                    + " messages, succeeded with " + numDeletedMessages);
+        int numDeleted = messageRepository.delete(receiverId, ids);
+        if (numDeleted != ids.size()) {
+            throw new IllegalStateException("Unable to delete " + ids.size() + " ids, could only delete" + numDeleted + " ids!");
         }
-
     }
 
 

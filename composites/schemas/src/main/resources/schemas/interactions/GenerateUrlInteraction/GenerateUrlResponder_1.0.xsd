@@ -45,7 +45,7 @@
                   otherwise it is empty.
               </xs:documentation>
           </xs:annotation>
-          <xs:element name='ResultCode' type='core:ResultCodeEnum'/>
+          <xs:element name='result' type='core:ResultType'/>
           <xs:element name='messageBoxUrl' type='xs:string'/>
           <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded'/>
       </xs:sequence>

@@ -13,6 +13,7 @@ import se.skltp.messagebox.GenerateUrlresponder.v1.GenerateUrlResponseType;
 import se.skltp.messagebox.GenerateUrlresponder.v1.GenerateUrlType;
 import se.skltp.messagebox.core.service.SystemPropertyService;
 import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 
 /**
  * @author mats.olsson@callistaenterprise.se
@@ -34,7 +35,9 @@ public class GenerateUrlImpl extends BaseService implements GenerateUrlResponder
     @Override
     public GenerateUrlResponseType generateUrl(@WebParam(partName = "LogicalAddress", name = "LogicalAddress", targetNamespace = "urn:riv:itintegration:registry:1", header = true) String logicalAddress, @WebParam(partName = "parameters", name = "GenerateUrl", targetNamespace = "urn:riv:itintegration:messagebox:GenerateUrlResponder:1") GenerateUrlType parameters) {
         GenerateUrlResponseType response = new GenerateUrlResponseType();
-        response.setResultCode(ResultCodeEnum.OK);
+
+        response.setResult(new ResultType());
+        response.getResult().setCode(ResultCodeEnum.OK);
 
         String consumerHsaId = parameters.getConsumerHsaId();
         try {

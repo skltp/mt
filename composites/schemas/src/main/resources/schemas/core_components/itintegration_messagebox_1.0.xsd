@@ -20,6 +20,7 @@
 <xs:schema
         xmlns:xs='http://www.w3.org/2001/XMLSchema'
         xmlns:tns='urn:riv:itintegration:messagebox:1'
+        xmlns:reg='urn:riv:itintegration:registry:1'
         targetNamespace='urn:riv:itintegration:messagebox:1'
         elementFormDefault='qualified'
         attributeFormDefault='unqualified'
@@ -36,9 +37,10 @@
     <xs:complexType name="MessageMetaType">
         <xs:sequence>
             <xs:element name="messageId" type="xs:long" />
+            <xs:element name="targetOrganization" type="reg:LogicalAddressType" />
             <xs:element name="serviceContractType" type="xs:string" />
             <xs:element name="messageSize" type="xs:int" />
-            <xs:element name="timestamp" type="xs:date" />
+            <xs:element name="arrivalTime" type="xs:date" />
             <xs:element name="status" type="tns:MessageStatusType"/>
 
             <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
@@ -53,6 +55,22 @@
             <xs:enumeration value="DELETED" />
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:complexType name="ResultType">
+        <xs:annotation>
+            <xs:documentation>
+                Gemensam resultatkod. Om code är OK är övriga fält tomma.
+                Om code är "INFO" eller ERROR kan information skickas i errorId och/eller
+                errorMessage.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code" type="tns:ResultCodeEnum" />
+            <xs:element name="errrorId" type="xs:int" minOccurs="0" maxOccurs="1" />
+            <xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:simpleType name='ResultCodeEnum'>
         <xs:restriction base='xs:string'>

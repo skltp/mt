@@ -47,7 +47,8 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name='resultCode' type='mb:ResultCodeEnum'/>
+            <xs:element name='result' type='mb:ResultType'/>
+            <xs:element name="deletedIds" type = "xs:long" minOccurs="0" maxOccurs="unbounded" />
             <xs:any namespace='##other' processContents='lax'/>
         </xs:sequence>
     </xs:complexType>

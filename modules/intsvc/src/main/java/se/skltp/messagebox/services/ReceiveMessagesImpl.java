@@ -88,7 +88,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
         } catch (TransformerException e) {
             throw new RuntimeException(e);
         } catch (InvalidServiceContractTypeException e) {
-            return sendBody("can't handle service contract \"" + e.getServiceContract() + "\"" ); // TODO: need to send a better message
+            return sendBody("can't handle service contract \"" + e.getServiceContract() + "\""); // TODO: need to send a better message
         }
     }
 
@@ -98,13 +98,13 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
         HttpServletRequest servletRequest = (HttpServletRequest) ctx.get(MessageContext.SERVLET_REQUEST);
         String uri = servletRequest.getRequestURI();
         int n = uri.indexOf(ENDPOINT_NAME);
-        if (n == -1) {
+        if ( n == -1 ) {
             throw new RuntimeException("Unable to find my own endpoint name \"" + ENDPOINT_NAME + "\" in uri \"" + uri + "\"");
         }
         String encodedHsaId = uri.substring(n + ENDPOINT_NAME.length());
         try {
             String result = UriUtils.decode(encodedHsaId, "utf-8");
-            log.info("hsa-id transform from \"" + encodedHsaId + "\" -> \"" + result + "\"" );
+            log.info("hsa-id transform from \"" + encodedHsaId + "\" -> \"" + result + "\"");
             return result;
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -129,7 +129,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
 
     /**
      * Parses the soap envelope and extracts required data.
-     * 
+     * <p/>
      * <ol>
      * <li>The logical address of the receiver</li>
      * <li>The service contract (identified by the namespace of the first element in body)</li>
@@ -220,7 +220,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
 
         @Override
         public void characters(char[] ch, int start, int length) throws SAXException {
-            textBuilder.append(ch,start,length);
+            textBuilder.append(ch, start, length);
 
         }
 

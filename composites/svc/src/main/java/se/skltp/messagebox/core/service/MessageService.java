@@ -35,7 +35,7 @@ public interface MessageService {
     Long saveMessage(Message Message);
 
     /**
-     * Delete all identified messages.
+     * Delete all identified messages, returning how many were actually deleted.
      *
      * @param receiverId all messages must have this receiverId
      * @param ids set of messages to delete

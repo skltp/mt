@@ -100,7 +100,7 @@
 		</xs:sequence>
 	</xs:complexType>
 			
-	<xs:complexType name="ResultOfCall">
+	<xs:complexType name="ResultType">
 		<xs:annotation>
 			<xs:documentation>
 				Holds information about the success of the call. If INFO is set the field infoText should contain more information.
