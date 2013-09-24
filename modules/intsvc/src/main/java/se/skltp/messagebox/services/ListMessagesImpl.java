@@ -91,7 +91,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             }
 
         } catch (Exception e) {
-            log.warn("Failed to handle ListMessages", e);
+            log.warn("Fail!", e);
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorMessage(e.getMessage());
             response.getMessageMetas().clear();

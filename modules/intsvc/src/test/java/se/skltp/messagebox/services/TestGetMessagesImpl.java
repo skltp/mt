@@ -86,6 +86,31 @@ public class TestGetMessagesImpl extends BaseTestImpl {
         assertTrue(response.getResponses().isEmpty());
     }
 
+    @Test
+    public void testFailure() throws Exception {
+        Set<Long> allEntries = new HashSet<>(Arrays.asList(0L, 1L, 2L));
+
+        // mock up the request
+        String errorMessage = "failed";
+        when(service.getMessages("hsaid1", allEntries)).thenThrow(new RuntimeException(errorMessage));
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+
+        GetMessagesImpl impl = new GetMessagesImpl();
+        impl.setMessageService(service);
+        impl.setWsContext(wsContext);
+        GetMessagesType params = new GetMessagesType();
+
+        // get all for the hsaid1
+        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
+        GetMessagesResponseType resp = impl.getMessages("mbox-address", params);
+
+        assertEquals(ResultCodeEnum.ERROR, resp.getResult().getCode());
+        assertEquals(errorMessage, resp.getResult().getErrorMessage());
+        assertEquals(0, resp.getResponses().size());
+    }
+
     // trailing ints selects a subset of messages we expect
     private void verifyResponse(List<Message> messages, GetMessagesResponseType responseType, Integer... selection) {
         assertEquals(ResultCodeEnum.OK, responseType.getResult().getCode());

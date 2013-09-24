@@ -21,7 +21,6 @@
 package se.skltp.messagebox.services;
 
 import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -37,7 +36,6 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.util.UriUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -63,32 +61,29 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
         try {
             String receiverId = extractReceivingHsaId();
 
-            if ( request != null ) {
-                // first translate the body into a string
-                Transformer trans = TransformerFactory.newInstance().newTransformer();
-                Extractor extractor = new Extractor();
-                trans.transform(request, new SAXResult(extractor));
+            // parse the whole request in a SAXParser
+            Transformer trans = TransformerFactory.newInstance().newTransformer();
+            Extractor extractor = new Extractor();
+            trans.transform(request, new SAXResult(extractor));
 
-                String targetOrg = extractor.getTargetOrganization();
-                String serviceContract = extractor.getServiceContract();
-                String messageBody = extractor.getBody();
+            String targetOrg = extractor.getTargetOrganization();
+            String serviceContract = extractor.getServiceContract();
+            String messageBody = extractor.getBody();
 
-                String okResponse = messageService.getOkResponseForServiceContract(serviceContract);
+            String okResponse = messageService.getOkResponseForServiceContract(serviceContract);
 
-                Message message = new Message(receiverId, targetOrg, serviceContract, messageBody);
-                messageService.saveMessage(message);
+            Message message = new Message(receiverId, targetOrg, serviceContract, messageBody);
+            messageService.saveMessage(message);
 
-                log.info("Saved " + message);
+            log.info("Saved " + message);
 
-                return sendBody(okResponse);
-            } else {
-                return sendBody("no request");
-            }
-
+            return sendBody(okResponse);
         } catch (TransformerException e) {
+            // Fatal exception, should never happen - failed XML parsing?
             throw new RuntimeException(e);
         } catch (InvalidServiceContractTypeException e) {
-            return sendBody("can't handle service contract \"" + e.getServiceContract() + "\""); // TODO: need to send a better message
+            // TODO: Should generate a SOAP Fault?
+            throw new RuntimeException(e);
         }
     }
 
@@ -102,13 +97,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
             throw new RuntimeException("Unable to find my own endpoint name \"" + ENDPOINT_NAME + "\" in uri \"" + uri + "\"");
         }
         String encodedHsaId = uri.substring(n + ENDPOINT_NAME.length());
-        try {
-            String result = UriUtils.decode(encodedHsaId, "utf-8");
-            log.info("hsa-id transform from \"" + encodedHsaId + "\" -> \"" + result + "\"");
-            return result;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return uf8DecodeUri(encodedHsaId);
     }
 
     private Source sendBody(String input) {

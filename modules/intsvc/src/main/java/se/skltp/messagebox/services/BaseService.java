@@ -1,11 +1,13 @@
 package se.skltp.messagebox.services;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.springframework.web.util.UriUtils;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
 
@@ -65,5 +67,22 @@ public class BaseService {
         List<Long> sorted = new ArrayList<>(copy);
         Collections.sort(sorted);
         return sorted;
+    }
+
+    protected String uf8DecodeUri(String encodedHsaId) {
+        try {
+            return UriUtils.decode(encodedHsaId, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String utf8EncodeUriFragment(String consumerHsaId) {
+        try {
+            return UriUtils.encodeFragment(consumerHsaId, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            // not reachable, tied to "utf-8"
+            throw new RuntimeException(e);
+        }
     }
 }

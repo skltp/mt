@@ -36,10 +36,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestReceiveMessagesImpl extends BaseTestImpl {
@@ -55,17 +57,18 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
     public void testReceive() throws Exception {
 
         String targetOrg = "targetOrg-HsaId";
-        String serviceContractType = "riv:etc,etc...";
-        String body = "the body text";
+        String legalServiceContractType = "riv:etc,etc...";
+        String invalidServiceContractType = "invalid";
+        String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
         String receiverId = "receivingOrgHsaId";
         String replyBody = "OK";
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
         when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
-        when(service.getOkResponseForServiceContract(serviceContractType)).thenReturn("<reply>" + replyBody + "</reply>");
+        when(service.getOkResponseForServiceContract(legalServiceContractType)).thenReturn("<reply>" + replyBody + "</reply>");
 
-        Source request = constructCall(targetOrg, serviceContractType, body);
+        Source request = constructCall(targetOrg, legalServiceContractType, body);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
         impl.setMessageService(service);
@@ -78,7 +81,7 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
 
         Message msg = msgArgument.getValue();
         assertEquals(receiverId, msg.getReceiverId());
-        assertEquals(serviceContractType, msg.getServiceContract());
+        assertEquals(legalServiceContractType, msg.getServiceContract());
         assertEquals(targetOrg, msg.getTargetOrganization());
         assertEquals("<?xml version='1.0' encoding='UTF-8'?> <content>" + body + "</content>", msg.getMessageBody());
 
@@ -90,9 +93,87 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
 
         Node content = document.getElementsByTagName("reply").item(0);
         assertEquals(replyBody, content.getTextContent());
+
     }
 
+    @Test
+    public void testIllegalServiceContract() throws Exception {
+        String targetOrg = "targetOrg-HsaId";
+        String invalidServiceContractType = "invalid";
+        String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
+        String receiverId = "receivingOrgHsaId";
 
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
+
+        when(service.getOkResponseForServiceContract(invalidServiceContractType)).thenThrow(new InvalidServiceContractTypeException(invalidServiceContractType));
+        Source request = constructCall(targetOrg, invalidServiceContractType, body);
+
+        ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
+        impl.setMessageService(service);
+        impl.setWsContext(wsContext);
+
+        try {
+            Source resultOfCall = impl.invoke(request);
+            fail("Should get exception");
+        } catch (RuntimeException e) {
+        }
+        verify(service, never()).saveMessage((Message) any());
+    }
+
+    @Test
+    public void testIllegalXml() throws Exception {
+        String targetOrg = "targetOrg-HsaId";
+        String legalServiceContractType = "invalid";
+        String illegalBody = "<body name=\"body\" anotherAttribute=\"a value>the body text<embeddedNode>with some text</embeddedNode></body>";
+        String receiverId = "receivingOrgHsaId";
+
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
+
+        when(service.getOkResponseForServiceContract(legalServiceContractType)).thenReturn("<reply>Ok</reply>");
+        Source request = constructCall(targetOrg, legalServiceContractType, illegalBody);
+
+        ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
+        impl.setMessageService(service);
+        impl.setWsContext(wsContext);
+
+        try {
+            impl.invoke(request);
+            fail("Should get exception");
+        } catch (RuntimeException e) {
+        }
+        verify(service, never()).saveMessage((Message) any());
+    }
+
+    @Test
+    public void testWrongUrl() throws Exception {
+        String targetOrg = "targetOrg-HsaId";
+        String legalServiceContractType = "invalid";
+        String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
+        String receiverId = "receivingOrgHsaId";
+
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+        when(servletRequest.getRequestURI()).thenReturn("/SomeoneRenamedMyEndpointReceiveMessage/" + receiverId);
+
+        when(service.getOkResponseForServiceContract(legalServiceContractType)).thenReturn("<reply>Ok</reply>");
+        Source request = constructCall(targetOrg, legalServiceContractType, body);
+
+        ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
+        impl.setMessageService(service);
+        impl.setWsContext(wsContext);
+
+        try {
+            impl.invoke(request);
+            fail("Should get exception");
+        } catch (RuntimeException e) {
+            assertTrue(e.getMessage().startsWith("Unable to find my own"));
+        }
+        verify(service, never()).saveMessage((Message) any());
+    }
     private DOMResult sourceToDom(Source resultOfCall) throws TransformerException {
         DOMResult result = new DOMResult();
         TransformerFactory factory = TransformerFactory.newInstance();

@@ -29,8 +29,13 @@ public class GenerateUrlImpl extends BaseService implements GenerateUrlResponder
 
     private static final Logger log = LoggerFactory.getLogger(GenerateUrlImpl.class);
 
+    private SystemPropertyService properties;
+
     @Autowired
-    SystemPropertyService properties;
+    public void setSystemPropertyService(SystemPropertyService properties) {
+        this.properties = properties;
+    }
+
 
     @Override
     public GenerateUrlResponseType generateUrl(@WebParam(partName = "LogicalAddress", name = "LogicalAddress", targetNamespace = "urn:riv:itintegration:registry:1", header = true) String logicalAddress, @WebParam(partName = "parameters", name = "GenerateUrl", targetNamespace = "urn:riv:itintegration:messagebox:GenerateUrlResponder:1") GenerateUrlType parameters) {
@@ -40,18 +45,13 @@ public class GenerateUrlImpl extends BaseService implements GenerateUrlResponder
         response.getResult().setCode(ResultCodeEnum.OK);
 
         String consumerHsaId = parameters.getConsumerHsaId();
-        try {
-            String encodedHsaId = UriUtils.encodeFragment(consumerHsaId, "utf-8");
-            String url = properties.getReceiveMessageUrl().getValue() + "/" + encodedHsaId;
-            log.info("Generated url " + url);
-            response.setMessageBoxUrl(url);
-            return response;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e); // should never happen, tied to "utf-8"
-        }
-
-
+        String encodedHsaId = utf8EncodeUriFragment(consumerHsaId);
+        String url = properties.getReceiveMessageUrl().getValue() + "/" + encodedHsaId;
+        log.info("Generated url " + url);
+        response.setMessageBoxUrl(url);
+        return response;
     }
+
 }
 
 

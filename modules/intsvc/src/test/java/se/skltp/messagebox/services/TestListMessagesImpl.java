@@ -20,6 +20,7 @@
  */
 package se.skltp.messagebox.services;
 
+import java.sql.SQLException;
 import java.util.*;
 import javax.xml.ws.handler.MessageContext;
 
@@ -30,6 +31,7 @@ import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
 import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.MessageMetaType;
+import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
 import static junit.framework.Assert.assertEquals;
@@ -119,6 +121,29 @@ public class TestListMessagesImpl extends BaseTestImpl {
         params.getServiceContractTypes().clear();
         verifyResponse(receiver2Messages, impl.listMessages("mbox-address", params), 2, 3);
 
+    }
+
+    @Test
+    public void testFailure() throws Exception {
+
+        // mock up the request
+        String errorMessage = "Faked exception";
+        when(service.getAllMessages("hsaid1")).thenThrow(new RuntimeException(errorMessage));
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+
+        ListMessagesImpl impl = new ListMessagesImpl();
+        impl.setMessageService(service);
+        impl.setWsContext(wsContext);
+        ListMessagesType params = new ListMessagesType();
+
+        // get all for the hsaid1
+        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        ListMessagesResponseType response = impl.listMessages("mbox-address", params);
+
+        assertEquals(ResultCodeEnum.ERROR, response.getResult().getCode());
+        assertEquals(errorMessage, response.getResult().getErrorMessage());
+        assertEquals(0, response.getMessageMetas().size());
     }
 
     private ServiceContractType createSkt(String serviceContract) {

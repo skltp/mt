@@ -76,6 +76,8 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 elem.setTargetOrganization(msg.getTargetOrganization());
 
                 response.getResponses().add(elem);
+
+                msg.setStatusRetrieved();
             }
 
         } catch (Exception e) {

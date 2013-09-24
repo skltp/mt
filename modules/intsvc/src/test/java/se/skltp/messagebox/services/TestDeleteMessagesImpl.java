@@ -55,11 +55,13 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
 
         Set<Long> allEntries = new HashSet<>(Arrays.asList(0L, 1L, 2L));
         Set<Long> middleEntry = new HashSet<>(Arrays.asList(1L));
+        Set<Long> remNonExEntry = new HashSet<>(Arrays.asList(1L, 4L, 5L));
         Set<Long> failEntry = new HashSet<>(Arrays.asList(99L));
 
         // mock up the request
         when(service.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
         when(service.getMessages("hsaid1", middleEntry)).thenReturn(receiver1Messages.subList(1, 2));
+        when(service.getMessages("hsaid1", remNonExEntry)).thenReturn(receiver1Messages.subList(1, 2));
         when(service.getMessages("hsaid1", failEntry)).thenThrow(new IllegalStateException("fail"));
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
@@ -75,12 +77,16 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
         params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
         verifyResponse(receiver1Messages, impl.deleteMessages("mbox-address", params), 0, 1, 2);
 
-        params.getMessageIds().remove(0);
-        params.getMessageIds().remove(1);
+        params.getMessageIds().clear();
+        params.getMessageIds().addAll(middleEntry);
         verifyResponse(receiver1Messages, impl.deleteMessages("mbox-address", params), 1);
 
         params.getMessageIds().clear();
-        params.getMessageIds().add(99L);
+        params.getMessageIds().addAll(remNonExEntry);
+        verifyResponse(receiver1Messages, impl.deleteMessages("mbox-address", params), 1);
+
+        params.getMessageIds().clear();
+        params.getMessageIds().addAll(failEntry);
         DeleteMessagesResponseType responseType = impl.deleteMessages("mbox-address", params);
         assertEquals(ResultCodeEnum.ERROR, responseType.getResult().getCode());
         assertEquals(0, responseType.getDeletedIds().size());

@@ -58,18 +58,42 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     }
 
     @Test
-    public void testFindByCareUnit() throws Exception {
+    public void testFindByReceiver() throws Exception {
+        String receiverId = "receivers Hsa-Id";
+        Message message = new Message(receiverId, "orgId", "serviceContrakt", "webcall body");
+        messageRepository.persist(message);
+
+        entityManager.flush();
+        entityManager.clear();
+
+        List<Message> messages = messageRepository.getMessages(receiverId);
+
+        assertEquals(1, messages.size());
+    }
+
+    @Test
+    public void testFindByReceiverAndId() throws Exception {
         Set<Long> ids = new HashSet<>();
-        Message message = new Message("hsaId", "orgId", "serviceContrakt", "webcall body");
+        String receiverId = "receivers Hsa-Id";
+        Message message = new Message(receiverId, "orgId", "serviceContrakt", "webcall body");
         messageRepository.persist(message);
         ids.add(message.getId());
 
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.getMessages("hsaId", ids);
+        List<Message> messages = messageRepository.getMessages(receiverId, ids);
 
         assertEquals(1, messages.size());
+    }
+
+    @Test
+    public void testFindNone() throws Exception {
+        Set<Long> ids = new HashSet<>();
+        String receiverId = "receivers Hsa-Id";
+        ids.add(1L);
+        List<Message> messages = messageRepository.getMessages(receiverId, ids);
+        assertEquals(0, messages.size());
     }
 
     @Test
@@ -105,21 +129,38 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         long cnt = messageRepository.getNumOfMessagesForSystem("orgId");
         
         assertEquals(3, cnt);
-        
     }
 
     @Test
     public void testDelete() throws Exception {
-        Message message = new Message("hsaId", "orgId", "serviceContrakt", "webcall body");
+        String systemId = "hsaId";
+        Message message = new Message(systemId, "orgId", "serviceContrakt", "webcall body");
         messageRepository.persist(message);
 
         entityManager.flush();
         entityManager.clear();
 
-        messageRepository.remove(message.getId());
+        assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+
+        Set<Long> ids = new HashSet<>();
+        ids.add(message.getId());
+
+        // fail first delete because of wrong message status
+        messageRepository.delete(systemId, ids);
 
         entityManager.flush();
 
+        assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+
+        List<Message> messages = messageRepository.getMessages(systemId, ids);
+
+        assertEquals(1, messages.size());
+        messages.get(0).setStatusRetrieved();   // mark as retrived so we can delete it
+
+        messageRepository.delete(systemId, ids);
+        entityManager.flush();
+
         assertEquals(0, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+
     }
 }

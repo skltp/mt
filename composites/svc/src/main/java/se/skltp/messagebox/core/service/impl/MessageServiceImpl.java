@@ -6,7 +6,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.skltp.messagebox.core.entity.Message;
@@ -15,6 +14,8 @@ import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 /**
+ * Service implementation.
+ *
  * @author mats.olsson@callistaenterprise.se
  */
 @Service
@@ -27,9 +28,6 @@ public class MessageServiceImpl implements MessageService {
      * May be overriden by giving a response is specified in the properties file.
      */
     private static final String DEFAULT_SERVICE_CONTRACT_OK_RESPONSE = "<response>Ok</response>";
-
-    @Value("${max.fetch.results}")
-    int maxResults;
 
     @Autowired
     private MessageRepository messageRepository;
