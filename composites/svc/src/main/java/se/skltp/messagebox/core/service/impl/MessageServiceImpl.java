@@ -1,6 +1,7 @@
 package se.skltp.messagebox.core.service.impl;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.messagebox.core.service.MessageService;
+import se.skltp.messagebox.core.service.StatisticService;
 import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 /**
@@ -31,6 +33,10 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private StatisticService statisticService;
+
     private Properties properties;
 
     public List<Message> getMessages(String receiverId, Set<Long> ids) {
@@ -47,11 +53,16 @@ public class MessageServiceImpl implements MessageService {
         return result.getId();
     }
 
-    public void deleteMessages(String receiverId, Set<Long> ids) {
-        int numDeleted = messageRepository.delete(receiverId, ids);
-        if (numDeleted != ids.size()) {
-            throw new IllegalStateException("Unable to delete " + ids.size() + " ids, could only delete" + numDeleted + " ids!");
+    public void deleteMessages(String receiverId, long timestamp, List<Message> messages) {
+        Set<Long> ids = new HashSet<>();
+        for ( Message msg : messages ) {
+            ids.add(msg.getId());
         }
+        int numDeleted = messageRepository.delete(receiverId, ids);
+        if (numDeleted != messages.size()) {
+            throw new IllegalStateException("Unable to delete " + messages.size() + " ids, could only delete " + numDeleted + " ids!");
+        }
+        statisticService.addDeliveriesToStatistics(receiverId, timestamp, messages);
     }
 
 

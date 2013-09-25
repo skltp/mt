@@ -20,8 +20,7 @@
  */
 package se.skltp.messagebox.core.service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,18 +29,17 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.skltp.messagebox.core.entity.Message;
 import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:services-config.xml" })
-public class MessageServiceTest extends JpaRepositoryTestBase {
+public class TestMessageService extends JpaRepositoryTestBase {
 
     @Autowired
     private MessageService messageService;
@@ -50,6 +48,7 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
     EntityManager entityManager;
 
     MessageStatusType type;
+    private static final int MS_HOUR = 1000 * 60 * 60;
 
     @Test
     public void deleteMessages() throws Exception {
@@ -58,10 +57,8 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
 
         entityManager.flush();
 
-        Set<Long> ids = new HashSet<Long>();
-        ids.add(message.getId());
         try {
-            messageService.deleteMessages("careUnit", ids);
+            messageService.deleteMessages("careUnit", System.currentTimeMillis(), Collections.singletonList(message));
             fail("Expected IllegalStateException");
         } catch (IllegalStateException e) {
             // Expected
@@ -86,6 +83,17 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
             // ok
         }
 
+    }
+
+    @Test
+    public void testStatistics() throws Exception {
+
+        Date oldArrivalDate = new Date(System.currentTimeMillis() - 48 * MS_HOUR);
+        Message message = new Message("hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, oldArrivalDate);
+        messageService.saveMessage(message);
+
+        entityManager.flush();
+        // TODO: Incomplete, fix
     }
 
 }

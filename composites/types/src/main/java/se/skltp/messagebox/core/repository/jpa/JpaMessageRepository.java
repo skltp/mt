@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Repository;
+import se.skltp.messagebox.core.ReceiverState;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
@@ -60,6 +61,16 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
                 .setParameter("ids", ids)
                 .setParameter("status", MessageStatusType.RETRIEVED)
                 .executeUpdate();
+    }
+
+    @Override
+    public List<ReceiverState> getReceiverStatus() {
+        //noinspection unchecked
+        return entityManager.createQuery(
+                "select " +
+                        "new se.skltp.messagebox.core.ReceiverState(m.receiverId, count(m.targetOrganization), min(m.arrived)) " +
+                        "from Message m group by m.receiverId")
+                .getResultList();
     }
 
 }

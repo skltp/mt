@@ -38,13 +38,13 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
                 query = "select m from Message m where m.receiverId = :systemId order by m.id asc"),
         @NamedQuery(name = "Message.getForReceiverWithIds",
                 query = "select m from Message m where m.receiverId = :systemId and m.id in (:ids) order by m.id asc"),
-        @NamedQuery(name = "Message.deleteForReceiverWithIds",
-                query = "delete from Message m where m.receiverId = :systemId and m.id in (:ids)"),
-        // TODO: how to delete? with or without status?
         @NamedQuery(name = "Message.deleteForReceiverWithIdsAndStatus",
                 query = "delete from Message m where m.receiverId = :systemId and m.id in (:ids) and m.status = :status"),
         @NamedQuery(name = "Message.totalCountForReceiver",
-                query = "select count(m) from Message m where m.targetOrganization = :systemId")
+                query = "select count(m) from Message m where m.targetOrganization = :systemId"),
+        @NamedQuery(name = "Message.receiverStates",
+                query = "select m.receiverId, count(m.receiverId), min(m.arrived) from Message m GROUP BY m.receiverId")
+
 })
 @Entity()
 @Table(name="MESSAGE")
@@ -72,6 +72,24 @@ public class Message extends AbstractEntity<Long> {
     @Column(nullable = false)
     @Lob
     private String messageBody;
+
+    // the size of the messagebody
+    @Column(nullable = false)
+    private long messageBodySize;
+
+    //
+    // possible optimization for large messages would be to split messageBody into
+    // smallMessageBody and largeMessageBody, with largeMessageBody being marked as
+    // lazy-loaded.
+    //
+    // The size of the message body would be used to determine where the message body
+    // is actually stored (when reading, if smallMessageBody is null, then you have
+    // to read the largeMessageBody)
+    //
+    @Basic(fetch=FetchType.LAZY)
+    @Column(nullable = true)
+    @Lob
+    private String largeMessageBody;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -126,6 +144,9 @@ public class Message extends AbstractEntity<Long> {
         return serviceContract;
     }
 
+    /**
+     * Must be called before the message can be deleted.
+     */
     public void setStatusRetrieved() {
         this.status = MessageStatusType.RETRIEVED;
     }

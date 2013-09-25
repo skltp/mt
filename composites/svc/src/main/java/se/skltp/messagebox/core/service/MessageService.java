@@ -38,9 +38,10 @@ public interface MessageService {
      * Delete all identified messages, returning how many were actually deleted.
      *
      * @param receiverId all messages must have this receiverId
-     * @param ids set of messages to delete
+     * @param timestamp
+     * @param messages
      */
-    void deleteMessages(String receiverId, Set<Long> ids);
+    void deleteMessages(String receiverId, long timestamp, List<Message> messages);
 
     /**
      * Return the xml-body for the response when this message is successfully stored.

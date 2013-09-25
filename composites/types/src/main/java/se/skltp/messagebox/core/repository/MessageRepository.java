@@ -23,6 +23,7 @@ package se.skltp.messagebox.core.repository;
 import java.util.List;
 import java.util.Set;
 
+import se.skltp.messagebox.core.ReceiverState;
 import se.skltp.messagebox.core.entity.Message;
 import se.vgregion.dao.domain.patterns.repository.Repository;
 
@@ -35,5 +36,12 @@ public interface MessageRepository extends Repository<Message, Long> {
     Long getNumOfMessagesForSystem(String careUnit);
 
     int delete(String careUnit, Set<Long> ids);
+
+    /**
+     * Get statistics for the current state of the receivers.
+     *
+     * @return an entry for each receiver which has messages waiting to be delivered
+     */
+    public List<ReceiverState> getReceiverStatus();
 
 }

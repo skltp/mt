@@ -60,15 +60,12 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             }
 
             // now delete those messages
+            messageService.deleteMessages(receiverId, System.currentTimeMillis(), messages);
+
             List<Long> responseIds = response.getDeletedIds();
-            Set<Long> actualMessageToDelete = new HashSet<Long>();
             for ( Message msg : messages ) {
-                actualMessageToDelete.add(msg.getId());
                 responseIds.add(msg.getId());
             }
-
-            // will throw exception if we fail to delete those mes
-            messageService.deleteMessages(receiverId, actualMessageToDelete);
 
         } catch (Exception e) {
             log.warn("Fail!", e);

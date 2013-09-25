@@ -20,6 +20,7 @@
  */
 package se.skltp.messagebox.core.repository;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,8 +32,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import se.skltp.messagebox.core.ReceiverState;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
+import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -162,5 +165,22 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         assertEquals(0, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
 
+    }
+
+    @Test
+    public void testCurrentState() throws Exception {
+        Date time1 = new Date(System.currentTimeMillis() - 3600 * 1000);
+        Date time2 = new Date(System.currentTimeMillis() - 3600 * 1000 * 2);
+        Date time3 = new Date(System.currentTimeMillis() - 3600 * 1000 * 3);
+        String receivingSystem = "hsaId";
+        messageRepository.persist(new Message(receivingSystem, "orgId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, time1));
+        messageRepository.persist(new Message(receivingSystem, "orgId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, time3));
+        messageRepository.persist(new Message(receivingSystem, "orgId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, time2));
+
+        List<ReceiverState> receiverStates = messageRepository.getReceiverStatus();
+        assertEquals(1, receiverStates.size());
+        assertEquals(receivingSystem, receiverStates.get(0).getReceivingSystem());
+        assertEquals(3, receiverStates.get(0).getNumberOfMessages());
+        assertEquals(time3, receiverStates.get(0).getOldestMessage());
     }
 }

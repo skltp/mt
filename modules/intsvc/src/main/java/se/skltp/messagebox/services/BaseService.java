@@ -10,6 +10,7 @@ import javax.xml.ws.handler.MessageContext;
 import org.springframework.web.util.UriUtils;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
+import se.skltp.messagebox.core.service.StatisticService;
 
 /**
  * Base class for services
@@ -20,6 +21,7 @@ public class BaseService {
     // the name of the Http-Header for the callings system authentification id
     public static String HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
     protected MessageService messageService;
+    protected StatisticService statisticService;
     protected WebServiceContext wsContext;
 
     @Resource
@@ -30,6 +32,11 @@ public class BaseService {
     @Resource
     public void setMessageService(MessageService MessageService) {
         this.messageService = MessageService;
+    }
+
+    @Resource
+    public void setStatisticService(StatisticService statisticService) {
+        this.statisticService = statisticService;
     }
 
     /**
