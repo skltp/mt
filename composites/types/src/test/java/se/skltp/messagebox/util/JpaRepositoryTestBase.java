@@ -67,6 +67,16 @@ public abstract class JpaRepositoryTestBase extends AbstractTransactionalJUnit4S
        config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new HsqldbDataTypeFactory()); 
         // set auto commit to false to aviod the data to live over the test suite
         conn.getConnection().setAutoCommit(false);
+
+        onSetup2();
+    }
+
+    /**
+     * Hook called last from onSetup()
+     *
+     * @throws Exception
+     */
+    public void onSetup2() throws Exception {
     }
 
     /**

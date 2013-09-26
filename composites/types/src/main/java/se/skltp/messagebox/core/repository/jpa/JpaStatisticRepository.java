@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.repository.StatisticRepository;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
@@ -18,9 +19,9 @@ import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long> implements StatisticRepository {
 
     @Override
-    public void addDeliveries(String receiverId, long time, Map<String, Integer> deliveriesPerServiceContracts) {
+    public void addDeliveries(String receiverId, long deliveryTime, List<Message> messages) {
 
-        long canonicalDayTime = Statistic.convertToCanonicalDayTime(time);
+        long canonicalDayTime = Statistic.convertToCanonicalDayTime(deliveryTime);
 
         // prepare the existing stats into a per-serviceContract map
         Map<String, Statistic> existingMap = new HashMap<>();
@@ -35,16 +36,16 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
             assert stat == null;
         }
 
-        // add deliveryCount to either existing or new stats
-        for ( Map.Entry<String, Integer> entry : deliveriesPerServiceContracts.entrySet() ) {
-            String serviceContract = entry.getKey();
-            int count = entry.getValue();
+        for ( Message msg : messages ) {
+            assert receiverId.equals(msg.getReceiverId());
+            String serviceContract = msg.getServiceContract();
             Statistic stat = existingMap.get(serviceContract);
             if (stat == null) {
                 stat = new Statistic(receiverId,serviceContract, canonicalDayTime);
                 entityManager.persist(stat);
+                existingMap.put(serviceContract,stat);
             }
-            stat.addDeliveries(count);
+            stat.addDelivery(deliveryTime - msg.getArrived().getTime());
         }
     }
 

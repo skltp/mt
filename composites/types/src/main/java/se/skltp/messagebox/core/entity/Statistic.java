@@ -47,6 +47,12 @@ public class Statistic extends AbstractEntity<Long> {
     @Column(nullable = false)
     private int deliveryCount;
 
+    // total number of milliseconds that the messages have waited
+    private long totalWaitTimeMs;
+
+    // maximum time a message waited before being delivered
+    private long maxWaitTimeMs;
+
     protected Statistic() {
     }
 
@@ -86,8 +92,30 @@ public class Statistic extends AbstractEntity<Long> {
         return deliveryCount;
     }
 
-    public void addDeliveries(int count) {
-        deliveryCount += count;
+    /**
+     * One message has been delivered for this (receiver,sk,day) tuple, and it spent waitTimeMs waiting.
+     *
+     * @param waitTimeMs time between arrival and
+     */
+    public void addDelivery(long waitTimeMs) {
+        deliveryCount ++;
+        maxWaitTimeMs = Math.max(maxWaitTimeMs, waitTimeMs);
+        totalWaitTimeMs += waitTimeMs;
+    }
+
+    public long getAverageWaitTimeMs() {
+        if (deliveryCount == 0) {
+            return 0;
+        }
+        return totalWaitTimeMs / deliveryCount;
+    }
+
+    public long getTotalWaitTimeMs() {
+        return totalWaitTimeMs;
+    }
+
+    public long getMaxWaitTimeMs() {
+        return maxWaitTimeMs;
     }
 
     /**

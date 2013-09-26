@@ -30,7 +30,7 @@ import se.vgregion.dao.domain.patterns.repository.Repository;
 public interface MessageRepository extends Repository<Message, Long> {
 
     List<Message> getMessages(String systemId, Set<Long> ids);
-    
+
     List<Message> getMessages(String systemId);
 
     Long getNumOfMessagesForSystem(String careUnit);
@@ -39,6 +39,8 @@ public interface MessageRepository extends Repository<Message, Long> {
 
     /**
      * Get statistics for the current state of the receivers.
+     * <p/>
+     * A receiver which has no messages waiting to be delivered is not shown.
      *
      * @return an entry for each receiver which has messages waiting to be delivered
      */

@@ -21,7 +21,6 @@ public class BaseService {
     // the name of the Http-Header for the callings system authentification id
     public static String HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
     protected MessageService messageService;
-    protected StatisticService statisticService;
     protected WebServiceContext wsContext;
 
     @Resource
@@ -34,10 +33,6 @@ public class BaseService {
         this.messageService = MessageService;
     }
 
-    @Resource
-    public void setStatisticService(StatisticService statisticService) {
-        this.statisticService = statisticService;
-    }
 
     /**
      * Extract the hsa-id for the caller from the http-header.
@@ -88,8 +83,7 @@ public class BaseService {
         try {
             return UriUtils.encodeFragment(consumerHsaId, "utf-8");
         } catch (UnsupportedEncodingException e) {
-            // not reachable, tied to "utf-8"
-            throw new RuntimeException(e);
+            throw new RuntimeException(e);   // not reachable, tied to "utf-8"
         }
     }
 }

@@ -11,13 +11,19 @@ import se.skltp.messagebox.core.entity.Statistic;
 public interface StatisticService {
 
     /**
-     * Add the given messages as deliveres to the statistics tables.
+     * Add the given messages as deliveries to the statistics tables.
      *
-     * @param receiverId the reciver
-     * @param time       timestamp used
-     * @param messages   all messages delivered
+     * @param receiverId     the receiver
+     * @param deliveryTimeMs timestamp used
+     * @param messages       all messages delivered
      */
-    public void addDeliveriesToStatistics(String receiverId, long time, List<Message> messages);
+    public void addDeliveriesToStatistics(String receiverId, long deliveryTimeMs, List<Message> messages);
 
+    /**
+     * Get statistics for the day of the timestamp.
+     *
+     * @param timestamp used to find canonicalDayTime
+     * @return stats for the day
+     */
     List<Statistic> getStatisticsForDay(long timestamp);
 }
