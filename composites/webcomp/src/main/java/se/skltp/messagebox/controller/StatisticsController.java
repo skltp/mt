@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import se.skltp.messagebox.core.entity.Answer;
-import se.skltp.messagebox.core.service.AnswerService;
+import se.skltp.messagebox.core.entity.Statistic;
+import se.skltp.messagebox.core.service.StatisticService;
 
 @Controller
 @RequestMapping("/answers")
-public class AnswersController {
+public class StatisticsController {
 
     @Autowired
-    private AnswerService answerService;
+    private StatisticService statisticService;
 
-    private static final Logger log = LoggerFactory.getLogger(AnswersController.class);
+    private static final Logger log = LoggerFactory.getLogger(StatisticsController.class);
 
     /**
      * Shows all questions
@@ -29,13 +28,10 @@ public class AnswersController {
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ModelAndView index(@RequestParam(required = false) String careUnit) {
-        ModelAndView mav = new ModelAndView("answers/index");
+        ModelAndView mav = new ModelAndView("statistics/index");
 
-        List<Answer> answers = answerService.getAllAnswersForCareUnit(careUnit);
-        log.debug("Collection questions for careunit: {}, number of questions: {}.",
-                new Object[] { careUnit, answers.size() });
-        mav.addObject("careunit", careUnit);
-        mav.addObject("answers", answers);
+        List<Statistic> statistics = statisticService.getStatisticsForDay(System.currentTimeMillis());
+        mav.addObject("statistics", statistics);
 
         return mav;
     }
