@@ -20,7 +20,8 @@
  */
 package se.skltp.messagebox.core.service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

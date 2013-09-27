@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.core.ReceiverState;
+import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
@@ -69,7 +69,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.getMessages(receiverId);
+        List<Message> messages = messageRepository.listMessages(receiverId);
 
         assertEquals(1, messages.size());
     }
@@ -120,19 +120,6 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         assertEquals(first + 4, messages.get(4).getId().intValue());
     }
 
-    @Test
-    public void testGetNumOfMessages() throws Exception {
-        messageRepository.persist(new Message("hsaId", "orgId", "serviceContrakt", "webcall body"));
-        messageRepository.persist(new Message("hsaId", "orgId", "serviceContrakt", "webcall body"));
-        messageRepository.persist(new Message("hsaId", "orgId", "serviceContrakt", "webcall body"));
-
-        entityManager.flush();
-        entityManager.clear();
-        
-        long cnt = messageRepository.getNumOfMessagesForSystem("orgId");
-        
-        assertEquals(3, cnt);
-    }
 
     @Test
     public void testDelete() throws Exception {
@@ -172,15 +159,65 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         Date time1 = new Date(System.currentTimeMillis() - 3600 * 1000);
         Date time2 = new Date(System.currentTimeMillis() - 3600 * 1000 * 2);
         Date time3 = new Date(System.currentTimeMillis() - 3600 * 1000 * 3);
-        String receivingSystem = "hsaId";
-        messageRepository.persist(new Message(receivingSystem, "orgId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, time1));
-        messageRepository.persist(new Message(receivingSystem, "orgId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, time3));
-        messageRepository.persist(new Message(receivingSystem, "orgId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, time2));
+        String rec1 = "hsaId1";
+        String rec2 = "hsaId2";
+        String org1 = "org1";
+        String org2 = "org2";
+        String org3 = "org3";
+        String sc1 = "serviceContract1";
+        String sc2 = "serviceContract2";
 
-        List<ReceiverState> receiverStates = messageRepository.getReceiverStatus();
-        assertEquals(1, receiverStates.size());
-        assertEquals(receivingSystem, receiverStates.get(0).getReceivingSystem());
-        assertEquals(3, receiverStates.get(0).getNumberOfMessages());
-        assertEquals(time3, receiverStates.get(0).getOldestMessage());
+        messageRepository.persist(new Message(rec2, org2, sc1, "webcall body", MessageStatusType.RECEIVED, time2));
+        messageRepository.persist(new Message(rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time3));
+        messageRepository.persist(new Message(rec1, org1, sc2, "webcall body", MessageStatusType.RECEIVED, time2));
+        messageRepository.persist(new Message(rec2, org3, sc1, "webcall body", MessageStatusType.RECEIVED, time2));
+        messageRepository.persist(new Message(rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time1));
+        messageRepository.persist(new Message(rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time1));
+        messageRepository.persist(new Message(rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time3));
+
+        List<StatusReport> reports = messageRepository.getStatusReports();
+        assertEquals(5, reports.size());
+        // order is important, so we can compare directly
+
+        // 1/1/1, 2 msg, time3
+        StatusReport sr = reports.get(0);
+        assertEquals(rec1, sr.getReceiver());
+        assertEquals(org1, sr.getTargetOrganization());
+        assertEquals(sc1, sr.getServiceContract());
+        assertEquals(2, sr.getMessageCount());
+        assertEquals(time3, sr.getOldestMessageDate());
+
+        // 1/1/2, 1 msg, time2
+        sr = reports.get(1);
+        assertEquals(rec1, sr.getReceiver());
+        assertEquals(org1, sr.getTargetOrganization());
+        assertEquals(sc2, sr.getServiceContract());
+        assertEquals(1, sr.getMessageCount());
+        assertEquals(time2, sr.getOldestMessageDate());
+
+        // 2/2/1, 1 msg, time2
+        sr = reports.get(2);
+        assertEquals(rec2, sr.getReceiver());
+        assertEquals(org2, sr.getTargetOrganization());
+        assertEquals(sc1, sr.getServiceContract());
+        assertEquals(1, sr.getMessageCount());
+        assertEquals(time2, sr.getOldestMessageDate());
+
+        // 2/3/1, 1 msg, time2
+        sr = reports.get(3);
+        assertEquals(rec2, sr.getReceiver());
+        assertEquals(org3, sr.getTargetOrganization());
+        assertEquals(sc1, sr.getServiceContract());
+        assertEquals(1, sr.getMessageCount());
+        assertEquals(time2, sr.getOldestMessageDate());
+
+        // 2/3/2, 2 msg, time3
+        sr = reports.get(4);
+        assertEquals(rec2, sr.getReceiver());
+        assertEquals(org3, sr.getTargetOrganization());
+        assertEquals(sc2, sr.getServiceContract());
+        assertEquals(2, sr.getMessageCount());
+        assertEquals(time3, sr.getOldestMessageDate());
+
     }
 }

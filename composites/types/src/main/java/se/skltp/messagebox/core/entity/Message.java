@@ -47,7 +47,7 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 
 })
 @Entity()
-@Table(name="MESSAGE")
+@Table(name = "MESSAGE")
 public class Message extends AbstractEntity<Long> {
 
     @SuppressWarnings("unused")
@@ -86,10 +86,10 @@ public class Message extends AbstractEntity<Long> {
     // is actually stored (when reading, if smallMessageBody is null, then you have
     // to read the largeMessageBody)
     //
-    @Basic(fetch=FetchType.LAZY)
-    @Column(nullable = true)
-    @Lob
-    private String largeMessageBody;
+    //    @Basic(fetch = FetchType.LAZY)
+    //    @Column(nullable = true)
+    //    @Lob
+    //    private String largeMessageBody;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -103,7 +103,12 @@ public class Message extends AbstractEntity<Long> {
     }
 
     public Message(String receiverId, String targetOrganization, String serviceContract, String message) {
-        this(receiverId, targetOrganization, serviceContract, message, MessageStatusType.RECEIVED, new Date());
+        this(receiverId,
+                targetOrganization,
+                serviceContract,
+                message,
+                MessageStatusType.RECEIVED,
+                new Date(System.currentTimeMillis()));
     }
 
 

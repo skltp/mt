@@ -35,9 +35,13 @@ public class Statistic extends AbstractEntity<Long> {
     @Column(nullable = false)
     private Long canonicalDayTime;
 
-    // the hsaId for the target of this message; the calling system must authenticate using this id
+    // the hsaId for the receiver of this message; the calling system must authenticate using this id
     @Column(nullable = false)
     private String receiverId;
+
+    // the actual target org for a message; owned by the receiving system
+    @Column(nullable = false)
+    private String targetOrganization;
 
     // the service contract
     @Column(nullable = false)
@@ -59,12 +63,14 @@ public class Statistic extends AbstractEntity<Long> {
     /**
      * Construct a statistic entry for the (receiver, service contract, day) tuple
      *
-     * @param receiverId      receiving system id
-     * @param serviceContract service contract
-     * @param time            will be converted to canonical day time
+     * @param receiverId         receiving system id
+     * @param targetOrganization the target org of the message
+     * @param serviceContract    service contract
+     * @param time               will be converted to canonical day time
      */
-    public Statistic(String receiverId, String serviceContract, long time) {
+    public Statistic(String receiverId, String targetOrganization, String serviceContract, long time) {
         this.receiverId = receiverId;
+        this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.canonicalDayTime = convertToCanonicalDayTime(time);
         this.deliveryCount = 0;
@@ -98,17 +104,11 @@ public class Statistic extends AbstractEntity<Long> {
      * @param waitTimeMs time between arrival and
      */
     public void addDelivery(long waitTimeMs) {
-        deliveryCount ++;
+        deliveryCount++;
         maxWaitTimeMs = Math.max(maxWaitTimeMs, waitTimeMs);
         totalWaitTimeMs += waitTimeMs;
     }
 
-    public long getAverageWaitTimeMs() {
-        if (deliveryCount == 0) {
-            return 0;
-        }
-        return totalWaitTimeMs / deliveryCount;
-    }
 
     public long getTotalWaitTimeMs() {
         return totalWaitTimeMs;
@@ -118,6 +118,11 @@ public class Statistic extends AbstractEntity<Long> {
         return maxWaitTimeMs;
     }
 
+    public String getTargetOrganization() {
+        return targetOrganization;
+    }
+
+
     /**
      * Return the canonical day time for the day indicated by time.
      * <p/>
@@ -125,8 +130,8 @@ public class Statistic extends AbstractEntity<Long> {
      * <p/>
      * Strips out the ms/s/min/hour part of the time.
      *
-     * @param time
-     * @return
+     * @param time to convert
+     * @return the time stripped down to the start of the day
      */
     public static long convertToCanonicalDayTime(long time) {
         Calendar cal = Calendar.getInstance();

@@ -34,12 +34,6 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>8.1.12v20130726</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxws</artifactId>
                 <version>${cxf.version}</version>
@@ -109,6 +103,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+            	<groupId>org.springframework</groupId>
+            	<artifactId>spring-context-support</artifactId>
+            	<version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.webflow</groupId>
@@ -337,9 +336,9 @@
                     <version>2.16</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
+                    <groupId>org.eclipse.jetty</groupId>
                    	<artifactId>jetty-maven-plugin</artifactId>
-                   	<version>8.1.12.v20130726</version>
+                   	<version>9.1.0.M0</version>
                 </plugin>
                 <plugin>
                 	<groupId>org.apache.maven.plugins</groupId>

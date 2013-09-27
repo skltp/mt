@@ -23,16 +23,39 @@ package se.skltp.messagebox.core.service;
 import java.util.List;
 import java.util.Set;
 
+import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 public interface MessageService {
 
+    /**
+     * Get messages for delivery to the user.
+     * <p/>
+     * Will mark the messages as delivered.
+     *
+     * @param receiverId hsa-id for receiving system
+     * @param ids        to get
+     * @return list of messages with the given ids belonging to receiverId
+     *         (asking for ids not belonging to the receiverId will be silentrly ignored)
+     */
     List<Message> getMessages(String receiverId, Set<Long> ids);
 
-    List<Message> getAllMessages(String receiverId);
+    /**
+     * List messages available for the given receiver.
+     *
+     * @param receiverId hsa-id for reciving system.
+     * @return list of messages
+     */
+    List<Message> listMessages(String receiverId);
 
-    Long saveMessage(Message Message);
+    /**
+     * SaveOrPersist a message.
+     *
+     * @param message to persist
+     * @return id of message
+     */
+    Long saveMessage(Message message);
 
     /**
      * Delete all identified messages, returning how many were actually deleted.
@@ -52,4 +75,13 @@ public interface MessageService {
      */
     public String getOkResponseForServiceContract(String serviceContractType) throws InvalidServiceContractTypeException;
 
+
+    /**
+     * Get statistics for the current state of the receivers.
+     * <p/>
+     * A receiver which has no messages waiting to be delivered is not shown.
+     *
+     * @return an entry for each receiver which has messages waiting to be delivered
+     */
+    public List<StatusReport> getStatusReports();
 }

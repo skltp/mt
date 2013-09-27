@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.repository.StatisticRepository;
@@ -20,14 +21,16 @@ public class StatisticServiceImpl implements StatisticService {
     @Autowired
     private StatisticRepository statisticRepository;
 
+
     @Override
     public void addDeliveriesToStatistics(String receiverId, long deliveryTimeMs, List<Message> messages) {
         statisticRepository.addDeliveries(receiverId, deliveryTimeMs, messages);
     }
 
     @Override
-    public List<Statistic> getStatisticsForDay(long timestamp) {
-        long dayTime = Statistic.convertToCanonicalDayTime(timestamp);
-        return statisticRepository.getStatistics(dayTime, dayTime);
+    public List<Statistic> getStatisticsFor30Days(long timestamp) {
+        long startTime = timestamp - TimeDelta.MS_DAY * 30;
+        return statisticRepository.getStatistics(startTime, timestamp);
     }
+
 }

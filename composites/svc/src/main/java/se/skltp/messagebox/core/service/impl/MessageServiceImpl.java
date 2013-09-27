@@ -1,14 +1,12 @@
 package se.skltp.messagebox.core.service.impl;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.messagebox.core.service.MessageService;
@@ -26,7 +24,7 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      * The default answer given when a service contract is stored.
-     *
+     * <p/>
      * May be overriden by giving a response is specified in the properties file.
      */
     private static final String DEFAULT_SERVICE_CONTRACT_OK_RESPONSE = "<response>Ok</response>";
@@ -40,16 +38,24 @@ public class MessageServiceImpl implements MessageService {
     private Properties properties;
 
     public List<Message> getMessages(String receiverId, Set<Long> ids) {
-        return messageRepository.getMessages(receiverId, ids);
+        List<Message> messages = messageRepository.getMessages(receiverId, ids);
+
+        // mark the message as retrieved
+        for ( Message msg : messages ) {
+            msg.setStatusRetrieved();
+        }
+
+        return messages;
+
     }
 
     @Override
-    public List<Message> getAllMessages(String receiverId) {
-        return messageRepository.getMessages(receiverId);
+    public List<Message> listMessages(String receiverId) {
+        return messageRepository.listMessages(receiverId);
     }
 
     public Long saveMessage(Message message) {
-        Message result = messageRepository.persist(message);
+        Message result = messageRepository.store(message);
         return result.getId();
     }
 
@@ -59,7 +65,7 @@ public class MessageServiceImpl implements MessageService {
             ids.add(msg.getId());
         }
         int numDeleted = messageRepository.delete(receiverId, ids);
-        if (numDeleted != messages.size()) {
+        if ( numDeleted != messages.size() ) {
             throw new IllegalStateException("Unable to delete " + messages.size() + " ids, could only delete " + numDeleted + " ids!");
         }
         statisticService.addDeliveriesToStatistics(receiverId, timestamp, messages);
@@ -77,12 +83,19 @@ public class MessageServiceImpl implements MessageService {
             }
         }
         String result = properties.getProperty(serviceContractType);
-        if (result == null) {
+        if ( result == null ) {
             throw new InvalidServiceContractTypeException(serviceContractType);
         }
-        if (result.trim().length() == 0) {
+        if ( result.trim().length() == 0 ) {
             result = DEFAULT_SERVICE_CONTRACT_OK_RESPONSE;
         }
         return result;
     }
+
+
+    @Override
+    public List<StatusReport> getStatusReports() {
+        return messageRepository.getStatusReports();
+    }
+
 }

@@ -69,7 +69,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             }
             Set<String> targetOrgs = new HashSet<>(parameters.getTargetOrganizations());
 
-            List<Message> messages = messageService.getAllMessages(hsaId);
+            List<Message> messages = messageService.listMessages(hsaId);
 
             for ( Message msg : messages ) {
 

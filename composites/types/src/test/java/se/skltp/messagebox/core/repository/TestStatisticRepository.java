@@ -75,13 +75,11 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
         assertEquals(1, sc1.getDeliveryCount());
         assertEquals(100, sc1.getTotalWaitTimeMs());
         assertEquals(100, sc1.getMaxWaitTimeMs());
-        assertEquals(100, sc1.getAverageWaitTimeMs());
 
         assertEquals(sc2.getServiceContract(), "sc2");
         assertEquals(2, sc2.getDeliveryCount());
         assertEquals(300, sc2.getMaxWaitTimeMs());
         assertEquals(500, sc2.getTotalWaitTimeMs());
-        assertEquals(250, sc2.getAverageWaitTimeMs());
     }
 
 

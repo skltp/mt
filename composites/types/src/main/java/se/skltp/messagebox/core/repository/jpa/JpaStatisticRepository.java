@@ -18,32 +18,34 @@ import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 @Repository
 public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long> implements StatisticRepository {
 
+
+
     @Override
     public void addDeliveries(String receiverId, long deliveryTime, List<Message> messages) {
 
         long canonicalDayTime = Statistic.convertToCanonicalDayTime(deliveryTime);
 
-        // prepare the existing stats into a per-serviceContract map
-        Map<String, Statistic> existingMap = new HashMap<>();
+        // Load up all the existing stats objects.
         @SuppressWarnings("unchecked")
         List<Statistic> statsForDayAndReceiver = entityManager.createNamedQuery("Statistic.getForReceiverAndDayTime")
                 .setParameter("receiverId", receiverId)
                 .setParameter("time", canonicalDayTime)
                 .getResultList();
 
+        Map<Key, Statistic> statisticMap = new HashMap<>();
         for ( Statistic statistic : statsForDayAndReceiver ) {
-            Statistic stat = existingMap.put(statistic.getServiceContract(), statistic);
+            Statistic stat = statisticMap.put(new Key(statistic), statistic);
             assert stat == null;
         }
 
         for ( Message msg : messages ) {
             assert receiverId.equals(msg.getReceiverId());
-            String serviceContract = msg.getServiceContract();
-            Statistic stat = existingMap.get(serviceContract);
+            Key key = new Key(msg);
+            Statistic stat = statisticMap.get(key);
             if (stat == null) {
-                stat = new Statistic(receiverId,serviceContract, canonicalDayTime);
+                stat = new Statistic(receiverId, msg.getTargetOrganization(), msg.getServiceContract(), canonicalDayTime);
                 entityManager.persist(stat);
-                existingMap.put(serviceContract,stat);
+                statisticMap.put(key, stat);
             }
             stat.addDelivery(deliveryTime - msg.getArrived().getTime());
         }
@@ -59,5 +61,52 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
                 .setParameter("endTime", endTime)
                 .getResultList();
 
+    }
+
+    /**
+     * Key for finding out which statistic a message should use
+     */
+    private static class Key {
+        private String targetOrg;
+        private String serviceContract;
+
+         Key(Message msg) {
+            this.targetOrg = msg.getTargetOrganization();
+            this.serviceContract = msg.getServiceContract();
+        }
+
+         Key(Statistic stat) {
+             this.targetOrg = stat.getTargetOrganization();
+             this.serviceContract = stat.getServiceContract();
+         }
+
+        public String getTargetOrg() {
+            return targetOrg;
+        }
+
+        public String getServiceContract() {
+            return serviceContract;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if ( this == o ) return true;
+            if ( o == null || getClass() != o.getClass() ) return false;
+
+            Key key = (Key) o;
+
+            if ( serviceContract != null ? !serviceContract.equals(key.serviceContract) : key.serviceContract != null )
+                return false;
+            if ( targetOrg != null ? !targetOrg.equals(key.targetOrg) : key.targetOrg != null ) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = targetOrg != null ? targetOrg.hashCode() : 0;
+            result = 31 * result + (serviceContract != null ? serviceContract.hashCode() : 0);
+            return result;
+        }
     }
 }

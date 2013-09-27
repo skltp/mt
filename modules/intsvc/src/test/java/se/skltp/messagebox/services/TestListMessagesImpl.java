@@ -20,7 +20,6 @@
  */
 package se.skltp.messagebox.services;
 
-import java.sql.SQLException;
 import java.util.*;
 import javax.xml.ws.handler.MessageContext;
 
@@ -66,8 +65,8 @@ public class TestListMessagesImpl extends BaseTestImpl {
 
 
         // mock up the request
-        when(service.getAllMessages("hsaid1")).thenReturn(receiver1Messages);
-        when(service.getAllMessages("hsaid2")).thenReturn(receiver2Messages);
+        when(service.listMessages("hsaid1")).thenReturn(receiver1Messages);
+        when(service.listMessages("hsaid2")).thenReturn(receiver2Messages);
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
@@ -128,7 +127,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
 
         // mock up the request
         String errorMessage = "Faked exception";
-        when(service.getAllMessages("hsaid1")).thenThrow(new RuntimeException(errorMessage));
+        when(service.listMessages("hsaid1")).thenThrow(new RuntimeException(errorMessage));
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 

@@ -25,5 +25,5 @@ public interface StatisticService {
      * @param timestamp used to find canonicalDayTime
      * @return stats for the day
      */
-    List<Statistic> getStatisticsForDay(long timestamp);
+    List<Statistic> getStatisticsFor30Days(long timestamp);
 }

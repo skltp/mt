@@ -20,7 +20,9 @@
  */
 package se.skltp.messagebox.core.service;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,9 +32,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
+import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -62,12 +66,12 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         entityManager.clear();
 
         long timestamp = System.currentTimeMillis();
-        List<Statistic> stats = statisticService.getStatisticsForDay(timestamp);
+        List<Statistic> stats = statisticService.getStatisticsFor30Days(timestamp);
         assertEquals(0, stats.size());
 
         messageService.deleteMessages(receiverId, timestamp, Collections.singletonList(message));
 
-        stats = statisticService.getStatisticsForDay(timestamp);
+        stats = statisticService.getStatisticsFor30Days(timestamp);
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
         assertEquals(receiverId, s.getReceiverId());
@@ -77,41 +81,83 @@ public class TestStatisticService extends JpaRepositoryTestBase {
 
     @Test
     public void testDeliverTwoMessages() throws Exception {
+        Date now = new Date(System.currentTimeMillis());
         String receiverId = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
-        Message msg1 = new Message(receiverId, "targetOrg", serviceContract1, "messageBody");
-        Message msg2 = new Message(receiverId, "targetOrg", serviceContract2, "messageBody");
+        Message msg1 = new Message(receiverId, "targetOrg1", serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now);
+        Message msg2 = new Message(receiverId, "targetOrg1", serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now);
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
-
-        msg1.setStatusRetrieved(); // allow the messaged to be deleted
-        msg2.setStatusRetrieved(); // allow the messaged to be deleted
 
         entityManager.flush();
         entityManager.clear();
 
-        long timestamp = System.currentTimeMillis();
-        long timestampTooLongAgo = System.currentTimeMillis() - 2 * 24 * 3600 * 1000;
-        List<Statistic> stats = statisticService.getStatisticsForDay(timestamp);
+        long timestampTooLongAgo = now.getTime();
+        timestampTooLongAgo -= 40 * TimeDelta.MS_DAY;
+        List<Statistic> stats = statisticService.getStatisticsFor30Days(now.getTime());
         assertEquals(0, stats.size());
 
         messageService.deleteMessages(receiverId, timestampTooLongAgo, Collections.singletonList(msg1));
-        messageService.deleteMessages(receiverId, timestamp, Collections.singletonList(msg2));
+        messageService.deleteMessages(receiverId, now.getTime(), Collections.singletonList(msg2));
 
-        stats = statisticService.getStatisticsForDay(timestamp);
+        stats = statisticService.getStatisticsFor30Days(now.getTime());
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
         assertEquals(receiverId, s.getReceiverId());
         assertEquals(serviceContract2, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
 
-        stats = statisticService.getStatisticsForDay(timestampTooLongAgo);
+        stats = statisticService.getStatisticsFor30Days(timestampTooLongAgo);
         assertEquals(1, stats.size());
         s = stats.get(0);
         assertEquals(receiverId, s.getReceiverId());
         assertEquals(serviceContract1, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
+
+    }
+
+    @Test
+    public void testDeliverToTwoTargetOrgs() throws Exception {
+        Date now = new Date(System.currentTimeMillis());
+        String receiverId = "recId";
+        String serviceContract1 = "sc1";
+        String serviceContract2 = "sc2";
+        String targetOrg1 = "targetOrg1";
+        String targetOrg2 = "targetOrg2";
+
+        Message msg1 = new Message(receiverId, targetOrg1, serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now);
+        Message msg2 = new Message(receiverId, targetOrg2, serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now);
+        messageService.saveMessage(msg1);
+        messageService.saveMessage(msg2);
+
+        entityManager.flush();
+        entityManager.clear();
+
+        List<Statistic> stats = statisticService.getStatisticsFor30Days(now.getTime());
+        assertEquals(0, stats.size());
+
+        messageService.deleteMessages(receiverId, now.getTime(), Arrays.asList(msg1, msg2));
+
+        stats = statisticService.getStatisticsFor30Days(now.getTime());
+        assertEquals(2, stats.size());
+        Statistic s1 = stats.get(0);
+        Statistic s2 = stats.get(1);
+        if (s1.getServiceContract().equals(serviceContract2)) {
+            Statistic tmp = s1;
+            s1 = s2;
+            s2 = tmp;
+        }
+
+        assertEquals(receiverId, s1.getReceiverId());
+        assertEquals(targetOrg1, s1.getTargetOrganization());
+        assertEquals(serviceContract1, s1.getServiceContract());
+        assertEquals(1, s1.getDeliveryCount());
+
+        assertEquals(receiverId, s2.getReceiverId());
+        assertEquals(targetOrg2, s2.getTargetOrganization());
+        assertEquals(serviceContract2, s2.getServiceContract());
+        assertEquals(1, s2.getDeliveryCount());
 
     }
 }
