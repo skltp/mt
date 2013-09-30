@@ -45,7 +45,6 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:services-config.xml" })
 public abstract class JpaRepositoryTestBase extends AbstractTransactionalJUnit4SpringContextTests {
 
-    private static final Logger log = LoggerFactory.getLogger(JpaRepositoryTestBase.class);
 
     private IDatabaseConnection conn;
 
@@ -58,7 +57,6 @@ public abstract class JpaRepositoryTestBase extends AbstractTransactionalJUnit4S
      */
     @Before
     public final void onSetup() throws Exception {
-        log.debug("onSetup(): creating dbunit connection.");
         conn = new DatabaseDataSourceConnection(dataSource);
 
         DatabaseConfig config = conn.getConfig();
@@ -69,19 +67,6 @@ public abstract class JpaRepositoryTestBase extends AbstractTransactionalJUnit4S
         conn.getConnection().setAutoCommit(false);
     }
 
-    /**
-     * Returns the resource file, xml file with data for insert. 
-     * The file needs to be placed in the resource directory for test: src/test/resources/
-     * @param fileName	the file name
-     * @return {@link File}
-     * @throws Exception
-     */
-    public FlatXmlDataSet getXmlDataSet(String fileName) throws Exception {
-        File file = applicationContext.getResource(fileName).getFile();
-        @SuppressWarnings("deprecation")
-        FlatXmlDataSet xmlDataSet = new FlatXmlDataSet(new FileReader(file));
-        return xmlDataSet;
-    }
 
     /**
      * Returns a dbunit database connection that is not commit to the database.
@@ -99,6 +84,5 @@ public abstract class JpaRepositoryTestBase extends AbstractTransactionalJUnit4S
     @After
     public final void onTearDown() throws Exception {
         conn.getConnection().rollback();
-        log.debug("onTearDown(): rollback dbunit connection.");
     }
 }
