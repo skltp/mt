@@ -53,9 +53,10 @@
                     </systemProperties>
                 </configuration>
             </plugin>
-        </plugins>
-   </build>
 
+        </plugins>
+
+    </build>
 
     <dependencies>
 
@@ -81,16 +82,15 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
-
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-        </dependency>
-
         <dependency>
             <!-- Use the resource-loading servlet from Spring-JS -->
             <groupId>org.springframework.webflow</groupId>
             <artifactId>org.springframework.js</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
         </dependency>
 
         <dependency>
@@ -113,23 +113,7 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!-- No tests in this module -->
 
     </dependencies>
 

@@ -2,9 +2,9 @@ package se.skltp.messagebox.web.spec
 
 import geb.Browser
 import se.skltp.messagebox.web.pages.*
-import se.skltp.messagebox.web.pages.MainPage
-import se.skltp.messagebox.web.pages.HandleUsersPage
-import se.skltp.messagebox.web.pages.LoginPage
+import MainPage
+import HandleUsersPage
+import LoginPage
 
 public class HandleUsers {
 
