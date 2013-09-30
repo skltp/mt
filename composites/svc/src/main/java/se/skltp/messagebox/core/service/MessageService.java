@@ -25,7 +25,6 @@ import java.util.Set;
 
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 public interface MessageService {
 
@@ -65,15 +64,6 @@ public interface MessageService {
      * @param messages
      */
     void deleteMessages(String receiverId, long timestamp, List<Message> messages);
-
-    /**
-     * Return the xml-body for the response when this message is successfully stored.
-     *
-     * @param serviceContractType the service contract name space
-     * @return response-body to be used in the response
-     * @trhrows InvalidServiceContractTypeException if the service contract cannot be used in the message box
-     */
-    public String getOkResponseForServiceContract(String serviceContractType) throws InvalidServiceContractTypeException;
 
 
     /**

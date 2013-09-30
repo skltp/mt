@@ -35,12 +35,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static junit.framework.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -58,15 +56,13 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
 
         String targetOrg = "targetOrg-HsaId";
         String legalServiceContractType = "riv:etc,etc...";
-        String invalidServiceContractType = "invalid";
         String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
         String receiverId = "receivingOrgHsaId";
-        String replyBody = "OK";
+        String replyBody = "";
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
         when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
-        when(service.getOkResponseForServiceContract(legalServiceContractType)).thenReturn("<reply>" + replyBody + "</reply>");
 
         Source request = constructCall(targetOrg, legalServiceContractType, body);
 
@@ -91,36 +87,14 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         DOMResult result = sourceToDom(resultOfCall);
         Document document = (Document) result.getNode();
 
-        Node content = document.getElementsByTagName("reply").item(0);
-        assertEquals(replyBody, content.getTextContent());
-
+        // the answer must be an empty body
+        NodeList nodeList = document.getElementsByTagName("soapenv:Body");
+        assertEquals(1, nodeList.getLength());
+        Node node = nodeList.item(0);
+        assertEquals(0, node.getAttributes().getLength());
+        assertEquals("", node.getTextContent().trim());
     }
 
-    @Test
-    public void testIllegalServiceContract() throws Exception {
-        String targetOrg = "targetOrg-HsaId";
-        String invalidServiceContractType = "invalid";
-        String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
-        String receiverId = "receivingOrgHsaId";
-
-        when(wsContext.getMessageContext()).thenReturn(msgContext);
-        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
-        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
-
-        when(service.getOkResponseForServiceContract(invalidServiceContractType)).thenThrow(new InvalidServiceContractTypeException(invalidServiceContractType));
-        Source request = constructCall(targetOrg, invalidServiceContractType, body);
-
-        ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
-        impl.setMessageService(service);
-        impl.setWsContext(wsContext);
-
-        try {
-            Source resultOfCall = impl.invoke(request);
-            fail("Should get exception");
-        } catch (RuntimeException e) {
-        }
-        verify(service, never()).saveMessage((Message) any());
-    }
 
     @Test
     public void testIllegalXml() throws Exception {
@@ -133,7 +107,6 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
         when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
 
-        when(service.getOkResponseForServiceContract(legalServiceContractType)).thenReturn("<reply>Ok</reply>");
         Source request = constructCall(targetOrg, legalServiceContractType, illegalBody);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
@@ -159,7 +132,6 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
         when(servletRequest.getRequestURI()).thenReturn("/SomeoneRenamedMyEndpointReceiveMessage/" + receiverId);
 
-        when(service.getOkResponseForServiceContract(legalServiceContractType)).thenReturn("<reply>Ok</reply>");
         Source request = constructCall(targetOrg, legalServiceContractType, body);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();

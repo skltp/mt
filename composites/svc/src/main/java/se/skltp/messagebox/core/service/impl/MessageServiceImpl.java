@@ -1,6 +1,5 @@
 package se.skltp.messagebox.core.service.impl;
 
-import java.io.IOException;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.messagebox.core.service.StatisticService;
-import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 /**
  * Service implementation.
@@ -69,27 +67,6 @@ public class MessageServiceImpl implements MessageService {
             throw new IllegalStateException("Unable to delete " + messages.size() + " ids, could only delete " + numDeleted + " ids!");
         }
         statisticService.addDeliveriesToStatistics(receiverId, timestamp, messages);
-    }
-
-
-    @Override
-    public String getOkResponseForServiceContract(String serviceContractType) throws InvalidServiceContractTypeException {
-        if ( properties == null ) {
-            properties = new Properties();
-            try {
-                properties.load(getClass().getResourceAsStream("/serviceContracts.properties"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        String result = properties.getProperty(serviceContractType);
-        if ( result == null ) {
-            throw new InvalidServiceContractTypeException(serviceContractType);
-        }
-        if ( result.trim().length() == 0 ) {
-            result = DEFAULT_SERVICE_CONTRACT_OK_RESPONSE;
-        }
-        return result;
     }
 
 

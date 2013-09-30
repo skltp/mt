@@ -40,7 +40,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.messagebox.exception.InvalidServiceContractTypeException;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
 @WebServiceProvider(
@@ -70,19 +69,18 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
             String serviceContract = extractor.getServiceContract();
             String messageBody = extractor.getBody();
 
-            String okResponse = messageService.getOkResponseForServiceContract(serviceContract);
-
             Message message = new Message(receiverId, targetOrg, serviceContract, messageBody);
             messageService.saveMessage(message);
 
             log.info("Saved " + message);
 
-            return sendBody(okResponse);
+            // the response is ALWAYS completely empty - there is no way to communicate back to the
+            // originator in any way as they should not be aware that we exist.
+            String header = "";
+            String body = "";
+            return constructSoapResponse(header, body);
         } catch (TransformerException e) {
             // Fatal exception, should never happen - failed XML parsing?
-            throw new RuntimeException(e);
-        } catch (InvalidServiceContractTypeException e) {
-            // TODO: Should generate a SOAP Fault?
             throw new RuntimeException(e);
         }
     }
@@ -100,18 +98,13 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
         return uf8DecodeUri(encodedHsaId);
     }
 
-    private Source sendBody(String input) {
-        // TODO: manually(?) construct the required reply
-        String body = "<reply>" + input + "</reply>";
-        String header = "";
+    private Source constructSoapResponse(String header, String body) {
         String result =
                 "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" >" +
                         "\n  <soapenv:Header>" +
                         "\n    " + header +
                         "\n  </soapenv:Header>" +
-                        "\n  <soapenv:Body>" +
-                        "\n    " + body +
-                        "\n  </soapenv:Body>\n" +
+                        "\n  <soapenv:Body>" + body + "</soapenv:Body>\n" +
                         "</soapenv:Envelope>";
         return new StreamSource(new ByteArrayInputStream(result.getBytes()));
     }
