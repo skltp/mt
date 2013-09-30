@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.assertEquals;
 

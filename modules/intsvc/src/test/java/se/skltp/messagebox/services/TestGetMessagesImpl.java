@@ -26,11 +26,11 @@ import javax.xml.ws.handler.MessageContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
-import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesType;
-import se.skltp.messagebox.GetMessagesresponder.v1.ResponseType;
+import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
+import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesType;
+import se.riv.messagebox.GetMessagesresponder.v1.ResponseType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.when;

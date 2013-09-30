@@ -1,19 +1,17 @@
 package se.skltp.messagebox.services;
 
-import java.io.UnsupportedEncodingException;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.util.UriUtils;
-import se.skltp.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface;
-import se.skltp.messagebox.GenerateUrlresponder.v1.GenerateUrlResponseType;
-import se.skltp.messagebox.GenerateUrlresponder.v1.GenerateUrlType;
+import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface;
+import se.riv.messagebox.GenerateUrlresponder.v1.GenerateUrlResponseType;
+import se.riv.messagebox.GenerateUrlresponder.v1.GenerateUrlType;
 import se.skltp.messagebox.core.service.SystemPropertyService;
-import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 
 /**
  * @author mats.olsson@callistaenterprise.se
@@ -21,7 +19,7 @@ import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 
 
 @WebService(serviceName = "GenerateUrlResponderService",
-        endpointInterface = "se.skltp.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface",
+        endpointInterface = "se.riv.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface",
         portName = "GenerateUrlResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21",
         wsdlLocation = "schemas/interactions/GenerateUrlInteraction/GenerateUrlInteraction_1.0_rivtabp21.wsdl")

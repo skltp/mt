@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/!svn/ver/2626/Components/intyg-wiretap/trunk/src/main/resources/schemas/monitoring/interactions/PingForConfigurationInteraction
+END
+PingForConfigurationInteraction_1.0_RIVTABP21.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/!svn/ver/2626/Components/intyg-wiretap/trunk/src/main/resources/schemas/monitoring/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_RIVTABP21.wsdl
+END
+PingForConfigurationInteraction_1.0_RIVTABP20.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/!svn/ver/2626/Components/intyg-wiretap/trunk/src/main/resources/schemas/monitoring/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_RIVTABP20.wsdl
+END
+PingForConfigurationResponder_1.0.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/!svn/ver/2626/Components/intyg-wiretap/trunk/src/main/resources/schemas/monitoring/interactions/PingForConfigurationInteraction/PingForConfigurationResponder_1.0.xsd
+END

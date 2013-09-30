@@ -36,7 +36,7 @@ import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static junit.framework.Assert.assertEquals;
 

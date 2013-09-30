@@ -26,10 +26,10 @@ import javax.xml.ws.handler.MessageContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.skltp.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
-import se.skltp.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
+import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
+import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;

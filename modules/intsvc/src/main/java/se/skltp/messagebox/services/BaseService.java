@@ -10,7 +10,6 @@ import javax.xml.ws.handler.MessageContext;
 import org.springframework.web.util.UriUtils;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.MessageService;
-import se.skltp.messagebox.core.service.StatisticService;
 
 /**
  * Base class for services

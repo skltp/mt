@@ -23,7 +23,7 @@ package se.skltp.messagebox.core.entity;
 import java.util.Date;
 import javax.persistence.*;
 
-import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 
 /**

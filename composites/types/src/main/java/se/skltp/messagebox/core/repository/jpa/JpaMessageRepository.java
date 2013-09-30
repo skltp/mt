@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
-import se.skltp.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository

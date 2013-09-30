@@ -27,15 +27,15 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.skltp.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface;
-import se.skltp.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
-import se.skltp.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
+import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface;
+import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
+import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.riv.itintegration.messagebox.v1.ResultType;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
-        endpointInterface = "se.skltp.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface",
+        endpointInterface = "se.riv.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface",
         portName = "DeleteMessagesResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/DeleteMessagesInteraction/DeleteMessagesInteraction_1.0_rivtabp21.wsdl")

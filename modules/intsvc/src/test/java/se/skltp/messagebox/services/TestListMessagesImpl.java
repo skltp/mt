@@ -26,12 +26,12 @@ import javax.xml.ws.handler.MessageContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
-import se.skltp.messagebox.ListMessagesresponder.v1.ListMessagesType;
+import se.riv.itintegration.messagebox.v1.MessageMetaType;
+import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.itintegration.registry.v1.ServiceContractType;
+import se.riv.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
+import se.riv.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.riv.itintegration.messagebox.v1.MessageMetaType;
-import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;

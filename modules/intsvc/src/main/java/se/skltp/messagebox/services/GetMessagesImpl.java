@@ -27,17 +27,17 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.skltp.messagebox.GetMessages.v1.rivtabp21.GetMessagesResponderInterface;
-import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
-import se.skltp.messagebox.GetMessagesresponder.v1.GetMessagesType;
-import se.skltp.messagebox.GetMessagesresponder.v1.ResponseType;
+import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.itintegration.registry.v1.ServiceContractType;
+import se.riv.messagebox.GetMessages.v1.rivtabp21.GetMessagesResponderInterface;
+import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
+import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesType;
+import se.riv.messagebox.GetMessagesresponder.v1.ResponseType;
 import se.skltp.messagebox.core.entity.Message;
-import se.skltp.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.riv.itintegration.messagebox.v1.ResultType;
-import se.skltp.riv.itintegration.registry.v1.ServiceContractType;
 
 @WebService(serviceName = "GetMessagesResponderService",
-        endpointInterface = "se.skltp.messagebox.GetMessages.v1.rivtabp21.GetMessagesResponderInterface",
+        endpointInterface = "se.riv.messagebox.GetMessages.v1.rivtabp21.GetMessagesResponderInterface",
         portName = "GetMessagesResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/GetMessagesInteraction/GetMessagesInteraction_1.0_rivtabp21.wsdl")
