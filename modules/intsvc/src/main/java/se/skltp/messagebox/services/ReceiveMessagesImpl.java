@@ -59,6 +59,8 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
     public Source invoke(Source request) {
         try {
             String receiverId = extractReceivingHsaId();
+            String sourceId = extractCallerIdFromRequest();
+            String correlationId = extractCorrelationIdFromRequest();
 
             // parse the whole request in a SAXParser
             Transformer trans = TransformerFactory.newInstance().newTransformer();
@@ -69,7 +71,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
             String serviceContract = extractor.getServiceContract();
             String messageBody = extractor.getBody();
 
-            Message message = new Message(receiverId, targetOrg, serviceContract, messageBody);
+            Message message = new Message(sourceId, receiverId, targetOrg, serviceContract, messageBody, correlationId);
             messageService.saveMessage(message);
 
             log.info("Saved " + message);

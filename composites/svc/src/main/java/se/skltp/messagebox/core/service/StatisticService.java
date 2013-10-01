@@ -20,10 +20,11 @@ public interface StatisticService {
     public void addDeliveriesToStatistics(String receiverId, long deliveryTimeMs, List<Message> messages);
 
     /**
-     * Get statistics for the day of the timestamp.
+     * Get statistics for the days which contains the given start/end times.
      *
-     * @param timestamp used to find canonicalDayTime
-     * @return stats for the day
+     * @param start start time
+     * @param end end time
+     * @return stats for the slice of days
      */
-    List<Statistic> getStatisticsFor30Days(long timestamp);
+    List<Statistic> getStatisticsForTimeSlice(long start, long end);
 }

@@ -40,7 +40,7 @@ public interface MessageRepository extends Repository<Message, Long> {
      * <p/>
      * A receiver which has no messages waiting to be delivered is not shown.
      *
-     * @return an entry for each receiver which has messages waiting to be delivered
+     * @return an ordered list of entries for each (receiver, targetOrg, serviceContract) which has messages waiting to be delivered
      */
     public List<StatusReport> getStatusReports();
 

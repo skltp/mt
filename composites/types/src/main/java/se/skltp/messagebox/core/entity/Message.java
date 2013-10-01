@@ -57,7 +57,14 @@ public class Message extends AbstractEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // the hsaId for the target of this message; the calling system must authenticate using this id
+    // The hsaId for the source system of this message; used for error tracking/logging.
+    private String sourceId;
+
+    // The correlation id (VP message id) of the received message. Also only used for error tracking/logging
+    private String businessCorrelationId;
+
+
+    // the hsaId for the target system of this message; the calling system must authenticate using this id
     @Column(nullable = false)
     private String receiverId;
 
@@ -102,21 +109,26 @@ public class Message extends AbstractEntity<Long> {
     protected Message() {
     }
 
-    public Message(String receiverId, String targetOrganization, String serviceContract, String message) {
-        this(receiverId,
+    public Message(String sourceId, String receiverId, String targetOrganization, String serviceContract, String message, String correlationId) {
+        this(sourceId,
+                receiverId,
                 targetOrganization,
                 serviceContract,
                 message,
                 MessageStatusType.RECEIVED,
-                new Date(System.currentTimeMillis()));
+                new Date(System.currentTimeMillis()),
+                correlationId);
     }
 
 
-    public Message(String receiverId, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived) {
+    public Message(String sourceId, String receiverId, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived, String correlationId) {
+        this.sourceId = sourceId;
+        this.businessCorrelationId = correlationId;
         this.receiverId = receiverId;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.messageBody = messageBody;
+        this.messageBodySize = messageBody.length();
         this.status = status;
         this.arrived = arrived;
     }
@@ -147,6 +159,18 @@ public class Message extends AbstractEntity<Long> {
 
     public String getServiceContract() {
         return serviceContract;
+    }
+
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public String getBusinessCorrelationId() {
+        return businessCorrelationId;
+    }
+
+    public long getMessageBodySize() {
+        return messageBodySize;
     }
 
     /**

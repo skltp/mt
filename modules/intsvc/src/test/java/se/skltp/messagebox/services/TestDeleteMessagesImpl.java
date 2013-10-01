@@ -26,9 +26,9 @@ import javax.xml.ws.handler.MessageContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
+import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
-import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 
 import static junit.framework.Assert.assertEquals;
@@ -59,16 +59,16 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
         Set<Long> failEntry = new HashSet<>(Arrays.asList(99L));
 
         // mock up the request
-        when(service.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
-        when(service.getMessages("hsaid1", middleEntry)).thenReturn(receiver1Messages.subList(1, 2));
-        when(service.getMessages("hsaid1", remNonExEntry)).thenReturn(receiver1Messages.subList(1, 2));
-        when(service.getMessages("hsaid1", failEntry)).thenThrow(new IllegalStateException("fail"));
+        when(messageService.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
+        when(messageService.getMessages("hsaid1", middleEntry)).thenReturn(receiver1Messages.subList(1, 2));
+        when(messageService.getMessages("hsaid1", remNonExEntry)).thenReturn(receiver1Messages.subList(1, 2));
+        when(messageService.getMessages("hsaid1", failEntry)).thenThrow(new IllegalStateException("fail"));
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
         DeleteMessagesImpl impl = new DeleteMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
         DeleteMessagesType params = new DeleteMessagesType();
 

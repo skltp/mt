@@ -27,13 +27,13 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
 import se.riv.itintegration.registry.v1.ServiceContractType;
-import se.riv.messagebox.GetMessages.v1.rivtabp21.GetMessagesResponderInterface;
-import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
-import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesType;
-import se.riv.messagebox.GetMessagesresponder.v1.ResponseType;
 import se.skltp.messagebox.core.entity.Message;
 
 @WebService(serviceName = "GetMessagesResponderService",

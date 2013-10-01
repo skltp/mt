@@ -67,13 +67,13 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         Source request = constructCall(targetOrg, legalServiceContractType, body);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
 
         Source resultOfCall = impl.invoke(request);
 
         ArgumentCaptor<Message> msgArgument = ArgumentCaptor.forClass(Message.class);
-        verify(service).saveMessage(msgArgument.capture());
+        verify(messageService).saveMessage(msgArgument.capture());
 
         Message msg = msgArgument.getValue();
         assertEquals(receiverId, msg.getReceiverId());
@@ -110,7 +110,7 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         Source request = constructCall(targetOrg, legalServiceContractType, illegalBody);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
 
         try {
@@ -118,7 +118,7 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
             fail("Should get exception");
         } catch (RuntimeException e) {
         }
-        verify(service, never()).saveMessage((Message) any());
+        verify(messageService, never()).saveMessage((Message) any());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         Source request = constructCall(targetOrg, legalServiceContractType, body);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
 
         try {
@@ -144,7 +144,7 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         } catch (RuntimeException e) {
             assertTrue(e.getMessage().startsWith("Unable to find my own"));
         }
-        verify(service, never()).saveMessage((Message) any());
+        verify(messageService, never()).saveMessage((Message) any());
     }
     private DOMResult sourceToDom(Source resultOfCall) throws TransformerException {
         DOMResult result = new DOMResult();

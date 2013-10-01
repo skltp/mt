@@ -61,7 +61,7 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21=se.riv.messagebox.ListMessages.v1.rivtabp21
+                                            urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21=se.riv.itintegration.messagebox.ListMessages.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -80,7 +80,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:ListMessagesResponder:1=se.riv.messagebox.ListMessagesresponder.v1
+                                            urn:riv:itintegration:messagebox:ListMessagesResponder:1=se.riv.itintegration.messagebox.ListMessagesResponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -99,7 +99,7 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21=se.riv.messagebox.GetMessages.v1.rivtabp21
+                                            urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21=se.riv.itintegration.messagebox.GetMessages.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -118,7 +118,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:GetMessagesResponder:1=se.riv.messagebox.GetMessagesresponder.v1
+                                            urn:riv:itintegration:messagebox:GetMessagesResponder:1=se.riv.itintegration.messagebox.GetMessagesResponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -137,7 +137,7 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21=se.riv.messagebox.DeleteMessages.v1.rivtabp21
+                                            urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21=se.riv.itintegration.messagebox.DeleteMessages.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -156,7 +156,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:DeleteMessagesResponder:1=se.riv.messagebox.DeleteMessagesresponder.v1
+                                            urn:riv:itintegration:messagebox:DeleteMessagesResponder:1=se.riv.itintegration.messagebox.DeleteMessagesResponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -175,7 +175,7 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21=se.riv.messagebox.GenerateUrl.v1.rivtabp21
+                                            urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21=se.riv.itintegration.messagebox.GenerateUrl.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -194,7 +194,7 @@
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:GenerateUrlResponder:1=se.riv.messagebox.GenerateUrlresponder.v1
+                                            urn:riv:itintegration:messagebox:GenerateUrlResponder:1=se.riv.itintegration.messagebox.GenerateUrlResponder.v1
                                         </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>
@@ -213,17 +213,24 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:monitoring:PingForConfiguration:1:rivtabp21=se.riv.itintegration.monitoring.v1
+                                            urn:riv:itintegration:monitoring:PingForConfiguration:1:rivtabp21=se.riv.itintegration.monitoring.PingForConfiguration.v1
+                                        </extraarg>
+
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>
+                                            urn:riv:itintegration:monitoring:1=se.riv.itintegration.monitoring.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
                                             urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1
                                         </extraarg>
+
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:monitoring:PingForConfigurationResponder:1=se.riv.itintegration.monitoring.v1
+                                            urn:riv:itintegration:monitoring:PingForConfigurationResponder:1=se.riv.itintegration.monitoring.PingForConfigurationResponder.v1
                                         </extraarg>
+
                                         <extraarg>-p</extraarg>
                                         <extraarg>
                                             http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10

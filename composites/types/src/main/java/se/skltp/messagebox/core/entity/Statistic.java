@@ -14,7 +14,9 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
         @NamedQuery(name = "Statistic.getForReceiverAndDayTime",
                 query = "select s from Statistic s where s.receiverId = :receiverId and s.canonicalDayTime = :time"),
         @NamedQuery(name = "Statistic.getForTimeSlice",
-                query = "select s from Statistic s where s.canonicalDayTime >= :startTime and s.canonicalDayTime <= :endTime")
+                query = "select s from Statistic s "
+                + "where s.canonicalDayTime >= :startTime and s.canonicalDayTime <= :endTime "
+                + "order by s.receiverId, s.targetOrganization, s.serviceContract, s.canonicalDayTime")
 
 })
 @Entity

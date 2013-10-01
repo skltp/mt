@@ -24,9 +24,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import se.riv.itintegration.messagebox.GenerateUrlResponder.v1.GenerateUrlResponseType;
+import se.riv.itintegration.messagebox.GenerateUrlResponder.v1.GenerateUrlType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.messagebox.GenerateUrlresponder.v1.GenerateUrlResponseType;
-import se.riv.messagebox.GenerateUrlresponder.v1.GenerateUrlType;
 import se.skltp.messagebox.core.entity.SystemProperty;
 import se.skltp.messagebox.core.service.SystemPropertyService;
 

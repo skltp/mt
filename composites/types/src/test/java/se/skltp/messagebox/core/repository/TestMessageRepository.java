@@ -51,7 +51,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testPersist() throws Exception {
-        Message message = new Message("hsaId", "orgId", "serviceContrakt", "webcall body");
+        Message message = new Message("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body", "correlationId");
         messageRepository.persist(message);
 
         entityManager.flush();
@@ -63,7 +63,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testFindByReceiver() throws Exception {
         String receiverId = "receivers Hsa-Id";
-        Message message = new Message(receiverId, "orgId", "serviceContrakt", "webcall body");
+        Message message = new Message("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
         messageRepository.persist(message);
 
         entityManager.flush();
@@ -78,7 +78,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testFindByReceiverAndId() throws Exception {
         Set<Long> ids = new HashSet<>();
         String receiverId = "receivers Hsa-Id";
-        Message message = new Message(receiverId, "orgId", "serviceContrakt", "webcall body");
+        Message message = new Message("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
         messageRepository.persist(message);
         ids.add(message.getId());
 
@@ -103,7 +103,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testOrder() throws Exception {
         Set<Long> ids = new HashSet<>();
         for(int i = 0 ; i < 5 ; i++) {
-            Message message = new Message("hsaId", "org-1", "serviceContract", "webcallcontent");
+            Message message = new Message("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent", "correlationId");
             entityManager.persist(message);
             ids.add(message.getId());
         }
@@ -124,7 +124,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testDelete() throws Exception {
         String systemId = "hsaId";
-        Message message = new Message(systemId, "orgId", "serviceContrakt", "webcall body");
+        Message message = new Message("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", "correlationId");
         messageRepository.persist(message);
 
         entityManager.flush();
@@ -167,13 +167,13 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         String sc1 = "serviceContract1";
         String sc2 = "serviceContract2";
 
-        messageRepository.persist(new Message(rec2, org2, sc1, "webcall body", MessageStatusType.RECEIVED, time2));
-        messageRepository.persist(new Message(rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time3));
-        messageRepository.persist(new Message(rec1, org1, sc2, "webcall body", MessageStatusType.RECEIVED, time2));
-        messageRepository.persist(new Message(rec2, org3, sc1, "webcall body", MessageStatusType.RECEIVED, time2));
-        messageRepository.persist(new Message(rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time1));
-        messageRepository.persist(new Message(rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time1));
-        messageRepository.persist(new Message(rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time3));
+        messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatusType.RECEIVED, time2, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time3, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc2, "webcall body", MessageStatusType.RECEIVED, time2, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc1, "webcall body", MessageStatusType.RECEIVED, time2, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time1, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time1, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time3, "correlationId"));
 
         List<StatusReport> reports = messageRepository.getStatusReports();
         assertEquals(5, reports.size());
@@ -181,7 +181,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 1/1/1, 2 msg, time3
         StatusReport sr = reports.get(0);
-        assertEquals(rec1, sr.getReceiver());
+        assertEquals(rec1, sr.getReceiverId());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());
@@ -189,7 +189,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 1/1/2, 1 msg, time2
         sr = reports.get(1);
-        assertEquals(rec1, sr.getReceiver());
+        assertEquals(rec1, sr.getReceiverId());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -197,7 +197,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 2/2/1, 1 msg, time2
         sr = reports.get(2);
-        assertEquals(rec2, sr.getReceiver());
+        assertEquals(rec2, sr.getReceiverId());
         assertEquals(org2, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -205,7 +205,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 2/3/1, 1 msg, time2
         sr = reports.get(3);
-        assertEquals(rec2, sr.getReceiver());
+        assertEquals(rec2, sr.getReceiverId());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -213,7 +213,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 2/3/2, 2 msg, time3
         sr = reports.get(4);
-        assertEquals(rec2, sr.getReceiver());
+        assertEquals(rec2, sr.getReceiverId());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());

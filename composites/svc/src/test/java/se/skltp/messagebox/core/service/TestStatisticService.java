@@ -51,12 +51,13 @@ public class TestStatisticService extends JpaRepositoryTestBase {
 
     @Autowired
     MessageService messageService;
+    private long thirtyDays = 30 * 24 * 3600 * 1000L;
 
     @Test
     public void testDeliverOneMessage() throws Exception {
         String receiverId = "recId";
         String serviceContract = "sc1";
-        Message message = new Message(receiverId, "targetOrg", serviceContract, "messageBody");
+        Message message = new Message("sourceId", receiverId, "targetOrg", serviceContract, "messageBody", "correlationId");
         messageService.saveMessage(message);
 
         message.setStatusRetrieved(); // allow the messaged to be deleted
@@ -65,12 +66,13 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         entityManager.clear();
 
         long timestamp = System.currentTimeMillis();
-        List<Statistic> stats = statisticService.getStatisticsFor30Days(timestamp);
+
+        List<Statistic> stats = statisticService.getStatisticsForTimeSlice(timestamp - thirtyDays, timestamp);
         assertEquals(0, stats.size());
 
         messageService.deleteMessages(receiverId, timestamp, Collections.singletonList(message));
 
-        stats = statisticService.getStatisticsFor30Days(timestamp);
+        stats = statisticService.getStatisticsForTimeSlice(timestamp - thirtyDays, timestamp);
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
         assertEquals(receiverId, s.getReceiverId());
@@ -84,8 +86,8 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         String receiverId = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
-        Message msg1 = new Message(receiverId, "targetOrg1", serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now);
-        Message msg2 = new Message(receiverId, "targetOrg1", serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now);
+        Message msg1 = new Message("sourceId", receiverId, "targetOrg1", serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg2 = new Message("sourceId", receiverId, "targetOrg1", serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 
@@ -95,20 +97,20 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         long timestampTooLongAgo = now.getTime();
         long fourtyDays = 40 * 24 * 3600 * 1000L;
         timestampTooLongAgo -= fourtyDays;
-        List<Statistic> stats = statisticService.getStatisticsFor30Days(now.getTime());
+        List<Statistic> stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(0, stats.size());
 
         messageService.deleteMessages(receiverId, timestampTooLongAgo, Collections.singletonList(msg1));
         messageService.deleteMessages(receiverId, now.getTime(), Collections.singletonList(msg2));
 
-        stats = statisticService.getStatisticsFor30Days(now.getTime());
+        stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
         assertEquals(receiverId, s.getReceiverId());
         assertEquals(serviceContract2, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
 
-        stats = statisticService.getStatisticsFor30Days(timestampTooLongAgo);
+        stats = statisticService.getStatisticsForTimeSlice(timestampTooLongAgo - thirtyDays, timestampTooLongAgo);
         assertEquals(1, stats.size());
         s = stats.get(0);
         assertEquals(receiverId, s.getReceiverId());
@@ -126,20 +128,20 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         String targetOrg1 = "targetOrg1";
         String targetOrg2 = "targetOrg2";
 
-        Message msg1 = new Message(receiverId, targetOrg1, serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now);
-        Message msg2 = new Message(receiverId, targetOrg2, serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now);
+        Message msg1 = new Message("sourceId", receiverId, targetOrg1, serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg2 = new Message("sourceId", receiverId, targetOrg2, serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 
         entityManager.flush();
         entityManager.clear();
 
-        List<Statistic> stats = statisticService.getStatisticsFor30Days(now.getTime());
+        List<Statistic> stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(0, stats.size());
 
         messageService.deleteMessages(receiverId, now.getTime(), Arrays.asList(msg1, msg2));
 
-        stats = statisticService.getStatisticsFor30Days(now.getTime());
+        stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(2, stats.size());
         Statistic s1 = stats.get(0);
         Statistic s2 = stats.get(1);

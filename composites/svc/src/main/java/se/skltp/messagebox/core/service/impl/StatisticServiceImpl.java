@@ -27,9 +27,8 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public List<Statistic> getStatisticsFor30Days(long timestamp) {
-        long thirtyDays = 30 * 24 * 3600 * 1000L;
-        return statisticRepository.getStatistics(timestamp - thirtyDays, timestamp);
+    public List<Statistic> getStatisticsForTimeSlice(long startOfSlice, long endOfSlice) {
+        return statisticRepository.getStatistics(startOfSlice, endOfSlice);
     }
 
 }

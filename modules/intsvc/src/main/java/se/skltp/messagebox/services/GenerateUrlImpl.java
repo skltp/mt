@@ -6,18 +6,16 @@ import javax.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import se.riv.itintegration.messagebox.GenerateUrl.v1.GenerateUrlResponderInterface;
+import se.riv.itintegration.messagebox.GenerateUrlResponder.v1.GenerateUrlResponseType;
+import se.riv.itintegration.messagebox.GenerateUrlResponder.v1.GenerateUrlType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
-import se.riv.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface;
-import se.riv.messagebox.GenerateUrlresponder.v1.GenerateUrlResponseType;
-import se.riv.messagebox.GenerateUrlresponder.v1.GenerateUrlType;
 import se.skltp.messagebox.core.service.SystemPropertyService;
 
 /**
  * @author mats.olsson@callistaenterprise.se
  */
-
-
 @WebService(serviceName = "GenerateUrlResponderService",
         endpointInterface = "se.riv.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface",
         portName = "GenerateUrlResponderPort",

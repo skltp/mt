@@ -26,11 +26,11 @@ import javax.xml.ws.handler.MessageContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
+import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
 import se.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.registry.v1.ServiceContractType;
-import se.riv.messagebox.ListMessagesresponder.v1.ListMessagesResponseType;
-import se.riv.messagebox.ListMessagesresponder.v1.ListMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 
 import static junit.framework.Assert.assertEquals;
@@ -65,13 +65,13 @@ public class TestListMessagesImpl extends BaseTestImpl {
 
 
         // mock up the request
-        when(service.listMessages("hsaid1")).thenReturn(receiver1Messages);
-        when(service.listMessages("hsaid2")).thenReturn(receiver2Messages);
+        when(messageService.listMessages("hsaid1")).thenReturn(receiver1Messages);
+        when(messageService.listMessages("hsaid2")).thenReturn(receiver2Messages);
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
         ListMessagesImpl impl = new ListMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
         ListMessagesType params = new ListMessagesType();
 
@@ -127,12 +127,12 @@ public class TestListMessagesImpl extends BaseTestImpl {
 
         // mock up the request
         String errorMessage = "Faked exception";
-        when(service.listMessages("hsaid1")).thenThrow(new RuntimeException(errorMessage));
+        when(messageService.listMessages("hsaid1")).thenThrow(new RuntimeException(errorMessage));
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
         ListMessagesImpl impl = new ListMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
         ListMessagesType params = new ListMessagesType();
 

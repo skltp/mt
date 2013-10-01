@@ -1,4 +1,4 @@
-package se.skltp.messagebox.controller;
+package se.skltp.messagebox;
 
 /**
  * Describes a time delta.

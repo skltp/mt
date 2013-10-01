@@ -26,10 +26,10 @@ import javax.xml.ws.handler.MessageContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesResponseType;
-import se.riv.messagebox.GetMessagesresponder.v1.GetMessagesType;
-import se.riv.messagebox.GetMessagesresponder.v1.ResponseType;
 import se.skltp.messagebox.core.entity.Message;
 
 import static junit.framework.Assert.*;
@@ -58,13 +58,13 @@ public class TestGetMessagesImpl extends BaseTestImpl {
         Set<Long> middleEntry = new HashSet<>(Arrays.asList(1L));
 
         // mock up the request
-        when(service.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
-        when(service.getMessages("hsaid1", middleEntry)).thenReturn(receiver1Messages.subList(1, 2));
+        when(messageService.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
+        when(messageService.getMessages("hsaid1", middleEntry)).thenReturn(receiver1Messages.subList(1, 2));
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
         GetMessagesImpl impl = new GetMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
         GetMessagesType params = new GetMessagesType();
 
@@ -92,12 +92,12 @@ public class TestGetMessagesImpl extends BaseTestImpl {
 
         // mock up the request
         String errorMessage = "failed";
-        when(service.getMessages("hsaid1", allEntries)).thenThrow(new RuntimeException(errorMessage));
+        when(messageService.getMessages("hsaid1", allEntries)).thenThrow(new RuntimeException(errorMessage));
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
         GetMessagesImpl impl = new GetMessagesImpl();
-        impl.setMessageService(service);
+        impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
         GetMessagesType params = new GetMessagesType();
 

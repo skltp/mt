@@ -124,7 +124,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
 
         for ( int i = 0; i < 20; i++ ) {
             long deliTime = deliveryTime - MS_DAY * i;
-            messages.add(new Message("rec1", "targetOrg", "sk1", "body", MessageStatusType.RECEIVED, new Date(deliTime - 100)));
+            messages.add(new Message("sourceId", "rec1", "targetOrg", "sk1", "body", MessageStatusType.RECEIVED, new Date(deliTime - 100), "correlationId"));
             statisticRepository.addDeliveries("rec1", deliTime, messages);
         }
 
@@ -147,7 +147,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
     }
 
     private Message createMsg(String receiverId, String serviceContract, long deltaTime) {
-        return new Message(receiverId, "targetOrg", serviceContract, "body", MessageStatusType.RECEIVED, new Date(deliveryTime - deltaTime));
+        return new Message("sourceId", receiverId, "targetOrg", serviceContract, "body", MessageStatusType.RECEIVED, new Date(deliveryTime - deltaTime), "correlationId");
     }
 
 

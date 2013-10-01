@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.service.MessageService;
 
@@ -39,7 +40,7 @@ public class MainController {
         StatusReportView orgRep = null;
         List<StatusReportView> results = new ArrayList<>();
         for ( StatusReport r : reports ) {
-            if ( recRep == null || !r.getReceiver().equals(recRep.getReceiver()) ) {
+            if ( recRep == null || !r.getReceiverId().equals(recRep.getReceiver()) ) {
                 results.add(recRep = StatusReportView.createRec(r));
                 results.add(orgRep = StatusReportView.createOrg(r));
             }
@@ -72,7 +73,7 @@ public class MainController {
 
 
         public StatusReportView(StatusReport r) {
-            this(r.getReceiver(), r.getTargetOrganization(), r.getServiceContract(), r.getMessageCount(), r.getOldestMessageDate());
+            this(r.getReceiverId(), r.getTargetOrganization(), r.getServiceContract(), r.getMessageCount(), r.getOldestMessageDate());
         }
 
         /**
@@ -113,11 +114,11 @@ public class MainController {
         }
 
         static StatusReportView createRec(StatusReport r) {
-            return new StatusReportView(r.getReceiver(), "", "", 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getReceiverId(), "", "", 0, r.getOldestMessageDate());
         }
 
         static StatusReportView createOrg(StatusReport r) {
-            return new StatusReportView(r.getReceiver(), r.getTargetOrganization(), "", 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getReceiverId(), r.getTargetOrganization(), "", 0, r.getOldestMessageDate());
         }
 
     }

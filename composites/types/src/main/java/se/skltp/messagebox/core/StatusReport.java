@@ -10,22 +10,22 @@ import java.util.Date;
  * @author mats.olsson@callistaenterprise.se
  */
 public class StatusReport implements Comparable<StatusReport> {
-    private String receiver;
+    private String receiverId;
     private String targetOrganization;
     private String serviceContract;
     private long messageCount;
     private Date oldestMessageDate;
 
-    public StatusReport(String receiver, String targetOrganization, String serviceContract, long messageCount, Date oldestMessageDate) {
-        this.receiver = receiver;
+    public StatusReport(String receiverId, String targetOrganization, String serviceContract, long messageCount, Date oldestMessageDate) {
+        this.receiverId = receiverId;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.messageCount = messageCount;
         this.oldestMessageDate = oldestMessageDate;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getReceiverId() {
+        return receiverId;
     }
 
     public String getTargetOrganization() {
@@ -52,7 +52,7 @@ public class StatusReport implements Comparable<StatusReport> {
 
         StatusReport that = (StatusReport) o;
 
-        if ( receiver != null ? !receiver.equals(that.receiver) : that.receiver != null )
+        if ( receiverId != null ? !receiverId.equals(that.receiverId) : that.receiverId != null )
             return false;
         if ( serviceContract != null ? !serviceContract.equals(that.serviceContract) : that.serviceContract != null )
             return false;
@@ -64,7 +64,7 @@ public class StatusReport implements Comparable<StatusReport> {
 
     @Override
     public int hashCode() {
-        int result = receiver != null ? receiver.hashCode() : 0;
+        int result = receiverId != null ? receiverId.hashCode() : 0;
         result = 31 * result + (targetOrganization != null ? targetOrganization.hashCode() : 0);
         result = 31 * result + (serviceContract != null ? serviceContract.hashCode() : 0);
         return result;
@@ -73,7 +73,7 @@ public class StatusReport implements Comparable<StatusReport> {
     @Override
     public int compareTo(StatusReport o) {
         int n;
-        if ( (n = receiver.compareTo(o.receiver)) != 0 ) {
+        if ( (n = receiverId.compareTo(o.receiverId)) != 0 ) {
             return n;
         }
         if ( (n = targetOrganization.compareTo(o.targetOrganization)) != 0 ) {

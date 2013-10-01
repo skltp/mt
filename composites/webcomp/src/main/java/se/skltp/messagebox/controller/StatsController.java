@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
 
@@ -31,7 +32,10 @@ public class StatsController {
     public ModelAndView index(@RequestParam(required = false) String careUnit) {
         ModelAndView mav = new ModelAndView("stats");
 
-        List<Statistic> statistics = statisticService.getStatisticsFor30Days(System.currentTimeMillis());
+        long now = System.currentTimeMillis();
+        long thirtyDays = 30 * 24 * 3600 * 1000L;
+
+        List<Statistic> statistics = statisticService.getStatisticsForTimeSlice(now - thirtyDays, now);
         mav.addObject("statistics", createStatView(statistics));
 
         return mav;
@@ -49,17 +53,23 @@ public class StatsController {
         List<StatisticView> results = new ArrayList<>();
         StatisticView recRow = null;
         StatisticView orgRow = null;
+        StatisticView conRow = null;
         for ( Statistic s : statistics ) {
             if ( recRow == null || !s.getReceiverId().equals(recRow.getReceiverId()) ) {
                 results.add(recRow = StatisticView.createRecRow(s));
                 results.add(orgRow = StatisticView.createOrgRow(s));
+                results.add(conRow = StatisticView.createConRow(s));
             }
             if (!s.getTargetOrganization().equals(orgRow.getTargetOrganization())) {
                 results.add(orgRow = StatisticView.createOrgRow(s));
+                results.add(conRow = StatisticView.createConRow(s));
+            }
+            if (!s.getServiceContract().equals(conRow.getServiceContract().getFullName())) {
+                results.add(conRow = StatisticView.createConRow(s));
             }
             recRow.merge(s);
             orgRow.merge(s);
-            results.add(new StatisticView(s));
+            conRow.merge(s);
         }
         return results;
     }
@@ -130,8 +140,12 @@ public class StatsController {
         }
 
         public static StatisticView createOrgRow(Statistic s) {
-            StatisticView result = new StatisticView(s);
+            StatisticView result = createConRow(s);
             result.serviceContract = new ServiceContractView("");
+            return result;
+        }
+        public static StatisticView createConRow(Statistic s) {
+            StatisticView result = new StatisticView(s);
             result.totalWaitTimeMs = result.maxWaitTimeMs = result.deliveryCount = 0;
             return result;
         }

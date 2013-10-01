@@ -27,11 +27,11 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
+import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
+import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
-import se.riv.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface;
-import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesResponseType;
-import se.riv.messagebox.DeleteMessagesresponder.v1.DeleteMessagesType;
 import se.skltp.messagebox.core.entity.Message;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
