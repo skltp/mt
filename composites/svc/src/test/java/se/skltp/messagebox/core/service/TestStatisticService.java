@@ -32,7 +32,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
@@ -94,7 +93,8 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         entityManager.clear();
 
         long timestampTooLongAgo = now.getTime();
-        timestampTooLongAgo -= 40 * TimeDelta.MS_DAY;
+        long fourtyDays = 40 * 24 * 3600 * 1000L;
+        timestampTooLongAgo -= fourtyDays;
         List<Statistic> stats = statisticService.getStatisticsFor30Days(now.getTime());
         assertEquals(0, stats.size());
 

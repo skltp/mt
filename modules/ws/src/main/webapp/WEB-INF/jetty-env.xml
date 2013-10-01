@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<!-- Jetty-specific context (sets up the database connection -->
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+    <!-- Setup the datasource -->
+    <New id="MessageboxDataSource" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/MessageboxDataSource</Arg>
+        <Arg>
+            <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+                <Set name="Url">jdbc:mysql://localhost:3306/messagebox</Set>
+                <Set name="User">messageboxuser</Set>
+                <Set name="Password">messageboxpassword</Set>
+            </New>
+        </Arg>
+    </New>
+
+</Configure>

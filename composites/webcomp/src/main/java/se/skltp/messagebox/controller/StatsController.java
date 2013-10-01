@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
 

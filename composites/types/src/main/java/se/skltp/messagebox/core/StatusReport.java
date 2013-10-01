@@ -2,8 +2,6 @@ package se.skltp.messagebox.core;
 
 import java.util.Date;
 
-import se.skltp.messagebox.TimeDelta;
-
 /**
  * A status-report for a (reciver/targetOrg/service contract) tuple.
  * <p/>
@@ -44,10 +42,6 @@ public class StatusReport implements Comparable<StatusReport> {
 
     public Date getOldestMessageDate() {
         return oldestMessageDate;
-    }
-
-    public TimeDelta getOldestMessageAge() {
-        return new TimeDelta(System.currentTimeMillis() - oldestMessageDate.getTime());
     }
 
 

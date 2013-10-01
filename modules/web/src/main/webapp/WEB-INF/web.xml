@@ -21,8 +21,9 @@
  -->
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-	version="2.4">
+         xmlns:jee="http://www.springframework.org/schema/jee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
 
 	<description>message</description>
 
@@ -95,5 +96,13 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+
+    <!-- database connection -->
+    <resource-ref>
+      <description>DB Connection</description>
+      <res-ref-name>jdbc/MessageboxDataSource</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+    </resource-ref>
 
 </web-app>
