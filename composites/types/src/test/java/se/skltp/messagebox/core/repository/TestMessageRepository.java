@@ -32,10 +32,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.service.TimeService;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -46,13 +47,15 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private TimeService timeService;
+
     @PersistenceContext
     EntityManager entityManager;
 
     @Test
     public void testPersist() throws Exception {
-        Message message = new Message("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body", "correlationId");
-        messageRepository.persist(message);
+        messageRepository.create("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body", "correlationId");
 
         entityManager.flush();
         entityManager.clear();
@@ -63,8 +66,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testFindByReceiver() throws Exception {
         String receiverId = "receivers Hsa-Id";
-        Message message = new Message("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
-        messageRepository.persist(message);
+        messageRepository.create("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
 
         entityManager.flush();
         entityManager.clear();
@@ -78,8 +80,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testFindByReceiverAndId() throws Exception {
         Set<Long> ids = new HashSet<>();
         String receiverId = "receivers Hsa-Id";
-        Message message = new Message("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
-        messageRepository.persist(message);
+        Message message = messageRepository.create("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
         ids.add(message.getId());
 
         entityManager.flush();
@@ -103,7 +104,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testOrder() throws Exception {
         Set<Long> ids = new HashSet<>();
         for(int i = 0 ; i < 5 ; i++) {
-            Message message = new Message("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent", "correlationId");
+            Message message = messageRepository.create("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent", "correlationId");
             entityManager.persist(message);
             ids.add(message.getId());
         }
@@ -124,7 +125,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testDelete() throws Exception {
         String systemId = "hsaId";
-        Message message = new Message("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", "correlationId");
+        Message message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", "correlationId");
         messageRepository.persist(message);
 
         entityManager.flush();
@@ -156,9 +157,9 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testCurrentState() throws Exception {
-        Date time1 = new Date(System.currentTimeMillis() - 3600 * 1000);
-        Date time2 = new Date(System.currentTimeMillis() - 3600 * 1000 * 2);
-        Date time3 = new Date(System.currentTimeMillis() - 3600 * 1000 * 3);
+        Date time1 = new Date(timeService.now() - 3600 * 1000);
+        Date time2 = new Date(timeService.now() - 3600 * 1000 * 2);
+        Date time3 = new Date(timeService.now() - 3600 * 1000 * 3);
         String rec1 = "hsaId1";
         String rec2 = "hsaId2";
         String org1 = "org1";

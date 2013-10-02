@@ -43,21 +43,22 @@ public class TestMessageService extends JpaRepositoryTestBase {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private TimeService timeService;
+
     @PersistenceContext
     EntityManager entityManager;
 
-    MessageStatusType type;
     private static final int MS_HOUR = 1000 * 60 * 60;
 
     @Test
     public void deleteMessages() throws Exception {
-        Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", "correlationId");
-        messageService.saveMessage(message);
+        Message message = messageService.create("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", "correlationId");
 
         entityManager.flush();
 
         try {
-            messageService.deleteMessages("careUnit", System.currentTimeMillis(), Collections.singletonList(message));
+            messageService.deleteMessages("careUnit", timeService.now(), Collections.singletonList(message));
             fail("Expected IllegalStateException");
         } catch (IllegalStateException e) {
             // Expected
@@ -70,7 +71,7 @@ public class TestMessageService extends JpaRepositoryTestBase {
     @Test
     public void testStatistics() throws Exception {
 
-        Date oldArrivalDate = new Date(System.currentTimeMillis() - 48 * MS_HOUR);
+        Date oldArrivalDate = new Date(timeService.now() - 48 * MS_HOUR);
         Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, oldArrivalDate, "correlationId");
         messageService.saveMessage(message);
 

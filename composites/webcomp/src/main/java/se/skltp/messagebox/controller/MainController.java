@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.service.MessageService;
+import se.skltp.messagebox.core.service.TimeService;
 
 /**
  * Main controller to open the first page with some overview information and statistic about

@@ -33,9 +33,9 @@ import se.riv.itintegration.monitoring.PingForConfigurationResponder.v1.PingForC
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
+import se.skltp.messagebox.core.service.TimeService;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -44,6 +44,10 @@ public class TestPingForConfigurationImpl extends BaseTestImpl {
 
     @Mock
     private StatisticService statisticService;
+    @Mock
+    private TimeService timeService;
+
+
     private static final String BASE_URL = "http://localhost";
 
     /**
@@ -58,15 +62,13 @@ public class TestPingForConfigurationImpl extends BaseTestImpl {
         PingForConfigurationImpl impl = new PingForConfigurationImpl();
         impl.setStatisticService(statisticService);
         impl.setMessageService(messageService);
-
-        // TODO: add a system-service to allow us to control the time during testing... there is probably a
-        // random chance that this test will fail now and then...
+        impl.setTimeService(timeService);
 
         List<Statistic> statistics = new ArrayList<>();
         statistics.add(new Statistic("rec1", "org1", "sc1", 0));
         statistics.get(0).addDelivery(121000);   // 02:01
         List<StatusReport> reports = new ArrayList<>();
-        reports.add(new StatusReport("rec1", "org1", "sc1", 1, new Date(System.currentTimeMillis() - 15000))); // 00:15
+        reports.add(new StatusReport("rec1", "org1", "sc1", 1, new Date(timeService.now() - 15000))); // 00:15
 
         when(statisticService.getStatisticsForTimeSlice(anyLong(), anyLong())).thenReturn(statistics);
         when(messageService.getStatusReports()).thenReturn(reports);
@@ -75,8 +77,8 @@ public class TestPingForConfigurationImpl extends BaseTestImpl {
         PingForConfigurationResponseType responseType = impl.pingForConfiguration("mbox-address", params);
         assertEquals("MessageBox.v1.0", responseType.getVersion());
         Date time = new SimpleDateFormat("yyyyMMddHHmmss").parse(responseType.getPingDateTime());
-        long diff = time.getTime() - System.currentTimeMillis();
-        assertTrue(Math.abs(diff)  < 2000);
+        long diff = time.getTime() - timeService.now();
+        assertEquals(0, diff);
         List<ConfigurationType> confList = responseType.getConfiguration();
         assertEquals(4, confList.size());
         Map<String,String> props = new HashMap<>();

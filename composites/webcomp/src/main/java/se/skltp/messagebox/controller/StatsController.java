@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
+import se.skltp.messagebox.core.service.TimeService;
 
 @Controller
 @RequestMapping("/stats")
@@ -29,7 +30,7 @@ public class StatsController {
      * @return
      */
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(required = false) String careUnit) {
+    public ModelAndView index() {
         ModelAndView mav = new ModelAndView("stats");
 
         long now = System.currentTimeMillis();

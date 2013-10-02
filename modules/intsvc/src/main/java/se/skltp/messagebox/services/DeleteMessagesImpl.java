@@ -27,12 +27,14 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.service.TimeService;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
         endpointInterface = "se.riv.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface",
@@ -42,6 +44,13 @@ import se.skltp.messagebox.core.entity.Message;
 public class DeleteMessagesImpl extends BaseService implements DeleteMessagesResponderInterface {
 
     private static final Logger log = LoggerFactory.getLogger(DeleteMessagesImpl.class);
+
+    private TimeService timeService;
+
+    @Autowired
+    public void setTimeService(TimeService service) {
+        this.timeService = service;
+    }
 
 
     @Override
@@ -60,7 +69,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             }
 
             // now delete those messages
-            messageService.deleteMessages(receiverId, System.currentTimeMillis(), messages);
+            messageService.deleteMessages(receiverId, timeService.now(), messages);
 
             List<Long> responseIds = response.getDeletedIds();
             for ( Message msg : messages ) {

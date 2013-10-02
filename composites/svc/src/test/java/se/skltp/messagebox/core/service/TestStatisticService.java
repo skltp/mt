@@ -50,6 +50,9 @@ public class TestStatisticService extends JpaRepositoryTestBase {
     StatisticService statisticService;
 
     @Autowired
+    TimeService timeService;
+
+    @Autowired
     MessageService messageService;
     private long thirtyDays = 30 * 24 * 3600 * 1000L;
 
@@ -57,7 +60,7 @@ public class TestStatisticService extends JpaRepositoryTestBase {
     public void testDeliverOneMessage() throws Exception {
         String receiverId = "recId";
         String serviceContract = "sc1";
-        Message message = new Message("sourceId", receiverId, "targetOrg", serviceContract, "messageBody", "correlationId");
+        Message message = messageService.create("sourceId", receiverId, "targetOrg", serviceContract, "messageBody", "correlationId");
         messageService.saveMessage(message);
 
         message.setStatusRetrieved(); // allow the messaged to be deleted
@@ -65,7 +68,7 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
 
-        long timestamp = System.currentTimeMillis();
+        long timestamp = timeService.now();
 
         List<Statistic> stats = statisticService.getStatisticsForTimeSlice(timestamp - thirtyDays, timestamp);
         assertEquals(0, stats.size());
@@ -82,7 +85,7 @@ public class TestStatisticService extends JpaRepositoryTestBase {
 
     @Test
     public void testDeliverTwoMessages() throws Exception {
-        Date now = new Date(System.currentTimeMillis());
+        Date now = new Date(timeService.now());
         String receiverId = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
@@ -121,7 +124,7 @@ public class TestStatisticService extends JpaRepositoryTestBase {
 
     @Test
     public void testDeliverToTwoTargetOrgs() throws Exception {
-        Date now = new Date(System.currentTimeMillis());
+        Date now = new Date(timeService.now());
         String receiverId = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";

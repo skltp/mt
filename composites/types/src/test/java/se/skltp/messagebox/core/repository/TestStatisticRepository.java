@@ -31,6 +31,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.Statistic;
+import se.skltp.messagebox.core.service.TimeService;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
@@ -44,6 +45,9 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
     @Autowired
     private StatisticRepository statisticRepository;
 
+    @Autowired
+    private TimeService timeService;
+
     @PersistenceContext
     EntityManager entityManager;
 
@@ -51,7 +55,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
 
     @Override
     public void onSetup2() {
-        deliveryTime = System.currentTimeMillis();
+        deliveryTime = timeService.now();
     }
 
     @Test

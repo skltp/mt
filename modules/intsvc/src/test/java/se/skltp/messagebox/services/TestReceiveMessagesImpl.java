@@ -58,7 +58,6 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         String legalServiceContractType = "riv:etc,etc...";
         String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
         String receiverId = "receivingOrgHsaId";
-        String replyBody = "";
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
@@ -72,17 +71,18 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
 
         Source resultOfCall = impl.invoke(request);
 
-        ArgumentCaptor<Message> msgArgument = ArgumentCaptor.forClass(Message.class);
-        verify(messageService).saveMessage(msgArgument.capture());
+        ArgumentCaptor<String> srcArg = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> recArg = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> orgArg = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> scArg = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> mbArg = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> corrArg = ArgumentCaptor.forClass(String.class);
+        verify(messageService).create(srcArg.capture(), recArg.capture(), orgArg.capture(), scArg.capture(), mbArg.capture(), corrArg.capture());
 
-        Message msg = msgArgument.getValue();
-        assertEquals(receiverId, msg.getReceiverId());
-        assertEquals(legalServiceContractType, msg.getServiceContract());
-        assertEquals(targetOrg, msg.getTargetOrganization());
-        assertEquals("<?xml version='1.0' encoding='UTF-8'?> <content>" + body + "</content>", msg.getMessageBody());
-
-        //String text = sourceToText(resultOfCall);
-        //System.err.println(text);
+        assertEquals(receiverId, recArg.getValue());
+        assertEquals(legalServiceContractType, scArg.getValue());
+        assertEquals(targetOrg, orgArg.getValue());
+        assertEquals("<?xml version='1.0' encoding='UTF-8'?> <content>" + body + "</content>", mbArg.getValue());
 
         DOMResult result = sourceToDom(resultOfCall);
         Document document = (Document) result.getNode();

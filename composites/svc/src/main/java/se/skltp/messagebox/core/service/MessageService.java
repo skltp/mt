@@ -57,6 +57,21 @@ public interface MessageService {
     Long saveMessage(Message message);
 
     /**
+     * Create a message with
+     *
+     * @param sourceSystem hsa-id of source system
+     * @param receiverSystem hsa-id of receiving system
+     * @param targetOrganization hsa-id of target org
+     * @param serviceContract of message
+     * @param messageBody message body
+     * @param correlationId business correlation id
+     * @return created message, with arrival time set to TimeService.now() and status {@link se.riv.itintegration.messagebox.v1.MessageStatusType#RECEIVED}
+     */
+    Message create(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
+
+
+
+    /**
      * Delete all identified messages, returning how many were actually deleted.
      *
      * @param receiverId all messages must have this receiverId

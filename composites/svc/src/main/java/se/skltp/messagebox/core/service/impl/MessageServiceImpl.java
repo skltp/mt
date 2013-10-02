@@ -1,6 +1,9 @@
 package se.skltp.messagebox.core.service.impl;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +58,11 @@ public class MessageServiceImpl implements MessageService {
     public Long saveMessage(Message message) {
         Message result = messageRepository.store(message);
         return result.getId();
+    }
+
+    @Override
+    public Message create(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
+        return messageRepository.create(sourceSystem, receiverSystem, targetOrganization, serviceContract, messageBody, correlationId);
     }
 
     public void deleteMessages(String receiverId, long timestamp, List<Message> messages) {

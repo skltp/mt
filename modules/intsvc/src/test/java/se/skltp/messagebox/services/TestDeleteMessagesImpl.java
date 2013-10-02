@@ -70,6 +70,7 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
         DeleteMessagesImpl impl = new DeleteMessagesImpl();
         impl.setMessageService(messageService);
         impl.setWsContext(wsContext);
+        impl.setTimeService(timeService);
         DeleteMessagesType params = new DeleteMessagesType();
 
         // get all for the hsaid1

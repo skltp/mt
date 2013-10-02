@@ -18,6 +18,7 @@ import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
+import se.skltp.messagebox.core.service.TimeService;
 
 /**
  * PingForConfiguration is used to verify that a server is up and running.
@@ -52,11 +53,18 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
     private static final Logger log = LoggerFactory.getLogger(PingForConfigurationImpl.class);
 
     private StatisticService statisticService;
+    private TimeService timeService;
+
+    @Autowired
+    public void setTimeService(TimeService service) {
+        this.timeService = service;
+    }
 
     @Autowired
     public void setStatisticService(StatisticService service) {
         this.statisticService = service;
     }
+
 
     @Override
     public PingForConfigurationResponseType pingForConfiguration(@WebParam(partName = "LogicalAddress", name = "LogicalAddress", targetNamespace = "urn:riv:itintegration:registry:1", header = true) String logicalAddress, @WebParam(partName = "parameters", name = "PingForConfiguration", targetNamespace = "urn:riv:itintegration:monitoring:PingForConfigurationResponder:1") PingForConfigurationType parameters) {
@@ -66,7 +74,7 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         response.setVersion("MessageBox.v1.0");
 
         // current time in required format
-        long now = System.currentTimeMillis();
+        long now = timeService.now();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         String dateTime = format.format(new Date(now));
         response.setPingDateTime(dateTime);
@@ -92,13 +100,13 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         public StatusBuilder(List<StatusReport> reports) {
             String receiver = null;
             long queueSize = 0;
-            Date oldestMessage = new Date(System.currentTimeMillis());
+            Date oldestMessage = new Date(timeService.now());
             for ( StatusReport report : reports ) {
                 if ( !report.getReceiverId().equals(receiver) ) {
                     save(receiver, queueSize, oldestMessage);
                     receiver = report.getReceiverId();
                     queueSize = 0;
-                    oldestMessage = new Date(System.currentTimeMillis());
+                    oldestMessage = new Date(timeService.now());
                 }
                 queueSize += report.getMessageCount();
                 if ( oldestMessage.getTime() > report.getOldestMessageDate().getTime() ) {
@@ -111,7 +119,7 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         private void save(String receiver, long queueSize, Date oldestMessage) {
             if ( receiver != null ) {
                 result.add(conf(receiver + "-queueSize", String.valueOf(queueSize)));
-                result.add(conf(receiver + "-oldestMessage", new TimeDelta(System.currentTimeMillis() - oldestMessage.getTime()).toString()));
+                result.add(conf(receiver + "-oldestMessage", new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
             }
         }
     }

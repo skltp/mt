@@ -23,15 +23,20 @@ package se.skltp.messagebox.core.repository.jpa;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.skltp.messagebox.core.service.TimeService;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
 public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> implements MessageRepository {
+
+    @Autowired
+    TimeService timeService;
 
     @SuppressWarnings("unchecked")
     public List<Message> getMessages(String systemId, Set<Long> ids) {
@@ -67,11 +72,26 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
         //noinspection unchecked
         return entityManager.createQuery(
                 "select "
-                        + "new se.skltp.messagebox.core.StatusReport(m.receiverId, m.targetOrganization, m.serviceContract, count(m.serviceContract), min(m.arrived)) "
-                        + "from Message m group by m.receiverId, m.targetOrganization, m.serviceContract"
-                        + " order by m.receiverId, m.targetOrganization, m.serviceContract",
+                        + "new se.skltp.messagebox.core.StatusReport(m.receiverSystem, m.targetOrganization, m.serviceContract, count(m.serviceContract), min(m.arrived)) "
+                        + "from Message m group by m.receiverSystem, m.targetOrganization, m.serviceContract"
+                        + " order by m.receiverSystem, m.targetOrganization, m.serviceContract",
                 StatusReport.class)
                 .getResultList();
     }
+
+    @Override
+    public Message create(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
+        Message result = new Message(sourceSystem,
+                receiverSystem,
+                targetOrganization,
+                serviceContract,
+                messageBody,
+                MessageStatusType.RECEIVED,
+                timeService.date(),
+                correlationId);
+        store(result);
+        return result;
+    }
+
 
 }

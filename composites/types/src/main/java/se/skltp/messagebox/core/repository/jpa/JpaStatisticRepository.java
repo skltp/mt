@@ -39,7 +39,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
         }
 
         for ( Message msg : messages ) {
-            assert receiverId.equals(msg.getReceiverId());
+            assert receiverId.equals(msg.getReceiverSystem());
             Key key = new Key(msg);
             Statistic stat = statisticMap.get(key);
             if (stat == null) {

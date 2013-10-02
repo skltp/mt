@@ -71,8 +71,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
             String serviceContract = extractor.getServiceContract();
             String messageBody = extractor.getBody();
 
-            Message message = new Message(sourceId, receiverId, targetOrg, serviceContract, messageBody, correlationId);
-            messageService.saveMessage(message);
+            Message message = messageService.create(sourceId, receiverId, targetOrg, serviceContract, messageBody, correlationId);
 
             log.info("Saved " + message);
 

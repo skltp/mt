@@ -35,15 +35,15 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  */
 @NamedQueries({
         @NamedQuery(name = "Message.getForReceiver",
-                query = "select m from Message m where m.receiverId = :systemId order by m.id asc"),
+                query = "select m from Message m where m.receiverSystem = :systemId order by m.id asc"),
         @NamedQuery(name = "Message.getForReceiverWithIds",
-                query = "select m from Message m where m.receiverId = :systemId and m.id in (:ids) order by m.id asc"),
+                query = "select m from Message m where m.receiverSystem = :systemId and m.id in (:ids) order by m.id asc"),
         @NamedQuery(name = "Message.deleteForReceiverWithIdsAndStatus",
-                query = "delete from Message m where m.receiverId = :systemId and m.id in (:ids) and m.status = :status"),
+                query = "delete from Message m where m.receiverSystem = :systemId and m.id in (:ids) and m.status = :status"),
         @NamedQuery(name = "Message.totalCountForReceiver",
                 query = "select count(m) from Message m where m.targetOrganization = :systemId"),
         @NamedQuery(name = "Message.receiverStates",
-                query = "select m.receiverId, count(m.receiverId), min(m.arrived) from Message m GROUP BY m.receiverId")
+                query = "select m.receiverSystem, count(m.receiverSystem), min(m.arrived) from Message m GROUP BY m.receiverSystem")
 
 })
 @Entity()
@@ -58,7 +58,7 @@ public class Message extends AbstractEntity<Long> {
     private Long id;
 
     // The hsaId for the source system of this message; used for error tracking/logging.
-    private String sourceId;
+    private String sourceSystem;
 
     // The correlation id (VP message id) of the received message. Also only used for error tracking/logging
     private String businessCorrelationId;
@@ -66,7 +66,7 @@ public class Message extends AbstractEntity<Long> {
 
     // the hsaId for the target system of this message; the calling system must authenticate using this id
     @Column(nullable = false)
-    private String receiverId;
+    private String receiverSystem;
 
     // the hsaId for the target organization (verksamhetsId)
     @Column(nullable = false)
@@ -109,36 +109,25 @@ public class Message extends AbstractEntity<Long> {
     protected Message() {
     }
 
-    public Message(String sourceId, String receiverId, String targetOrganization, String serviceContract, String message, String correlationId) {
-        this(sourceId,
-                receiverId,
-                targetOrganization,
-                serviceContract,
-                message,
-                MessageStatusType.RECEIVED,
-                new Date(System.currentTimeMillis()),
-                correlationId);
-    }
 
-
-    public Message(String sourceId, String receiverId, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived, String correlationId) {
-        this.sourceId = sourceId;
-        this.businessCorrelationId = correlationId;
-        this.receiverId = receiverId;
+    public Message(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived, String correlationId) {
+        this.sourceSystem = sourceSystem;
+        this.receiverSystem = receiverSystem;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.messageBody = messageBody;
         this.messageBodySize = messageBody.length();
         this.status = status;
         this.arrived = arrived;
+        this.businessCorrelationId = correlationId;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getReceiverId() {
-        return receiverId;
+    public String getReceiverSystem() {
+        return receiverSystem;
     }
 
     public MessageStatusType getStatus() {
@@ -161,8 +150,8 @@ public class Message extends AbstractEntity<Long> {
         return serviceContract;
     }
 
-    public String getSourceId() {
-        return sourceId;
+    public String getSourceSystem() {
+        return sourceSystem;
     }
 
     public String getBusinessCorrelationId() {
