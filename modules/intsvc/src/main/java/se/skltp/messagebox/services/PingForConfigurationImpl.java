@@ -106,7 +106,6 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
                 }
             }
             save(receiver, queueSize, oldestMessage);
-
         }
 
         private void save(String receiver, long queueSize, Date oldestMessage) {
