@@ -72,17 +72,17 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
         //noinspection unchecked
         return entityManager.createQuery(
                 "select "
-                        + "new se.skltp.messagebox.core.StatusReport(m.receiverSystem, m.targetOrganization, m.serviceContract, count(m.serviceContract), min(m.arrived)) "
-                        + "from Message m group by m.receiverSystem, m.targetOrganization, m.serviceContract"
-                        + " order by m.receiverSystem, m.targetOrganization, m.serviceContract",
+                        + "new se.skltp.messagebox.core.StatusReport(m.targetSystem, m.targetOrganization, m.serviceContract, count(m.serviceContract), min(m.arrived)) "
+                        + "from Message m group by m.targetSystem, m.targetOrganization, m.serviceContract"
+                        + " order by m.targetSystem, m.targetOrganization, m.serviceContract",
                 StatusReport.class)
                 .getResultList();
     }
 
     @Override
-    public Message create(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
+    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
         Message result = new Message(sourceSystem,
-                receiverSystem,
+                targetSystem,
                 targetOrganization,
                 serviceContract,
                 messageBody,

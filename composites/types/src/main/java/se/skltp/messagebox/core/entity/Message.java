@@ -35,15 +35,15 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  */
 @NamedQueries({
         @NamedQuery(name = "Message.getForReceiver",
-                query = "select m from Message m where m.receiverSystem = :systemId order by m.id asc"),
+                query = "select m from Message m where m.targetSystem = :systemId order by m.id asc"),
         @NamedQuery(name = "Message.getForReceiverWithIds",
-                query = "select m from Message m where m.receiverSystem = :systemId and m.id in (:ids) order by m.id asc"),
+                query = "select m from Message m where m.targetSystem = :systemId and m.id in (:ids) order by m.id asc"),
         @NamedQuery(name = "Message.deleteForReceiverWithIdsAndStatus",
-                query = "delete from Message m where m.receiverSystem = :systemId and m.id in (:ids) and m.status = :status"),
+                query = "delete from Message m where m.targetSystem = :systemId and m.id in (:ids) and m.status = :status"),
         @NamedQuery(name = "Message.totalCountForReceiver",
                 query = "select count(m) from Message m where m.targetOrganization = :systemId"),
         @NamedQuery(name = "Message.receiverStates",
-                query = "select m.receiverSystem, count(m.receiverSystem), min(m.arrived) from Message m GROUP BY m.receiverSystem")
+                query = "select m.targetSystem, count(m.targetSystem), min(m.arrived) from Message m GROUP BY m.targetSystem")
 
 })
 @Entity()
@@ -57,24 +57,24 @@ public class Message extends AbstractEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // The hsaId for the source system of this message; used for error tracking/logging.
+    // The hsaId of the source system of this message; used for error tracking/logging.
+    // extracted from http-header "x-rivta-original-serviceconsumer-hsaid"
     private String sourceSystem;
 
-    // The correlation id (VP message id) of the received message. Also only used for error tracking/logging
-    private String businessCorrelationId;
-
-
-    // the hsaId for the target system of this message; the calling system must authenticate using this id
+    // the hsaId for the receiving system of this message; it must authenticate using this id to list/get/delete
     @Column(nullable = false)
-    private String receiverSystem;
+    private String targetSystem;
 
     // the hsaId for the target organization (verksamhetsId)
     @Column(nullable = false)
     private String targetOrganization;
 
-    // the service contrakt - extracted from messageBody
+    // the service contract - extracted from messageBody
     @Column(nullable = false)
     private String serviceContract;
+
+    // The correlation id (VP message id) of the received message. Also only used for error tracking/logging
+    private String businessCorrelationId;
 
     @Column(nullable = false)
     @Lob
@@ -110,9 +110,9 @@ public class Message extends AbstractEntity<Long> {
     }
 
 
-    public Message(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived, String correlationId) {
+    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived, String correlationId) {
         this.sourceSystem = sourceSystem;
-        this.receiverSystem = receiverSystem;
+        this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.messageBody = messageBody;
@@ -126,8 +126,8 @@ public class Message extends AbstractEntity<Long> {
         return id;
     }
 
-    public String getReceiverSystem() {
-        return receiverSystem;
+    public String getTargetSystem() {
+        return targetSystem;
     }
 
     public MessageStatusType getStatus() {

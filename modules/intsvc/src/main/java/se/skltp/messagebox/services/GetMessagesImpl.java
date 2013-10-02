@@ -37,7 +37,7 @@ import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.messagebox.core.entity.Message;
 
 @WebService(serviceName = "GetMessagesResponderService",
-        endpointInterface = "se.riv.messagebox.GetMessages.v1.rivtabp21.GetMessagesResponderInterface",
+        endpointInterface = "se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface",
         portName = "GetMessagesResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/GetMessagesInteraction/GetMessagesInteraction_1.0_rivtabp21.wsdl")
@@ -55,13 +55,13 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String receiverId = extractCallerIdFromRequest();
+            String targetSystem = extractCallerIdFromRequest();
             Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
 
-            List<Message> messages = messageService.getMessages(receiverId, messageIdSet);
+            List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
 
             if ( messageIdSet.size() != messages.size() ) {
-                log.info("Receiver " + receiverId + " attempted to delete non-deletable messages "
+                log.info("Receiver " + targetSystem + " attempted to delete non-deletable messages "
                         + describeMessageDiffs(messageIdSet, messages));
             }
 

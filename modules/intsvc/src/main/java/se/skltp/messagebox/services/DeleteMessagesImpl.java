@@ -37,7 +37,7 @@ import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.service.TimeService;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
-        endpointInterface = "se.riv.messagebox.DeleteMessages.v1.rivtabp21.DeleteMessagesResponderInterface",
+        endpointInterface = "se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface",
         portName = "DeleteMessagesResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/DeleteMessagesInteraction/DeleteMessagesInteraction_1.0_rivtabp21.wsdl")
@@ -60,16 +60,16 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String receiverId = extractCallerIdFromRequest();
+            String targetSystem = extractCallerIdFromRequest();
             Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
-            List<Message> messages = messageService.getMessages(receiverId, messageIdSet);
+            List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
             if ( messageIdSet.size() != messages.size() ) {
-                log.info("Receiver " + receiverId + " attempted to delete non-deletable messages "
+                log.info("Receiver " + targetSystem + " attempted to delete non-deletable messages "
                         + describeMessageDiffs(messageIdSet, messages));
             }
 
             // now delete those messages
-            messageService.deleteMessages(receiverId, timeService.now(), messages);
+            messageService.deleteMessages(targetSystem, timeService.now(), messages);
 
             List<Long> responseIds = response.getDeletedIds();
             for ( Message msg : messages ) {

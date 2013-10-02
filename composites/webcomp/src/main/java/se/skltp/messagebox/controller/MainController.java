@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.service.MessageService;
-import se.skltp.messagebox.core.service.TimeService;
 
 /**
  * Main controller to open the first page with some overview information and statistic about
@@ -41,7 +40,7 @@ public class MainController {
         StatusReportView orgRep = null;
         List<StatusReportView> results = new ArrayList<>();
         for ( StatusReport r : reports ) {
-            if ( recRep == null || !r.getReceiverId().equals(recRep.getReceiver()) ) {
+            if ( recRep == null || !r.getTargetSystem().equals(recRep.getTargetSystem()) ) {
                 results.add(recRep = StatusReportView.createRec(r));
                 results.add(orgRep = StatusReportView.createOrg(r));
             }
@@ -58,14 +57,14 @@ public class MainController {
 
     public static class StatusReportView {
 
-        private String receiver;
+        private String targetSystem;
         private String targetOrganization;
         private ServiceContractView serviceContract;
         private long messageCount;
         private Date oldestMessageDate;
 
-        public StatusReportView(String receiver, String targetOrganization, String serviceContract, long messageCount, Date oldestMessageDate) {
-            this.receiver = receiver;
+        public StatusReportView(String targetSystem, String targetOrganization, String serviceContract, long messageCount, Date oldestMessageDate) {
+            this.targetSystem = targetSystem;
             this.targetOrganization = targetOrganization;
             this.serviceContract = new ServiceContractView(serviceContract);
             this.messageCount = messageCount;
@@ -74,7 +73,7 @@ public class MainController {
 
 
         public StatusReportView(StatusReport r) {
-            this(r.getReceiverId(), r.getTargetOrganization(), r.getServiceContract(), r.getMessageCount(), r.getOldestMessageDate());
+            this(r.getTargetSystem(), r.getTargetOrganization(), r.getServiceContract(), r.getMessageCount(), r.getOldestMessageDate());
         }
 
         /**
@@ -90,8 +89,8 @@ public class MainController {
         }
 
 
-        public String getReceiver() {
-            return receiver;
+        public String getTargetSystem() {
+            return targetSystem;
         }
 
         public String getTargetOrganization() {
@@ -115,11 +114,11 @@ public class MainController {
         }
 
         static StatusReportView createRec(StatusReport r) {
-            return new StatusReportView(r.getReceiverId(), "", "", 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getTargetSystem(), "", "", 0, r.getOldestMessageDate());
         }
 
         static StatusReportView createOrg(StatusReport r) {
-            return new StatusReportView(r.getReceiverId(), r.getTargetOrganization(), "", 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getTargetSystem(), r.getTargetOrganization(), "", 0, r.getOldestMessageDate());
         }
 
     }

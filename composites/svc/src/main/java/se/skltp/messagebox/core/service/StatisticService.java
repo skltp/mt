@@ -13,11 +13,11 @@ public interface StatisticService {
     /**
      * Add the given messages as deliveries to the statistics tables.
      *
-     * @param receiverId     the receiver
+     * @param targetSystem     the receiver
      * @param deliveryTimeMs timestamp used
      * @param messages       all messages delivered
      */
-    public void addDeliveriesToStatistics(String receiverId, long deliveryTimeMs, List<Message> messages);
+    public void addDeliveriesToStatistics(String targetSystem, long deliveryTimeMs, List<Message> messages);
 
     /**
      * Get statistics for the days which contains the given start/end times.

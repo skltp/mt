@@ -22,8 +22,8 @@ public class StatisticServiceImpl implements StatisticService {
 
 
     @Override
-    public void addDeliveriesToStatistics(String receiverId, long deliveryTimeMs, List<Message> messages) {
-        statisticRepository.addDeliveries(receiverId, deliveryTimeMs, messages);
+    public void addDeliveriesToStatistics(String targetSystem, long deliveryTimeMs, List<Message> messages) {
+        statisticRepository.addDeliveries(targetSystem, deliveryTimeMs, messages);
     }
 
     @Override

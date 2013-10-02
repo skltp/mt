@@ -33,20 +33,20 @@ public interface MessageService {
      * <p/>
      * Will mark the messages as delivered.
      *
-     * @param receiverId hsa-id for receiving system
+     * @param targetSystem hsa-id for receiving system
      * @param ids        to get
-     * @return list of messages with the given ids belonging to receiverId
-     *         (asking for ids not belonging to the receiverId will be silentrly ignored)
+     * @return list of messages with the given ids belonging to targetSystem
+     *         (asking for ids not belonging to the targetSystem will be silentrly ignored)
      */
-    List<Message> getMessages(String receiverId, Set<Long> ids);
+    List<Message> getMessages(String targetSystem, Set<Long> ids);
 
     /**
      * List messages available for the given receiver.
      *
-     * @param receiverId hsa-id for reciving system.
+     * @param targetSystem hsa-id for reciving system.
      * @return list of messages
      */
-    List<Message> listMessages(String receiverId);
+    List<Message> listMessages(String targetSystem);
 
     /**
      * SaveOrPersist a message.
@@ -60,25 +60,25 @@ public interface MessageService {
      * Create a message with
      *
      * @param sourceSystem hsa-id of source system
-     * @param receiverSystem hsa-id of receiving system
+     * @param targetSystem hsa-id of receiving system
      * @param targetOrganization hsa-id of target org
      * @param serviceContract of message
      * @param messageBody message body
      * @param correlationId business correlation id
      * @return created message, with arrival time set to TimeService.now() and status {@link se.riv.itintegration.messagebox.v1.MessageStatusType#RECEIVED}
      */
-    Message create(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
+    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
 
 
 
     /**
      * Delete all identified messages, returning how many were actually deleted.
      *
-     * @param receiverId all messages must have this receiverId
-     * @param timestamp
-     * @param messages
+     * @param targetSystem all messages must have this targetSystem
+     * @param now current time (to determine delivery time for statistic purposes)
+     * @param messages to delete
      */
-    void deleteMessages(String receiverId, long timestamp, List<Message> messages);
+    void deleteMessages(String targetSystem, long now, List<Message> messages);
 
 
     /**

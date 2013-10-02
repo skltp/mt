@@ -74,7 +74,7 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
         DeleteMessagesType params = new DeleteMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
         params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
         verifyResponse(receiver1Messages, impl.deleteMessages("mbox-address", params), 0, 1, 2);
 

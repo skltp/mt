@@ -55,15 +55,15 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
     public void testReceive() throws Exception {
 
         String targetOrg = "targetOrg-HsaId";
-        String legalServiceContractType = "riv:etc,etc...";
+        String serviceContractType = "riv:etc,etc...";
         String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
-        String receiverId = "receivingOrgHsaId";
+        String targetSystem = "receivingOrgHsaId";
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
-        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
+        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + targetSystem);
 
-        Source request = constructCall(targetOrg, legalServiceContractType, body);
+        Source request = constructCall(targetOrg, serviceContractType, body);
 
         ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
         impl.setMessageService(messageService);
@@ -79,8 +79,8 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         ArgumentCaptor<String> corrArg = ArgumentCaptor.forClass(String.class);
         verify(messageService).create(srcArg.capture(), recArg.capture(), orgArg.capture(), scArg.capture(), mbArg.capture(), corrArg.capture());
 
-        assertEquals(receiverId, recArg.getValue());
-        assertEquals(legalServiceContractType, scArg.getValue());
+        assertEquals(targetSystem, recArg.getValue());
+        assertEquals(serviceContractType, scArg.getValue());
         assertEquals(targetOrg, orgArg.getValue());
         assertEquals("<?xml version='1.0' encoding='UTF-8'?> <content>" + body + "</content>", mbArg.getValue());
 
@@ -101,11 +101,11 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         String targetOrg = "targetOrg-HsaId";
         String legalServiceContractType = "invalid";
         String illegalBody = "<body name=\"body\" anotherAttribute=\"a value>the body text<embeddedNode>with some text</embeddedNode></body>";
-        String receiverId = "receivingOrgHsaId";
+        String targetSystem = "receivingOrgHsaId";
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
-        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + receiverId);
+        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + targetSystem);
 
         Source request = constructCall(targetOrg, legalServiceContractType, illegalBody);
 
@@ -126,11 +126,11 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         String targetOrg = "targetOrg-HsaId";
         String legalServiceContractType = "invalid";
         String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
-        String receiverId = "receivingOrgHsaId";
+        String targetSystem = "receivingOrgHsaId";
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
-        when(servletRequest.getRequestURI()).thenReturn("/SomeoneRenamedMyEndpointReceiveMessage/" + receiverId);
+        when(servletRequest.getRequestURI()).thenReturn("/SomeoneRenamedMyEndpointReceiveMessage/" + targetSystem);
 
         Source request = constructCall(targetOrg, legalServiceContractType, body);
 

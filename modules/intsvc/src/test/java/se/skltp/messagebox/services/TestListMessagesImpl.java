@@ -76,7 +76,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
         ListMessagesType params = new ListMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
         verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params));
 
         // constrain by org
@@ -100,7 +100,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
         verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params), 2);
 
         // switch to new HSA-ID for caller
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid2");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid2");
         // reset parameters and verify we get all the messages
         params.getTargetOrganizations().clear();
         params.getServiceContractTypes().clear();
@@ -137,7 +137,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
         ListMessagesType params = new ListMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
         ListMessagesResponseType response = impl.listMessages("mbox-address", params);
 
         assertEquals(ResultCodeEnum.ERROR, response.getResult().getCode());

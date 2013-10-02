@@ -58,9 +58,9 @@ public class TestStatisticService extends JpaRepositoryTestBase {
 
     @Test
     public void testDeliverOneMessage() throws Exception {
-        String receiverId = "recId";
+        String targetSystem = "recId";
         String serviceContract = "sc1";
-        Message message = messageService.create("sourceId", receiverId, "targetOrg", serviceContract, "messageBody", "correlationId");
+        Message message = messageService.create("sourceId", targetSystem, "targetOrg", serviceContract, "messageBody", "correlationId");
         messageService.saveMessage(message);
 
         message.setStatusRetrieved(); // allow the messaged to be deleted
@@ -73,12 +73,12 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         List<Statistic> stats = statisticService.getStatisticsForTimeSlice(timestamp - thirtyDays, timestamp);
         assertEquals(0, stats.size());
 
-        messageService.deleteMessages(receiverId, timestamp, Collections.singletonList(message));
+        messageService.deleteMessages(targetSystem, timestamp, Collections.singletonList(message));
 
         stats = statisticService.getStatisticsForTimeSlice(timestamp - thirtyDays, timestamp);
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
-        assertEquals(receiverId, s.getReceiverId());
+        assertEquals(targetSystem, s.getReceiverId());
         assertEquals(serviceContract, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
     }
@@ -86,11 +86,11 @@ public class TestStatisticService extends JpaRepositoryTestBase {
     @Test
     public void testDeliverTwoMessages() throws Exception {
         Date now = new Date(timeService.now());
-        String receiverId = "recId";
+        String targetSystem = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
-        Message msg1 = new Message("sourceId", receiverId, "targetOrg1", serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
-        Message msg2 = new Message("sourceId", receiverId, "targetOrg1", serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg1 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg2 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 
@@ -103,20 +103,20 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         List<Statistic> stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(0, stats.size());
 
-        messageService.deleteMessages(receiverId, timestampTooLongAgo, Collections.singletonList(msg1));
-        messageService.deleteMessages(receiverId, now.getTime(), Collections.singletonList(msg2));
+        messageService.deleteMessages(targetSystem, timestampTooLongAgo, Collections.singletonList(msg1));
+        messageService.deleteMessages(targetSystem, now.getTime(), Collections.singletonList(msg2));
 
         stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
-        assertEquals(receiverId, s.getReceiverId());
+        assertEquals(targetSystem, s.getReceiverId());
         assertEquals(serviceContract2, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
 
         stats = statisticService.getStatisticsForTimeSlice(timestampTooLongAgo - thirtyDays, timestampTooLongAgo);
         assertEquals(1, stats.size());
         s = stats.get(0);
-        assertEquals(receiverId, s.getReceiverId());
+        assertEquals(targetSystem, s.getReceiverId());
         assertEquals(serviceContract1, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
 
@@ -125,14 +125,14 @@ public class TestStatisticService extends JpaRepositoryTestBase {
     @Test
     public void testDeliverToTwoTargetOrgs() throws Exception {
         Date now = new Date(timeService.now());
-        String receiverId = "recId";
+        String targetSystem = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
         String targetOrg1 = "targetOrg1";
         String targetOrg2 = "targetOrg2";
 
-        Message msg1 = new Message("sourceId", receiverId, targetOrg1, serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
-        Message msg2 = new Message("sourceId", receiverId, targetOrg2, serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg1 = new Message("sourceId", targetSystem, targetOrg1, serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg2 = new Message("sourceId", targetSystem, targetOrg2, serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 
@@ -142,7 +142,7 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         List<Statistic> stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(0, stats.size());
 
-        messageService.deleteMessages(receiverId, now.getTime(), Arrays.asList(msg1, msg2));
+        messageService.deleteMessages(targetSystem, now.getTime(), Arrays.asList(msg1, msg2));
 
         stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(2, stats.size());
@@ -154,12 +154,12 @@ public class TestStatisticService extends JpaRepositoryTestBase {
             s2 = tmp;
         }
 
-        assertEquals(receiverId, s1.getReceiverId());
+        assertEquals(targetSystem, s1.getReceiverId());
         assertEquals(targetOrg1, s1.getTargetOrganization());
         assertEquals(serviceContract1, s1.getServiceContract());
         assertEquals(1, s1.getDeliveryCount());
 
-        assertEquals(receiverId, s2.getReceiverId());
+        assertEquals(targetSystem, s2.getReceiverId());
         assertEquals(targetOrg2, s2.getTargetOrganization());
         assertEquals(serviceContract2, s2.getServiceContract());
         assertEquals(1, s2.getDeliveryCount());

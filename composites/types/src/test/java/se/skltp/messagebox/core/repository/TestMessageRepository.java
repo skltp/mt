@@ -65,13 +65,13 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testFindByReceiver() throws Exception {
-        String receiverId = "receivers Hsa-Id";
-        messageRepository.create("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
+        String targetSystem = "receivers Hsa-Id";
+        messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", "correlationId");
 
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.listMessages(receiverId);
+        List<Message> messages = messageRepository.listMessages(targetSystem);
 
         assertEquals(1, messages.size());
     }
@@ -79,14 +79,14 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testFindByReceiverAndId() throws Exception {
         Set<Long> ids = new HashSet<>();
-        String receiverId = "receivers Hsa-Id";
-        Message message = messageRepository.create("sourceId", receiverId, "orgId", "serviceContrakt", "webcall body", "correlationId");
+        String targetSystem = "receivers Hsa-Id";
+        Message message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", "correlationId");
         ids.add(message.getId());
 
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.getMessages(receiverId, ids);
+        List<Message> messages = messageRepository.getMessages(targetSystem, ids);
 
         assertEquals(1, messages.size());
     }
@@ -94,9 +94,9 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testFindNone() throws Exception {
         Set<Long> ids = new HashSet<>();
-        String receiverId = "receivers Hsa-Id";
+        String targetSystem = "receivers Hsa-Id";
         ids.add(1L);
-        List<Message> messages = messageRepository.getMessages(receiverId, ids);
+        List<Message> messages = messageRepository.getMessages(targetSystem, ids);
         assertEquals(0, messages.size());
     }
 
@@ -182,7 +182,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 1/1/1, 2 msg, time3
         StatusReport sr = reports.get(0);
-        assertEquals(rec1, sr.getReceiverId());
+        assertEquals(rec1, sr.getTargetSystem());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());
@@ -190,7 +190,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 1/1/2, 1 msg, time2
         sr = reports.get(1);
-        assertEquals(rec1, sr.getReceiverId());
+        assertEquals(rec1, sr.getTargetSystem());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -198,7 +198,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 2/2/1, 1 msg, time2
         sr = reports.get(2);
-        assertEquals(rec2, sr.getReceiverId());
+        assertEquals(rec2, sr.getTargetSystem());
         assertEquals(org2, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -206,7 +206,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 2/3/1, 1 msg, time2
         sr = reports.get(3);
-        assertEquals(rec2, sr.getReceiverId());
+        assertEquals(rec2, sr.getTargetSystem());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -214,7 +214,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         // 2/3/2, 2 msg, time3
         sr = reports.get(4);
-        assertEquals(rec2, sr.getReceiverId());
+        assertEquals(rec2, sr.getTargetSystem());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());

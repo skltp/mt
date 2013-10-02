@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import se.skltp.messagebox.TimeDelta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
-import se.skltp.messagebox.core.service.TimeService;
 
 @Controller
 @RequestMapping("/stats")
@@ -56,7 +54,7 @@ public class StatsController {
         StatisticView orgRow = null;
         StatisticView conRow = null;
         for ( Statistic s : statistics ) {
-            if ( recRow == null || !s.getReceiverId().equals(recRow.getReceiverId()) ) {
+            if ( recRow == null || !s.getReceiverId().equals(recRow.getTargetSystem()) ) {
                 results.add(recRow = StatisticView.createRecRow(s));
                 results.add(orgRow = StatisticView.createOrgRow(s));
                 results.add(conRow = StatisticView.createConRow(s));
@@ -79,7 +77,7 @@ public class StatsController {
      * View object, mostly wrapping {@link Statistic} functionality.
      */
     public static class StatisticView {
-        private String receiverId;
+        private String targetSystem;
         private String targetOrganization;
         private ServiceContractView serviceContract;
         private int deliveryCount;
@@ -87,7 +85,7 @@ public class StatsController {
         private long totalWaitTimeMs;
 
         StatisticView(Statistic s) {
-            receiverId = s.getReceiverId();
+            targetSystem = s.getReceiverId();
             targetOrganization = s.getTargetOrganization();
             serviceContract = new ServiceContractView(s.getServiceContract());
             deliveryCount = s.getDeliveryCount();
@@ -98,7 +96,7 @@ public class StatsController {
         @Override
         public String toString() {
             return "StatisticView{" +
-                    "receiverId='" + receiverId + '\'' +
+                    "targetSystem='" + targetSystem + '\'' +
                     ", targetOrganization='" + targetOrganization + '\'' +
                     ", serviceContract='" + serviceContract + '\'' +
                     ", deliveryCount=" + deliveryCount +
@@ -107,8 +105,8 @@ public class StatsController {
                     '}';
         }
 
-        public String getReceiverId() {
-            return receiverId;
+        public String getTargetSystem() {
+            return targetSystem;
         }
 
         public String getTargetOrganization() {

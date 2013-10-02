@@ -17,7 +17,7 @@ import se.skltp.messagebox.core.service.SystemPropertyService;
  * @author mats.olsson@callistaenterprise.se
  */
 @WebService(serviceName = "GenerateUrlResponderService",
-        endpointInterface = "se.riv.messagebox.GenerateUrl.v1.rivtabp21.GenerateUrlResponderInterface",
+        endpointInterface = "se.riv.itintegration.messagebox.GenerateUrl.v1.GenerateUrlResponderInterface",
         portName = "GenerateUrlResponderPort",
         targetNamespace = "urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21",
         wsdlLocation = "schemas/interactions/GenerateUrlInteraction/GenerateUrlInteraction_1.0_rivtabp21.wsdl")

@@ -6,17 +6,17 @@ import javax.persistence.*;
 import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 
 /**
- * Log statistics information about retrieved messages per receiverId
+ * Log statistics information about retrieved messages per targetSystem
  *
  * @author mats.olsson@callistaenterprise.se
  */
 @NamedQueries({
         @NamedQuery(name = "Statistic.getForReceiverAndDayTime",
-                query = "select s from Statistic s where s.receiverId = :receiverId and s.canonicalDayTime = :time"),
+                query = "select s from Statistic s where s.targetSystem = :targetSystem and s.canonicalDayTime = :time"),
         @NamedQuery(name = "Statistic.getForTimeSlice",
                 query = "select s from Statistic s "
                 + "where s.canonicalDayTime >= :startTime and s.canonicalDayTime <= :endTime "
-                + "order by s.receiverId, s.targetOrganization, s.serviceContract, s.canonicalDayTime")
+                + "order by s.targetSystem, s.targetOrganization, s.serviceContract, s.canonicalDayTime")
 
 })
 @Entity
@@ -39,7 +39,7 @@ public class Statistic extends AbstractEntity<Long> {
 
     // the hsaId for the receiver of this message; the calling system must authenticate using this id
     @Column(nullable = false)
-    private String receiverId;
+    private String targetSystem;
 
     // the actual target org for a message; owned by the receiving system
     @Column(nullable = false)
@@ -49,7 +49,7 @@ public class Statistic extends AbstractEntity<Long> {
     @Column(nullable = false)
     private String serviceContract;
 
-    // number of <serviceContract> messages delivered (read and deleted) for <receiverId>
+    // number of <serviceContract> messages delivered (read and deleted) for <targetSystem>
     @Column(nullable = false)
     private int deliveryCount;
 
@@ -65,13 +65,13 @@ public class Statistic extends AbstractEntity<Long> {
     /**
      * Construct a statistic entry for the (receiver, service contract, day) tuple
      *
-     * @param receiverId         receiving system id
+     * @param targetSystem         receiving system id
      * @param targetOrganization the target org of the message
      * @param serviceContract    service contract
      * @param time               will be converted to canonical day time
      */
-    public Statistic(String receiverId, String targetOrganization, String serviceContract, long time) {
-        this.receiverId = receiverId;
+    public Statistic(String targetSystem, String targetOrganization, String serviceContract, long time) {
+        this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.canonicalDayTime = convertToCanonicalDayTime(time);
@@ -89,7 +89,7 @@ public class Statistic extends AbstractEntity<Long> {
 
 
     public String getReceiverId() {
-        return receiverId;
+        return targetSystem;
     }
 
     public String getServiceContract() {

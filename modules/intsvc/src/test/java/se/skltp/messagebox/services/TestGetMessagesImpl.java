@@ -69,7 +69,7 @@ public class TestGetMessagesImpl extends BaseTestImpl {
         GetMessagesType params = new GetMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
         params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
         verifyResponse(receiver1Messages, impl.getMessages("mbox-address", params), 0, 1, 2);
 
@@ -78,7 +78,7 @@ public class TestGetMessagesImpl extends BaseTestImpl {
         verifyResponse(receiver1Messages, impl.getMessages("mbox-address", params), 1);
 
         // switch to new HSA-ID for caller
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid2");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid2");
 
         // trying to get messages we do not own just ignores it (log it as info)
         GetMessagesResponseType response = impl.getMessages("mbox-address", params);
@@ -102,7 +102,7 @@ public class TestGetMessagesImpl extends BaseTestImpl {
         GetMessagesType params = new GetMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
         params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
         GetMessagesResponseType resp = impl.getMessages("mbox-address", params);
 

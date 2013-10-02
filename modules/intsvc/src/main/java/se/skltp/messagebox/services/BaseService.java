@@ -18,7 +18,7 @@ import se.skltp.messagebox.core.service.MessageService;
  */
 public class BaseService {
     // the name of the Http-Header for the callings system authentification id
-    public static String HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
+    public static String SERVICE_CONSUMER_HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
     // the name of the Http-Header for the correlation id of the message
     // TODO: FIND OUT THE REAL NAME
     public static String BUSINESS_CORRELATION_ID_HEADER_NAME = "x-SOMETHING-GOES-HERE-business-correlation-id";
@@ -44,7 +44,7 @@ public class BaseService {
      * @return the hsa-id from the caller
      */
     protected String extractCallerIdFromRequest() {
-        return getHeaderValue(HSA_ID_HEADER_NAME);
+        return getHeaderValue(SERVICE_CONSUMER_HSA_ID_HEADER_NAME);
     }
 
     protected String extractCorrelationIdFromRequest() {

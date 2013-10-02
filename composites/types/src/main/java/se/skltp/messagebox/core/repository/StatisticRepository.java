@@ -25,9 +25,9 @@ public interface StatisticRepository extends Repository<Statistic, Long> {
     /**
      * Add statistics for delivering the given messages to the receiver at deliveryTime.
      *
-     * @param receiverId all messages must have this receiver
+     * @param targetSystem all messages must have this receiver
      * @param deliveryTime time to use as delivery time
      * @param messages messages to tote up stats for
      */
-    void addDeliveries(String receiverId, long deliveryTime, List<Message> messages);
+    void addDeliveries(String targetSystem, long deliveryTime, List<Message> messages);
 }

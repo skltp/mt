@@ -44,9 +44,9 @@ import se.skltp.messagebox.core.service.TimeService;
  * @author mats.olsson@callistaenterprise.se
  */
 @WebService(serviceName = "PingForConfigurationResponderService",
-        endpointInterface = "se.riv.messagebox.PingForConfiguration.v1.rivtabp21.PingForConfigurationResponderInterface",
+        endpointInterface = "se.riv.itintegration.monitoring.PingForConfiguration.v1.PingForConfigurationResponderInterface",
         portName = "PingForConfigurationResponderPort",
-        targetNamespace = "urn:riv:itintegration:messagebox:PingForConfiguration:1:rivtabp21",
+        targetNamespace = "urn:riv:itintegration:monitoring:PingForConfiguration:1:rivtabp21",
         wsdlLocation = "schemas/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl")
 public class PingForConfigurationImpl extends BaseService implements PingForConfigurationResponderInterface {
 
@@ -102,9 +102,9 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
             long queueSize = 0;
             Date oldestMessage = new Date(timeService.now());
             for ( StatusReport report : reports ) {
-                if ( !report.getReceiverId().equals(receiver) ) {
+                if ( !report.getTargetSystem().equals(receiver) ) {
                     save(receiver, queueSize, oldestMessage);
-                    receiver = report.getReceiverId();
+                    receiver = report.getTargetSystem();
                     queueSize = 0;
                     oldestMessage = new Date(timeService.now());
                 }

@@ -21,14 +21,14 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
 
 
     @Override
-    public void addDeliveries(String receiverId, long deliveryTime, List<Message> messages) {
+    public void addDeliveries(String targetSystem, long deliveryTime, List<Message> messages) {
 
         long canonicalDayTime = Statistic.convertToCanonicalDayTime(deliveryTime);
 
         // Load up all the existing stats objects.
         @SuppressWarnings("unchecked")
         List<Statistic> statsForDayAndReceiver = entityManager.createNamedQuery("Statistic.getForReceiverAndDayTime")
-                .setParameter("receiverId", receiverId)
+                .setParameter("targetSystem", targetSystem)
                 .setParameter("time", canonicalDayTime)
                 .getResultList();
 
@@ -39,11 +39,11 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
         }
 
         for ( Message msg : messages ) {
-            assert receiverId.equals(msg.getReceiverSystem());
+            assert targetSystem.equals(msg.getTargetSystem());
             Key key = new Key(msg);
             Statistic stat = statisticMap.get(key);
             if (stat == null) {
-                stat = new Statistic(receiverId, msg.getTargetOrganization(), msg.getServiceContract(), canonicalDayTime);
+                stat = new Statistic(targetSystem, msg.getTargetOrganization(), msg.getServiceContract(), canonicalDayTime);
                 entityManager.persist(stat);
                 statisticMap.put(key, stat);
             }

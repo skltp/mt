@@ -38,8 +38,8 @@ public class MessageServiceImpl implements MessageService {
 
     private Properties properties;
 
-    public List<Message> getMessages(String receiverId, Set<Long> ids) {
-        List<Message> messages = messageRepository.getMessages(receiverId, ids);
+    public List<Message> getMessages(String targetSystem, Set<Long> ids) {
+        List<Message> messages = messageRepository.getMessages(targetSystem, ids);
 
         // mark the message as retrieved
         for ( Message msg : messages ) {
@@ -51,8 +51,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> listMessages(String receiverId) {
-        return messageRepository.listMessages(receiverId);
+    public List<Message> listMessages(String targetSystem) {
+        return messageRepository.listMessages(targetSystem);
     }
 
     public Long saveMessage(Message message) {
@@ -61,20 +61,20 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message create(String sourceSystem, String receiverSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
-        return messageRepository.create(sourceSystem, receiverSystem, targetOrganization, serviceContract, messageBody, correlationId);
+    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
+        return messageRepository.create(sourceSystem, targetSystem, targetOrganization, serviceContract, messageBody, correlationId);
     }
 
-    public void deleteMessages(String receiverId, long timestamp, List<Message> messages) {
+    public void deleteMessages(String targetSystem, long now, List<Message> messages) {
         Set<Long> ids = new HashSet<>();
         for ( Message msg : messages ) {
             ids.add(msg.getId());
         }
-        int numDeleted = messageRepository.delete(receiverId, ids);
+        int numDeleted = messageRepository.delete(targetSystem, ids);
         if ( numDeleted != messages.size() ) {
             throw new IllegalStateException("Unable to delete " + messages.size() + " ids, could only delete " + numDeleted + " ids!");
         }
-        statisticService.addDeliveriesToStatistics(receiverId, timestamp, messages);
+        statisticService.addDeliveriesToStatistics(targetSystem, now, messages);
     }
 
 

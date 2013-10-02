@@ -5,7 +5,7 @@
 	<div class="data-table">
 		<table class="fullWidthTable">
 			<tr class="formRow">
-				<th title="#springMessage('common.receiver.tooltip')">#springMessage('common.receiver')</th>
+				<th title="#springMessage('common.targetSys.tooltip')">#springMessage('common.targetSys')</th>
 				<th title="#springMessage('common.targetOrg.tooltip')">#springMessage('common.targetOrg')</th>
 				<th title="#springMessage('common.serviceContract.tooltip')">#springMessage('common.serviceContract')</th>
 				<th title="#springMessage('statistic.deliveryCount.tooltip')">#springMessage('statistic.deliveryCount')</th>
@@ -15,7 +15,7 @@
 		  	#set($count=0)
 			#foreach( $s in $statistics )
 			<tr #if($count%2==0)class="evenRow linkedTableRow"#else class="oddRow linkedTableRow"#end>
-		  		<td title="#springMessage('common.receiver.tooltip')">#if($s.targetOrganization.length() == 0)$s.receiverId#end</td>
+		  		<td title="#springMessage('common.targetSys.tooltip')">#if($s.targetOrganization.length() == 0)$s.targetSystem#end</td>
                 <td title="#springMessage('common.targetOrg.tooltip')">#if($s.serviceContract.toString().length() == 0)$s.targetOrganization#end</td>
 		  		<td title="$s.serviceContract.fullName">$s.serviceContract</td>
 		  		<td title="#springMessage('statistic.deliveryCount.tooltip')">$s.deliveryCount</td>

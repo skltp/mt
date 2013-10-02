@@ -58,8 +58,8 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
     @Override
     public Source invoke(Source request) {
         try {
-            String receiverId = extractReceivingHsaId();
-            String sourceId = extractCallerIdFromRequest();
+            String targetSystem = extractReceivingSystemHsaId();
+            String sourceSystem = extractCallerIdFromRequest();
             String correlationId = extractCorrelationIdFromRequest();
 
             // parse the whole request in a SAXParser
@@ -71,7 +71,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
             String serviceContract = extractor.getServiceContract();
             String messageBody = extractor.getBody();
 
-            Message message = messageService.create(sourceId, receiverId, targetOrg, serviceContract, messageBody, correlationId);
+            Message message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
             log.info("Saved " + message);
 
@@ -87,7 +87,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<Source>
     }
 
     // the hsa-id is the part of the url after the "ReceiveMessage/"
-    private String extractReceivingHsaId() {
+    private String extractReceivingSystemHsaId() {
         MessageContext ctx = wsContext.getMessageContext();
         HttpServletRequest servletRequest = (HttpServletRequest) ctx.get(MessageContext.SERVLET_REQUEST);
         String uri = servletRequest.getRequestURI();

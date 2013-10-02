@@ -137,12 +137,12 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
     }
 
 
-    private Statistic getStats(List<Statistic> statistics, String receiverId, long time, String serviceContract) {
+    private Statistic getStats(List<Statistic> statistics, String targetSystem, long time, String serviceContract) {
         long canonicalDayTime = Statistic.convertToCanonicalDayTime(time);
 
         for ( Statistic stat : statistics ) {
             if ( stat.getCanonicalDayTime() == canonicalDayTime
-                    && stat.getReceiverId().equals(receiverId)
+                    && stat.getReceiverId().equals(targetSystem)
                     && stat.getServiceContract().equals(serviceContract) ) {
                 return stat;
             }
@@ -150,8 +150,8 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
         return null;
     }
 
-    private Message createMsg(String receiverId, String serviceContract, long deltaTime) {
-        return new Message("sourceId", receiverId, "targetOrg", serviceContract, "body", MessageStatusType.RECEIVED, new Date(deliveryTime - deltaTime), "correlationId");
+    private Message createMsg(String targetSystem, String serviceContract, long deltaTime) {
+        return new Message("sourceId", targetSystem, "targetOrg", serviceContract, "body", MessageStatusType.RECEIVED, new Date(deliveryTime - deltaTime), "correlationId");
     }
 
 
