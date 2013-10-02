@@ -37,6 +37,7 @@
 	<bean id="deleteMessages" class="se.skltp.messagebox.services.DeleteMessagesImpl"/>
 	<bean id="receiveMessage" class="se.skltp.messagebox.services.ReceiveMessagesImpl"/>
 	<bean id="generateUrl" class="se.skltp.messagebox.services.GenerateUrlImpl"/>
+	<bean id="pingForConfiguration" class="se.skltp.messagebox.services.PingForConfigurationImpl"/>
 
   	<jaxws:endpoint id="listMsgs"
                   	implementor="#listMessages"
@@ -52,8 +53,11 @@
                    	implementor="#receiveMessage"
                    	address="/ReceiveMessage" />
 
-    <jaxws:endpoint id="generateUrlM"
+    <jaxws:endpoint id="genUrl"
                    	implementor="#generateUrl"
                    	address="/GenerateUrl/1/rivtabp21" />
 
+    <jaxws:endpoint id="pingForConfig"
+                   	implementor="#pingForConfiguration"
+                   	address="/PingForConfiguration/1/rivtabp21" />
 </beans>
