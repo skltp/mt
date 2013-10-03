@@ -20,6 +20,7 @@
  */
 package se.skltp.messagebox.core.repository.jpa;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +41,10 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
 
     @SuppressWarnings("unchecked")
     public List<Message> getMessages(String systemId, Set<Long> ids) {
+        if (ids.isEmpty()) {
+            // you get an Illegal SQL statement if the set of ids to get is empty
+            return Collections.emptyList();
+        }
         return entityManager.createNamedQuery("Message.getForReceiverWithIds")
                 .setParameter("systemId", systemId)
                 .setParameter("ids", ids)
