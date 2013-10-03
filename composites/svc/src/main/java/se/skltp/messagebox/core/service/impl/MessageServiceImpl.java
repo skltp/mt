@@ -2,7 +2,6 @@ package se.skltp.messagebox.core.service.impl;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +22,11 @@ import se.skltp.messagebox.core.service.StatisticService;
 @Transactional(rollbackFor = Exception.class) // make sure to rollback for all Exceptions
 public class MessageServiceImpl implements MessageService {
 
-    /**
-     * The default answer given when a service contract is stored.
-     * <p/>
-     * May be overriden by giving a response is specified in the properties file.
-     */
-    private static final String DEFAULT_SERVICE_CONTRACT_OK_RESPONSE = "<response>Ok</response>";
-
     @Autowired
     private MessageRepository messageRepository;
 
     @Autowired
     private StatisticService statisticService;
-
-    private Properties properties;
 
     public List<Message> getMessages(String targetSystem, Set<Long> ids) {
         List<Message> messages = messageRepository.getMessages(targetSystem, ids);
