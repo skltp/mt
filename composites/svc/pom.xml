@@ -40,12 +40,6 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>message-schemas</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>message-types</artifactId>
             <version>${project.version}</version>
         </dependency>

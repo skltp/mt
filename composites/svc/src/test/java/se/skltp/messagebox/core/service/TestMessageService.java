@@ -31,8 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.fail;
 
@@ -72,7 +72,7 @@ public class TestMessageService extends JpaRepositoryTestBase {
     public void testStatistics() throws Exception {
 
         Date oldArrivalDate = new Date(timeService.now() - 48 * MS_HOUR);
-        Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatusType.RECEIVED, oldArrivalDate, "correlationId");
+        Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatus.RECEIVED, oldArrivalDate, "correlationId");
         messageService.saveMessage(message);
 
         entityManager.flush();

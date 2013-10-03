@@ -32,9 +32,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.TimeService;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
@@ -168,13 +168,13 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         String sc1 = "serviceContract1";
         String sc2 = "serviceContract2";
 
-        messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatusType.RECEIVED, time2, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time3, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc2, "webcall body", MessageStatusType.RECEIVED, time2, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc1, "webcall body", MessageStatusType.RECEIVED, time2, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatusType.RECEIVED, time1, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time1, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatusType.RECEIVED, time3, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatus.RECEIVED, time2, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time3, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc2, "webcall body", MessageStatus.RECEIVED, time2, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc1, "webcall body", MessageStatus.RECEIVED, time2, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time1, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time1, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time3, "correlationId"));
 
         List<StatusReport> reports = messageRepository.getStatusReports();
         assertEquals(5, reports.size());

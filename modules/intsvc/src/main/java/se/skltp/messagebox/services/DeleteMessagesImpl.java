@@ -64,6 +64,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
             List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
             if ( messageIdSet.size() != messages.size() ) {
+                // TODO: See discussion in GetMessagesImpl.java on how to handle this...
                 log.info("Receiver " + targetSystem + " attempted to delete non-deletable messages "
                         + describeMessageDiffs(messageIdSet, messages));
             }

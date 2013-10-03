@@ -27,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.skltp.messagebox.core.StatusReport;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.repository.MessageRepository;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.messagebox.core.service.TimeService;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
@@ -63,7 +63,7 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
         return entityManager.createNamedQuery("Message.deleteForReceiverWithIdsAndStatus")
                 .setParameter("systemId", systemId)
                 .setParameter("ids", ids)
-                .setParameter("status", MessageStatusType.RETRIEVED)
+                .setParameter("status", MessageStatus.RETRIEVED)
                 .executeUpdate();
     }
 
@@ -86,7 +86,7 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
                 targetOrganization,
                 serviceContract,
                 messageBody,
-                MessageStatusType.RECEIVED,
+                MessageStatus.RECEIVED,
                 timeService.date(),
                 correlationId);
         store(result);

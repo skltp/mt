@@ -33,9 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -89,8 +89,8 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         String targetSystem = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
-        Message msg1 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
-        Message msg2 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg1 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract1, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
+        Message msg2 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract2, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 
@@ -131,8 +131,8 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         String targetOrg1 = "targetOrg1";
         String targetOrg2 = "targetOrg2";
 
-        Message msg1 = new Message("sourceId", targetSystem, targetOrg1, serviceContract1, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
-        Message msg2 = new Message("sourceId", targetSystem, targetOrg2, serviceContract2, "messageBody", MessageStatusType.RETRIEVED, now, "correlationId");
+        Message msg1 = new Message("sourceId", targetSystem, targetOrg1, serviceContract1, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
+        Message msg2 = new Message("sourceId", targetSystem, targetOrg2, serviceContract2, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 

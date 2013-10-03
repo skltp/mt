@@ -20,7 +20,9 @@
  */
 package se.skltp.messagebox.core.repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,10 +32,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.TimeService;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -128,7 +130,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
 
         for ( int i = 0; i < 20; i++ ) {
             long deliTime = deliveryTime - MS_DAY * i;
-            messages.add(new Message("sourceId", "rec1", "targetOrg", "sk1", "body", MessageStatusType.RECEIVED, new Date(deliTime - 100), "correlationId"));
+            messages.add(new Message("sourceId", "rec1", "targetOrg", "sk1", "body", MessageStatus.RECEIVED, new Date(deliTime - 100), "correlationId"));
             statisticRepository.addDeliveries("rec1", deliTime, messages);
         }
 
@@ -151,7 +153,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
     }
 
     private Message createMsg(String targetSystem, String serviceContract, long deltaTime) {
-        return new Message("sourceId", targetSystem, "targetOrg", serviceContract, "body", MessageStatusType.RECEIVED, new Date(deliveryTime - deltaTime), "correlationId");
+        return new Message("sourceId", targetSystem, "targetOrg", serviceContract, "body", MessageStatus.RECEIVED, new Date(deliveryTime - deltaTime), "correlationId");
     }
 
 

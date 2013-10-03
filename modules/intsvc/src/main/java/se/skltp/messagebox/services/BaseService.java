@@ -8,7 +8,9 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.springframework.web.util.UriUtils;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.MessageService;
 
 /**
@@ -24,6 +26,8 @@ public class BaseService {
     public static String BUSINESS_CORRELATION_ID_HEADER_NAME = "x-SOMETHING-GOES-HERE-business-correlation-id";
     protected MessageService messageService;
     protected WebServiceContext wsContext;
+
+
 
     @Resource
     public void setWsContext(WebServiceContext wsContext) {
@@ -95,6 +99,27 @@ public class BaseService {
             return UriUtils.encodeFragment(consumerHsaId, "utf-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);   // not reachable, tied to "utf-8"
+        }
+    }
+
+    /**
+     * Translates the entity MessageStatus to the schema MessageStatusType.
+     *
+     * Exist because we don't want the types modules to be dependent on the schema module
+     *
+     * @param status entity status to translate
+     * @return translated into schema
+     */
+    public static MessageStatusType translateStatusToSchema(MessageStatus status) {
+        switch (status) {
+            case RECEIVED:
+                return MessageStatusType.RECEIVED;
+            case RETRIEVED:
+                return MessageStatusType.RETRIEVED;
+            case DELETED:
+                return MessageStatusType.DELETED;
+            default:
+                throw new RuntimeException("Illegal message status " + status + " found!");
         }
     }
 }

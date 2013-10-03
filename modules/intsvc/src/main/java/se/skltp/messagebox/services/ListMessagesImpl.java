@@ -83,7 +83,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
                         meta.setServiceContractType(msg.getServiceContract());
                         meta.setMessageSize(msg.getMessageBody().length());
                         meta.setArrivalTime(msg.getArrived());
-                        meta.setStatus((msg.getStatus()));
+                        meta.setStatus(translateStatusToSchema(msg.getStatus()));
 
                         response.getMessageMetas().add(meta);
                     }

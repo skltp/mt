@@ -23,7 +23,6 @@ package se.skltp.messagebox.core.entity;
 import java.util.Date;
 import javax.persistence.*;
 
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 
 /**
@@ -100,7 +99,7 @@ public class Message extends AbstractEntity<Long> {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private MessageStatusType status;
+    private MessageStatus status;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrived;
@@ -110,7 +109,7 @@ public class Message extends AbstractEntity<Long> {
     }
 
 
-    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatusType status, Date arrived, String correlationId) {
+    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatus status, Date arrived, String correlationId) {
         this.sourceSystem = sourceSystem;
         this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
@@ -130,7 +129,7 @@ public class Message extends AbstractEntity<Long> {
         return targetSystem;
     }
 
-    public MessageStatusType getStatus() {
+    public MessageStatus getStatus() {
         return status;
     }
 
@@ -166,7 +165,7 @@ public class Message extends AbstractEntity<Long> {
      * Must be called before the message can be deleted.
      */
     public void setStatusRetrieved() {
-        this.status = MessageStatusType.RETRIEVED;
+        this.status = MessageStatus.RETRIEVED;
     }
 
 }

@@ -29,17 +29,39 @@ import org.mockito.runners.MockitoJUnitRunner;
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
 import se.riv.itintegration.messagebox.v1.MessageMetaType;
+import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestListMessagesImpl extends BaseTestImpl {
 
+
+    /**
+     * Verify that the schema status is fully translatable from the entity status.
+     *
+     * For dependency reasons, we do not want to store the schema-defined enum in the
+     * database, but we need to ensure that the entity MessageStatus enum can be fully
+     * translated into the schema type.
+     */
+    @Test
+    public void testStatusMapping() {
+        assertEquals(MessageStatus.values().length, MessageStatusType.values().length);
+        Set<MessageStatusType> schemaStatus = new HashSet<>();
+        for ( MessageStatus messageStatus : MessageStatus.values() ) {
+            schemaStatus.add(BaseService.translateStatusToSchema(messageStatus));
+        }
+        assertEquals(MessageStatusType.values().length, schemaStatus.size());
+        schemaStatus.removeAll(Arrays.asList(MessageStatusType.values()));
+        assertTrue(schemaStatus.isEmpty());
+    }
 
     /**
      * Verify that we map the parameters and return types correctly when translating
@@ -153,6 +175,9 @@ public class TestListMessagesImpl extends BaseTestImpl {
 
 
     // trailing ints selects a subset of messages we expect
+    /**
+     * Verify
+     */
     private void verifyResponse(List<Message> messages, ListMessagesResponseType responseType, Integer... selection) {
         List<MessageMetaType> messageMetas = responseType.getMessageMetas();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, messageMetas.size());
@@ -170,7 +195,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
             assertNotNull("Unexpected message id " + meta.getMessageId() + " found!", msg);
             assertEquals(msg.getTargetOrganization(), meta.getTargetOrganization());
             assertEquals(msg.getServiceContract(), meta.getServiceContractType());
-            assertEquals(msg.getStatus(), meta.getStatus());
+            assertEquals(BaseService.translateStatusToSchema(msg.getStatus()), meta.getStatus());
             assertEquals(msg.getArrived(), meta.getArrivalTime());
             assertEquals(msg.getMessageBody().length(), meta.getMessageSize());
         }
