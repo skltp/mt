@@ -72,9 +72,6 @@ public class Message extends AbstractEntity<Long> {
     @Column(nullable = false)
     private String serviceContract;
 
-    // The correlation id (VP message id) of the received message. Also only used for error tracking/logging
-    private String businessCorrelationId;
-
     @Column(nullable = false)
     @Lob
     private String messageBody;
@@ -109,7 +106,7 @@ public class Message extends AbstractEntity<Long> {
     }
 
 
-    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatus status, Date arrived, String correlationId) {
+    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatus status, Date arrived) {
         this.sourceSystem = sourceSystem;
         this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
@@ -118,7 +115,6 @@ public class Message extends AbstractEntity<Long> {
         this.messageBodySize = messageBody.length();
         this.status = status;
         this.arrived = arrived;
-        this.businessCorrelationId = correlationId;
     }
 
     public Long getId() {
@@ -151,10 +147,6 @@ public class Message extends AbstractEntity<Long> {
 
     public String getSourceSystem() {
         return sourceSystem;
-    }
-
-    public String getBusinessCorrelationId() {
-        return businessCorrelationId;
     }
 
     public long getMessageBodySize() {

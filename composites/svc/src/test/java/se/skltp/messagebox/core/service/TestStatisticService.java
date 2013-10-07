@@ -60,7 +60,7 @@ public class TestStatisticService extends JpaRepositoryTestBase {
     public void testDeliverOneMessage() throws Exception {
         String targetSystem = "recId";
         String serviceContract = "sc1";
-        Message message = messageService.create("sourceId", targetSystem, "targetOrg", serviceContract, "messageBody", "correlationId");
+        Message message = messageService.create("sourceId", targetSystem, "targetOrg", serviceContract, "messageBody");
         messageService.saveMessage(message);
 
         message.setStatusRetrieved(); // allow the messaged to be deleted
@@ -89,8 +89,8 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         String targetSystem = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
-        Message msg1 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract1, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
-        Message msg2 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract2, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
+        Message msg1 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract1, "messageBody", MessageStatus.RETRIEVED, now);
+        Message msg2 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract2, "messageBody", MessageStatus.RETRIEVED, now);
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 
@@ -131,8 +131,8 @@ public class TestStatisticService extends JpaRepositoryTestBase {
         String targetOrg1 = "targetOrg1";
         String targetOrg2 = "targetOrg2";
 
-        Message msg1 = new Message("sourceId", targetSystem, targetOrg1, serviceContract1, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
-        Message msg2 = new Message("sourceId", targetSystem, targetOrg2, serviceContract2, "messageBody", MessageStatus.RETRIEVED, now, "correlationId");
+        Message msg1 = new Message("sourceId", targetSystem, targetOrg1, serviceContract1, "messageBody", MessageStatus.RETRIEVED, now);
+        Message msg2 = new Message("sourceId", targetSystem, targetOrg2, serviceContract2, "messageBody", MessageStatus.RETRIEVED, now);
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 

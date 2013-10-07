@@ -23,7 +23,6 @@ public class BaseService {
     public static String SERVICE_CONSUMER_HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
     // the name of the Http-Header for the correlation id of the message
     // TODO: FIND OUT THE REAL NAME
-    public static String BUSINESS_CORRELATION_ID_HEADER_NAME = "x-SOMETHING-GOES-HERE-business-correlation-id";
     protected MessageService messageService;
     protected WebServiceContext wsContext;
 
@@ -51,10 +50,6 @@ public class BaseService {
         return getHeaderValue(SERVICE_CONSUMER_HSA_ID_HEADER_NAME);
     }
 
-    protected String extractCorrelationIdFromRequest() {
-        //TODO: find out what this really is?
-        return "todo: find out if it is possible to get the real correlation id"; // getHeaderValue(BUSINESS_CORRELATION_ID_HEADER_NAME);
-    }
 
     private String getHeaderValue(String name) {
         MessageContext msgCtxt = wsContext.getMessageContext();

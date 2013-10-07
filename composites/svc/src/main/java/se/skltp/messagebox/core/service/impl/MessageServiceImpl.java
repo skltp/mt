@@ -51,8 +51,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
-        return messageRepository.create(sourceSystem, targetSystem, targetOrganization, serviceContract, messageBody, correlationId);
+    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody) {
+        return messageRepository.create(sourceSystem, targetSystem, targetOrganization, serviceContract, messageBody);
     }
 
     public void deleteMessages(String targetSystem, long now, List<Message> messages) {

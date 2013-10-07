@@ -55,7 +55,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testPersist() throws Exception {
-        messageRepository.create("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body", "correlationId");
+        messageRepository.create("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body");
 
         entityManager.flush();
         entityManager.clear();
@@ -66,7 +66,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testFindByReceiver() throws Exception {
         String targetSystem = "receivers Hsa-Id";
-        messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", "correlationId");
+        messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body");
 
         entityManager.flush();
         entityManager.clear();
@@ -80,7 +80,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testFindByReceiverAndId() throws Exception {
         Set<Long> ids = new HashSet<>();
         String targetSystem = "receivers Hsa-Id";
-        Message message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", "correlationId");
+        Message message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body");
         ids.add(message.getId());
 
         entityManager.flush();
@@ -104,7 +104,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     public void testOrder() throws Exception {
         Set<Long> ids = new HashSet<>();
         for(int i = 0 ; i < 5 ; i++) {
-            Message message = messageRepository.create("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent", "correlationId");
+            Message message = messageRepository.create("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent");
             entityManager.persist(message);
             ids.add(message.getId());
         }
@@ -125,7 +125,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
     @Test
     public void testDelete() throws Exception {
         String systemId = "hsaId";
-        Message message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", "correlationId");
+        Message message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body");
         messageRepository.persist(message);
 
         entityManager.flush();
@@ -168,13 +168,13 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         String sc1 = "serviceContract1";
         String sc2 = "serviceContract2";
 
-        messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatus.RECEIVED, time2, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time3, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc2, "webcall body", MessageStatus.RECEIVED, time2, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc1, "webcall body", MessageStatus.RECEIVED, time2, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time1, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time1, "correlationId"));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time3, "correlationId"));
+        messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatus.RECEIVED, time2));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time3));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc2, "webcall body", MessageStatus.RECEIVED, time2));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc1, "webcall body", MessageStatus.RECEIVED, time2));
+        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time1));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time1));
+        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time3));
 
         List<StatusReport> reports = messageRepository.getStatusReports();
         assertEquals(5, reports.size());

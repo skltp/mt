@@ -85,15 +85,15 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
     }
 
     @Override
-    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
+    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody) {
         Message result = new Message(sourceSystem,
                 targetSystem,
                 targetOrganization,
                 serviceContract,
                 messageBody,
                 MessageStatus.RECEIVED,
-                timeService.date(),
-                correlationId);
+                timeService.date()
+        );
         store(result);
         return result;
     }

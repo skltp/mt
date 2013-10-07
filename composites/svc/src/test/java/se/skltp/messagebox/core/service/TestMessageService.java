@@ -53,7 +53,7 @@ public class TestMessageService extends JpaRepositoryTestBase {
 
     @Test
     public void deleteMessages() throws Exception {
-        Message message = messageService.create("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", "correlationId");
+        Message message = messageService.create("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body");
 
         entityManager.flush();
 
@@ -72,7 +72,7 @@ public class TestMessageService extends JpaRepositoryTestBase {
     public void testStatistics() throws Exception {
 
         Date oldArrivalDate = new Date(timeService.now() - 48 * MS_HOUR);
-        Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatus.RECEIVED, oldArrivalDate, "correlationId");
+        Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatus.RECEIVED, oldArrivalDate);
         messageService.saveMessage(message);
 
         entityManager.flush();
