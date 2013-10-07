@@ -27,6 +27,7 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
@@ -79,8 +80,14 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 ServiceContractType serverContract = new ServiceContractType();
                 serverContract.setServiceContractNamespace(msg.getServiceContract());
                 elem.setServiceContractType(serverContract);
-                elem.setMessage(msg.getMessageBody());
                 elem.setTargetOrganization(msg.getTargetOrganization());
+
+                // TODO: Decide if we should transfer the message body as a string
+                elem.setMessage(msg.getMessageBody());
+                // TODO: ... or as the "ANY" field
+                Document doc = (Document) XmlUtils.getStringAsDom(msg.getMessageBody()).getNode();
+                elem.setAny(doc.getDocumentElement());
+                // TODO: either decide or add a parameter to select
 
                 response.getResponses().add(elem);
             }
