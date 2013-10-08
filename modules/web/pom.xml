@@ -34,7 +34,7 @@
     </properties>
 
     <build>
-        <finalName>message</finalName>
+        <finalName>message-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -82,8 +82,8 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
-        <dependency>
             <!-- Use the resource-loading servlet from Spring-JS -->
+        <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>org.springframework.js</artifactId>
         </dependency>
@@ -111,6 +111,11 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
 
         <dependency>

@@ -113,6 +113,13 @@
                 <groupId>org.springframework.webflow</groupId>
                 <artifactId>org.springframework.js</artifactId>
                 <version>2.0.5.RELEASE</version>
+                <exclusions>
+                    <!-- includes spring-core 2.5.6 -->
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -131,6 +138,12 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hib.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.0.1.Final</version>
             </dependency>
 
             <dependency>
@@ -181,6 +194,7 @@
                 <artifactId>validation-api</artifactId>
                 <version>1.1.0.Final</version>
             </dependency>
+
 
             <dependency>
                 <groupId>org.apache.velocity</groupId>
