@@ -61,7 +61,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
 
         try {
             String targetSystem = extractCallerIdFromRequest();
-            Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
+            Set<Long> messageIdSet = new HashSet<Long>(parameters.getMessageIds());
             List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
             if ( messageIdSet.size() != messages.size() ) {
                 // TODO: See discussion in GetMessagesImpl.java on how to handle this...

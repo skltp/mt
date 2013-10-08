@@ -75,9 +75,14 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             log.debug("Saved " + message);
 
             return getReturnCode();
-        } catch (TransformerException | ParserConfigurationException | SOAPException e) {
-            // Fatal exception, should never happen - configuration/failed XML parsing?
+            // TODO: translate to correct SOAPFault errors!
+        } catch (TransformerException e) {
             throw new RuntimeException(e);
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        } catch (SOAPException e) {
+            throw new RuntimeException(e);
+
         }
     }
 

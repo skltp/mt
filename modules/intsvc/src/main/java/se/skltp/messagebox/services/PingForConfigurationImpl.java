@@ -95,7 +95,7 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
     private class StatusBuilder {
 
-        List<ConfigurationType> result = new ArrayList<>();
+        List<ConfigurationType> result = new ArrayList<ConfigurationType>();
 
         public StatusBuilder(List<StatusReport> reports) {
             String receiver = null;
@@ -126,7 +126,7 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
     private class StatsBuilder {
 
-        List<ConfigurationType> result = new ArrayList<>();
+        List<ConfigurationType> result = new ArrayList<ConfigurationType>();
 
         public StatsBuilder(List<Statistic> reports) {
             String receiver = null;

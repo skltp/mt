@@ -35,7 +35,7 @@ import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.StatisticService;
 import se.skltp.messagebox.core.service.TimeService;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -64,10 +64,10 @@ public class TestPingForConfigurationImpl extends BaseTestImpl {
         impl.setMessageService(messageService);
         impl.setTimeService(timeService);
 
-        List<Statistic> statistics = new ArrayList<>();
+        List<Statistic> statistics = new ArrayList<Statistic>();
         statistics.add(new Statistic("rec1", "org1", "sc1", 0));
         statistics.get(0).addDelivery(121000);   // 02:01
-        List<StatusReport> reports = new ArrayList<>();
+        List<StatusReport> reports = new ArrayList<StatusReport>();
         reports.add(new StatusReport("rec1", "org1", "sc1", 1, new Date(timeService.now() - 15000))); // 00:15
 
         when(statisticService.getStatisticsForTimeSlice(anyLong(), anyLong())).thenReturn(statistics);
@@ -81,7 +81,7 @@ public class TestPingForConfigurationImpl extends BaseTestImpl {
         assertEquals(0, diff);
         List<ConfigurationType> confList = responseType.getConfiguration();
         assertEquals(4, confList.size());
-        Map<String,String> props = new HashMap<>();
+        Map<String,String> props = new HashMap<String, String>();
         for ( ConfigurationType c : confList ) {
             props.put(c.getName(), c.getValue());
         }

@@ -38,7 +38,7 @@ public class MainController {
     private List<StatusReportView> createRepView(List<StatusReport> reports) {
         StatusReportView recRep = null;
         StatusReportView orgRep = null;
-        List<StatusReportView> results = new ArrayList<>();
+        List<StatusReportView> results = new ArrayList<StatusReportView>();
         for ( StatusReport r : reports ) {
             if ( recRep == null || !r.getTargetSystem().equals(recRep.getTargetSystem()) ) {
                 results.add(recRep = StatusReportView.createRec(r));

@@ -72,11 +72,11 @@ public class BaseService {
     }
 
     private List<Long> getMissingMessageIds(Set<Long> messageIds, List<Message> messages) {
-        Set<Long> copy = new HashSet<>(messageIds);
+        Set<Long> copy = new HashSet<Long>(messageIds);
         for ( Message message : messages ) {
             copy.remove(message.getId());
         }
-        List<Long> sorted = new ArrayList<>(copy);
+        List<Long> sorted = new ArrayList<Long>(copy);
         Collections.sort(sorted);
         return sorted;
     }

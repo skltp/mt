@@ -32,7 +32,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
                 .setParameter("time", canonicalDayTime)
                 .getResultList();
 
-        Map<Key, Statistic> statisticMap = new HashMap<>();
+        Map<Key, Statistic> statisticMap = new HashMap<Key, Statistic>();
         for ( Statistic statistic : statsForDayAndReceiver ) {
             Statistic stat = statisticMap.put(new Key(statistic), statistic);
             assert stat == null;

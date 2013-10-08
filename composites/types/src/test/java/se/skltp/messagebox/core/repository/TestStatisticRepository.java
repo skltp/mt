@@ -62,7 +62,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testPersist() throws Exception {
-        List<Message> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<Message>();
         messages.add(createMsg("rec1", "sc1", 100));
         messages.add(createMsg("rec1", "sc2", 200));
         messages.add(createMsg("rec1", "sc2", 300));
@@ -91,7 +91,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testComplexOneDay() throws Exception {
-        List<Message> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<Message>();
         messages.add(createMsg("rec1", "sc1", 100));
         messages.add(createMsg("rec1", "sc2", 200));
         messages.add(createMsg("rec1", "sc2", 300));
@@ -126,7 +126,7 @@ public class TestStatisticRepository extends JpaRepositoryTestBase {
     @Test
     public void testMonthly() throws Exception {
 
-        List<Message> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<Message>();
 
         for ( int i = 0; i < 20; i++ ) {
             long deliTime = deliveryTime - MS_DAY * i;

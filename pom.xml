@@ -26,7 +26,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>2.3.0</cxf.version>
-        <hib.version>4.2.5.Final</hib.version>
+        <!-- hib 4 does not work with tomcat6 if you use @Lob annotation (Large object) for message body -->
+        <!-- You get an AbstractMethodNotFound error -->
+        <!-- Have to stay at hib 3 until we can deploy on tomcat7 -->
+        <hib.version>3.6.10.Final</hib.version>
         <spring.version>3.2.4.RELEASE</spring.version>
     </properties>
 
@@ -51,7 +54,7 @@
                 <version>${cxf.version}</version>
             </dependency>
 
-            <!--  för att undvika att 2.0.8 laddas in -->
+            <!--  för att undvika att 2.0.8 laddas in
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
@@ -63,6 +66,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+             -->
 
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -104,6 +108,7 @@
             	<artifactId>spring-context-support</artifactId>
             	<version>${spring.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.webflow</groupId>
                 <artifactId>org.springframework.js</artifactId>
@@ -126,12 +131,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hib.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>3.0</version>
             </dependency>
 
             <dependency>
@@ -225,6 +224,18 @@
             </dependency>
 
             <dependency>
+            	<groupId>org.apache.tomcat</groupId>
+            	<artifactId>dbcp</artifactId>
+            	<version>6.0.37</version>
+            </dependency>
+
+            <dependency>
+            	<groupId>org.apache.tomcat</groupId>
+            	<artifactId>tomcat-dbcp</artifactId>
+            	<version>7.0.42</version>
+            </dependency>
+
+            <dependency>
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
                 <version>1.4</version>
@@ -275,8 +286,10 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <!-- source 1.7 requires target 1.7, so we are stuck at 1.6 source level :-( -->
+                        <source>1.6</source>
+                        <!-- Deployment target uses 1.6 JVM as of 2013-10-01, so use that -->
+                        <target>1.6</target>
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>

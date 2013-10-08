@@ -53,6 +53,24 @@
             <artifactId>dao-framework-jpa</artifactId>
         </dependency>
 
+        <!-- need to ship this to avoid the buggy tomcat6 version? - ->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.apache.tomcat</groupId>
+        	<artifactId>tomcat-dbcp</artifactId>
+        	<version>7.0.42</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.apache.tomcat</groupId>
+        	<artifactId>dbcp</artifactId>
+        </dependency>
+        -->
+
 
         <!-- TEST SCOPE -->
 

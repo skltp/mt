@@ -35,9 +35,9 @@ import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.MessageStatus;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -54,7 +54,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
     @Test
     public void testStatusMapping() {
         assertEquals(MessageStatus.values().length, MessageStatusType.values().length);
-        Set<MessageStatusType> schemaStatus = new HashSet<>();
+        Set<MessageStatusType> schemaStatus = new HashSet<MessageStatusType>();
         for ( MessageStatus messageStatus : MessageStatus.values() ) {
             schemaStatus.add(BaseService.translateStatusToSchema(messageStatus));
         }
@@ -181,9 +181,9 @@ public class TestListMessagesImpl extends BaseTestImpl {
     private void verifyResponse(List<Message> messages, ListMessagesResponseType responseType, Integer... selection) {
         List<MessageMetaType> messageMetas = responseType.getMessageMetas();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, messageMetas.size());
-        Set<Integer> selectionSet = new HashSet<>(Arrays.asList(selection));
+        Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
 
-        Map<Long, Message> msgMap = new HashMap<>();
+        Map<Long, Message> msgMap = new HashMap<Long, Message>();
         for ( int i = 0, messagesSize = messages.size(); i < messagesSize; i++ ) {
             if ( selection.length == 0 || selectionSet.contains(i) ) {
                 msgMap.put(messages.get(i).getId(), messages.get(i));

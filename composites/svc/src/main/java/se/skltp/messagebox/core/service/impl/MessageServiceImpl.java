@@ -56,7 +56,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public void deleteMessages(String targetSystem, long now, List<Message> messages) {
-        Set<Long> ids = new HashSet<>();
+        Set<Long> ids = new HashSet<Long>();
         for ( Message msg : messages ) {
             ids.add(msg.getId());
         }

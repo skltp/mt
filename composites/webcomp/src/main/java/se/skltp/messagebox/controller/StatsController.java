@@ -49,7 +49,7 @@ public class StatsController {
      * @return views of the statistics, with extra summary rows
      */
     private List<StatisticView> createStatView(List<Statistic> statistics) {
-        List<StatisticView> results = new ArrayList<>();
+        List<StatisticView> results = new ArrayList<StatisticView>();
         StatisticView recRow = null;
         StatisticView orgRow = null;
         StatisticView conRow = null;

@@ -53,10 +53,10 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
                 createMessage(idCounter++, "hsaid1", "org2", "tk2", "msg3")
         );
 
-        Set<Long> allEntries = new HashSet<>(Arrays.asList(0L, 1L, 2L));
-        Set<Long> middleEntry = new HashSet<>(Arrays.asList(1L));
-        Set<Long> remNonExEntry = new HashSet<>(Arrays.asList(1L, 4L, 5L));
-        Set<Long> failEntry = new HashSet<>(Arrays.asList(99L));
+        Set<Long> allEntries = new HashSet<Long>(Arrays.asList(0L, 1L, 2L));
+        Set<Long> middleEntry = new HashSet<Long>(Arrays.asList(1L));
+        Set<Long> remNonExEntry = new HashSet<Long>(Arrays.asList(1L, 4L, 5L));
+        Set<Long> failEntry = new HashSet<Long>(Arrays.asList(99L));
 
         // mock up the request
         when(messageService.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
@@ -100,9 +100,9 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
         assertEquals(ResultCodeEnum.OK, responseType.getResult().getCode());
         List<Long> deletedIds = responseType.getDeletedIds();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, deletedIds.size());
-        Set<Integer> selectionSet = new HashSet<>(Arrays.asList(selection));
+        Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
 
-        Map<Long, Message> msgMap = new HashMap<>();
+        Map<Long, Message> msgMap = new HashMap<Long, Message>();
         for ( int i = 0, messagesSize = messages.size(); i < messagesSize; i++ ) {
             if ( selection.length == 0 || selectionSet.contains(i) ) {
                 msgMap.put(messages.get(i).getId(), messages.get(i));

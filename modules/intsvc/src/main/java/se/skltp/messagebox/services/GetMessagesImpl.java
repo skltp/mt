@@ -57,7 +57,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
 
         try {
             String targetSystem = extractCallerIdFromRequest();
-            Set<Long> messageIdSet = new HashSet<>(parameters.getMessageIds());
+            Set<Long> messageIdSet = new HashSet<Long>(parameters.getMessageIds());
 
             List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
 

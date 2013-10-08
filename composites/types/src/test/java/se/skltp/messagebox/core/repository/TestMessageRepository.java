@@ -78,7 +78,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testFindByReceiverAndId() throws Exception {
-        Set<Long> ids = new HashSet<>();
+        Set<Long> ids = new HashSet<Long>();
         String targetSystem = "receivers Hsa-Id";
         Message message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body");
         ids.add(message.getId());
@@ -93,7 +93,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testFindNone() throws Exception {
-        Set<Long> ids = new HashSet<>();
+        Set<Long> ids = new HashSet<Long>();
         String targetSystem = "receivers Hsa-Id";
         ids.add(1L);
         List<Message> messages = messageRepository.getMessages(targetSystem, ids);
@@ -102,7 +102,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
     @Test
     public void testOrder() throws Exception {
-        Set<Long> ids = new HashSet<>();
+        Set<Long> ids = new HashSet<Long>();
         for(int i = 0 ; i < 5 ; i++) {
             Message message = messageRepository.create("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent");
             entityManager.persist(message);
@@ -133,7 +133,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
 
-        Set<Long> ids = new HashSet<>();
+        Set<Long> ids = new HashSet<Long>();
         ids.add(message.getId());
 
         // fail first delete because of wrong message status

@@ -63,11 +63,11 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             //
             // Normally, this would be the desired way of doing things.
             //
-            Set<String> types = new HashSet<>();
+            Set<String> types = new HashSet<String>();
             for ( ServiceContractType type : parameters.getServiceContractTypes() ) {
                 types.add(type.getServiceContractNamespace());
             }
-            Set<String> targetOrgs = new HashSet<>(parameters.getTargetOrganizations());
+            Set<String> targetOrgs = new HashSet<String>(parameters.getTargetOrganizations());
 
             List<Message> messages = messageService.listMessages(hsaId);
 

@@ -32,7 +32,9 @@ import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.messagebox.core.entity.Message;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -54,8 +56,8 @@ public class TestGetMessagesImpl extends BaseTestImpl {
                 createMessage(idCounter++, "hsaid1", "org2", "tk2", "msg3")
         );
 
-        Set<Long> allEntries = new HashSet<>(Arrays.asList(0L, 1L, 2L));
-        Set<Long> middleEntry = new HashSet<>(Arrays.asList(1L));
+        Set<Long> allEntries = new HashSet<Long>(Arrays.asList(0L, 1L, 2L));
+        Set<Long> middleEntry = new HashSet<Long>(Arrays.asList(1L));
 
         // mock up the request
         when(messageService.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
@@ -88,7 +90,7 @@ public class TestGetMessagesImpl extends BaseTestImpl {
 
     @Test
     public void testFailure() throws Exception {
-        Set<Long> allEntries = new HashSet<>(Arrays.asList(0L, 1L, 2L));
+        Set<Long> allEntries = new HashSet<Long>(Arrays.asList(0L, 1L, 2L));
 
         // mock up the request
         String errorMessage = "failed";
@@ -116,9 +118,9 @@ public class TestGetMessagesImpl extends BaseTestImpl {
         assertEquals(ResultCodeEnum.OK, responseType.getResult().getCode());
         List<ResponseType> responses = responseType.getResponses();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, responses.size());
-        Set<Integer> selectionSet = new HashSet<>(Arrays.asList(selection));
+        Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
 
-        Map<Long, Message> msgMap = new HashMap<>();
+        Map<Long, Message> msgMap = new HashMap<Long, Message>();
         for ( int i = 0, messagesSize = messages.size(); i < messagesSize; i++ ) {
             if ( selection.length == 0 || selectionSet.contains(i) ) {
                 msgMap.put(messages.get(i).getId(), messages.get(i));
