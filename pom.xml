@@ -104,9 +104,9 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
-            	<groupId>org.springframework</groupId>
-            	<artifactId>spring-context-support</artifactId>
-            	<version>${spring.version}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
@@ -238,15 +238,15 @@
             </dependency>
 
             <dependency>
-            	<groupId>org.apache.tomcat</groupId>
-            	<artifactId>dbcp</artifactId>
-            	<version>6.0.37</version>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>dbcp</artifactId>
+                <version>6.0.37</version>
             </dependency>
 
             <dependency>
-            	<groupId>org.apache.tomcat</groupId>
-            	<artifactId>tomcat-dbcp</artifactId>
-            	<version>7.0.42</version>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-dbcp</artifactId>
+                <version>7.0.42</version>
             </dependency>
 
             <dependency>
@@ -287,13 +287,13 @@
                 </plugin>
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
-                   	<artifactId>jetty-maven-plugin</artifactId>
-                   	<version>9.1.0.M0</version>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.1.0.M0</version>
                 </plugin>
                 <plugin>
-                	<groupId>org.apache.maven.plugins</groupId>
-                	<artifactId>maven-eclipse-plugin</artifactId>
-                	<version>2.9</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.9</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -337,6 +337,45 @@ encoding/<project>=UTF-8]]>
                     <tagBase>https://inera-message.googlecode.com/svn/tags/</tagBase>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <year>2013</year>
+                        <project-name>Inera MessageService</project-name>
+                        <project-url>http://code.google.com/p/inera-message</project-url>
+                    </properties>
+                    <strictCheck>true</strictCheck>
+                    <header>header.txt</header>
+                    <encoding>UTF-8</encoding>
+                    <includes>
+                        <include>src/main/**</include>
+                        <include>src/test/**</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/NOTICE.txt</exclude>
+                        <exclude>**/LICENSE.txt</exclude>
+                        <!-- Exclude .properties due to encoding issues (iso-88590-1) -->
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/*.xsd</exclude>
+                        <exclude>**/*.wsdl</exclude>
+                    </excludes>
+                    <mapping>
+                        <tag>DYNASCRIPT_STYLE</tag>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check-headers-for-license</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
