@@ -65,10 +65,10 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 // TODO: this is the "optimistic" way of doing it, getting those you could get
                 // and letting the user decide if he wants to treat the diff as a mismatch.
                 // However, it might be better to treat it as an error in order for things to
-                // fail fast and not decived the user into thinking an "OK" meant that all was
+                // fail fast and not deceived the user into thinking an "OK" meant that all was
                 // well.... (also, during testing, if you forget to set the targetSystem hsa-id
                 // in the header, you get back an "OK" and no messages...
-                // This also appliest to DeleteMessagesImpl
+                // This also applies to DeleteMessagesImpl
                 log.info("Receiver " + targetSystem + " attempted to get non-present messages "
                         + describeMessageDiffs(messageIdSet, messages));
             }

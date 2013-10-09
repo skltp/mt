@@ -54,12 +54,6 @@
     </build>
 
     <dependencies>
-        <!-- Våra genererade xml-schema klasser -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>message-schemas</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- i core ligger alla entiteter osv -->
         <dependency>

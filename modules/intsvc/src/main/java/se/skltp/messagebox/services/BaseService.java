@@ -21,8 +21,6 @@ import se.skltp.messagebox.core.service.MessageService;
 public class BaseService {
     // the name of the Http-Header for the callings system authentification id
     public static String SERVICE_CONSUMER_HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
-    // the name of the Http-Header for the correlation id of the message
-    // TODO: FIND OUT THE REAL NAME
     protected MessageService messageService;
     protected WebServiceContext wsContext;
 

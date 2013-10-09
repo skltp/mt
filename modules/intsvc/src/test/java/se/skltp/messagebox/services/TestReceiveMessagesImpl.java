@@ -33,7 +33,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import se.skltp.messagebox.core.entity.Message;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -71,7 +71,6 @@ public class TestReceiveMessagesImpl extends BaseTestImpl {
         ArgumentCaptor<String> orgArg = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> scArg = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> mbArg = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> corrArg = ArgumentCaptor.forClass(String.class);
         verify(messageService).create(srcArg.capture(), recArg.capture(), orgArg.capture(), scArg.capture(), mbArg.capture());
 
         assertEquals(targetSystem, recArg.getValue());

@@ -47,9 +47,6 @@ public class TestPingForConfigurationImpl extends BaseTestImpl {
     @Mock
     private TimeService timeService;
 
-
-    private static final String BASE_URL = "http://localhost";
-
     /**
      * Verify that we map the parameters and return types correctly when translating
      * between webservice calls and the underlying entity model.

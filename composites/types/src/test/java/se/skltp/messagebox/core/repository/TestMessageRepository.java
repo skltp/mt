@@ -60,7 +60,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
 
-        assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
     }
 
     @Test
@@ -131,7 +131,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
 
-        assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
 
         Set<Long> ids = new HashSet<Long>();
         ids.add(message.getId());
@@ -141,7 +141,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
 
         entityManager.flush();
 
-        assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
 
         List<Message> messages = messageRepository.getMessages(systemId, ids);
 
@@ -151,7 +151,7 @@ public class TestMessageRepository extends JpaRepositoryTestBase {
         messageRepository.delete(systemId, ids);
         entityManager.flush();
 
-        assertEquals(0, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM MESSAGE"));
+        assertEquals(0, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
 
     }
 

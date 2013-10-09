@@ -26,8 +26,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
         long canonicalDayTime = Statistic.convertToCanonicalDayTime(deliveryTime);
 
         // Load up all the existing stats objects.
-        @SuppressWarnings("unchecked")
-        List<Statistic> statsForDayAndReceiver = entityManager.createNamedQuery("Statistic.getForReceiverAndDayTime")
+        List<Statistic> statsForDayAndReceiver = entityManager.createNamedQuery("Statistic.getForReceiverAndDayTime", Statistic.class)
                 .setParameter("targetSystem", targetSystem)
                 .setParameter("time", canonicalDayTime)
                 .getResultList();
@@ -55,8 +54,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
     public List<Statistic> getStatistics(long startTime, long endTime) {
         long canonicalDayStartTime = Statistic.convertToCanonicalDayTime(startTime);
 
-        //noinspection unchecked
-        return entityManager.createNamedQuery("Statistic.getForTimeSlice")
+        return entityManager.createNamedQuery("Statistic.getForTimeSlice", Statistic.class)
                 .setParameter("startTime", canonicalDayStartTime)
                 .setParameter("endTime", endTime)
                 .getResultList();
@@ -79,14 +77,6 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
              this.targetOrg = stat.getTargetOrganization();
              this.serviceContract = stat.getServiceContract();
          }
-
-        public String getTargetOrg() {
-            return targetOrg;
-        }
-
-        public String getServiceContract() {
-            return serviceContract;
-        }
 
         @Override
         public boolean equals(Object o) {

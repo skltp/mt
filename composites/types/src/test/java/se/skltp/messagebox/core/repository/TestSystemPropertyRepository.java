@@ -52,7 +52,7 @@ public class TestSystemPropertyRepository extends JpaRepositoryTestBase {
 
         entityManager.flush();
 
-        assertEquals(1, simpleJdbcTemplate.queryForInt("SELECT COUNT(*) FROM SYSTEMPROPERTY"));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM SYSTEMPROPERTY", Long.class));
     }
 
 }

@@ -3,7 +3,6 @@ package se.skltp.messagebox.services;
 import java.lang.reflect.Field;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 

@@ -31,7 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.entity.SystemProperty;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:services-config.xml"})

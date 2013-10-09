@@ -31,8 +31,8 @@ import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessages
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.messagebox.core.entity.Message;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -50,7 +50,7 @@ public class TestDeleteMessagesImpl extends BaseTestImpl {
         List<Message> receiver1Messages = Arrays.asList(
                 createMessage(idCounter++, "hsaid1", "org1", "tk1", "msg1"),
                 createMessage(idCounter++, "hsaid1", "org1", "tk2", "msg2"),
-                createMessage(idCounter++, "hsaid1", "org2", "tk2", "msg3")
+                createMessage(idCounter, "hsaid1", "org2", "tk2", "msg3")
         );
 
         Set<Long> allEntries = new HashSet<Long>(Arrays.asList(0L, 1L, 2L));

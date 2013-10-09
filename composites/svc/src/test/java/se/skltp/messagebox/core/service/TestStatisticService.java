@@ -37,7 +37,7 @@ import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:services-config.xml"})

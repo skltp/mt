@@ -35,9 +35,7 @@ import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.messagebox.core.entity.Message;
 import se.skltp.messagebox.core.entity.MessageStatus;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -82,7 +80,7 @@ public class TestListMessagesImpl extends BaseTestImpl {
                 createMessage(idCounter++, "hsaid2", "org3", "tk1", "msg1"),
                 createMessage(idCounter++, "hsaid2", "org3", "tk2", "msg2"),
                 createMessage(idCounter++, "hsaid2", "org4", "tk2", "msg3"),
-                createMessage(idCounter++, "hsaid2", "org4", "tk3", "msg4")
+                createMessage(idCounter, "hsaid2", "org4", "tk3", "msg4")
         );
 
 
