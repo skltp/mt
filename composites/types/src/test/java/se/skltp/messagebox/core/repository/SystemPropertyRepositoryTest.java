@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package se.skltp.messagebox.core.service;
+package se.skltp.messagebox.core.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,35 +29,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.entity.SystemProperty;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:services-config.xml"})
-public class TestSystemPropertyService extends JpaRepositoryTestBase {
+@ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:services-config.xml" })
+public class SystemPropertyRepositoryTest extends JpaRepositoryTestBase {
+
+    @Autowired
+    private SystemPropertyRepository propertyRepository;
 
     @PersistenceContext
     EntityManager entityManager;
 
-    @Autowired
-    SystemPropertyService service;
-
     @Test
-    public void testPropertyChange() throws Exception {
+    public void testPersist() throws Exception {
+        SystemProperty prop = propertyRepository.getProperty("test", "default");
 
-        assertNotNull(service);
-        SystemProperty prop = service.getReceiveMessageUrl();
+        assertEquals("test", prop.getName());
+        assertEquals("default", prop.getValue());
 
-        assertNotSame("test", prop.getValue());
-        prop.setValue("test");
         entityManager.flush();
-        entityManager.clear();
 
-        SystemProperty prop2 = service.getReceiveMessageUrl();
-        // a new property
-        assertNotSame(prop, prop2);
-        // with the new value
-        assertEquals("test", prop2.getValue());
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM SYSTEMPROPERTY", Long.class));
     }
-
 
 }

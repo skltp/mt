@@ -39,7 +39,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:services-config.xml"})
-public class TestStatisticService extends JpaRepositoryTestBase {
+public class StatisticServiceTest extends JpaRepositoryTestBase {
 
     @PersistenceContext
     EntityManager entityManager;

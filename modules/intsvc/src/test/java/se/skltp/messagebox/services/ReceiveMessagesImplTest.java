@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestReceiveMessagesImpl extends BaseTestImpl {
+public class ReceiveMessagesImplTest extends BaseTestImpl {
 
 
     /**

@@ -34,7 +34,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestDeleteMessagesImpl extends BaseTestImpl {
+public class DeleteMessagesImplTest extends BaseTestImpl {
 
     /**
      * Verify that we map the parameters and return types correctly when translating

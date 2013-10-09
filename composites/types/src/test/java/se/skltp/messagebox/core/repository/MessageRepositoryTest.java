@@ -40,7 +40,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:services-config.xml" })
-public class TestMessageRepository extends JpaRepositoryTestBase {
+public class MessageRepositoryTest extends JpaRepositoryTestBase {
 
     @Autowired
     private MessageRepository messageRepository;

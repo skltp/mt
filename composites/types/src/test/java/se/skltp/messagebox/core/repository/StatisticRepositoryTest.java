@@ -39,7 +39,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:services-config.xml"})
-public class TestStatisticRepository extends JpaRepositoryTestBase {
+public class StatisticRepositoryTest extends JpaRepositoryTestBase {
     private static long MS_DAY = 24 * 3600 * 1000;
 
     @Autowired

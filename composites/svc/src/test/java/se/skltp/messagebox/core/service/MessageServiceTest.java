@@ -16,8 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package se.skltp.messagebox.core.repository;
+package se.skltp.messagebox.core.service;
 
+import java.util.Collections;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,31 +28,53 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.core.entity.SystemProperty;
+import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:services-config.xml" })
-public class TestSystemPropertyRepository extends JpaRepositoryTestBase {
+public class MessageServiceTest extends JpaRepositoryTestBase {
 
     @Autowired
-    private SystemPropertyRepository propertyRepository;
+    private MessageService messageService;
+
+    @Autowired
+    private TimeService timeService;
 
     @PersistenceContext
     EntityManager entityManager;
 
-    @Test
-    public void testPersist() throws Exception {
-        SystemProperty prop = propertyRepository.getProperty("test", "default");
+    private static final int MS_HOUR = 1000 * 60 * 60;
 
-        assertEquals("test", prop.getName());
-        assertEquals("default", prop.getValue());
+    @Test
+    public void deleteMessages() throws Exception {
+        Message message = messageService.create("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body");
 
         entityManager.flush();
 
-        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM SYSTEMPROPERTY", Long.class));
+        try {
+            messageService.deleteMessages("careUnit", timeService.now(), Collections.singletonList(message));
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+            // Expected
+        }
+
+        // TODO: How can we check that the transaction is marked for rolled back?
+    }
+
+
+    @Test
+    public void testStatistics() throws Exception {
+
+        Date oldArrivalDate = new Date(timeService.now() - 48 * MS_HOUR);
+        Message message = new Message("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body", MessageStatus.RECEIVED, oldArrivalDate);
+        messageService.saveMessage(message);
+
+        entityManager.flush();
+        // TODO: Incomplete, fix
     }
 
 }

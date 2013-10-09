@@ -38,7 +38,7 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestPingForConfigurationImpl extends BaseTestImpl {
+public class PingForConfigurationImplTest extends BaseTestImpl {
 
     @Mock
     private StatisticService statisticService;
