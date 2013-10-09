@@ -18,6 +18,7 @@
  */
 package se.skltp.messagebox.core.repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ import se.vgregion.dao.domain.patterns.repository.Repository;
 
 public interface MessageRepository extends Repository<Message, Long> {
 
-    List<Message> getMessages(String systemId, Set<Long> ids);
+    List<Message> getMessages(String systemId, Collection<Long> ids);
 
     List<Message> listMessages(String systemId);
 

@@ -18,6 +18,7 @@
  */
 package se.skltp.messagebox.core.service.impl;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private StatisticService statisticService;
 
-    public List<Message> getMessages(String targetSystem, Set<Long> ids) {
+    public List<Message> getMessages(String targetSystem, Collection<Long> ids) {
         List<Message> messages = messageRepository.getMessages(targetSystem, ids);
 
         // mark the message as retrieved

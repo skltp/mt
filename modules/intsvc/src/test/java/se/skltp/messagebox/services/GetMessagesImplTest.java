@@ -21,6 +21,7 @@ package se.skltp.messagebox.services;
 import java.util.*;
 import javax.xml.ws.handler.MessageContext;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -36,80 +37,91 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GetMessagesImplTest extends BaseTestImpl {
 
+    private String targetSys = "targetSys1-hsaId";
+    private String logicalAddress = "mbox-address";
+    private List<Message> messages;
+    private GetMessagesImpl getMessagesImpl;
+    private GetMessagesType params;
+
+
+    @Before
+    public void onSetup() throws NoSuchFieldException, IllegalAccessException {
+        int idCounter = 0;
+
+        messages = Arrays.asList(
+                createMessage(idCounter++, targetSys, "org1", "tk1", "msg1"),
+                createMessage(idCounter++, targetSys, "org1", "tk2", "msg2"),
+                createMessage(idCounter, targetSys, "org2", "tk2", "msg3")
+        );
+
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys);
+
+        getMessagesImpl = new GetMessagesImpl();
+        getMessagesImpl.setMessageService(messageService);
+        getMessagesImpl.setWsContext(wsContext);
+
+        params = new GetMessagesType();
+    }
 
     /**
-     * Verify that we map the parameters and return types correctly when translating
-     * between webservice calls and the underlying entity model.
+     * Verify that we respond with one message, with the expected data.
      *
      * @throws Exception
      */
     @Test
-    public void testResponse() throws Exception {
-        int idCounter = 0;
-        List<Message> receiver1Messages = Arrays.asList(
-                createMessage(idCounter++, "hsaid1", "org1", "tk1", "msg1"),
-                createMessage(idCounter++, "hsaid1", "org1", "tk2", "msg2"),
-                createMessage(idCounter, "hsaid1", "org2", "tk2", "msg3")
-        );
+    public void testOneMessage() throws Exception {
+        Collection<Long> middleEntry = Arrays.asList(1L);
 
-        Set<Long> allEntries = new HashSet<Long>(Arrays.asList(0L, 1L, 2L));
-        Set<Long> middleEntry = new HashSet<Long>(Arrays.asList(1L));
+        when(messageService.getMessages(targetSys, middleEntry)).thenReturn(messages.subList(1, 2));
 
-        // mock up the request
-        when(messageService.getMessages("hsaid1", allEntries)).thenReturn(receiver1Messages);
-        when(messageService.getMessages("hsaid1", middleEntry)).thenReturn(receiver1Messages.subList(1, 2));
-        when(wsContext.getMessageContext()).thenReturn(msgContext);
-        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
-
-        GetMessagesImpl impl = new GetMessagesImpl();
-        impl.setMessageService(messageService);
-        impl.setWsContext(wsContext);
-        GetMessagesType params = new GetMessagesType();
-
-        // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
-        params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
-        verifyResponse(receiver1Messages, impl.getMessages("mbox-address", params), 0, 1, 2);
-
-        params.getMessageIds().remove(0);
-        params.getMessageIds().remove(1);
-        verifyResponse(receiver1Messages, impl.getMessages("mbox-address", params), 1);
-
-        // switch to new HSA-ID for caller
-        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid2");
-
-        // trying to get messages we do not own just ignores it (log it as info)
-        GetMessagesResponseType response = impl.getMessages("mbox-address", params);
-        assertEquals(ResultCodeEnum.OK, response.getResult().getCode());
-        assertTrue(response.getResponses().isEmpty());
+        params.getMessageIds().addAll(middleEntry);
+        verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), 1);
     }
 
+    /**
+     * Verify that we respond with three correct entries for the three messages.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testThreeMessages() throws Exception {
+        Collection<Long> allEntries = Arrays.asList(0L, 1L, 2L);
+
+        when(messageService.getMessages(targetSys, allEntries)).thenReturn(messages);
+
+        params.getMessageIds().addAll(allEntries);
+        verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), 0, 1, 2);
+    }
+
+
+    /**
+     * Test how we package an error-result.
+     *
+     * @throws Exception
+     */
     @Test
     public void testFailure() throws Exception {
-        Set<Long> allEntries = new HashSet<Long>(Arrays.asList(0L, 1L, 2L));
-
-        // mock up the request
+        Collection<Long> idsTriggeringFailure = Arrays.asList(0L);
         String errorMessage = "failed";
-        when(messageService.getMessages("hsaid1", allEntries)).thenThrow(new RuntimeException(errorMessage));
-        when(wsContext.getMessageContext()).thenReturn(msgContext);
-        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
-        GetMessagesImpl impl = new GetMessagesImpl();
-        impl.setMessageService(messageService);
-        impl.setWsContext(wsContext);
-        GetMessagesType params = new GetMessagesType();
+        // mock up the request to throw an exception when we ask for messages with the idsTriggeringFailure argument
+        when(messageService.getMessages(targetSys, idsTriggeringFailure)).thenThrow(new RuntimeException(errorMessage));
 
-        // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
-        params.getMessageIds().addAll(Arrays.asList(0L, 1L, 2L));
-        GetMessagesResponseType resp = impl.getMessages("mbox-address", params);
+        params.getMessageIds().addAll(idsTriggeringFailure);
+        GetMessagesResponseType resp = getMessagesImpl.getMessages(logicalAddress, params);
 
         assertEquals(ResultCodeEnum.ERROR, resp.getResult().getCode());
         assertEquals(errorMessage, resp.getResult().getErrorMessage());
         assertEquals(0, resp.getResponses().size());
     }
 
-    // trailing ints selects a subset of messages we expect
+    /**
+     * Verify a response vs a selection of a list of messages.
+     * <p/>
+     * We reuse the messages list and selects the answers we expect using the selection list
+     */
     private void verifyResponse(List<Message> messages, GetMessagesResponseType responseType, Integer... selection) {
         assertEquals(ResultCodeEnum.OK, responseType.getResult().getCode());
         List<ResponseType> responses = responseType.getResponses();

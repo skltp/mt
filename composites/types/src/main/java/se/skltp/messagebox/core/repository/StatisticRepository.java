@@ -36,7 +36,8 @@ public interface StatisticRepository extends Repository<Statistic, Long> {
      *
      * @param startTime specifies the starting time to collect statistics for (will be converted to canonical time)
      * @param endTime specifies the end day to get stats for
-     * @return list of all stats entries for the given time range
+     * @return list of all stats entries for the given time range ordered by targetSystem, targetOrganization,
+     * serviceContract and canonicalDayTime
      */
     List<Statistic> getStatistics(long startTime, long endTime);
 

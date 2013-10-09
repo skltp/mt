@@ -39,8 +39,7 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
 
 
     /**
-     * Verify that we map the parameters and return types correctly when translating
-     * between webservice calls and the underlying entity model.
+     * Simulate receiving one message.
      *
      * @throws Exception
      */
@@ -74,6 +73,7 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
         assertEquals(targetSystem, recArg.getValue());
         assertEquals(serviceContractType, scArg.getValue());
         assertEquals(targetOrg, orgArg.getValue());
+        // verify message body
         Node node = XmlUtils.getStringAsDom(mbArg.getValue()).getNode();
         assertEquals(1, node.getChildNodes().getLength());
         Node contentNode = node.getFirstChild();
@@ -87,6 +87,11 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
     }
 
 
+    /**
+     * Test what happens when we fail to extract the target system id.
+     *
+     * @throws Exception
+     */
     @Test
     public void testWrongUrl() throws Exception {
         String targetOrg = "targetOrg-HsaId";

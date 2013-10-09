@@ -50,7 +50,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String hsaId = extractCallerIdFromRequest();
+            String hsaId = extractCallingSystemFromRequest();
 
             // the returned list of messages are based on the callers HSA-ID
             //

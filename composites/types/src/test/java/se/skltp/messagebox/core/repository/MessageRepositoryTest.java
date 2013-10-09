@@ -99,7 +99,7 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
     }
 
     @Test
-    public void testOrder() throws Exception {
+    public void testOrdering() throws Exception {
         Set<Long> ids = new HashSet<Long>();
         for(int i = 0 ; i < 5 ; i++) {
             Message message = messageRepository.create("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent");
@@ -121,25 +121,22 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
 
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDeleteFailDueToWrongStatus() throws Exception {
         String systemId = "hsaId";
-        Message message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body");
-        messageRepository.persist(message);
+        Set<Long> ids = createMessage(systemId);
 
-        entityManager.flush();
-        entityManager.clear();
-
-        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
-
-        Set<Long> ids = new HashSet<Long>();
-        ids.add(message.getId());
-
-        // fail first delete because of wrong message status
+        // fail delete because of wrong message status
         messageRepository.delete(systemId, ids);
 
         entityManager.flush();
 
         assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
+
+    }
+
+    public void testDeleteWithCorrectStatus() throws Exception {
+        String systemId = "hsaId";
+        Set<Long> ids = createMessage(systemId);
 
         List<Message> messages = messageRepository.getMessages(systemId, ids);
 
@@ -150,14 +147,26 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         entityManager.flush();
 
         assertEquals(0, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
-
     }
 
+    private Set<Long> createMessage(String systemId) {
+        Message message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body");
+        messageRepository.persist(message);
+
+        entityManager.flush();
+        entityManager.clear();
+
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
+
+        Set<Long> ids = new HashSet<Long>();
+        ids.add(message.getId());
+        return ids;
+    }
+
+
     @Test
-    public void testCurrentState() throws Exception {
-        Date time1 = new Date(timeService.now() - 3600 * 1000);
-        Date time2 = new Date(timeService.now() - 3600 * 1000 * 2);
-        Date time3 = new Date(timeService.now() - 3600 * 1000 * 3);
+    public void testStatusReporting() throws Exception {
+        // Create a bunch of messages with various systems, organizations, serviceContracts and times
         String rec1 = "hsaId1";
         String rec2 = "hsaId2";
         String org1 = "org1";
@@ -165,6 +174,9 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         String org3 = "org3";
         String sc1 = "serviceContract1";
         String sc2 = "serviceContract2";
+        Date time1 = new Date(timeService.now() - 3600 * 1000);
+        Date time2 = new Date(timeService.now() - 3600 * 1000 * 2);
+        Date time3 = new Date(timeService.now() - 3600 * 1000 * 3);
 
         messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatus.RECEIVED, time2));
         messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time3));
@@ -174,10 +186,12 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time1));
         messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time3));
 
+        // Get the status reports. The status reports are sorted, so we know what each slot in the
+        // list should contain.
         List<StatusReport> reports = messageRepository.getStatusReports();
         assertEquals(5, reports.size());
-        // order is important, so we can compare directly
 
+        // system, org and service contracts are 1/1/1, 2 messages and oldest time is time3
         // 1/1/1, 2 msg, time3
         StatusReport sr = reports.get(0);
         assertEquals(rec1, sr.getTargetSystem());

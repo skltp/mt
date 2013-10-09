@@ -106,7 +106,7 @@ public class Statistic extends AbstractEntity<Long> {
     }
 
 
-    public String getReceiverId() {
+    public String getTargetSystem() {
         return targetSystem;
     }
 

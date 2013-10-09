@@ -56,7 +56,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
     public SOAPMessage invoke(SOAPMessage soapMessage) {
         try {
             String targetSystem = extractReceivingSystemHsaId();
-            String sourceSystem = extractCallerIdFromRequest();
+            String sourceSystem = extractCallingSystemFromRequest();
 
             // Get a DOM document from the SOAP body element.
             Document soapBody = XmlUtils.documentFromSoapBody(soapMessage);

@@ -18,9 +18,7 @@
  */
 package se.skltp.messagebox.services;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
@@ -54,12 +52,11 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String targetSystem = extractCallerIdFromRequest();
-            Set<Long> messageIdSet = new HashSet<Long>(parameters.getMessageIds());
+            String targetSystem = extractCallingSystemFromRequest();
 
-            List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
+            List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 
-            if ( messageIdSet.size() != messages.size() ) {
+            if ( parameters.getMessageIds().size() != messages.size() ) {
                 // TODO: this is the "optimistic" way of doing it, getting those you could get
                 // and letting the user decide if he wants to treat the diff as a mismatch.
                 // However, it might be better to treat it as an error in order for things to
@@ -68,7 +65,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 // in the header, you get back an "OK" and no messages...
                 // This also applies to DeleteMessagesImpl
                 log.info("Receiver " + targetSystem + " attempted to get non-present messages "
-                        + describeMessageDiffs(messageIdSet, messages));
+                        + describeMessageDiffs(parameters.getMessageIds(), messages));
             }
 
             for ( Message msg : messages ) {

@@ -42,7 +42,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
 
     /**
      * Verify that the schema status is fully translatable from the entity status.
-     *
+     * <p/>
      * For dependency reasons, we do not want to store the schema-defined enum in the
      * database, but we need to ensure that the entity MessageStatus enum can be fully
      * translated into the schema type.
@@ -60,31 +60,36 @@ public class ListMessagesImplTest extends BaseTestImpl {
     }
 
     /**
-     * Verify that we map the parameters and return types correctly when translating
-     * between webservice calls and the underlying entity model.
+     * Check how the constraints on the list messages work.
+     * <p/>
+     * Ie. if you specify targetOrgs or serviceContracts, you only get the messages that
+     * match all the constraints.
      *
      * @throws Exception
      */
     @Test
-    public void testResponse() throws Exception {
+    public void testConstraints() throws Exception {
         int idCounter = 0;
+        String addr = "mbox-address";
+        String targetSys1 = "targetSys1-hsaId";
         List<Message> receiver1Messages = Arrays.asList(
-                createMessage(idCounter++, "hsaid1", "org1", "tk1", "msg1"),
-                createMessage(idCounter++, "hsaid1", "org1", "tk2", "msg2"),
-                createMessage(idCounter++, "hsaid1", "org2", "tk2", "msg3")
+                createMessage(idCounter++, targetSys1, "org1", "tk1", "msg1"),
+                createMessage(idCounter++, targetSys1, "org1", "tk2", "msg2"),
+                createMessage(idCounter++, targetSys1, "org2", "tk2", "msg3")
         );
 
+        String targetSys2 = "targetSys2-hsaId";
         List<Message> receiver2Messages = Arrays.asList(
-                createMessage(idCounter++, "hsaid2", "org3", "tk1", "msg1"),
-                createMessage(idCounter++, "hsaid2", "org3", "tk2", "msg2"),
-                createMessage(idCounter++, "hsaid2", "org4", "tk2", "msg3"),
-                createMessage(idCounter, "hsaid2", "org4", "tk3", "msg4")
+                createMessage(idCounter++, targetSys2, "org3", "tk1", "msg1"),
+                createMessage(idCounter++, targetSys2, "org3", "tk2", "msg2"),
+                createMessage(idCounter++, targetSys2, "org4", "tk2", "msg3"),
+                createMessage(idCounter, targetSys2, "org4", "tk3", "msg4")
         );
 
 
         // mock up the request
-        when(messageService.listMessages("hsaid1")).thenReturn(receiver1Messages);
-        when(messageService.listMessages("hsaid2")).thenReturn(receiver2Messages);
+        when(messageService.listMessages(targetSys1)).thenReturn(receiver1Messages);
+        when(messageService.listMessages(targetSys2)).thenReturn(receiver2Messages);
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
@@ -94,49 +99,51 @@ public class ListMessagesImplTest extends BaseTestImpl {
         ListMessagesType params = new ListMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
-        verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params));
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys1);
+
+        verifyResponse(receiver1Messages, impl.listMessages(addr, params));
 
         // constrain by org
         params.getTargetOrganizations().add("org1");
-        verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params), 0, 1);
+        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0, 1);
 
         // constrain by org AND tk
         params.getServiceContractTypes().add(createSkt("tk1"));
-        verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params), 0);
+        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0);
 
         // add another tk
         params.getServiceContractTypes().add(createSkt("tk2"));
-        verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params), 0, 1);
+        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0, 1);
 
         // add org2
         params.getTargetOrganizations().add("org2");
-        verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params), 0, 1, 2);
+        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0, 1, 2);
 
         // remove org1
         params.getTargetOrganizations().remove(0);
-        verifyResponse(receiver1Messages, impl.listMessages("mbox-address", params), 2);
+        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 2);
 
         // switch to new HSA-ID for caller
-        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid2");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys2);
+
         // reset parameters and verify we get all the messages
         params.getTargetOrganizations().clear();
         params.getServiceContractTypes().clear();
-        verifyResponse(receiver2Messages, impl.listMessages("mbox-address", params));
+        verifyResponse(receiver2Messages, impl.listMessages(addr, params));
 
         // various combos of org/tk restrictions ...
 
         params.getTargetOrganizations().add("org3");
-        verifyResponse(receiver2Messages, impl.listMessages("mbox-address", params), 0, 1);
+        verifyResponse(receiver2Messages, impl.listMessages(addr, params), 0, 1);
 
         params.getServiceContractTypes().add(createSkt("tk2"));
-        verifyResponse(receiver2Messages, impl.listMessages("mbox-address", params), 1);
+        verifyResponse(receiver2Messages, impl.listMessages(addr, params), 1);
 
         params.getTargetOrganizations().set(0, "org4");
-        verifyResponse(receiver2Messages, impl.listMessages("mbox-address", params), 2);
+        verifyResponse(receiver2Messages, impl.listMessages(addr, params), 2);
 
         params.getServiceContractTypes().clear();
-        verifyResponse(receiver2Messages, impl.listMessages("mbox-address", params), 2, 3);
+        verifyResponse(receiver2Messages, impl.listMessages(addr, params), 2, 3);
 
     }
 
@@ -170,9 +177,10 @@ public class ListMessagesImplTest extends BaseTestImpl {
     }
 
 
-    // trailing ints selects a subset of messages we expect
     /**
-     * Verify
+     * Verify a response vs a selection of a list of messages.
+     * <p/>
+     * We reuse the messages list and selects the answers we expect using the selection list
      */
     private void verifyResponse(List<Message> messages, ListMessagesResponseType responseType, Integer... selection) {
         List<MessageMetaType> messageMetas = responseType.getMessageMetas();

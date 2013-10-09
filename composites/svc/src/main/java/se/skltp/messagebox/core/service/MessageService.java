@@ -18,6 +18,7 @@
  */
 package se.skltp.messagebox.core.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -31,17 +32,18 @@ public interface MessageService {
      * <p/>
      * Will mark the messages as delivered.
      *
+     *
      * @param targetSystem hsa-id for receiving system
      * @param ids        to get
      * @return list of messages with the given ids belonging to targetSystem
      *         (asking for ids not belonging to the targetSystem will be silentrly ignored)
      */
-    List<Message> getMessages(String targetSystem, Set<Long> ids);
+    List<Message> getMessages(String targetSystem, Collection<Long> ids);
 
     /**
-     * List messages available for the given receiver.
+     * List messages available for the given target system.
      *
-     * @param targetSystem hsa-id for reciving system.
+     * @param targetSystem hsa-id for target system.
      * @return list of messages
      */
     List<Message> listMessages(String targetSystem);
@@ -80,11 +82,11 @@ public interface MessageService {
 
 
     /**
-     * Get statistics for the current state of the receivers.
+     * Get statistics for the current state of the target systems.
      * <p/>
-     * A receiver which has no messages waiting to be delivered is not shown.
+     * A target system which has no messages waiting to be delivered is not shown.
      *
-     * @return an ordered list of entries for each (receiver, targetOrg, serviceContract) which has messages waiting to be delivered
+     * @return an ordered list of entries for each (targetSyst, targetOrg, serviceContract) which has messages waiting to be delivered
      */
     public List<StatusReport> getStatusReports();
 }

@@ -76,7 +76,7 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
         stats = statisticService.getStatisticsForTimeSlice(timestamp - thirtyDays, timestamp);
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
-        assertEquals(targetSystem, s.getReceiverId());
+        assertEquals(targetSystem, s.getTargetSystem());
         assertEquals(serviceContract, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
     }
@@ -107,14 +107,14 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
         stats = statisticService.getStatisticsForTimeSlice(now.getTime() - thirtyDays, now.getTime());
         assertEquals(1, stats.size());
         Statistic s = stats.get(0);
-        assertEquals(targetSystem, s.getReceiverId());
+        assertEquals(targetSystem, s.getTargetSystem());
         assertEquals(serviceContract2, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
 
         stats = statisticService.getStatisticsForTimeSlice(timestampTooLongAgo - thirtyDays, timestampTooLongAgo);
         assertEquals(1, stats.size());
         s = stats.get(0);
-        assertEquals(targetSystem, s.getReceiverId());
+        assertEquals(targetSystem, s.getTargetSystem());
         assertEquals(serviceContract1, s.getServiceContract());
         assertEquals(1, s.getDeliveryCount());
 
@@ -152,12 +152,12 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
             s2 = tmp;
         }
 
-        assertEquals(targetSystem, s1.getReceiverId());
+        assertEquals(targetSystem, s1.getTargetSystem());
         assertEquals(targetOrg1, s1.getTargetOrganization());
         assertEquals(serviceContract1, s1.getServiceContract());
         assertEquals(1, s1.getDeliveryCount());
 
-        assertEquals(targetSystem, s2.getReceiverId());
+        assertEquals(targetSystem, s2.getTargetSystem());
         assertEquals(targetOrg2, s2.getTargetOrganization());
         assertEquals(serviceContract2, s2.getServiceContract());
         assertEquals(1, s2.getDeliveryCount());

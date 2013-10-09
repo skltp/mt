@@ -72,7 +72,7 @@ public class StatsController {
         StatisticView orgRow = null;
         StatisticView conRow = null;
         for ( Statistic s : statistics ) {
-            if ( recRow == null || !s.getReceiverId().equals(recRow.getTargetSystem()) ) {
+            if ( recRow == null || !s.getTargetSystem().equals(recRow.getTargetSystem()) ) {
                 results.add(recRow = StatisticView.createRecRow(s));
                 results.add(orgRow = StatisticView.createOrgRow(s));
                 results.add(conRow = StatisticView.createConRow(s));
@@ -103,7 +103,7 @@ public class StatsController {
         private long totalWaitTimeMs;
 
         StatisticView(Statistic s) {
-            targetSystem = s.getReceiverId();
+            targetSystem = s.getTargetSystem();
             targetOrganization = s.getTargetOrganization();
             serviceContract = new ServiceContractView(s.getServiceContract());
             deliveryCount = s.getDeliveryCount();

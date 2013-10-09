@@ -151,9 +151,9 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
             long deliveries = 0;
             long maxDeliveryTime = 0;
             for ( Statistic stat : reports ) {
-                if ( !stat.getReceiverId().equals(receiver) ) {
+                if ( !stat.getTargetSystem().equals(receiver) ) {
                     save(receiver, deliveries, maxDeliveryTime);
-                    receiver = stat.getReceiverId();
+                    receiver = stat.getTargetSystem();
                     deliveries = 0;
                     maxDeliveryTime = 0;
                 }

@@ -18,9 +18,7 @@
  */
 package se.skltp.messagebox.services;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
@@ -58,13 +56,12 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String targetSystem = extractCallerIdFromRequest();
-            Set<Long> messageIdSet = new HashSet<Long>(parameters.getMessageIds());
-            List<Message> messages = messageService.getMessages(targetSystem, messageIdSet);
-            if ( messageIdSet.size() != messages.size() ) {
+            String targetSystem = extractCallingSystemFromRequest();
+            List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
+            if ( parameters.getMessageIds().size() != messages.size() ) {
                 // TODO: See discussion in GetMessagesImpl.java on how to handle this...
                 log.info("Receiver " + targetSystem + " attempted to delete non-deletable messages "
-                        + describeMessageDiffs(messageIdSet, messages));
+                        + describeMessageDiffs(parameters.getMessageIds(), messages));
             }
 
             // now delete those messages

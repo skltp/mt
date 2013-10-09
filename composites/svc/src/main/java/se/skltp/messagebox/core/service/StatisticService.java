@@ -31,7 +31,7 @@ public interface StatisticService {
     /**
      * Add the given messages as deliveries to the statistics tables.
      *
-     * @param targetSystem     the receiver
+     * @param targetSystem   the target system which has taken delivery
      * @param deliveryTimeMs timestamp used
      * @param messages       all messages delivered
      */
@@ -40,8 +40,8 @@ public interface StatisticService {
     /**
      * Get statistics for the days which contains the given start/end times.
      *
-     * @param start start time
-     * @param end end time
+     * @param start start time (will be truncated to canonical day)
+     * @param end   end time (will be truncated to canonical day)
      * @return stats for the slice of days
      */
     List<Statistic> getStatisticsForTimeSlice(long start, long end);

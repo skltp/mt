@@ -62,7 +62,7 @@ public class BaseService {
      *
      * @return the hsa-id from the caller
      */
-    protected String extractCallerIdFromRequest() {
+    protected String extractCallingSystemFromRequest() {
         return getHeaderValue(SERVICE_CONSUMER_HSA_ID_HEADER_NAME);
     }
 
@@ -73,7 +73,7 @@ public class BaseService {
         return req.getHeader(name);
     }
 
-    protected String describeMessageDiffs(Set<Long> messageIds, List<Message> messages) {
+    protected String describeMessageDiffs(Collection<Long> messageIds, List<Message> messages) {
         List<Long> sorted = getMissingMessageIds(messageIds, messages);
 
         StringBuilder result = new StringBuilder();
@@ -87,7 +87,7 @@ public class BaseService {
         return result.toString();
     }
 
-    private List<Long> getMissingMessageIds(Set<Long> messageIds, List<Message> messages) {
+    private List<Long> getMissingMessageIds(Collection<Long> messageIds, List<Message> messages) {
         Set<Long> copy = new HashSet<Long>(messageIds);
         for ( Message message : messages ) {
             copy.remove(message.getId());

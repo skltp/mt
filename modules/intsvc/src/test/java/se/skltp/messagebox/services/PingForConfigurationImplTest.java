@@ -46,10 +46,7 @@ public class PingForConfigurationImplTest extends BaseTestImpl {
     private TimeService timeService;
 
     /**
-     * Verify that we map the parameters and return types correctly when translating
-     * between webservice calls and the underlying entity model.
-     *
-     * @throws Exception
+     * Verify that the response generated is correctly summarizing the status and statistics.
      */
     @Test
     public void testResponse() throws Exception {
@@ -76,7 +73,7 @@ public class PingForConfigurationImplTest extends BaseTestImpl {
         assertEquals(0, diff);
         List<ConfigurationType> confList = responseType.getConfiguration();
         assertEquals(4, confList.size());
-        Map<String,String> props = new HashMap<String, String>();
+        Map<String, String> props = new HashMap<String, String>();
         for ( ConfigurationType c : confList ) {
             props.put(c.getName(), c.getValue());
         }
