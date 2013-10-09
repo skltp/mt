@@ -341,6 +341,7 @@ encoding/<project>=UTF-8]]>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.10.b1</version>
+                <inherited>false</inherited>
                 <configuration>
                     <properties>
                         <year>2013</year>
