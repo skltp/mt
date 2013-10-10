@@ -29,10 +29,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import se.skltp.messagebox.core.entity.Message;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiveMessagesImplTest extends BaseTestImpl {
@@ -49,7 +49,7 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
         String targetOrg = "targetOrg-HsaId";
         String serviceContractType = "riv:etc,etc...";
         String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
-        String targetSystem = "receivingOrgHsaId";
+        String targetSystem = BaseService.COMMON_TARGET_SYSTEM;
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
@@ -92,9 +92,10 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
      *
      * @throws Exception
      */
+    /* INFRA-51: This test is invalid as we no longer extract target system from url
     @Test
     public void testWrongUrl() throws Exception {
-        String targetOrg = "targetOrg-HsaId";
+        String targetOrg = BaseService.COMMON_TARGET_SYSTEM;
         String legalServiceContractType = "invalid";
         String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
         String targetSystem = "receivingOrgHsaId";
@@ -117,6 +118,7 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
         }
         verify(messageService, never()).saveMessage((Message) any());
     }
+    */
 
 
     private SOAPMessage constructCall(String targetOrg, String tkNamespace, String content) throws SOAPException, TransformerException {

@@ -41,7 +41,7 @@ public class BaseService {
     public static String SERVICE_CONSUMER_HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
     protected MessageService messageService;
     protected WebServiceContext wsContext;
-
+    public static final String COMMON_TARGET_SYSTEM = "Common";
 
 
     @Resource
@@ -65,6 +65,38 @@ public class BaseService {
     protected String extractCallingSystemFromRequest() {
         return getHeaderValue(SERVICE_CONSUMER_HSA_ID_HEADER_NAME);
     }
+
+    protected String extractTargetSystemFromUrl() {
+        //
+        // INFRA-51: We are unable at this time to actually have per-target-system changes
+        // due to lack of time/communication with the customer. We patch this by using only one targetSystem which
+        // we name "CommonSystem"
+        //
+        return COMMON_TARGET_SYSTEM;
+
+        /*
+        Extract target system from
+        MessageContext ctx = wsContext.getMessageContext();
+        HttpServletRequest servletRequest = (HttpServletRequest) ctx.get(MessageContext.SERVLET_REQUEST);
+        String uri = servletRequest.getRequestURI();
+        int n = uri.indexOf(ENDPOINT_NAME);
+        if ( n == -1 ) {
+            throw new RuntimeException("Unable to find my own endpoint name \"" + ENDPOINT_NAME + "\" in uri \"" + uri + "\"");
+        }
+        String encodedHsaId = uri.substring(n + ENDPOINT_NAME.length());
+        return uf8DecodeUri(encodedHsaId);
+        */
+    }
+    protected String extractTargetSystemFromRequest() {
+        //
+        // INFRA-51: See above,
+        //
+        return COMMON_TARGET_SYSTEM;
+
+        // return actual target system
+        // return extractCallingSystemFromRequest();
+    }
+
 
 
     private String getHeaderValue(String name) {

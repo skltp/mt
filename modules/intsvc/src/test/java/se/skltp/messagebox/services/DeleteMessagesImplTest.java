@@ -39,7 +39,7 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
 
     private List<Message> messages;
     private DeleteMessagesImpl deleteMessages;
-    private String targetSys = "hsaid1";
+    private String targetSys = BaseService.COMMON_TARGET_SYSTEM;
     private String logicalAddress = "mbox-address";
     private DeleteMessagesType params;
 

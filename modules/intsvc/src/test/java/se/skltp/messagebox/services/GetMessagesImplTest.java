@@ -37,7 +37,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GetMessagesImplTest extends BaseTestImpl {
 
-    private String targetSys = "targetSys1-hsaId";
+    private String targetSys = BaseService.COMMON_TARGET_SYSTEM;
     private String logicalAddress = "mbox-address";
     private List<Message> messages;
     private GetMessagesImpl getMessagesImpl;

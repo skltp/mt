@@ -18,7 +18,6 @@
  */
 package se.skltp.messagebox.services;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.MessageFactory;
@@ -30,7 +29,6 @@ import javax.xml.ws.Provider;
 import javax.xml.ws.Service;
 import javax.xml.ws.ServiceMode;
 import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.handler.MessageContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +53,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
     @Override
     public SOAPMessage invoke(SOAPMessage soapMessage) {
         try {
-            String targetSystem = extractReceivingSystemHsaId();
+            String targetSystem = extractTargetSystemFromUrl();
             String sourceSystem = extractCallingSystemFromRequest();
 
             // Get a DOM document from the SOAP body element.
@@ -82,19 +80,6 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             throw new RuntimeException(e);
 
         }
-    }
-
-    // the hsa-id is the part of the url after the "ReceiveMessage/"
-    private String extractReceivingSystemHsaId() {
-        MessageContext ctx = wsContext.getMessageContext();
-        HttpServletRequest servletRequest = (HttpServletRequest) ctx.get(MessageContext.SERVLET_REQUEST);
-        String uri = servletRequest.getRequestURI();
-        int n = uri.indexOf(ENDPOINT_NAME);
-        if ( n == -1 ) {
-            throw new RuntimeException("Unable to find my own endpoint name \"" + ENDPOINT_NAME + "\" in uri \"" + uri + "\"");
-        }
-        String encodedHsaId = uri.substring(n + ENDPOINT_NAME.length());
-        return uf8DecodeUri(encodedHsaId);
     }
 
     /**

@@ -52,7 +52,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String targetSystem = extractCallingSystemFromRequest();
+            String targetSystem = extractTargetSystemFromRequest();
 
             List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 

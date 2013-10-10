@@ -71,13 +71,15 @@ public class ListMessagesImplTest extends BaseTestImpl {
     public void testConstraints() throws Exception {
         int idCounter = 0;
         String addr = "mbox-address";
-        String targetSys1 = "targetSys1-hsaId";
+        String targetSys1 = BaseService.COMMON_TARGET_SYSTEM;
         List<Message> receiver1Messages = Arrays.asList(
                 createMessage(idCounter++, targetSys1, "org1", "tk1", "msg1"),
                 createMessage(idCounter++, targetSys1, "org1", "tk2", "msg2"),
                 createMessage(idCounter++, targetSys1, "org2", "tk2", "msg3")
         );
 
+        /**
+         * INFRA-51: does not support multiple mailboxes, so we need to adjust the tests to use a common targetSystem
         String targetSys2 = "targetSys2-hsaId";
         List<Message> receiver2Messages = Arrays.asList(
                 createMessage(idCounter++, targetSys2, "org3", "tk1", "msg1"),
@@ -85,11 +87,12 @@ public class ListMessagesImplTest extends BaseTestImpl {
                 createMessage(idCounter++, targetSys2, "org4", "tk2", "msg3"),
                 createMessage(idCounter, targetSys2, "org4", "tk3", "msg4")
         );
+         */
 
 
         // mock up the request
         when(messageService.listMessages(targetSys1)).thenReturn(receiver1Messages);
-        when(messageService.listMessages(targetSys2)).thenReturn(receiver2Messages);
+        // INFRA-51: when(messageService.listMessages(targetSys2)).thenReturn(receiver2Messages);
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
@@ -98,7 +101,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         impl.setWsContext(wsContext);
         ListMessagesType params = new ListMessagesType();
 
-        // get all for the hsaid1
+        // get all for the targetSys1
         when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys1);
 
         verifyResponse(receiver1Messages, impl.listMessages(addr, params));
@@ -123,6 +126,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         params.getTargetOrganizations().remove(0);
         verifyResponse(receiver1Messages, impl.listMessages(addr, params), 2);
 
+        /** INFRA-51: Can't use a second targetSystem
         // switch to new HSA-ID for caller
         when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys2);
 
@@ -144,6 +148,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
 
         params.getServiceContractTypes().clear();
         verifyResponse(receiver2Messages, impl.listMessages(addr, params), 2, 3);
+         */
 
     }
 
@@ -152,7 +157,8 @@ public class ListMessagesImplTest extends BaseTestImpl {
 
         // mock up the request
         String errorMessage = "Faked exception";
-        when(messageService.listMessages("hsaid1")).thenThrow(new RuntimeException(errorMessage));
+        String targetSys = BaseService.COMMON_TARGET_SYSTEM;
+        when(messageService.listMessages(targetSys)).thenThrow(new RuntimeException(errorMessage));
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
@@ -162,7 +168,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         ListMessagesType params = new ListMessagesType();
 
         // get all for the hsaid1
-        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn("hsaid1");
+        when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys);
         ListMessagesResponseType response = impl.listMessages("mbox-address", params);
 
         assertEquals(ResultCodeEnum.ERROR, response.getResult().getCode());
