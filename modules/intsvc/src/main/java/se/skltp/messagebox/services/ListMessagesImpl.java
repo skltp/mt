@@ -61,9 +61,9 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             //
             // Normally, this would be the desired way of doing things.
             //
-            Set<String> types = new HashSet<String>();
+            Set<String> serviceContracts = new HashSet<String>();
             for ( ServiceContractType type : parameters.getServiceContractTypes() ) {
-                types.add(type.getServiceContractNamespace());
+                serviceContracts.add(type.getServiceContractNamespace());
             }
             Set<String> targetOrgs = new HashSet<String>(parameters.getTargetOrganizations());
 
@@ -71,9 +71,9 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
 
             for ( Message msg : messages ) {
 
-                if ( types.isEmpty() || types.contains(msg.getServiceContract()) ) {
+                if ( serviceContractsAllows(serviceContracts, msg) ) {
 
-                    if ( targetOrgs.isEmpty() || targetOrgs.contains(msg.getTargetOrganization()) ) {
+                    if ( targetOrgsAllows(targetOrgs, msg) ) {
 
                         MessageMetaType meta = new MessageMetaType();
                         meta.setMessageId(msg.getId());
@@ -95,6 +95,27 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             response.getMessageMetas().clear();
         }
         return response;
+    }
+
+    /**
+     * True if the targetOrgs allows the message
+     *
+     * @param targetOrgs
+     * @param msg
+     * @return
+     */
+    private boolean targetOrgsAllows(Set<String> targetOrgs, Message msg) {
+        return targetOrgs.isEmpty() || targetOrgs.contains(msg.getTargetOrganization());
+    }
+
+    /**
+     *
+     * @param serviceContracts
+     * @param msg
+     * @return
+     */
+    private boolean serviceContractsAllows(Set<String> serviceContracts, Message msg) {
+        return serviceContracts.isEmpty() || serviceContracts.contains(msg.getServiceContract());
     }
 
 }

@@ -24,16 +24,15 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>se.skltp</groupId>
+        <groupId>se.skltp.mt</groupId>
         <artifactId>message-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>se.skltp</groupId>
     <artifactId>message-schemas</artifactId>
     <version>1.1-SNAPSHOT</version>
-    <name>message-composite-schemas</name>
+    <name>message-schemas</name>
 
     <properties>
         <schema.path>src/main/resources/schemas</schema.path>
