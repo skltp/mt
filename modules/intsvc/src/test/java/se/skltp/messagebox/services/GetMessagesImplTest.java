@@ -31,7 +31,8 @@ import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.messagebox.core.entity.Message;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -77,7 +78,7 @@ public class GetMessagesImplTest extends BaseTestImpl {
         when(messageService.getMessages(targetSys, middleEntry)).thenReturn(messages.subList(1, 2));
 
         params.getMessageIds().addAll(middleEntry);
-        verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), 1);
+        verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), ResultCodeEnum.OK, 1);
     }
 
     /**
@@ -92,9 +93,26 @@ public class GetMessagesImplTest extends BaseTestImpl {
         when(messageService.getMessages(targetSys, allEntries)).thenReturn(messages);
 
         params.getMessageIds().addAll(allEntries);
-        verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), 0, 1, 2);
+        verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), ResultCodeEnum.OK, 0, 1, 2);
     }
 
+
+    /**
+     * Verify that an incomplete get responds with a partial response and an INFO code.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testIncomplete() throws Exception {
+        Collection<Long> someNonExEntries = Arrays.asList(1L, 4L, 5L);
+        when(messageService.getMessages(targetSys, someNonExEntries)).thenReturn(messages.subList(1, 2));
+        params.getMessageIds().clear();
+        params.getMessageIds().addAll(someNonExEntries);
+        // an incomplete message returns INFO with an error message
+        GetMessagesResponseType resp = verifyResponse(messages, getMessagesImpl.getMessages(logicalAddress, params), ResultCodeEnum.INFO, 1);
+        assertEquals(GetMessagesImpl.INCOMPLETE_ERROR_MESSAGE, resp.getResult().getErrorMessage());
+
+    }
 
     /**
      * Test how we package an error-result.
@@ -122,8 +140,8 @@ public class GetMessagesImplTest extends BaseTestImpl {
      * <p/>
      * We reuse the messages list and selects the answers we expect using the selection list
      */
-    private void verifyResponse(List<Message> messages, GetMessagesResponseType responseType, Integer... selection) {
-        assertEquals(ResultCodeEnum.OK, responseType.getResult().getCode());
+    private GetMessagesResponseType verifyResponse(List<Message> messages, GetMessagesResponseType responseType, ResultCodeEnum code, Integer... selection) {
+        assertEquals(code, responseType.getResult().getCode());
         List<ResponseType> responses = responseType.getResponses();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, responses.size());
         Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
@@ -142,5 +160,7 @@ public class GetMessagesImplTest extends BaseTestImpl {
             assertEquals(msg.getServiceContract(), response.getServiceContractType().getServiceContractNamespace());
             assertEquals(msg.getMessageBody(), response.getMessage());
         }
+
+        return responseType;
     }
 }

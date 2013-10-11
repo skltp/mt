@@ -57,15 +57,11 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
             List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 
             if ( parameters.getMessageIds().size() != messages.size() ) {
-                // TODO: this is the "optimistic" way of doing it, getting those you could get
-                // and letting the user decide if he wants to treat the diff as a mismatch.
-                // However, it might be better to treat it as an error in order for things to
-                // fail fast and not deceived the user into thinking an "OK" meant that all was
-                // well.... (also, during testing, if you forget to set the targetSystem hsa-id
-                // in the header, you get back an "OK" and no messages...
-                // This also applies to DeleteMessagesImpl
-                log.info("Receiver " + targetSystem + " attempted to get non-present messages "
+                log.warn("Target system " + targetSystem + " attempted to get non-present messages "
                         + describeMessageDiffs(parameters.getMessageIds(), messages));
+                response.getResult().setCode(ResultCodeEnum.INFO);
+                response.getResult().setErrorMessage("Incomplete get");
+
             }
 
             for ( Message msg : messages ) {
@@ -77,12 +73,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 elem.setServiceContractType(serverContract);
                 elem.setTargetOrganization(msg.getTargetOrganization());
 
-                // TODO: Decide if we should transfer the message body as a string
                 elem.setMessage(msg.getMessageBody());
-                // TODO: ... or as the "ANY" field
-                Document doc = (Document) XmlUtils.getStringAsDom(msg.getMessageBody()).getNode();
-                elem.setAny(doc.getDocumentElement());
-                // TODO: either decide or add a parameter to select
 
                 response.getResponses().add(elem);
             }

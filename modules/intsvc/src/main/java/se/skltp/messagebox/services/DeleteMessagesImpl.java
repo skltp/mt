@@ -42,6 +42,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
     private static final Logger log = LoggerFactory.getLogger(DeleteMessagesImpl.class);
 
     private TimeService timeService;
+    public static final String INCOMPLETE_ERROR_MESSAGE = "Incomplete delete";
 
     @Autowired
     public void setTimeService(TimeService service) {
@@ -59,9 +60,10 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         try {
             List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
-                // TODO: See discussion in GetMessagesImpl.java on how to handle this...
-                log.info("Receiver " + targetSystem + " attempted to delete non-deletable messages "
+                log.warn("Target system " + targetSystem + " attempted to delete non-deletable messages "
                         + describeMessageDiffs(parameters.getMessageIds(), messages));
+                response.getResult().setCode(ResultCodeEnum.INFO);
+                response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
             }
 
             // now delete those messages

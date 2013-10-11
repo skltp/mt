@@ -86,7 +86,7 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
         when(messageService.getMessages(targetSys, middleEntry)).thenReturn(messages.subList(1, 2));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(middleEntry);
-        verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), 1);
+        verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.OK, 1);
 
     }
 
@@ -103,27 +103,25 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
         Collection<Long> allEntries = Arrays.asList(0L, 1L, 2L);
         params.getMessageIds().addAll(allEntries);
         when(messageService.getMessages(targetSys, allEntries)).thenReturn(messages);
-        verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), 0, 1, 2);
+        verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.OK, 0, 1, 2);
     }
 
 
     /**
      * Test how we handle it when the service layer returns a list that are missing some of the ids specified.
      *
-     * TODO: TBD how to behave here. Or rather, the service layer may or may not throw an error.
-     *
      * @throws Exception
      */
     @Test
-    public void testRemovingSomeNoneExistantMessages() throws Exception {
+    public void testIncomplete() throws Exception {
 
         Collection<Long> remNonExEntry = Arrays.asList(1L, 4L, 5L);
         when(messageService.getMessages(targetSys, remNonExEntry)).thenReturn(messages.subList(1, 2));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(remNonExEntry);
-        // TODO: verify that this is the correct response, ie we get back message #1 and no other indication of error
-        verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), 1);
-
+        // an incomplete message returns INFO with an error message
+        DeleteMessagesResponseType resp = verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.INFO, 1);
+        assertEquals(DeleteMessagesImpl.INCOMPLETE_ERROR_MESSAGE, resp.getResult().getErrorMessage());
     }
 
     /**
@@ -147,8 +145,8 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
      *
      * We reuse the messages list and selects the answers we expect using the selection list
      */
-    private void verifyResponse(List<Message> messages, DeleteMessagesResponseType responseType, Integer... selection) {
-        assertEquals(ResultCodeEnum.OK, responseType.getResult().getCode());
+    private DeleteMessagesResponseType verifyResponse(List<Message> messages, DeleteMessagesResponseType responseType, ResultCodeEnum code, Integer... selection) {
+        assertEquals(code, responseType.getResult().getCode());
         List<Long> deletedIds = responseType.getDeletedIds();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, deletedIds.size());
         Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
@@ -164,5 +162,6 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
             Message msg = msgMap.get(id);
             assertNotNull("Unexpected message id " + id + " found!", msg);
         }
+        return responseType;
     }
 }
