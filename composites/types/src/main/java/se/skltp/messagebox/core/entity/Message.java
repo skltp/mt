@@ -76,20 +76,6 @@ public class Message extends AbstractEntity<Long> {
     @Column(nullable = false)
     private long messageBodySize;
 
-    //
-    // possible optimization for large messages would be to split messageBody into
-    // smallMessageBody and largeMessageBody, with largeMessageBody being marked as
-    // lazy-loaded.
-    //
-    // The size of the message body would be used to determine where the message body
-    // is actually stored (when reading, if smallMessageBody is null, then you have
-    // to read the largeMessageBody)
-    //
-    //    @Basic(fetch = FetchType.LAZY)
-    //    @Column(nullable = true)
-    //    @Lob
-    //    private String largeMessageBody;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MessageStatus status;
@@ -97,12 +83,14 @@ public class Message extends AbstractEntity<Long> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrived;
 
+    private String correlationId;
+
     /* Make JPA happy */
     protected Message() {
     }
 
 
-    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatus status, Date arrived) {
+    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatus status, Date arrived, String correlationId) {
         this.sourceSystem = sourceSystem;
         this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
@@ -111,6 +99,7 @@ public class Message extends AbstractEntity<Long> {
         this.messageBodySize = messageBody.length();
         this.status = status;
         this.arrived = arrived;
+        this.correlationId = correlationId;
     }
 
     public Long getId() {
@@ -147,6 +136,15 @@ public class Message extends AbstractEntity<Long> {
 
     public long getMessageBodySize() {
         return messageBodySize;
+    }
+
+    /**
+     * Business correlation id used for tracing messages in surrounding environment.
+     *
+     * @return a string useful for logging
+     */
+    public String getCorrelationId() {
+        return correlationId;
     }
 
     /**

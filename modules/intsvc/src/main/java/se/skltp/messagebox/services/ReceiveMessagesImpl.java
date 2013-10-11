@@ -55,6 +55,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
         try {
             String targetSystem = extractTargetSystemFromUrl();
             String sourceSystem = extractCallingSystemFromRequest();
+            String correlationId = extractCorrelationIdFromRequest();
 
             // Get a DOM document from the SOAP body element.
             Document soapBody = XmlUtils.documentFromSoapBody(soapMessage);
@@ -66,7 +67,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             Node logicalAddressNode = (Node) soapMessage.getSOAPHeader().getChildElements(LOGICAL_ADDRESS_QNAME).next();
             String targetOrg = logicalAddressNode.getValue();
 
-            Message message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody);
+            Message message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
             log.info("Saved " + message);
 

@@ -47,14 +47,16 @@ public interface MessageRepository extends Repository<Message, Long> {
      * Create a message with
      *
      *
+     *
      * @param sourceSystem hsa-id of source system
      * @param targetSystem hsa-id of target system
      * @param targetOrganization hsa-id of target org
      * @param serviceContract of message
      * @param messageBody message body
+     * @param correlationId
      * @return created message, with arrival time set to TimeService.now() and status {@link se.skltp.messagebox.core.entity.MessageStatus#RECEIVED}
      */
-    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody);
+    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
 
 
 }

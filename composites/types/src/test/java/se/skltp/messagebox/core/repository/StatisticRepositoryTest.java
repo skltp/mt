@@ -52,6 +52,8 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
     EntityManager entityManager;
 
     private long deliveryTime;
+    private String correlationId = "correlationId";
+
 
     @Override
     public void onSetup2() {
@@ -148,7 +150,7 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
         String serviceContract = "sk1";
         for ( int i = 0; i < 20; i++ ) {
             long deliTime = deliveryTime - MS_DAY * i;
-            messages.add(new Message("sourceId", targetSys, targetOrg, serviceContract, "body", MessageStatus.RECEIVED, new Date(deliTime - 100)));
+            messages.add(new Message("sourceId", targetSys, targetOrg, serviceContract, "body", MessageStatus.RECEIVED, new Date(deliTime - 100), correlationId));
             statisticRepository.addDeliveries(targetSys, deliTime, messages);
         }
 
@@ -181,7 +183,7 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
     }
 
     private Message createMsg(String targetSystem, String serviceContract, long deltaTime) {
-        return new Message("sourceId", targetSystem, "targetOrg", serviceContract, "body", MessageStatus.RECEIVED, new Date(deliveryTime - deltaTime));
+        return new Message("sourceId", targetSystem, "targetOrg", serviceContract, "body", MessageStatus.RECEIVED, new Date(deliveryTime - deltaTime), correlationId);
     }
 
 

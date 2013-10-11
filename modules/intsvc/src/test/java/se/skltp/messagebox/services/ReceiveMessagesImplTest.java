@@ -70,7 +70,8 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
         ArgumentCaptor<String> orgArg = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> scArg = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> mbArg = ArgumentCaptor.forClass(String.class);
-        verify(messageService).create(srcArg.capture(), recArg.capture(), orgArg.capture(), scArg.capture(), mbArg.capture());
+        ArgumentCaptor<String> corrIdArg = ArgumentCaptor.forClass(String.class);
+        verify(messageService).create(srcArg.capture(), recArg.capture(), orgArg.capture(), scArg.capture(), mbArg.capture(), corrIdArg.capture());
 
         assertEquals(targetSystem, recArg.getValue());
         assertEquals(serviceContractType, scArg.getValue());

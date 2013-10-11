@@ -47,10 +47,11 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
     EntityManager entityManager;
 
     private static final int MS_HOUR = 1000 * 60 * 60;
+    private String correlationId = "correlationId";
 
     @Test
     public void deleteFailWrongStatus() throws Exception {
-        Message message = messageService.create("sourceId", "hsaId", "systemId", "serviceContrakt", "webcall body");
+        Message message = messageService.create("sourceId", "targetSys", "targetOrg", "serviceContrakt", "webcall body", correlationId);
 
         entityManager.flush();
 
@@ -65,7 +66,7 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
     @Test
     public void testDeleteCorrectStatus() throws Exception {
         String targetSys = "targetSys";
-        Message message = messageService.create("sourceId", targetSys, "systemId", "serviceContrakt", "webcall body");
+        Message message = messageService.create("sourceId", targetSys, "targetOrg", "serviceContrakt", "webcall body", correlationId);
         messageService.getMessages(targetSys, Collections.singleton(message.getId()));
 
         entityManager.flush();

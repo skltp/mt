@@ -59,14 +59,16 @@ public interface MessageService {
     /**
      * Create a message with the given arguments
      *
+     *
      * @param sourceSystem hsa-id of source system
      * @param targetSystem hsa-id of target system
      * @param targetOrganization hsa-id of target org
      * @param serviceContract of message
      * @param messageBody message body
+     * @param correlationId
      * @return created message, with arrival time set to TimeService.now() and status {@link se.riv.itintegration.messagebox.v1.MessageStatusType#RECEIVED}
      */
-    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody);
+    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
 
 
 

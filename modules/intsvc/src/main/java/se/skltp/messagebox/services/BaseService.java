@@ -39,6 +39,7 @@ import se.skltp.messagebox.core.service.MessageService;
 public class BaseService {
     // the name of the Http-Header for the callings system authentification id
     public static String SERVICE_CONSUMER_HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
+    public static String MULÈ_CORRELATION_ID_HEADER_NAME = "x-mule_correlation_id";
     protected MessageService messageService;
     protected WebServiceContext wsContext;
     public static final String COMMON_TARGET_SYSTEM = "Common";
@@ -65,6 +66,18 @@ public class BaseService {
     protected String extractCallingSystemFromRequest() {
         return getHeaderValue(SERVICE_CONSUMER_HSA_ID_HEADER_NAME);
     }
+
+    /**
+     * Extract the correlation id from the the http-header.
+     * <p/>
+     * The correlation id is a tag attached to messages by the VP (mule).
+     *
+     * @return the correlation id in the current messageContext.
+     */
+    protected String extractCorrelationIdFromRequest() {
+        return getHeaderValue(MULÈ_CORRELATION_ID_HEADER_NAME);
+    }
+
 
     protected String extractTargetSystemFromUrl() {
         //
