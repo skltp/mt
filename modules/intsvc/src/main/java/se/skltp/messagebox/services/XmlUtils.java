@@ -24,6 +24,7 @@ import java.util.Iterator;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.SOAPBodyElement;
+import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
@@ -52,7 +53,10 @@ public class XmlUtils {
     }
 
     public static Document documentFromSoapBody(SOAPMessage soapMessage) throws ParserConfigurationException, SOAPException, TransformerException {
-        SOAPBodyElement content = getContentNode(soapMessage);
+        SOAPBodyElement content = getFirstElement(soapMessage.getSOAPBody());
+        if (content == null) {
+            throw new SOAPException("Unable to find any content in SOAPBody");
+        }
         Document document = dbf.newDocumentBuilder().newDocument();
         Node node = document.importNode(content, true);
         document.appendChild(node);
@@ -62,25 +66,22 @@ public class XmlUtils {
     // need to skip any text elements to find the first actual content node
 
     /**
-     * Find the content node.
-     * <p/>
-     * Need to skip any text-nodes.
+     * Return the first SOAPBodyElement find in the children of the node.
      *
-     * @param soapMessage
-     * @return first SOAPBodyElement node (non-text). Guaranteed to be non-null.
-     * @throws SOAPException        if not found
-     * @throws TransformerException
+     * @param node whose children to scan
+     * @return first found SOAPBodyElement node or null
      */
-    private static SOAPBodyElement getContentNode(SOAPMessage soapMessage) throws SOAPException, TransformerException {
-        Iterator children = soapMessage.getSOAPBody().getChildElements();
+    public static SOAPBodyElement getFirstElement(SOAPElement node) {
+        Iterator children = node.getChildElements();
+        SOAPBodyElement result = null;
         while ( children.hasNext() ) {
             Object child = children.next();
             if ( child instanceof SOAPBodyElement ) {
-                return (SOAPBodyElement) child;
+                result = (SOAPBodyElement) child;
+                break;
             }
         }
-        throw new SOAPException("No content in SOAPMessage body:\n"
-                + getDocumentAsString(soapMessage.getSOAPBody().getOwnerDocument()));
+        return result;
     }
 
     public static String getDocumentAsString(Document doc) throws TransformerException {

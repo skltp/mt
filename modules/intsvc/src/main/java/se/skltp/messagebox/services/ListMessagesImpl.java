@@ -50,7 +50,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
         response.getResult().setCode(ResultCodeEnum.OK);
 
         try {
-            String hsaId = extractTargetSystemFromRequest();
+            String targetSystem = extractTargetSystemFromRequest();
 
             // the returned list of messages are based on the callers HSA-ID
             //
@@ -67,7 +67,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             }
             Set<String> targetOrgs = new HashSet<String>(parameters.getTargetOrganizations());
 
-            List<Message> messages = messageService.listMessages(hsaId);
+            List<Message> messages = messageService.listMessages(targetSystem);
 
             for ( Message msg : messages ) {
 

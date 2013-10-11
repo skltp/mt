@@ -23,7 +23,6 @@ import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
@@ -41,6 +40,7 @@ import se.skltp.messagebox.core.entity.Message;
 public class GetMessagesImpl extends BaseService implements GetMessagesResponderInterface {
 
     private static final Logger log = LoggerFactory.getLogger(GetMessagesImpl.class);
+    public static final String INCOMPLETE_ERROR_MESSAGE = "Incomplete Get";
 
     @Override
     public GetMessagesResponseType getMessages(
@@ -60,7 +60,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 log.warn("Target system " + targetSystem + " attempted to get non-present messages "
                         + describeMessageDiffs(parameters.getMessageIds(), messages));
                 response.getResult().setCode(ResultCodeEnum.INFO);
-                response.getResult().setErrorMessage("Incomplete get");
+                response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
 
             }
 

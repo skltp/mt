@@ -37,6 +37,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiveMessagesImplTest extends BaseTestImpl {
 
+    // TODO: Test where namespace is defined: in soap env, in soap-body, in content node
+    // TODO: Verify that the answer contains the namespace and can be parsed correctly
 
     /**
      * Simulate receiving one message.
