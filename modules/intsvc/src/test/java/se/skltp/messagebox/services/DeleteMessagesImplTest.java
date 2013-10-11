@@ -58,7 +58,6 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
 
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
-
         }
 
         when(wsContext.getMessageContext()).thenReturn(msgContext);
@@ -80,12 +79,14 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
      *
      * @throws Exception
      */
+    @Test
     public void testSingleMessageResponse() throws Exception {
 
         Collection<Long> middleEntry = Arrays.asList(1L);
         when(messageService.getMessages(targetSys, middleEntry)).thenReturn(messages.subList(1, 2));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(middleEntry);
+        messages.get(1).setStatusRetrieved();
         verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.OK, 1);
 
     }
@@ -102,6 +103,9 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
 
         Collection<Long> allEntries = Arrays.asList(0L, 1L, 2L);
         params.getMessageIds().addAll(allEntries);
+        for ( Message msg : messages ) {
+            msg.setStatusRetrieved();
+        }
         when(messageService.getMessages(targetSys, allEntries)).thenReturn(messages);
         verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.OK, 0, 1, 2);
     }
@@ -119,6 +123,7 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
         when(messageService.getMessages(targetSys, remNonExEntry)).thenReturn(messages.subList(1, 2));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(remNonExEntry);
+        messages.get(1).setStatusRetrieved(); // mark as delivered
         // an incomplete message returns INFO with an error message
         DeleteMessagesResponseType resp = verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.INFO, 1);
         assertEquals(DeleteMessagesImpl.INCOMPLETE_ERROR_MESSAGE, resp.getResult().getErrorMessage());

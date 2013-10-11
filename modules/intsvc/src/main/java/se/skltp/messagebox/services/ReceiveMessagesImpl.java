@@ -60,8 +60,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             Document soapBody = XmlUtils.documentFromSoapBody(soapMessage);
 
             // Extract document type and xml
-            // TODO: make sure to filter out Text nodes
-            String serviceContract = XmlUtils.getFirstElement(soapMessage.getSOAPBody()).getNamespaceURI();
+            String serviceContract = XmlUtils.getFirstElementChild(soapMessage.getSOAPBody()).getNamespaceURI();
             String messageBody = XmlUtils.getDocumentAsString(soapBody);
 
             Node logicalAddressNode = (Node) soapMessage.getSOAPHeader().getChildElements(LOGICAL_ADDRESS_QNAME).next();
@@ -69,7 +68,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
 
             Message message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody);
 
-            log.debug("Saved " + message);
+            log.info("Saved " + message);
 
             return getReturnCode();
             // TODO: translate to correct SOAPFault errors!

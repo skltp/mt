@@ -53,7 +53,7 @@ public class XmlUtils {
     }
 
     public static Document documentFromSoapBody(SOAPMessage soapMessage) throws ParserConfigurationException, SOAPException, TransformerException {
-        SOAPBodyElement content = getFirstElement(soapMessage.getSOAPBody());
+        SOAPBodyElement content = getFirstElementChild(soapMessage.getSOAPBody());
         if (content == null) {
             throw new SOAPException("Unable to find any content in SOAPBody");
         }
@@ -71,7 +71,7 @@ public class XmlUtils {
      * @param node whose children to scan
      * @return first found SOAPBodyElement node or null
      */
-    public static SOAPBodyElement getFirstElement(SOAPElement node) {
+    public static SOAPBodyElement getFirstElementChild(SOAPElement node) {
         Iterator children = node.getChildElements();
         SOAPBodyElement result = null;
         while ( children.hasNext() ) {

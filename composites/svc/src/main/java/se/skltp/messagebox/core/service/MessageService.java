@@ -28,7 +28,7 @@ import se.skltp.messagebox.core.entity.Message;
 public interface MessageService {
 
     /**
-     * Get messages for delivery to the user.
+     * Get messages for delivery to the target system.
      * <p/>
      * Will mark the messages as delivered.
      *
@@ -57,8 +57,7 @@ public interface MessageService {
     Long saveMessage(Message message);
 
     /**
-     * Create a message with
-     *
+     * Create a message with the given arguments
      *
      * @param sourceSystem hsa-id of source system
      * @param targetSystem hsa-id of target system

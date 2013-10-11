@@ -43,16 +43,14 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
     public static final String INCOMPLETE_ERROR_MESSAGE = "Incomplete Get";
 
     @Override
-    public GetMessagesResponseType getMessages(
-            String logicalAddress,
-            GetMessagesType parameters) {
+    public GetMessagesResponseType getMessages(String logicalAddress, GetMessagesType parameters) {
         GetMessagesResponseType response = new GetMessagesResponseType();
-
         response.setResult(new ResultType());
         response.getResult().setCode(ResultCodeEnum.OK);
 
+        String targetSystem = extractTargetSystemFromRequest();
+
         try {
-            String targetSystem = extractTargetSystemFromRequest();
 
             List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 

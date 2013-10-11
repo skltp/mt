@@ -43,16 +43,17 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
 
     private static final Logger log = LoggerFactory.getLogger(ListMessagesImpl.class);
 
+    @Override
     public ListMessagesResponseType listMessages(String logicalAddress, ListMessagesType parameters) {
-
         ListMessagesResponseType response = new ListMessagesResponseType();
         response.setResult(new ResultType());
         response.getResult().setCode(ResultCodeEnum.OK);
 
-        try {
-            String targetSystem = extractTargetSystemFromRequest();
+        String targetSystem = extractTargetSystemFromRequest();
 
-            // the returned list of messages are based on the callers HSA-ID
+        try {
+
+            // the returned list of messages are based on the targetSystem (ie, the callers HSA-ID)
             //
             // The caller can constrain the list by specifying an exact organization id
             // and/or specifying a list of service contract types to be included.

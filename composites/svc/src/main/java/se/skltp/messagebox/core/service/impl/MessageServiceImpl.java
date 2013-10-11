@@ -79,6 +79,8 @@ public class MessageServiceImpl implements MessageService {
         for ( Message msg : messages ) {
             ids.add(msg.getId());
         }
+        // This is a hard delete error because we don't know what ids we failed to delete... note that as we have loaded
+        // the messages in the same transaction, they must exist, so this should be a rather severe kind of error
         int numDeleted = messageRepository.delete(targetSystem, ids);
         if ( numDeleted != messages.size() ) {
             throw new IllegalStateException("Unable to delete " + messages.size() + " ids, could only delete " + numDeleted + " ids!");

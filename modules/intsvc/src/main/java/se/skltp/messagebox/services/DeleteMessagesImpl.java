@@ -18,6 +18,7 @@
  */
 package se.skltp.messagebox.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.jws.WebService;
 
@@ -30,6 +31,7 @@ import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessages
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
 import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.TimeService;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
@@ -55,31 +57,74 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         DeleteMessagesResponseType response = new DeleteMessagesResponseType();
         response.setResult(new ResultType());
         response.getResult().setCode(ResultCodeEnum.OK);
+
         String targetSystem = extractTargetSystemFromRequest();
 
         try {
+            // TODO: How to handle attempting to delete messages that have not been read yet?
+            // how do we signal that error to the user? It is not incomplete in the ordinary sense - this
+            // is a bug in the calling code system and must be signaled as a hard error..
+
             List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
                 log.warn("Target system " + targetSystem + " attempted to delete non-deletable messages "
                         + describeMessageDiffs(parameters.getMessageIds(), messages));
+                // TODO: should we add an "infoId", "infoMessage"? to the result type? Or must reuse errorXxx?
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
             }
 
-            // now delete those messages
-            messageService.deleteMessages(targetSystem, timeService.now(), messages);
+            String unreadMessageCsv = checkUnreadMessages(messages);
 
-            List<Long> responseIds = response.getDeletedIds();
-            for ( Message msg : messages ) {
-                responseIds.add(msg.getId());
+            if ( unreadMessageCsv == null ) {
+                // none unread, delete them all!
+                messageService.deleteMessages(targetSystem, timeService.now(), messages);
+
+                List<Long> responseIds = response.getDeletedIds();
+                for ( Message msg : messages ) {
+                    responseIds.add(msg.getId());
+                }
+            } else {
+                response.getResult().setCode(ResultCodeEnum.ERROR);
+                response.getResult().setErrorMessage(unreadMessageCsv);
             }
 
         } catch (Exception e) {
             log.warn("Fail!", e);
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorMessage(e.getMessage());
+            response.getResult().setErrorId(1);
+            response.getResult().setErrorMessage("Trying to delete unread messages: " +  e.getMessage());
         }
         return response;
+    }
+
+    /**
+     * Returns a comma-separated-values list of unread message ids in the messages list, or null if none are unread.
+     *
+     * @param messages to check for status
+     * @return null or a csv-list of message ids
+     */
+    private String checkUnreadMessages(List<Message> messages) {
+        String result = null;
+        // make sure all the messages have been read
+        List<Message> unread = new ArrayList<Message>();
+        for ( Message message : messages ) {
+            if ( message.getStatus() != MessageStatus.RETRIEVED ) {
+                unread.add(message);
+            }
+        }
+        if ( !unread.isEmpty() ) {
+            StringBuilder sb = new StringBuilder();
+            for ( Message msg : unread ) {
+                if ( sb.length() > 0 ) {
+                    sb.append(",");
+                }
+                sb.append(msg.getId());
+            }
+            result = sb.toString();
+
+        }
+        return result;
     }
 
 }
