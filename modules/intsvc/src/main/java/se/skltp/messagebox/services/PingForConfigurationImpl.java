@@ -88,8 +88,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
     public PingForConfigurationResponseType pingForConfiguration(@WebParam(partName = "LogicalAddress", name = "LogicalAddress", targetNamespace = "urn:riv:itintegration:registry:1", header = true) String logicalAddress, @WebParam(partName = "parameters", name = "PingForConfiguration", targetNamespace = "urn:riv:itintegration:monitoring:PingForConfigurationResponder:1") PingForConfigurationType parameters) {
         PingForConfigurationResponseType response = new PingForConfigurationResponseType();
 
-        // TODO: how do we handle versions?
-        response.setVersion("MessageBox.v1.0");
+        // Extract the version from the Manifest file
+        response.setVersion("Messagebox " + getClass().getPackage().getImplementationVersion());
 
         // current time in required format
         long now = timeService.now();
