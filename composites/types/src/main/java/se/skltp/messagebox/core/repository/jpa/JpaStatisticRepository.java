@@ -44,13 +44,13 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
         long canonicalDayTime = Statistic.convertToCanonicalDayTime(deliveryTime);
 
         // Load up all the existing stats objects.
-        List<Statistic> statsForDayAndReceiver = entityManager.createNamedQuery("Statistic.getForReceiverAndDayTime", Statistic.class)
+        List<Statistic> statsForDayAndTargetSystem = entityManager.createNamedQuery("Statistic.getForTargetSystemAndDay", Statistic.class)
                 .setParameter("targetSystem", targetSystem)
                 .setParameter("time", canonicalDayTime)
                 .getResultList();
 
         Map<Key, Statistic> statisticMap = new HashMap<Key, Statistic>();
-        for ( Statistic statistic : statsForDayAndReceiver ) {
+        for ( Statistic statistic : statsForDayAndTargetSystem ) {
             Statistic stat = statisticMap.put(new Key(statistic), statistic);
             assert stat == null;
         }

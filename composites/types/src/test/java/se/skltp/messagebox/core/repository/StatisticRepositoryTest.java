@@ -143,18 +143,21 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
         List<Message> messages = new ArrayList<Message>();
 
         // note that the messages keep increasing in numbers
+        String targetSys = "rec1";
+        String targetOrg = "org1";
+        String serviceContract = "sk1";
         for ( int i = 0; i < 20; i++ ) {
             long deliTime = deliveryTime - MS_DAY * i;
-            messages.add(new Message("sourceId", "rec1", "targetOrg", "sk1", "body", MessageStatus.RECEIVED, new Date(deliTime - 100)));
-            statisticRepository.addDeliveries("rec1", deliTime, messages);
+            messages.add(new Message("sourceId", targetSys, targetOrg, serviceContract, "body", MessageStatus.RECEIVED, new Date(deliTime - 100)));
+            statisticRepository.addDeliveries(targetSys, deliTime, messages);
         }
 
         List<Statistic> statistics = statisticRepository.getStatistics(deliveryTime - 30 * MS_DAY, deliveryTime);
         assertEquals(20, statistics.size());
 
-        assertEquals("sk1", statistics.get(0).getServiceContract());
-        assertEquals("targetOrg", statistics.get(0).getTargetOrganization());
-        assertEquals("rec1", statistics.get(0).getTargetSystem());
+        assertEquals(serviceContract, statistics.get(0).getServiceContract());
+        assertEquals(targetOrg, statistics.get(0).getTargetOrganization());
+        assertEquals(targetSys, statistics.get(0).getTargetSystem());
         assertEquals(20, statistics.get(0).getDeliveryCount());
         assertEquals(19, statistics.get(1).getDeliveryCount());
         assertEquals(10, statistics.get(10).getDeliveryCount());

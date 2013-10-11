@@ -33,7 +33,7 @@ public interface MessageService {
      * Will mark the messages as delivered.
      *
      *
-     * @param targetSystem hsa-id for receiving system
+     * @param targetSystem hsa-id for target system
      * @param ids        to get
      * @return list of messages with the given ids belonging to targetSystem
      *         (asking for ids not belonging to the targetSystem will be silentrly ignored)
@@ -61,7 +61,7 @@ public interface MessageService {
      *
      *
      * @param sourceSystem hsa-id of source system
-     * @param targetSystem hsa-id of receiving system
+     * @param targetSystem hsa-id of target system
      * @param targetOrganization hsa-id of target org
      * @param serviceContract of message
      * @param messageBody message body

@@ -62,8 +62,8 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
     }
 
     @Test
-    public void testFindByReceiver() throws Exception {
-        String targetSystem = "receivers Hsa-Id";
+    public void testListMessages() throws Exception {
+        String targetSystem = "targetSystemHsaId";
         messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body");
 
         entityManager.flush();
@@ -75,9 +75,9 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
     }
 
     @Test
-    public void testFindByReceiverAndId() throws Exception {
+    public void testGetMessages() throws Exception {
         Set<Long> ids = new HashSet<Long>();
-        String targetSystem = "receivers Hsa-Id";
+        String targetSystem = "targetSystemHsaId";
         Message message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body");
         ids.add(message.getId());
 

@@ -42,9 +42,9 @@ public interface StatisticRepository extends Repository<Statistic, Long> {
     List<Statistic> getStatistics(long startTime, long endTime);
 
     /**
-     * Add statistics for delivering the given messages to the receiver at deliveryTime.
+     * Add statistics for delivering the given messages to the target system at deliveryTime.
      *
-     * @param targetSystem all messages must have this receiver
+     * @param targetSystem all messages must have this as targetSystem
      * @param deliveryTime time to use as delivery time
      * @param messages messages to tote up stats for
      */

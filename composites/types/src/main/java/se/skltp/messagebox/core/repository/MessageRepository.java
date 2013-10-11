@@ -35,7 +35,7 @@ public interface MessageRepository extends Repository<Message, Long> {
     int delete(String careUnit, Set<Long> ids);
 
     /**
-     * Get statistics for the current state of the receivers.
+     * Get statistics for the current state of the target systems.
      * <p/>
      * A receiver which has no messages waiting to be delivered is not shown.
      *
@@ -48,11 +48,11 @@ public interface MessageRepository extends Repository<Message, Long> {
      *
      *
      * @param sourceSystem hsa-id of source system
-     * @param targetSystem hsa-id of receiving system
+     * @param targetSystem hsa-id of target system
      * @param targetOrganization hsa-id of target org
      * @param serviceContract of message
      * @param messageBody message body
-     * @return created message, with arrival time set to TimeService.now() and status {@link se.riv.itintegration.messagebox.v1.MessageStatusType#RECEIVED}
+     * @return created message, with arrival time set to TimeService.now() and status {@link se.skltp.messagebox.core.entity.MessageStatus#RECEIVED}
      */
     Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody);
 

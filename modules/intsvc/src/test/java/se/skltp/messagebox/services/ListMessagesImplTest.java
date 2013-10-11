@@ -72,7 +72,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         int idCounter = 0;
         String addr = "mbox-address";
         String targetSys1 = BaseService.COMMON_TARGET_SYSTEM;
-        List<Message> receiver1Messages = Arrays.asList(
+        List<Message> sys1Messages = Arrays.asList(
                 createMessage(idCounter++, targetSys1, "org1", "tk1", "msg1"),
                 createMessage(idCounter++, targetSys1, "org1", "tk2", "msg2"),
                 createMessage(idCounter++, targetSys1, "org2", "tk2", "msg3")
@@ -91,7 +91,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
 
 
         // mock up the request
-        when(messageService.listMessages(targetSys1)).thenReturn(receiver1Messages);
+        when(messageService.listMessages(targetSys1)).thenReturn(sys1Messages);
         // INFRA-51: when(messageService.listMessages(targetSys2)).thenReturn(receiver2Messages);
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
@@ -104,27 +104,27 @@ public class ListMessagesImplTest extends BaseTestImpl {
         // get all for the targetSys1
         when(servletRequest.getHeader(BaseService.SERVICE_CONSUMER_HSA_ID_HEADER_NAME)).thenReturn(targetSys1);
 
-        verifyResponse(receiver1Messages, impl.listMessages(addr, params));
+        verifyResponse(sys1Messages, impl.listMessages(addr, params));
 
         // constrain by org
         params.getTargetOrganizations().add("org1");
-        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0, 1);
+        verifyResponse(sys1Messages, impl.listMessages(addr, params), 0, 1);
 
         // constrain by org AND tk
         params.getServiceContractTypes().add(createSkt("tk1"));
-        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0);
+        verifyResponse(sys1Messages, impl.listMessages(addr, params), 0);
 
         // add another tk
         params.getServiceContractTypes().add(createSkt("tk2"));
-        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0, 1);
+        verifyResponse(sys1Messages, impl.listMessages(addr, params), 0, 1);
 
         // add org2
         params.getTargetOrganizations().add("org2");
-        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 0, 1, 2);
+        verifyResponse(sys1Messages, impl.listMessages(addr, params), 0, 1, 2);
 
         // remove org1
         params.getTargetOrganizations().remove(0);
-        verifyResponse(receiver1Messages, impl.listMessages(addr, params), 2);
+        verifyResponse(sys1Messages, impl.listMessages(addr, params), 2);
 
         /** INFRA-51: Can't use a second targetSystem
         // switch to new HSA-ID for caller

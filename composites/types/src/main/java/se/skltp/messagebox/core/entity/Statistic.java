@@ -29,12 +29,12 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  * @author mats.olsson@callistaenterprise.se
  */
 @NamedQueries({
-        @NamedQuery(name = "Statistic.getForReceiverAndDayTime",
+        @NamedQuery(name = "Statistic.getForTargetSystemAndDay",
                 query = "select s from Statistic s where s.targetSystem = :targetSystem and s.canonicalDayTime = :time"),
         @NamedQuery(name = "Statistic.getForTimeSlice",
                 query = "select s from Statistic s "
-                + "where s.canonicalDayTime >= :startTime and s.canonicalDayTime <= :endTime "
-                + "order by s.targetSystem, s.targetOrganization, s.serviceContract, s.canonicalDayTime")
+                        + "where s.canonicalDayTime >= :startTime and s.canonicalDayTime <= :endTime "
+                        + "order by s.targetSystem, s.targetOrganization, s.serviceContract, s.canonicalDayTime")
 
 })
 @Entity
@@ -55,11 +55,11 @@ public class Statistic extends AbstractEntity<Long> {
     @Column(nullable = false)
     private Long canonicalDayTime;
 
-    // the hsaId for the receiver of this message; the calling system must authenticate using this id
+    // the target system of this message
     @Column(nullable = false)
     private String targetSystem;
 
-    // the actual target org for a message; owned by the receiving system
+    // the actual target org for a message; owned by the target system
     @Column(nullable = false)
     private String targetOrganization;
 
@@ -83,7 +83,7 @@ public class Statistic extends AbstractEntity<Long> {
     /**
      * Construct a statistic entry for the (receiver, service contract, day) tuple
      *
-     * @param targetSystem         receiving system id
+     * @param targetSystem       target system id
      * @param targetOrganization the target org of the message
      * @param serviceContract    service contract
      * @param time               will be converted to canonical day time

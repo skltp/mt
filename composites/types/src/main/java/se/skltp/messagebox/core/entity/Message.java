@@ -31,15 +31,13 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  * @author mats.olsson@callistaenterprise.se
  */
 @NamedQueries({
-        @NamedQuery(name = "Message.getForReceiver",
-                query = "select m from Message m where m.targetSystem = :systemId order by m.id asc"),
-        @NamedQuery(name = "Message.getForReceiverWithIds",
-                query = "select m from Message m where m.targetSystem = :systemId and m.id in (:ids) order by m.id asc"),
-        @NamedQuery(name = "Message.deleteForReceiverWithIdsAndStatus",
-                query = "delete from Message m where m.targetSystem = :systemId and m.id in (:ids) and m.status = :status"),
-        @NamedQuery(name = "Message.totalCountForReceiver",
-                query = "select count(m) from Message m where m.targetOrganization = :systemId"),
-        @NamedQuery(name = "Message.receiverStates",
+        @NamedQuery(name = "Message.listMessages",
+                query = "select m from Message m where m.targetSystem = :targetSystem order by m.id asc"),
+        @NamedQuery(name = "Message.getMessages",
+                query = "select m from Message m where m.targetSystem = :targetSystem and m.id in (:ids) order by m.id asc"),
+        @NamedQuery(name = "Message.deleteMessages",
+                query = "delete from Message m where m.targetSystem = :targetSystem and m.id in (:ids) and m.status = :status"),
+        @NamedQuery(name = "Message.getStatus",
                 query = "select m.targetSystem, count(m.targetSystem), min(m.arrived) from Message m GROUP BY m.targetSystem")
 
 })
@@ -58,7 +56,7 @@ public class Message extends AbstractEntity<Long> {
     // extracted from http-header "x-rivta-original-serviceconsumer-hsaid"
     private String sourceSystem;
 
-    // the hsaId for the receiving system of this message; it must authenticate using this id to list/get/delete
+    // the hsaId for the target system of this message; it must authenticate using this id to list/get/delete
     @Column(nullable = false)
     private String targetSystem;
 

@@ -44,8 +44,8 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
             // you get an Illegal SQL statement if the set of ids to get is empty
             return Collections.emptyList();
         }
-        return entityManager.createNamedQuery("Message.getForReceiverWithIds")
-                .setParameter("systemId", systemId)
+        return entityManager.createNamedQuery("Message.getMessages")
+                .setParameter("targetSystem", systemId)
                 .setParameter("ids", ids)
                 .getResultList();
     }
@@ -54,8 +54,8 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
     @Override
     @SuppressWarnings("unchecked")
     public List<Message> listMessages(String systemId) {
-        return entityManager.createNamedQuery("Message.getForReceiver")
-                .setParameter("systemId", systemId)
+        return entityManager.createNamedQuery("Message.listMessages")
+                .setParameter("targetSystem", systemId)
                 .getResultList();
     }
 
@@ -64,8 +64,8 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
             // you get an Illegal SQL statement if the set of ids to delete is empty
             return 0;
         }
-        return entityManager.createNamedQuery("Message.deleteForReceiverWithIdsAndStatus")
-                .setParameter("systemId", systemId)
+        return entityManager.createNamedQuery("Message.deleteMessages")
+                .setParameter("targetSystem", systemId)
                 .setParameter("ids", ids)
                 .setParameter("status", MessageStatus.RETRIEVED)
                 .executeUpdate();

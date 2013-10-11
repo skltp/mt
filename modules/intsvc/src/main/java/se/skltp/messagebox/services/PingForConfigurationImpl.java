@@ -51,7 +51,7 @@ import se.skltp.messagebox.core.service.TimeService;
  * variables (-queueSize and -oldestMessage) for each receiver with un-delivered messages, and two more for each
  * receiver that has taken deliveres of message today.
  * <p/>
- * We should perhaps keep track of the last time a receiving system has made a "List" request with us so we can report
+ * We should perhaps keep track of the last time a target system has made a "List" request with us so we can report
  * that.
  * <p/>
  * The optional service contract parameter that can be part of the ping request is ignored for now. We could use it
