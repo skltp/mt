@@ -18,58 +18,78 @@
  */
 package se.skltp.messagebox.core.repository.jpa;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.skltp.messagebox.core.StatusReport;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageBody;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.messagebox.core.service.TimeService;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 
 @Repository
-public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> implements MessageRepository {
+public class JpaMessageRepository extends DefaultJpaRepository<MessageMeta, Long> implements MessageRepository {
 
     @Autowired
     TimeService timeService;
 
-    @SuppressWarnings("unchecked")
-    public List<Message> getMessages(String systemId, Collection<Long> ids) {
-        if (ids.isEmpty()) {
+    public List<MessageMeta> getMessages(String targetSystem, Collection<Long> ids) {
+        if ( ids.isEmpty() ) {
             // you get an Illegal SQL statement if the set of ids to get is empty
             return Collections.emptyList();
         }
-        return entityManager.createNamedQuery("Message.getMessages")
-                .setParameter("targetSystem", systemId)
+        List<MessageBody> bodies = entityManager.createNamedQuery("MessageBody.getMessageBodies", MessageBody.class)
+                .setParameter("targetSystem", targetSystem)
                 .setParameter("ids", ids)
                 .getResultList();
+        List<MessageMeta> result = new ArrayList<MessageMeta>(bodies.size());
+        for ( MessageBody body : bodies ) {
+            body.getMeta().setMessageBody(body);
+            result.add(body.getMeta());
+        }
+        return result;
     }
 
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Message> listMessages(String systemId) {
+    public List<MessageMeta> listMessages(String targetSystem) {
         return entityManager.createNamedQuery("Message.listMessages")
-                .setParameter("targetSystem", systemId)
+                .setParameter("targetSystem", targetSystem)
                 .getResultList();
     }
 
-    public int delete(String systemId, Set<Long> ids) {
+    public int deleteMessages(String targetSystem, Set<Long> ids) {
         if ( ids.isEmpty() ) {
             // you get an Illegal SQL statement if the set of ids to delete is empty
             return 0;
         }
+        deleteMessageBodies(targetSystem, ids);
         return entityManager.createNamedQuery("Message.deleteMessages")
-                .setParameter("targetSystem", systemId)
+                .setParameter("targetSystem", targetSystem)
                 .setParameter("ids", ids)
                 .setParameter("status", MessageStatus.RETRIEVED)
                 .executeUpdate();
     }
+
+
+    @Override
+    public int deleteMessageBodies(String targetSystem, Set<Long> ids) {
+        if ( ids.isEmpty() ) {
+            // you get an Illegal SQL statement if the set of ids to delete is empty
+            return 0;
+        }
+        return entityManager.createNamedQuery("MessageBody.deleteMessageBodies")
+                .setParameter("targetSystem", targetSystem)
+                .setParameter("ids", ids)
+                .setParameter("status", MessageStatus.RETRIEVED)
+                .executeUpdate();
+
+    }
+
 
     @Override
     public List<StatusReport> getStatusReports() {
@@ -77,27 +97,47 @@ public class JpaMessageRepository extends DefaultJpaRepository<Message, Long> im
         return entityManager.createQuery(
                 "select "
                         + "new se.skltp.messagebox.core.StatusReport(m.targetSystem, m.targetOrganization, m.serviceContract, count(m.serviceContract), min(m.arrived)) "
-                        + "from Message m group by m.targetSystem, m.targetOrganization, m.serviceContract"
+                        + "from MessageMeta m group by m.targetSystem, m.targetOrganization, m.serviceContract"
                         + " order by m.targetSystem, m.targetOrganization, m.serviceContract",
                 StatusReport.class)
                 .getResultList();
     }
 
     @Override
-    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
-        Message result = new Message(
+    public MessageMeta create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageText, String correlationId) {
+        return create(sourceSystem,targetSystem,targetOrganization,serviceContract,messageText,correlationId,MessageStatus.RECEIVED, timeService.date());
+    }
+
+    @Override
+    public MessageMeta create(String sourceSystem,
+                              String targetSystem,
+                              String targetOrganization,
+                              String serviceContract,
+                              String messageText,
+                              String correlationId,
+                              MessageStatus status,
+                              Date arrivalTime) {
+        MessageBody body = new MessageBody(messageText);
+        MessageMeta result = new MessageMeta(
                 sourceSystem,
                 targetSystem,
                 targetOrganization,
                 serviceContract,
-                messageBody,
-                MessageStatus.RECEIVED,
-                timeService.date(),
-                correlationId
+                body,
+                correlationId, status,
+                arrivalTime
         );
-        store(result);
+        saveMessage(result);
         return result;
     }
 
+    @Override
+    public void saveMessage(MessageMeta message) {
+        store(message);
+        MessageBody body = message.getMessageBody();
+        body.setId(message.getId());
+        body.setMeta(message);
+        entityManager.persist(body);
+    }
 
 }

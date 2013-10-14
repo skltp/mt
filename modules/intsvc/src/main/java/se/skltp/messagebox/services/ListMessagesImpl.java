@@ -32,7 +32,7 @@ import se.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
 import se.riv.itintegration.registry.v1.ServiceContractType;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 
 @WebService(serviceName = "ListMessagesResponderService",
         endpointInterface = "se.riv.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface",
@@ -68,9 +68,9 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             }
             Set<String> targetOrgs = new HashSet<String>(parameters.getTargetOrganizations());
 
-            List<Message> messages = messageService.listMessages(targetSystem);
+            List<MessageMeta> messages = messageService.listMessages(targetSystem);
 
-            for ( Message msg : messages ) {
+            for ( MessageMeta msg : messages ) {
 
                 if ( serviceContractsAllows(serviceContracts, msg) ) {
 
@@ -80,7 +80,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
                         meta.setMessageId(msg.getId());
                         meta.setTargetOrganization(msg.getTargetOrganization());
                         meta.setServiceContractType(msg.getServiceContract());
-                        meta.setMessageSize(msg.getMessageBody().length());
+                        meta.setMessageSize(msg.getMessageBodySize());
                         meta.setArrivalTime(msg.getArrived());
                         meta.setStatus(translateStatusToSchema(msg.getStatus()));
 
@@ -105,7 +105,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
      * @param msg
      * @return
      */
-    private boolean targetOrgsAllows(Set<String> targetOrgs, Message msg) {
+    private boolean targetOrgsAllows(Set<String> targetOrgs, MessageMeta msg) {
         return targetOrgs.isEmpty() || targetOrgs.contains(msg.getTargetOrganization());
     }
 
@@ -115,7 +115,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
      * @param msg
      * @return
      */
-    private boolean serviceContractsAllows(Set<String> serviceContracts, Message msg) {
+    private boolean serviceContractsAllows(Set<String> serviceContracts, MessageMeta msg) {
         return serviceContracts.isEmpty() || serviceContracts.contains(msg.getServiceContract());
     }
 

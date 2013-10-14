@@ -39,7 +39,7 @@
             <xs:element name="messageId" type="xs:long" />
             <xs:element name="targetOrganization" type="reg:LogicalAddressType" />
             <xs:element name="serviceContractType" type="xs:string" />
-            <xs:element name="messageSize" type="xs:int" />
+            <xs:element name="messageSize" type="xs:long" />
             <xs:element name="arrivalTime" type="xs:dateTime" />
             <xs:element name="status" type="tns:MessageStatusType"/>
 

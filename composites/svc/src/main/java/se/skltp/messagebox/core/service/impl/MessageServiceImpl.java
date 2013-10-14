@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.skltp.messagebox.core.StatusReport;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.repository.MessageRepository;
 import se.skltp.messagebox.core.service.MessageService;
 import se.skltp.messagebox.core.service.StatisticService;
@@ -47,11 +47,11 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private StatisticService statisticService;
 
-    public List<Message> getMessages(String targetSystem, Collection<Long> ids) {
-        List<Message> messages = messageRepository.getMessages(targetSystem, ids);
+    public List<MessageMeta> getMessages(String targetSystem, Collection<Long> ids) {
+        List<MessageMeta> messages = messageRepository.getMessages(targetSystem, ids);
 
         // mark the message as retrieved
-        for ( Message msg : messages ) {
+        for ( MessageMeta msg : messages ) {
             msg.setStatusRetrieved();
         }
 
@@ -60,28 +60,27 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> listMessages(String targetSystem) {
+    public List<MessageMeta> listMessages(String targetSystem) {
         return messageRepository.listMessages(targetSystem);
     }
 
-    public Long saveMessage(Message message) {
-        Message result = messageRepository.store(message);
-        return result.getId();
+    public void saveMessage(MessageMeta message) {
+        messageRepository.saveMessage(message);
     }
 
     @Override
-    public Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
+    public MessageMeta create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId) {
         return messageRepository.create(sourceSystem, targetSystem, targetOrganization, serviceContract, messageBody, correlationId);
     }
 
-    public void deleteMessages(String targetSystem, long now, List<Message> messages) {
+    public void deleteMessages(String targetSystem, long now, List<MessageMeta> messages) {
         Set<Long> ids = new HashSet<Long>();
-        for ( Message msg : messages ) {
+        for ( MessageMeta msg : messages ) {
             ids.add(msg.getId());
         }
         // This is a hard delete error because we don't know what ids we failed to delete... note that as we have loaded
         // the messages in the same transaction, they must exist, so this should be a rather severe kind of error
-        int numDeleted = messageRepository.delete(targetSystem, ids);
+        int numDeleted = messageRepository.deleteMessages(targetSystem, ids);
         if ( numDeleted != messages.size() ) {
             throw new IllegalStateException("Unable to delete " + messages.size() + " ids, could only delete " + numDeleted + " ids!");
         }

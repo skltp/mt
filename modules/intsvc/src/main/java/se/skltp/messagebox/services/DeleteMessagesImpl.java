@@ -30,7 +30,7 @@ import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessages
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.TimeService;
 
@@ -65,7 +65,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             // how do we signal that error to the user? It is not incomplete in the ordinary sense - this
             // is a bug in the calling code system and must be signaled as a hard error..
 
-            List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
+            List<MessageMeta> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
                 log.warn("Target system " + targetSystem + " attempted to delete non-deletable messages "
                         + describeMessageDiffs(parameters.getMessageIds(), messages));
@@ -81,7 +81,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
                 messageService.deleteMessages(targetSystem, timeService.now(), messages);
 
                 List<Long> responseIds = response.getDeletedIds();
-                for ( Message msg : messages ) {
+                for ( MessageMeta msg : messages ) {
                     responseIds.add(msg.getId());
                 }
             } else {
@@ -104,18 +104,18 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
      * @param messages to check for status
      * @return null or a csv-list of message ids
      */
-    private String checkUnreadMessages(List<Message> messages) {
+    private String checkUnreadMessages(List<MessageMeta> messages) {
         String result = null;
         // make sure all the messages have been read
-        List<Message> unread = new ArrayList<Message>();
-        for ( Message message : messages ) {
+        List<MessageMeta> unread = new ArrayList<MessageMeta>();
+        for ( MessageMeta message : messages ) {
             if ( message.getStatus() != MessageStatus.RETRIEVED ) {
                 unread.add(message);
             }
         }
         if ( !unread.isEmpty() ) {
             StringBuilder sb = new StringBuilder();
-            for ( Message msg : unread ) {
+            for ( MessageMeta msg : unread ) {
                 if ( sb.length() > 0 ) {
                     sb.append(",");
                 }

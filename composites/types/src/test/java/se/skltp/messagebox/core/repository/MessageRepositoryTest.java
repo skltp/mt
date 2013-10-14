@@ -31,12 +31,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import se.skltp.messagebox.core.StatusReport;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.TimeService;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:services-config.xml" })
@@ -60,7 +62,8 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
 
-        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_META", Long.class));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_BODY", Long.class));
     }
 
     @Test
@@ -71,40 +74,43 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.listMessages(targetSystem);
+        List<MessageMeta> messages = messageRepository.listMessages(targetSystem);
 
         assertEquals(1, messages.size());
+        assertNull(messages.get(0).getMessageBody());
     }
 
     @Test
     public void testGetMessages() throws Exception {
         Set<Long> ids = new HashSet<Long>();
         String targetSystem = "targetSystemHsaId";
-        Message message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", correlationId);
+        MessageMeta message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", correlationId);
         ids.add(message.getId());
 
         entityManager.flush();
         entityManager.clear();
 
-        List<Message> messages = messageRepository.getMessages(targetSystem, ids);
+        List<MessageMeta> messages = messageRepository.getMessages(targetSystem, ids);
 
         assertEquals(1, messages.size());
+        assertNotNull(messages.get(0).getMessageBody());
     }
 
     @Test
     public void testFindNone() throws Exception {
         Set<Long> ids = new HashSet<Long>();
-        String targetSystem = "receivers Hsa-Id";
         ids.add(1L);
-        List<Message> messages = messageRepository.getMessages(targetSystem, ids);
+        String targetSystem = "targetSys";
+        List<MessageMeta> messages = messageRepository.getMessages(targetSystem, ids);
         assertEquals(0, messages.size());
     }
 
     @Test
     public void testOrdering() throws Exception {
         Set<Long> ids = new HashSet<Long>();
+        String targetSystem = "targetSys";
         for(int i = 0 ; i < 5 ; i++) {
-            Message message = messageRepository.create("sourceId", "hsaId", "org-1", "serviceContract", "webcallcontent", correlationId);
+            MessageMeta message = messageRepository.create("sourceId", targetSystem, "org-1", "serviceContract", "webcallcontent", correlationId);
             entityManager.persist(message);
             ids.add(message.getId());
         }
@@ -112,7 +118,7 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         entityManager.flush();
         entityManager.clear();
         
-        List<Message> messages = messageRepository.getMessages("hsaId", ids);
+        List<MessageMeta> messages = messageRepository.getMessages(targetSystem, ids);
         
         int first = messages.get(0).getId().intValue();
         assertEquals(first + 1, messages.get(1).getId().intValue());
@@ -128,65 +134,71 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         Set<Long> ids = createMessage(systemId);
 
         // fail delete because of wrong message status
-        messageRepository.delete(systemId, ids);
+        messageRepository.deleteMessages(systemId, ids);
 
         entityManager.flush();
 
-        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_META", Long.class));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_BODY", Long.class));
 
     }
 
+    @Test
     public void testDeleteWithCorrectStatus() throws Exception {
-        String systemId = "hsaId";
-        Set<Long> ids = createMessage(systemId);
+        String targetSystem = "hsaId";
+        Set<Long> ids = createMessage(targetSystem);
 
-        List<Message> messages = messageRepository.getMessages(systemId, ids);
+        List<MessageMeta> messages = messageRepository.getMessages(targetSystem, ids);
 
         assertEquals(1, messages.size());
         messages.get(0).setStatusRetrieved();   // mark as retrived so we can delete it
 
-        messageRepository.delete(systemId, ids);
+        messageRepository.deleteMessages(targetSystem, ids);
         entityManager.flush();
 
-        assertEquals(0, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
+        assertEquals(0, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_META", Long.class));
+        assertEquals(0, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_BODY", Long.class));
     }
 
-    private Set<Long> createMessage(String systemId) {
-        Message message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", correlationId);
-        messageRepository.persist(message);
+    @Test
+    public void testDeleteBodiesWithCorrectStatus() throws Exception {
+        String targetSystem = "hsaId";
+        Set<Long> ids = createMessage(targetSystem);
 
+        List<MessageMeta> messages = messageRepository.getMessages(targetSystem, ids);
+
+        assertEquals(1, messages.size());
+        messages.get(0).setStatusRetrieved();   // mark as retrived so we can delete it
+
+        messageRepository.deleteMessageBodies(targetSystem, ids);
         entityManager.flush();
-        entityManager.clear();
 
-        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE", Long.class));
-
-        Set<Long> ids = new HashSet<Long>();
-        ids.add(message.getId());
-        return ids;
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_META", Long.class));
+        assertEquals(0, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_BODY", Long.class));
     }
-
 
     @Test
     public void testStatusReporting() throws Exception {
         // Create a bunch of messages with various systems, organizations, serviceContracts and times
-        String rec1 = "hsaId1";
-        String rec2 = "hsaId2";
+        String targetSys1 = "hsaId1";
+        String targetSys2 = "hsaId2";
         String org1 = "org1";
         String org2 = "org2";
         String org3 = "org3";
         String sc1 = "serviceContract1";
         String sc2 = "serviceContract2";
+        String body = "webcall body";
         Date time1 = new Date(timeService.now() - 3600 * 1000);
         Date time2 = new Date(timeService.now() - 3600 * 1000 * 2);
         Date time3 = new Date(timeService.now() - 3600 * 1000 * 3);
 
-        messageRepository.persist(new Message("sourceId", rec2, org2, sc1, "webcall body", MessageStatus.RECEIVED, time2, correlationId));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time3, correlationId));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc2, "webcall body", MessageStatus.RECEIVED, time2, correlationId));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc1, "webcall body", MessageStatus.RECEIVED, time2, correlationId));
-        messageRepository.persist(new Message("sourceId", rec1, org1, sc1, "webcall body", MessageStatus.RECEIVED, time1, correlationId));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time1, correlationId));
-        messageRepository.persist(new Message("sourceId", rec2, org3, sc2, "webcall body", MessageStatus.RECEIVED, time3, correlationId));
+        messageRepository.create("sourceId", targetSys2, org2, sc1, body, correlationId, MessageStatus.RECEIVED, time2);
+        messageRepository.create("sourceId", targetSys1, org1, sc1, body, correlationId, MessageStatus.RECEIVED, time3);
+        messageRepository.create("sourceId", targetSys1, org1, sc2, body, correlationId, MessageStatus.RECEIVED, time2);
+        messageRepository.create("sourceId", targetSys2, org3, sc1, body, correlationId, MessageStatus.RECEIVED, time2);
+        messageRepository.create("sourceId", targetSys1, org1, sc1, body, correlationId, MessageStatus.RECEIVED, time1);
+        messageRepository.create("sourceId", targetSys2, org3, sc2, body, correlationId, MessageStatus.RECEIVED, time1);
+        messageRepository.create("sourceId", targetSys2, org3, sc2, body, correlationId, MessageStatus.RECEIVED, time3);
 
         // Get the status reports. The status reports are sorted, so we know what each slot in the
         // list should contain.
@@ -196,7 +208,7 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
         // system, org and service contracts are 1/1/1, 2 messages and oldest time is time3
         // 1/1/1, 2 msg, time3
         StatusReport sr = reports.get(0);
-        assertEquals(rec1, sr.getTargetSystem());
+        assertEquals(targetSys1, sr.getTargetSystem());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());
@@ -204,7 +216,7 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
 
         // 1/1/2, 1 msg, time2
         sr = reports.get(1);
-        assertEquals(rec1, sr.getTargetSystem());
+        assertEquals(targetSys1, sr.getTargetSystem());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -212,7 +224,7 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
 
         // 2/2/1, 1 msg, time2
         sr = reports.get(2);
-        assertEquals(rec2, sr.getTargetSystem());
+        assertEquals(targetSys2, sr.getTargetSystem());
         assertEquals(org2, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -220,7 +232,7 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
 
         // 2/3/1, 1 msg, time2
         sr = reports.get(3);
-        assertEquals(rec2, sr.getTargetSystem());
+        assertEquals(targetSys2, sr.getTargetSystem());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
@@ -228,11 +240,26 @@ public class MessageRepositoryTest extends JpaRepositoryTestBase {
 
         // 2/3/2, 2 msg, time3
         sr = reports.get(4);
-        assertEquals(rec2, sr.getTargetSystem());
+        assertEquals(targetSys2, sr.getTargetSystem());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());
         assertEquals(time3, sr.getOldestMessageDate());
 
     }
+
+    private Set<Long> createMessage(String systemId) {
+        MessageMeta message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", correlationId);
+
+        entityManager.flush();
+        entityManager.clear();
+
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_META", Long.class));
+        assertEquals(1, (long) jdbcTemplate.queryForObject("SELECT COUNT(*) FROM MESSAGE_BODY", Long.class));
+
+        Set<Long> ids = new HashSet<Long>();
+        ids.add(message.getId());
+        return ids;
+    }
+
 }

@@ -32,18 +32,18 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  */
 @NamedQueries({
         @NamedQuery(name = "Message.listMessages",
-                query = "select m from Message m where m.targetSystem = :targetSystem order by m.id asc"),
+                query = "select m from MessageMeta m where m.targetSystem = :targetSystem order by m.id asc"),
         @NamedQuery(name = "Message.getMessages",
-                query = "select m from Message m where m.targetSystem = :targetSystem and m.id in (:ids) order by m.id asc"),
+                query = "select m from MessageMeta m where m.targetSystem = :targetSystem and m.id in (:ids) order by m.id asc"),
         @NamedQuery(name = "Message.deleteMessages",
-                query = "delete from Message m where m.targetSystem = :targetSystem and m.id in (:ids) and m.status = :status"),
+                query = "delete from MessageMeta m where m.targetSystem = :targetSystem and m.id in (:ids) and m.status = :status"),
         @NamedQuery(name = "Message.getStatus",
-                query = "select m.targetSystem, count(m.targetSystem), min(m.arrived) from Message m GROUP BY m.targetSystem")
+                query = "select m.targetSystem, count(m.targetSystem), min(m.arrived) from MessageMeta m GROUP BY m.targetSystem")
 
 })
 @Entity()
-@Table(name = "MESSAGE")
-public class Message extends AbstractEntity<Long> {
+@Table(name = "message_meta")
+public class MessageMeta extends AbstractEntity<Long> {
 
     @SuppressWarnings("unused")
     private static final long serialVersionUID = 1L;
@@ -68,10 +68,6 @@ public class Message extends AbstractEntity<Long> {
     @Column(nullable = false)
     private String serviceContract;
 
-    @Column(nullable = false)
-    @Lob
-    private String messageBody;
-
     // the size of the messagebody
     @Column(nullable = false)
     private long messageBodySize;
@@ -83,23 +79,29 @@ public class Message extends AbstractEntity<Long> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrived;
 
+    // maps to X-MULE-CORRELATION-ID; used to allow mule-people to match this message against the mule-logs
     private String correlationId;
 
+    // Can't trust hibernate NOT to load the message body even if we use lazy annotation, so we disable automatic
+    // loading of the messageBody. It will be filled in only if you do a getMessages() field; if used when doing
+    // listMessages it will be null.
+    private transient MessageBody messageBody;
+
+
     /* Make JPA happy */
-    protected Message() {
+    protected MessageMeta() {
     }
 
-
-    public Message(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, MessageStatus status, Date arrived, String correlationId) {
+    public MessageMeta(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, MessageBody messageBody, String correlationId, MessageStatus status, Date arrived) {
         this.sourceSystem = sourceSystem;
         this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
-        this.messageBody = messageBody;
-        this.messageBodySize = messageBody.length();
+        this.messageBodySize = messageBody.getText().length();
         this.status = status;
         this.arrived = arrived;
         this.correlationId = correlationId;
+        this.messageBody = messageBody;
     }
 
     public Long getId() {
@@ -120,10 +122,6 @@ public class Message extends AbstractEntity<Long> {
 
     public String getTargetOrganization() {
         return targetOrganization;
-    }
-
-    public String getMessageBody() {
-        return messageBody;
     }
 
     public String getServiceContract() {
@@ -154,4 +152,11 @@ public class Message extends AbstractEntity<Long> {
         this.status = MessageStatus.RETRIEVED;
     }
 
+    public MessageBody getMessageBody() {
+        return messageBody;
+    }
+
+    public void setMessageBody(MessageBody messageBody) {
+        this.messageBody = messageBody;
+    }
 }

@@ -20,10 +20,9 @@ package se.skltp.messagebox.core.service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import se.skltp.messagebox.core.StatusReport;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 
 public interface MessageService {
 
@@ -31,14 +30,16 @@ public interface MessageService {
      * Get messages for delivery to the target system.
      * <p/>
      * Will mark the messages as delivered.
+     * <p>
+     * Will load the message bodies for all message metas.
      *
      *
      * @param targetSystem hsa-id for target system
      * @param ids        to get
      * @return list of messages with the given ids belonging to targetSystem
-     *         (asking for ids not belonging to the targetSystem will be silentrly ignored)
+     *         (asking for ids not belonging to the targetSystem will be silently ignored)
      */
-    List<Message> getMessages(String targetSystem, Collection<Long> ids);
+    List<MessageMeta> getMessages(String targetSystem, Collection<Long> ids);
 
     /**
      * List messages available for the given target system.
@@ -46,15 +47,16 @@ public interface MessageService {
      * @param targetSystem hsa-id for target system.
      * @return list of messages
      */
-    List<Message> listMessages(String targetSystem);
+    List<MessageMeta> listMessages(String targetSystem);
 
     /**
      * SaveOrPersist a message.
      *
+     *
      * @param message to persist
      * @return id of message
      */
-    Long saveMessage(Message message);
+    void saveMessage(MessageMeta message);
 
     /**
      * Create a message with the given arguments
@@ -66,11 +68,9 @@ public interface MessageService {
      * @param serviceContract of message
      * @param messageBody message body
      * @param correlationId
-     * @return created message, with arrival time set to TimeService.now() and status {@link se.riv.itintegration.messagebox.v1.MessageStatusType#RECEIVED}
+     * @return created message, with arrival time set to TimeService.now() and status {@link se.skltp.messagebox.core.entity.MessageStatus#RECEIVED}
      */
-    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
-
-
+    MessageMeta create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
 
     /**
      * Delete all identified messages, returning how many were actually deleted.
@@ -79,7 +79,7 @@ public interface MessageService {
      * @param now current time (to determine delivery time for statistic purposes)
      * @param messages to delete
      */
-    void deleteMessages(String targetSystem, long now, List<Message> messages);
+    void deleteMessages(String targetSystem, long now, List<MessageMeta> messages);
 
 
     /**

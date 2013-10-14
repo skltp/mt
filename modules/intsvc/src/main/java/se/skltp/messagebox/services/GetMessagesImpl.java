@@ -30,7 +30,7 @@ import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
 import se.riv.itintegration.registry.v1.ServiceContractType;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 
 @WebService(serviceName = "GetMessagesResponderService",
         endpointInterface = "se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface",
@@ -52,7 +52,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
 
         try {
 
-            List<Message> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
+            List<MessageMeta> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 
             if ( parameters.getMessageIds().size() != messages.size() ) {
                 log.warn("Target system " + targetSystem + " attempted to get non-present messages "
@@ -62,7 +62,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
 
             }
 
-            for ( Message msg : messages ) {
+            for ( MessageMeta msg : messages ) {
 
                 ResponseType elem = new ResponseType();
                 elem.setMessageId(msg.getId());
@@ -71,7 +71,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 elem.setServiceContractType(serverContract);
                 elem.setTargetOrganization(msg.getTargetOrganization());
 
-                elem.setMessage(msg.getMessageBody());
+                elem.setMessage(msg.getMessageBody().getText());
 
                 response.getResponses().add(elem);
             }

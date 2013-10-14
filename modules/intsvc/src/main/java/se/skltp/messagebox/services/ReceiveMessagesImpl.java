@@ -33,7 +33,7 @@ import javax.xml.ws.WebServiceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
 @WebServiceProvider(
@@ -67,7 +67,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             Node logicalAddressNode = (Node) soapMessage.getSOAPHeader().getChildElements(LOGICAL_ADDRESS_QNAME).next();
             String targetOrg = logicalAddressNode.getValue();
 
-            Message message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
+            MessageMeta message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
             log.info("Saved " + message);
 

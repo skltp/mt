@@ -27,7 +27,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.springframework.web.util.UriUtils;
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.MessageService;
 
@@ -118,7 +118,7 @@ public class BaseService {
         return req.getHeader(name);
     }
 
-    protected String describeMessageDiffs(Collection<Long> messageIds, List<Message> messages) {
+    protected String describeMessageDiffs(Collection<Long> messageIds, List<MessageMeta> messages) {
         List<Long> sorted = getMissingMessageIds(messageIds, messages);
 
         StringBuilder result = new StringBuilder();
@@ -132,9 +132,9 @@ public class BaseService {
         return result.toString();
     }
 
-    private List<Long> getMissingMessageIds(Collection<Long> messageIds, List<Message> messages) {
+    private List<Long> getMissingMessageIds(Collection<Long> messageIds, List<MessageMeta> messages) {
         Set<Long> copy = new HashSet<Long>(messageIds);
-        for ( Message message : messages ) {
+        for ( MessageMeta message : messages ) {
             copy.remove(message.getId());
         }
         List<Long> sorted = new ArrayList<Long>(copy);

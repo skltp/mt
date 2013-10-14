@@ -23,7 +23,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.repository.StatisticRepository;
 import se.skltp.messagebox.core.service.StatisticService;
@@ -40,7 +40,7 @@ public class StatisticServiceImpl implements StatisticService {
 
 
     @Override
-    public void addDeliveriesToStatistics(String targetSystem, long deliveryTimeMs, List<Message> messages) {
+    public void addDeliveriesToStatistics(String targetSystem, long deliveryTimeMs, List<MessageMeta> messages) {
         statisticRepository.addDeliveries(targetSystem, deliveryTimeMs, messages);
     }
 

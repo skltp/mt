@@ -30,7 +30,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageBody;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
@@ -59,8 +60,7 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
     public void testDeliverOneMessage() throws Exception {
         String targetSystem = "recId";
         String serviceContract = "sc1";
-        Message message = messageService.create("sourceId", targetSystem, "targetOrg", serviceContract, "messageBody", correlationId);
-        messageService.saveMessage(message);
+        MessageMeta message = messageService.create("sourceId", targetSystem, "targetOrg", serviceContract, "messageBody", correlationId);
 
         message.setStatusRetrieved(); // allow the messaged to be deleted
 
@@ -88,10 +88,8 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
         String targetSystem = "recId";
         String serviceContract1 = "sc1";
         String serviceContract2 = "sc2";
-        Message msg1 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract1, "messageBody", MessageStatus.RETRIEVED, now, correlationId);
-        Message msg2 = new Message("sourceId", targetSystem, "targetOrg1", serviceContract2, "messageBody", MessageStatus.RETRIEVED, now, correlationId);
-        messageService.saveMessage(msg1);
-        messageService.saveMessage(msg2);
+        MessageMeta msg1 = createMsg(now, targetSystem, serviceContract1);
+        MessageMeta msg2 = createMsg(now, targetSystem, serviceContract2);
 
         entityManager.flush();
         entityManager.clear();
@@ -121,6 +119,13 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
 
     }
 
+    private MessageMeta createMsg(Date now, String targetSystem, String serviceContract1) {
+        MessageBody body = new MessageBody("body");
+        MessageMeta messageMeta = new MessageMeta("sourceId", targetSystem, "targetOrg1", serviceContract1, body, correlationId, MessageStatus.RETRIEVED, now);
+        messageService.saveMessage(messageMeta);
+        return messageMeta;
+    }
+
     @Test
     public void testDeliverToTwoTargetOrgs() throws Exception {
         Date now = new Date(timeService.now());
@@ -130,8 +135,8 @@ public class StatisticServiceTest extends JpaRepositoryTestBase {
         String targetOrg1 = "targetOrg1";
         String targetOrg2 = "targetOrg2";
 
-        Message msg1 = new Message("sourceId", targetSystem, targetOrg1, serviceContract1, "messageBody", MessageStatus.RETRIEVED, now, correlationId);
-        Message msg2 = new Message("sourceId", targetSystem, targetOrg2, serviceContract2, "messageBody", MessageStatus.RETRIEVED, now, correlationId);
+        MessageMeta msg1 = new MessageMeta("sourceId", targetSystem, targetOrg1, serviceContract1, new MessageBody("txt"), correlationId, MessageStatus.RETRIEVED, now);
+        MessageMeta msg2 = new MessageMeta("sourceId", targetSystem, targetOrg2, serviceContract2, new MessageBody("txt"), correlationId, MessageStatus.RETRIEVED, now);
         messageService.saveMessage(msg1);
         messageService.saveMessage(msg2);
 

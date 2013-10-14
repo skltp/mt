@@ -19,20 +19,22 @@
 package se.skltp.messagebox.core.repository;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import se.skltp.messagebox.core.StatusReport;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
+import se.skltp.messagebox.core.entity.MessageStatus;
 import se.vgregion.dao.domain.patterns.repository.Repository;
 
-public interface MessageRepository extends Repository<Message, Long> {
+public interface MessageRepository extends Repository<MessageMeta, Long> {
 
-    List<Message> getMessages(String systemId, Collection<Long> ids);
+    List<MessageMeta> getMessages(String targetSystem, Collection<Long> ids);
 
-    List<Message> listMessages(String systemId);
+    List<MessageMeta> listMessages(String targetSystem);
 
-    int delete(String careUnit, Set<Long> ids);
+    int deleteMessages(String targetSystem, Set<Long> ids);
 
     /**
      * Get statistics for the current state of the target systems.
@@ -44,19 +46,47 @@ public interface MessageRepository extends Repository<Message, Long> {
     public List<StatusReport> getStatusReports();
 
     /**
-     * Create a message with
+     * As the full create, with status RECEIVED and arrival time now.
      *
-     *
-     *
-     * @param sourceSystem hsa-id of source system
-     * @param targetSystem hsa-id of target system
-     * @param targetOrganization hsa-id of target org
-     * @param serviceContract of message
-     * @param messageBody message body
-     * @param correlationId
      * @return created message, with arrival time set to TimeService.now() and status {@link se.skltp.messagebox.core.entity.MessageStatus#RECEIVED}
      */
-    Message create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);
+    MessageMeta create(String sourceSystem,
+                       String targetSystem,
+                       String targetOrganization,
+                       String serviceContract,
+                       String messageBody,
+                       String correlationId);
+
+    /**
+     * Create a messsage and return its message-meta.
+     *
+     * @param sourceSystem id for originating system
+     * @param targetSystem id for target system
+     * @param targetOrganization id of target for message
+     * @param serviceContract type of message
+     * @param messageBody text of message
+     * @param correlationId id of message
+     * @param status of message
+     * @param arrivalTime when it arrived
+     * @return created message-meta
+     */
+    MessageMeta create(String sourceSystem,
+                       String targetSystem,
+                       String targetOrganization,
+                       String serviceContract,
+                       String messageBody,
+                       String correlationId,
+                       MessageStatus status,
+                       Date arrivalTime);
 
 
+    void saveMessage(MessageMeta message);
+
+    /**
+     * Delete the message bodies (only!) for the given messages
+     *
+     * @param targetSystem
+     * @param ids
+     */
+    int deleteMessageBodies(String targetSystem, Set<Long> ids);
 }

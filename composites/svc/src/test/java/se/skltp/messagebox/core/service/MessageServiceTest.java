@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.util.JpaRepositoryTestBase;
 
 import static org.junit.Assert.fail;
@@ -51,7 +51,7 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
 
     @Test
     public void deleteFailWrongStatus() throws Exception {
-        Message message = messageService.create("sourceId", "targetSys", "targetOrg", "serviceContrakt", "webcall body", correlationId);
+        MessageMeta message = messageService.create("sourceId", "targetSys", "targetOrg", "serviceContrakt", "webcall body", correlationId);
 
         entityManager.flush();
 
@@ -66,12 +66,12 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
     @Test
     public void testDeleteCorrectStatus() throws Exception {
         String targetSys = "targetSys";
-        Message message = messageService.create("sourceId", targetSys, "targetOrg", "serviceContrakt", "webcall body", correlationId);
+        MessageMeta message = messageService.create("sourceId", targetSys, "targetOrg", "serviceContrakt", "webcall body", correlationId);
         messageService.getMessages(targetSys, Collections.singleton(message.getId()));
 
         entityManager.flush();
 
-        List<Message> messages = messageService.listMessages(targetSys);
+        List<MessageMeta> messages = messageService.listMessages(targetSys);
 
         messageService.deleteMessages(targetSys, timeService.now(), messages);
     }

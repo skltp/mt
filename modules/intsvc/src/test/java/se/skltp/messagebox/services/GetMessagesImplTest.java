@@ -29,7 +29,7 @@ import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesRespon
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,7 +40,7 @@ public class GetMessagesImplTest extends BaseTestImpl {
 
     private String targetSys = BaseService.COMMON_TARGET_SYSTEM;
     private String logicalAddress = "mbox-address";
-    private List<Message> messages;
+    private List<MessageMeta> messages;
     private GetMessagesImpl getMessagesImpl;
     private GetMessagesType params;
 
@@ -140,13 +140,13 @@ public class GetMessagesImplTest extends BaseTestImpl {
      * <p/>
      * We reuse the messages list and selects the answers we expect using the selection list
      */
-    private GetMessagesResponseType verifyResponse(List<Message> messages, GetMessagesResponseType responseType, ResultCodeEnum code, Integer... selection) {
+    private GetMessagesResponseType verifyResponse(List<MessageMeta> messages, GetMessagesResponseType responseType, ResultCodeEnum code, Integer... selection) {
         assertEquals(code, responseType.getResult().getCode());
         List<ResponseType> responses = responseType.getResponses();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, responses.size());
         Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
 
-        Map<Long, Message> msgMap = new HashMap<Long, Message>();
+        Map<Long, MessageMeta> msgMap = new HashMap<Long, MessageMeta>();
         for ( int i = 0, messagesSize = messages.size(); i < messagesSize; i++ ) {
             if ( selection.length == 0 || selectionSet.contains(i) ) {
                 msgMap.put(messages.get(i).getId(), messages.get(i));
@@ -154,11 +154,11 @@ public class GetMessagesImplTest extends BaseTestImpl {
         }
 
         for ( ResponseType response : responses ) {
-            Message msg = msgMap.get(response.getMessageId());
+            MessageMeta msg = msgMap.get(response.getMessageId());
             assertNotNull("Unexpected message id " + response.getMessageId() + " found!", msg);
             assertEquals(msg.getTargetOrganization(), response.getTargetOrganization());
             assertEquals(msg.getServiceContract(), response.getServiceContractType().getServiceContractNamespace());
-            assertEquals(msg.getMessageBody(), response.getMessage());
+            assertEquals(msg.getMessageBody().getText(), response.getMessage());
         }
 
         return responseType;

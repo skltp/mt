@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.repository.StatisticRepository;
 import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
@@ -39,7 +39,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
 
 
     @Override
-    public void addDeliveries(String targetSystem, long deliveryTime, List<Message> messages) {
+    public void addDeliveries(String targetSystem, long deliveryTime, List<MessageMeta> messages) {
 
         long canonicalDayTime = Statistic.convertToCanonicalDayTime(deliveryTime);
 
@@ -55,7 +55,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
             assert stat == null;
         }
 
-        for ( Message msg : messages ) {
+        for ( MessageMeta msg : messages ) {
             assert targetSystem.equals(msg.getTargetSystem());
             Key key = new Key(msg);
             Statistic stat = statisticMap.get(key);
@@ -86,7 +86,7 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
         private String targetOrg;
         private String serviceContract;
 
-         Key(Message msg) {
+         Key(MessageMeta msg) {
             this.targetOrg = msg.getTargetOrganization();
             this.serviceContract = msg.getServiceContract();
         }

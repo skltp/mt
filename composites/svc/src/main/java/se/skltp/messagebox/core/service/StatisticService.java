@@ -20,7 +20,7 @@ package se.skltp.messagebox.core.service;
 
 import java.util.List;
 
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.Statistic;
 
 /**
@@ -35,7 +35,7 @@ public interface StatisticService {
      * @param deliveryTimeMs timestamp used
      * @param messages       all messages delivered
      */
-    public void addDeliveriesToStatistics(String targetSystem, long deliveryTimeMs, List<Message> messages);
+    public void addDeliveriesToStatistics(String targetSystem, long deliveryTimeMs, List<MessageMeta> messages);
 
     /**
      * Get statistics for the days which contains the given start/end times.

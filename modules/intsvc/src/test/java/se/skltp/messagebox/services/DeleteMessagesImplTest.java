@@ -28,7 +28,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -37,7 +37,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteMessagesImplTest extends BaseTestImpl {
 
-    private List<Message> messages;
+    private List<MessageMeta> messages;
     private DeleteMessagesImpl deleteMessages;
     private String targetSys = BaseService.COMMON_TARGET_SYSTEM;
     private String logicalAddress = "mbox-address";
@@ -103,7 +103,7 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
 
         Collection<Long> allEntries = Arrays.asList(0L, 1L, 2L);
         params.getMessageIds().addAll(allEntries);
-        for ( Message msg : messages ) {
+        for ( MessageMeta msg : messages ) {
             msg.setStatusRetrieved();
         }
         when(messageService.getMessages(targetSys, allEntries)).thenReturn(messages);
@@ -150,13 +150,13 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
      *
      * We reuse the messages list and selects the answers we expect using the selection list
      */
-    private DeleteMessagesResponseType verifyResponse(List<Message> messages, DeleteMessagesResponseType responseType, ResultCodeEnum code, Integer... selection) {
+    private DeleteMessagesResponseType verifyResponse(List<MessageMeta> messages, DeleteMessagesResponseType responseType, ResultCodeEnum code, Integer... selection) {
         assertEquals(code, responseType.getResult().getCode());
         List<Long> deletedIds = responseType.getDeletedIds();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, deletedIds.size());
         Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
 
-        Map<Long, Message> msgMap = new HashMap<Long, Message>();
+        Map<Long, MessageMeta> msgMap = new HashMap<Long, MessageMeta>();
         for ( int i = 0, messagesSize = messages.size(); i < messagesSize; i++ ) {
             if ( selection.length == 0 || selectionSet.contains(i) ) {
                 msgMap.put(messages.get(i).getId(), messages.get(i));
@@ -164,7 +164,7 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
         }
 
         for ( Long id : deletedIds ) {
-            Message msg = msgMap.get(id);
+            MessageMeta msg = msgMap.get(id);
             assertNotNull("Unexpected message id " + id + " found!", msg);
         }
         return responseType;

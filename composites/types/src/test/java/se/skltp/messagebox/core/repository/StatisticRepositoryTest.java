@@ -29,7 +29,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.skltp.messagebox.core.service.TimeService;
@@ -43,8 +43,10 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
     private static long MS_DAY = 24 * 3600 * 1000;
 
     @Autowired
-    private StatisticRepository statisticRepository;
+    private MessageRepository messageRepository;
 
+    @Autowired
+    private StatisticRepository statisticRepository;
     @Autowired
     private TimeService timeService;
 
@@ -67,7 +69,7 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
      */
     @Test
     public void testStatisticsAfterDelivery() throws Exception {
-        List<Message> messages = new ArrayList<Message>();
+        List<MessageMeta> messages = new ArrayList<MessageMeta>();
         messages.add(createMsg("rec1", "sc1", 100));
         messages.add(createMsg("rec1", "sc2", 200));
         messages.add(createMsg("rec1", "sc2", 300));
@@ -102,7 +104,7 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
     @Test
     public void testMultipleDeliveriesOnOneDay() throws Exception {
 
-        List<Message> messages = new ArrayList<Message>();
+        List<MessageMeta> messages = new ArrayList<MessageMeta>();
         messages.add(createMsg("rec1", "sc1", 100));
         messages.add(createMsg("rec1", "sc2", 200));
         messages.add(createMsg("rec1", "sc2", 300));
@@ -142,7 +144,7 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
     @Test
     public void testMultiDayDeliveries() throws Exception {
 
-        List<Message> messages = new ArrayList<Message>();
+        List<MessageMeta> messages = new ArrayList<MessageMeta>();
 
         // note that the messages keep increasing in numbers
         String targetSys = "rec1";
@@ -150,7 +152,8 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
         String serviceContract = "sk1";
         for ( int i = 0; i < 20; i++ ) {
             long deliTime = deliveryTime - MS_DAY * i;
-            messages.add(new Message("sourceId", targetSys, targetOrg, serviceContract, "body", MessageStatus.RECEIVED, new Date(deliTime - 100), correlationId));
+
+            messages.add(messageRepository.create("sourceId", targetSys, targetOrg, serviceContract, "body", correlationId, MessageStatus.RECEIVED, new Date(deliTime - 100)));
             statisticRepository.addDeliveries(targetSys, deliTime, messages);
         }
 
@@ -182,8 +185,8 @@ public class StatisticRepositoryTest extends JpaRepositoryTestBase {
         return null;
     }
 
-    private Message createMsg(String targetSystem, String serviceContract, long deltaTime) {
-        return new Message("sourceId", targetSystem, "targetOrg", serviceContract, "body", MessageStatus.RECEIVED, new Date(deliveryTime - deltaTime), correlationId);
+    private MessageMeta createMsg(String targetSystem, String serviceContract, long deltaTime) {
+        return messageRepository.create("sourceId", targetSystem, "targetOrg", serviceContract, "body", correlationId, MessageStatus.RECEIVED, new Date(deliveryTime - deltaTime));
     }
 
 

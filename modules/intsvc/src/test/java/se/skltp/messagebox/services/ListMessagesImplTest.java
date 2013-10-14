@@ -30,7 +30,7 @@ import se.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.registry.v1.ServiceContractType;
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 
 import static org.junit.Assert.*;
@@ -72,7 +72,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         int idCounter = 0;
         String addr = "mbox-address";
         String targetSys1 = BaseService.COMMON_TARGET_SYSTEM;
-        List<Message> sys1Messages = Arrays.asList(
+        List<MessageMeta> sys1Messages = Arrays.asList(
                 createMessage(idCounter++, targetSys1, "org1", "tk1", "msg1"),
                 createMessage(idCounter++, targetSys1, "org1", "tk2", "msg2"),
                 createMessage(idCounter++, targetSys1, "org2", "tk2", "msg3")
@@ -188,12 +188,12 @@ public class ListMessagesImplTest extends BaseTestImpl {
      * <p/>
      * We reuse the messages list and selects the answers we expect using the selection list
      */
-    private void verifyResponse(List<Message> messages, ListMessagesResponseType responseType, Integer... selection) {
+    private void verifyResponse(List<MessageMeta> messages, ListMessagesResponseType responseType, Integer... selection) {
         List<MessageMetaType> messageMetas = responseType.getMessageMetas();
         assertEquals(selection.length == 0 ? messages.size() : selection.length, messageMetas.size());
         Set<Integer> selectionSet = new HashSet<Integer>(Arrays.asList(selection));
 
-        Map<Long, Message> msgMap = new HashMap<Long, Message>();
+        Map<Long, MessageMeta> msgMap = new HashMap<Long, MessageMeta>();
         for ( int i = 0, messagesSize = messages.size(); i < messagesSize; i++ ) {
             if ( selection.length == 0 || selectionSet.contains(i) ) {
                 msgMap.put(messages.get(i).getId(), messages.get(i));
@@ -201,13 +201,13 @@ public class ListMessagesImplTest extends BaseTestImpl {
         }
 
         for ( MessageMetaType meta : messageMetas ) {
-            Message msg = msgMap.get(meta.getMessageId());
+            MessageMeta msg = msgMap.get(meta.getMessageId());
             assertNotNull("Unexpected message id " + meta.getMessageId() + " found!", msg);
             assertEquals(msg.getTargetOrganization(), meta.getTargetOrganization());
             assertEquals(msg.getServiceContract(), meta.getServiceContractType());
             assertEquals(BaseService.translateStatusToSchema(msg.getStatus()), meta.getStatus());
             assertEquals(msg.getArrived(), meta.getArrivalTime());
-            assertEquals(msg.getMessageBody().length(), meta.getMessageSize());
+            assertEquals(msg.getMessageBodySize(), meta.getMessageSize());
         }
     }
 }

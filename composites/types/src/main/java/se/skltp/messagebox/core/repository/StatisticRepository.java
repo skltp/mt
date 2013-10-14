@@ -20,7 +20,7 @@ package se.skltp.messagebox.core.repository;
 
 import java.util.List;
 
-import se.skltp.messagebox.core.entity.Message;
+import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.Statistic;
 import se.vgregion.dao.domain.patterns.repository.Repository;
 
@@ -48,5 +48,5 @@ public interface StatisticRepository extends Repository<Statistic, Long> {
      * @param deliveryTime time to use as delivery time
      * @param messages messages to tote up stats for
      */
-    void addDeliveries(String targetSystem, long deliveryTime, List<Message> messages);
+    void addDeliveries(String targetSystem, long deliveryTime, List<MessageMeta> messages);
 }
