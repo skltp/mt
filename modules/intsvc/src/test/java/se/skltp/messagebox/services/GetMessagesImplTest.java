@@ -122,16 +122,15 @@ public class GetMessagesImplTest extends BaseTestImpl {
     @Test
     public void testFailure() throws Exception {
         Collection<Long> idsTriggeringFailure = Arrays.asList(0L);
-        String errorMessage = "failed";
 
         // mock up the request to throw an exception when we ask for messages with the idsTriggeringFailure argument
-        when(messageService.getMessages(targetSys, idsTriggeringFailure)).thenThrow(new RuntimeException(errorMessage));
+        when(messageService.getMessages(targetSys, idsTriggeringFailure)).thenThrow(new RuntimeException("something"));
 
         params.getMessageIds().addAll(idsTriggeringFailure);
         GetMessagesResponseType resp = getMessagesImpl.getMessages(logicalAddress, params);
 
         assertEquals(ResultCodeEnum.ERROR, resp.getResult().getCode());
-        assertEquals(errorMessage, resp.getResult().getErrorMessage());
+        assertEquals(ErrorCode.INTERNAL.toString(), resp.getResult().getErrorMessage());
         assertEquals(0, resp.getResponses().size());
     }
 

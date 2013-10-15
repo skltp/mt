@@ -156,9 +156,8 @@ public class ListMessagesImplTest extends BaseTestImpl {
     public void testFailure() throws Exception {
 
         // mock up the request
-        String errorMessage = "Faked exception";
         String targetSys = BaseService.COMMON_TARGET_SYSTEM;
-        when(messageService.listMessages(targetSys)).thenThrow(new RuntimeException(errorMessage));
+        when(messageService.listMessages(targetSys)).thenThrow(new RuntimeException("Faked exception"));
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
 
@@ -172,7 +171,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         ListMessagesResponseType response = impl.listMessages("mbox-address", params);
 
         assertEquals(ResultCodeEnum.ERROR, response.getResult().getCode());
-        assertEquals(errorMessage, response.getResult().getErrorMessage());
+        assertEquals(ErrorCode.INTERNAL.toString(), response.getResult().getErrorMessage());
         assertEquals(0, response.getMessageMetas().size());
     }
 
