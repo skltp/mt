@@ -101,6 +101,9 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         response.getConfiguration().addAll(new StatusBuilder(messageService.getStatusReports()).result);
         response.getConfiguration().addAll(new StatsBuilder(statisticService.getStatisticsForTimeSlice(now, now)).result);
 
+        // if we get any kind of error, we will generate a SOAP Fault and tomcat will log the error, which is good
+        // enough - no need to do any error handling.
+
         return response;
     }
 

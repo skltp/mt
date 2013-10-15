@@ -86,14 +86,15 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
                 }
             } else {
                 response.getResult().setCode(ResultCodeEnum.ERROR);
-                response.getResult().setErrorMessage(unreadMessageCsv);
+                response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
+                response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.toString() + " : " + unreadMessageCsv);
             }
 
         } catch (Exception e) {
             log.warn("Fail!", e);
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorId(1);
-            response.getResult().setErrorMessage("Trying to delete unread messages: " +  e.getMessage());
+            response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
+            response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
         }
         return response;
     }

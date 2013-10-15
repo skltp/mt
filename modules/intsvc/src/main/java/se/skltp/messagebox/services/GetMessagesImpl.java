@@ -76,11 +76,11 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 response.getResponses().add(elem);
             }
 
-
         } catch (Exception e) {
             log.warn("Fail!", e);
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorMessage(e.getMessage());
+            response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
+            response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
             response.getResponses().clear();
         }
         return response;

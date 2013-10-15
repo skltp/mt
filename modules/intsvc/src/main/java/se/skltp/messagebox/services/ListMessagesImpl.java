@@ -90,9 +90,11 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             }
 
         } catch (Exception e) {
+            // We have no known error cases apart from the fatal kind (database down, basically)
             log.warn("Fail!", e);
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorMessage(e.getMessage());
+            response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
+            response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
             response.getMessageMetas().clear();
         }
         return response;
