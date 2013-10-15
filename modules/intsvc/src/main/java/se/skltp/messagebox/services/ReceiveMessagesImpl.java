@@ -19,12 +19,10 @@
 package se.skltp.messagebox.services;
 
 import javax.xml.namespace.QName;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.Node;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-import javax.xml.transform.TransformerException;
 import javax.xml.ws.Provider;
 import javax.xml.ws.Service;
 import javax.xml.ws.ServiceMode;
@@ -73,13 +71,11 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
 
             return getReturnCode();
             // TODO: translate to correct SOAPFault errors!
-        } catch (TransformerException e) {
-            throw new RuntimeException(e);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SOAPException e) {
-            throw new RuntimeException(e);
-
+        } catch (Exception e) {
+            // log the error
+            log.error("Error " + e.getMessage(), e);
+            // generate a SOAPFAult with the MT0001 error message in the <faultstring> node
+            throw new RuntimeException(ReceiveErrorCode.MB0001.toString());
         }
     }
 

@@ -31,14 +31,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiveMessagesImplTest extends BaseTestImpl {
-
-    // TODO: Test where namespace is defined: in soap env, in soap-body, in content node
-    // TODO: Verify that the answer contains the namespace and can be parsed correctly
 
     /**
      * Simulate receiving one message.
@@ -46,7 +45,7 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
      * @throws Exception
      */
     @Test
-    public void testReceive() throws Exception {
+    public void testSuccess() throws Exception {
 
         String targetOrg = "targetOrg-HsaId";
         String serviceContractType = "riv:etc,etc...";
@@ -87,6 +86,40 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
 
         // the answer must be an empty body
         assertEquals(0, resultOfCall.getSOAPBody().getChildNodes().getLength());
+    }
+
+    /**
+     * Simulate receiving one message.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testFailure() throws Exception {
+
+        String targetOrg = "targetOrg-HsaId";
+        String serviceContractType = "riv:etc,etc...";
+        String body = "<body name=\"body\" anotherAttribute=\"a value\">the body text<embeddedNode>with some text</embeddedNode></body>";
+        String targetSystem = BaseService.COMMON_TARGET_SYSTEM;
+
+        when(wsContext.getMessageContext()).thenReturn(msgContext);
+        when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
+        when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + targetSystem);
+
+        SOAPMessage request = constructCall(targetOrg, serviceContractType, body);
+
+        ReceiveMessagesImpl impl = new ReceiveMessagesImpl();
+        impl.setMessageService(messageService);
+        impl.setWsContext(wsContext);
+
+        when(messageService.create(anyString(), anyString(), anyString(),  anyString(), anyString(), anyString())).thenThrow(new RuntimeException("FakeExcption"));
+
+        try {
+            impl.invoke(request);
+            fail("Expected RuntimeException!");
+        } catch (RuntimeException e) {
+            assertEquals(ReceiveErrorCode.MB0001.toString(), e.getMessage());
+            // TODO: Should verify that an error event is logged to the error queue
+        }
     }
 
 
