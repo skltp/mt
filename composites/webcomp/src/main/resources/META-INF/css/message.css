@@ -35,7 +35,7 @@ pre {
 }
 
 #main {
-	width: 88em;
+	width: 110em; /* controls size of blue background */
 	background: #FFFFFF;
 	margin: 0 auto;
 	position: relative;

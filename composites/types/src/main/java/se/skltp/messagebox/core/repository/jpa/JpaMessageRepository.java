@@ -96,7 +96,13 @@ public class JpaMessageRepository extends DefaultJpaRepository<MessageMeta, Long
         //noinspection unchecked
         return entityManager.createQuery(
                 "select "
-                        + "new se.skltp.messagebox.core.StatusReport(m.targetSystem, m.targetOrganization, m.serviceContract, count(m.serviceContract), min(m.arrived)) "
+                        + "new se.skltp.messagebox.core.StatusReport(" +
+                        "m.targetSystem," +
+                        " m.targetOrganization," +
+                        " m.serviceContract," +
+                        " count(m.serviceContract)," +
+                        " sum(m.messageBodySize)," +
+                        " min(m.arrived)) "
                         + "from MessageMeta m group by m.targetSystem, m.targetOrganization, m.serviceContract"
                         + " order by m.targetSystem, m.targetOrganization, m.serviceContract",
                 StatusReport.class)

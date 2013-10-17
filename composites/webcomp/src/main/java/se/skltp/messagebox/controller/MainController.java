@@ -79,19 +79,26 @@ public class MainController {
         private String targetOrganization;
         private ServiceContractView serviceContract;
         private long messageCount;
+        private long totalSize;
         private Date oldestMessageDate;
 
-        public StatusReportView(String targetSystem, String targetOrganization, String serviceContract, long messageCount, Date oldestMessageDate) {
+        public StatusReportView(String targetSystem, String targetOrganization, String serviceContract, long messageCount, long totalSize, Date oldestMessageDate) {
             this.targetSystem = targetSystem;
             this.targetOrganization = targetOrganization;
             this.serviceContract = new ServiceContractView(serviceContract);
             this.messageCount = messageCount;
+            this.totalSize = totalSize;
             this.oldestMessageDate = oldestMessageDate;
         }
 
 
         public StatusReportView(StatusReport r) {
-            this(r.getTargetSystem(), r.getTargetOrganization(), r.getServiceContract(), r.getMessageCount(), r.getOldestMessageDate());
+            this(r.getTargetSystem(),
+                    r.getTargetOrganization(),
+                    r.getServiceContract(),
+                    r.getMessageCount(),
+                    r.getTotalSize(),
+                    r.getOldestMessageDate());
         }
 
         /**
@@ -103,6 +110,7 @@ public class MainController {
          */
         public void merge(StatusReport other) {
             this.messageCount += other.getMessageCount();
+            this.totalSize += other.getTotalSize();
             this.oldestMessageDate = new Date(Math.min(this.oldestMessageDate.getTime(), other.getOldestMessageDate().getTime()));
         }
 
@@ -127,16 +135,24 @@ public class MainController {
             return oldestMessageDate;
         }
 
+        public ByteSizeView getTotalSize() {
+            return new ByteSizeView(totalSize);
+        }
+
+        public ByteSizeView getAverageSize() {
+            return new ByteSizeView(totalSize/messageCount);
+        }
+
         public TimeDelta getOldestMessageAge() {
             return new TimeDelta(System.currentTimeMillis() - oldestMessageDate.getTime());
         }
 
         static StatusReportView createRec(StatusReport r) {
-            return new StatusReportView(r.getTargetSystem(), "", "", 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getTargetSystem(), "", "", 0, 0, r.getOldestMessageDate());
         }
 
         static StatusReportView createOrg(StatusReport r) {
-            return new StatusReportView(r.getTargetSystem(), r.getTargetOrganization(), "", 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getTargetSystem(), r.getTargetOrganization(), "", 0, 0, r.getOldestMessageDate());
         }
 
     }

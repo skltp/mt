@@ -37,7 +37,6 @@ import se.vgregion.dao.domain.patterns.repository.db.jpa.DefaultJpaRepository;
 public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long> implements StatisticRepository {
 
 
-
     @Override
     public void addDeliveries(String targetSystem, long deliveryTime, List<MessageMeta> messages) {
 
@@ -59,12 +58,16 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
             assert targetSystem.equals(msg.getTargetSystem());
             Key key = new Key(msg);
             Statistic stat = statisticMap.get(key);
-            if (stat == null) {
-                stat = new Statistic(targetSystem, msg.getTargetOrganization(), msg.getServiceContract(), canonicalDayTime);
+            if ( stat == null ) {
+                stat = new Statistic(
+                        targetSystem,
+                        msg.getTargetOrganization(),
+                        msg.getServiceContract(),
+                        canonicalDayTime);
                 entityManager.persist(stat);
                 statisticMap.put(key, stat);
             }
-            stat.addDelivery(deliveryTime - msg.getArrived().getTime());
+            stat.addDelivery(msg.getMessageBodySize(), deliveryTime - msg.getArrived().getTime());
         }
     }
 
@@ -86,15 +89,15 @@ public class JpaStatisticRepository extends DefaultJpaRepository<Statistic, Long
         private String targetOrg;
         private String serviceContract;
 
-         Key(MessageMeta msg) {
+        Key(MessageMeta msg) {
             this.targetOrg = msg.getTargetOrganization();
             this.serviceContract = msg.getServiceContract();
         }
 
-         Key(Statistic stat) {
-             this.targetOrg = stat.getTargetOrganization();
-             this.serviceContract = stat.getServiceContract();
-         }
+        Key(Statistic stat) {
+            this.targetOrg = stat.getTargetOrganization();
+            this.serviceContract = stat.getServiceContract();
+        }
 
         @Override
         public boolean equals(Object o) {

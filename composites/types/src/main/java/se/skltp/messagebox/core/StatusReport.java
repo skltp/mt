@@ -33,12 +33,14 @@ public class StatusReport implements Comparable<StatusReport> {
     private String serviceContract;
     private long messageCount;
     private Date oldestMessageDate;
+    private long totalSize;
 
-    public StatusReport(String targetSystem, String targetOrganization, String serviceContract, long messageCount, Date oldestMessageDate) {
+    public StatusReport(String targetSystem, String targetOrganization, String serviceContract, long messageCount, long totalSize, Date oldestMessageDate) {
         this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.messageCount = messageCount;
+        this.totalSize = totalSize;
         this.oldestMessageDate = oldestMessageDate;
     }
 
@@ -100,4 +102,7 @@ public class StatusReport implements Comparable<StatusReport> {
         return serviceContract.compareTo(o.serviceContract);
     }
 
+    public long getTotalSize() {
+        return totalSize;
+    }
 }

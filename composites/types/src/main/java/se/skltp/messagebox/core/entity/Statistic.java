@@ -71,6 +71,10 @@ public class Statistic extends AbstractEntity<Long> {
     @Column(nullable = false)
     private int deliveryCount;
 
+    // total size of message bodies delivered
+    @Column(nullable = false)
+    private long totalSize;
+
     // total number of milliseconds that the messages have waited
     private long totalWaitTimeMs;
 
@@ -93,6 +97,7 @@ public class Statistic extends AbstractEntity<Long> {
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.canonicalDayTime = convertToCanonicalDayTime(time);
+        this.totalSize = 0;
         this.deliveryCount = 0;
     }
 
@@ -121,14 +126,19 @@ public class Statistic extends AbstractEntity<Long> {
     /**
      * One message has been delivered for this (receiver,sk,day) tuple, and it spent waitTimeMs waiting.
      *
-     * @param waitTimeMs time between arrival and
+     * @param messageBodySize the size of the message body
+     * @param waitTimeMs      time between arrival and
      */
-    public void addDelivery(long waitTimeMs) {
+    public void addDelivery(long messageBodySize, long waitTimeMs) {
+        totalSize += messageBodySize;
         deliveryCount++;
         maxWaitTimeMs = Math.max(maxWaitTimeMs, waitTimeMs);
         totalWaitTimeMs += waitTimeMs;
     }
 
+    public long getTotalSize() {
+        return totalSize;
+    }
 
     public long getTotalWaitTimeMs() {
         return totalWaitTimeMs;

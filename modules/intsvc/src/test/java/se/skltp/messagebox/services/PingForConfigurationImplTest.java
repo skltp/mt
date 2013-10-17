@@ -58,9 +58,9 @@ public class PingForConfigurationImplTest extends BaseTestImpl {
 
         List<Statistic> statistics = new ArrayList<Statistic>();
         statistics.add(new Statistic("rec1", "org1", "sc1", 0));
-        statistics.get(0).addDelivery(121000);   // 02:01
+        statistics.get(0).addDelivery(1000, 121000);   // 1000 bytes, 02:01
         List<StatusReport> reports = new ArrayList<StatusReport>();
-        reports.add(new StatusReport("rec1", "org1", "sc1", 1, new Date(timeService.now() - 15000))); // 00:15
+        reports.add(new StatusReport("rec1", "org1", "sc1", 1, 1000, new Date(timeService.now() - 15000))); // 00:15
 
         when(statisticService.getStatisticsForTimeSlice(anyLong(), anyLong())).thenReturn(statistics);
         when(messageService.getStatusReports()).thenReturn(reports);

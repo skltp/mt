@@ -27,6 +27,8 @@
 				<th title="#springMessage('common.targetOrg.tooltip')">#springMessage('common.targetOrg')</th>
 				<th title="#springMessage('common.serviceContract.tooltip')">#springMessage('common.serviceContract')</th>
 				<th title="#springMessage('statistic.deliveryCount.tooltip')">#springMessage('statistic.deliveryCount')</th>
+				<th title="#springMessage('statistic.totalSize.tooltip')">#springMessage('statistic.totalSize')</th>
+				<th title="#springMessage('statistic.averageSize.tooltip')">#springMessage('statistic.averageSize')</th>
 				<th title="#springMessage('statistic.maxDeliveryTime.tooltip')">#springMessage('statistic.maxDeliveryTime')</th>
 				<th title="#springMessage('statistic.averageDeliveryTime.tooltip')">#springMessage('statistic.averageDeliveryTime')</th>
 			</tr>
@@ -37,6 +39,8 @@
                 <td title="#springMessage('common.targetOrg.tooltip')">#if($s.serviceContract.toString().length() == 0)$s.targetOrganization#end</td>
 		  		<td title="$s.serviceContract.fullName">$s.serviceContract</td>
 		  		<td title="#springMessage('statistic.deliveryCount.tooltip')">$s.deliveryCount</td>
+		  		<td title="#springMessage('statistic.totalSize.tooltip')">$s.totalSize</td>
+		  		<td title="#springMessage('statistic.averageSize.tooltip')">$s.averageSize</td>
 		  		<td title="#springMessage('statistic.maxDeliveryTime.tooltip')">$s.maxDeliveryTime</td>
 		  		<td title="#springMessage('statistic.averageDeliveryTime.tooltip')">$s.averageDeliveryTime</td>
 		  	</tr>

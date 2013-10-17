@@ -99,6 +99,7 @@ public class StatsController {
         private String targetOrganization;
         private ServiceContractView serviceContract;
         private int deliveryCount;
+        private long totalSize;
         private long maxWaitTimeMs;
         private long totalWaitTimeMs;
 
@@ -107,19 +108,22 @@ public class StatsController {
             targetOrganization = s.getTargetOrganization();
             serviceContract = new ServiceContractView(s.getServiceContract());
             deliveryCount = s.getDeliveryCount();
+            totalSize = s.getTotalSize();
             maxWaitTimeMs = s.getMaxWaitTimeMs();
             totalWaitTimeMs = s.getTotalWaitTimeMs();
         }
+
 
         @Override
         public String toString() {
             return "StatisticView{" +
                     "targetSystem='" + targetSystem + '\'' +
                     ", targetOrganization='" + targetOrganization + '\'' +
-                    ", serviceContract='" + serviceContract + '\'' +
+                    ", serviceContract=" + serviceContract +
                     ", deliveryCount=" + deliveryCount +
-                    ", maxTime=" + getMaxDeliveryTime() +
-                    ", avgTime=" + getAverageDeliveryTime() +
+                    ", totalSize=" + totalSize +
+                    ", maxWaitTimeMs=" + maxWaitTimeMs +
+                    ", totalWaitTimeMs=" + totalWaitTimeMs +
                     '}';
         }
 
@@ -137,6 +141,14 @@ public class StatsController {
 
         public int getDeliveryCount() {
             return deliveryCount;
+        }
+
+        public ByteSizeView getTotalSize() {
+            return new ByteSizeView(totalSize);
+        }
+
+        public ByteSizeView getAverageSize() {
+            return new ByteSizeView(totalSize/deliveryCount);
         }
 
         public TimeDelta getMaxDeliveryTime() {
@@ -169,6 +181,7 @@ public class StatsController {
 
         public void merge(Statistic s) {
             deliveryCount += s.getDeliveryCount();
+            totalSize += s.getTotalSize();
             totalWaitTimeMs += s.getTotalWaitTimeMs();
             maxWaitTimeMs = Math.max(maxWaitTimeMs, s.getMaxWaitTimeMs());
         }
