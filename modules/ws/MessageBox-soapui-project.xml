@@ -940,9 +940,9 @@ request.updateProperty()
    </soapenv:Header>
    <soapenv:Body>
       <urn1:GetMessages>
-        <urn1:messageIds>12</urn1:messageIds>
-        <urn1:messageIds>13</urn1:messageIds>
-        <urn1:messageIds>14</urn1:messageIds>
+        <urn1:messageIds>7</urn1:messageIds>
+        <urn1:messageIds>8</urn1:messageIds>
+        <urn1:messageIds>9</urn1:messageIds>
       </urn1:GetMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="ExtractIdsFromGet"><con:settings/><con:config><script>// Extract the ids from the GetMessage step and modify the DeleteMessage
@@ -991,13 +991,13 @@ return request.getXml()
    </soapenv:Header>
    <soapenv:Body>
       <urn1:DeleteMessages>
-        <urn1:messageIds>12</urn1:messageIds>
-        <urn1:messageIds>13</urn1:messageIds>
-        <urn1:messageIds>14</urn1:messageIds>
+        <urn1:messageIds>7</urn1:messageIds>
+        <urn1:messageIds>8</urn1:messageIds>
+        <urn1:messageIds>9</urn1:messageIds>
       </urn1:DeleteMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
-//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AddMessageCase" searchProperties="true"><con:settings/><con:testStep type="groovy" name="GenerateMessages"><con:settings/><con:config><script>// Generate messages for the script
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AddMessageCase" searchProperties="true" id="9256f9aa-e0e2-41ec-a88a-4a9f1335aa13"><con:settings/><con:testStep type="groovy" name="GenerateMessages"><con:settings/><con:config><script>// Generate messages for the script
 // Uses disabled script and runs it
 
 // generates a random number of a random set of messages to a random org for a random target system
@@ -1082,4 +1082,4 @@ xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateRe
   <soapenv:Body>
       <ser:Question>TheQuestion1</ser:Question>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>sourceSystem1</con:name><con:value>source1-hsaid</con:value></con:property><con:property><con:name>targetSystem1</con:name><con:value>target1-hsaid</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>http://192.168.19.11:8080/message/message-ws/ws</con:value></con:property><con:property><con:name>endpoint-for-localhost-for-c/p</con:name><con:value>http://localhost:8081/message-ws/ws</con:value></con:property><con:property><con:name>endpoint-for-test-system-for c/p</con:name><con:value>http://192.168.19.11:8080/message/message-ws/ws</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>sourceSystem1</con:name><con:value>source1-hsaid</con:value></con:property><con:property><con:name>targetSystem1</con:name><con:value>target1-hsaid</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-localhost-for-c/p</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-test-system-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property><con:property><con:name>endpoint-for-test-vp-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
