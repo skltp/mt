@@ -1,11 +1,8 @@
 package se.skltp.messagebox.loghandler;
 //
 import java.io.StringWriter;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
@@ -35,11 +32,13 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 	private static final ArrayList<LogLevelType> infoLevels = new ArrayList<LogLevelType>(Arrays.asList(LogLevelType.INFO, LogLevelType.DEBUG));
 	private static final ArrayList<LogLevelType> errorLevels = new ArrayList<LogLevelType>(Arrays.asList(LogLevelType.ERROR, LogLevelType.WARNING));
 	
-	private String brokerURL = "tcp://localhost:61616";
 	private Connection connection;
 	
-	private String infoQueueName = "MT_DEFAULT_INFO";
-	private String errorQueueName = "MT_DEFAULT_ERROR";
+	// Settings
+	private String brokerURL;
+	private String infoQueueName;
+	private String errorQueueName;
+	private String componentName;
 	
 	
 	/**
@@ -85,7 +84,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 		}
 
 		try {
-			LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get());
+			LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get(), componentName);
 			String queue = getQueueName(logEvent.getLogEntry().getMessageInfo().getLevel());
 			
 			logToQueue(queue, marshall(logEvent));
@@ -197,31 +196,29 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 	}
 	
 	
-	// Getter/setters
+	// Setters 
 	
-	public String getBrokerURL() {
-		return brokerURL;
-	}
-
 	public void setBrokerURL(String brokerURL) {
 		this.brokerURL = brokerURL;
-	}
-
-	public String getInfoQueueName() {
-		return infoQueueName;
 	}
 
 	public void setInfoQueueName(String infoQueueName) {
 		this.infoQueueName = infoQueueName;
 	}
 
-	public String getErrorQueueName() {
-		return errorQueueName;
-	}
-
 	public void setErrorQueueName(String errorQueueName) {
 		this.errorQueueName = errorQueueName;
 	}
+
+	public String getComponentName() {
+		return componentName;
+	}
+
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
+	}
+
+	
 	
 	
 

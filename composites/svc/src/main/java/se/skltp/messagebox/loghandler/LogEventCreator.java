@@ -19,9 +19,6 @@ import org.soitoolkit.commons.logentry.schema.v1.LogRuntimeInfoType;
 
 public class LogEventCreator {
 
-	// TODO - should be picked up from the properties file
-	private static final String componentName = "Messagebox";
-	
 	
 	/**
 	 * Create a new instance of LogEvent based on a LoggingEvent.
@@ -31,7 +28,7 @@ public class LogEventCreator {
 	 * @return a instance of LogEvent assembled of data from the LoggingEvent
 	 * @throws Exception
 	 */
-	public static LogEvent createLogEvent(LoggingEvent event, ContextData contextData) throws Exception {
+	public static LogEvent createLogEvent(LoggingEvent event, ContextData contextData, String componentName) throws Exception {
 		
 		LogEvent logEvent = initlizeLogEventStructure();
 		
@@ -45,7 +42,7 @@ public class LogEventCreator {
 		}
 		
 		// Add runtime related information
-		logEvent.getLogEntry().setRuntimeInfo(assembleLogRuntimeInfo(event, contextData));
+		logEvent.getLogEntry().setRuntimeInfo(assembleLogRuntimeInfo(event, contextData, componentName));
 		
 		// Add logLevel
 		logEvent.getLogEntry().getMessageInfo().setLevel(assembleLogLevel(event));
@@ -80,7 +77,7 @@ public class LogEventCreator {
 	}
 	
 	
-	private static LogRuntimeInfoType assembleLogRuntimeInfo(LoggingEvent event, ContextData contextData) throws UnknownHostException, DatatypeConfigurationException {
+	private static LogRuntimeInfoType assembleLogRuntimeInfo(LoggingEvent event, ContextData contextData, String componentName) throws UnknownHostException, DatatypeConfigurationException {
 
 		LogRuntimeInfoType runtimeMessage = new LogRuntimeInfoType();
 		
