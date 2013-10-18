@@ -43,6 +43,21 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 
+	<bean id="jmsQueueAppender" class="se.skltp.messagebox.loghandler.JMSQueueAppender">
+<!-- 		<property name="brokerURL" value="tcp://localhost:61616"/> -->
+		<property name="brokerURL">
+			<value>tcp://localhost:61616</value>
+		</property>
+		<property name="infoQueueName" value="MTINFO" />
+		<property name="errorQueueName" value="MTERROR" />
+	</bean>
+	
+<!-- 	<bean id="amqConnectionFactory"  -->
+<!-- 		class="org.apache.activemq.ActiveMQConnectionFactory" -->
+<!--    	 	p:brokerURL="tcp://localhost:61616" /> -->
+	
+	
+
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/>
 
 	<!-- JPA Entity manager -->

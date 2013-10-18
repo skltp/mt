@@ -22,12 +22,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import se.riv.itintegration.monitoring.PingForConfiguration.v1.PingForConfigurationResponderInterface;
 import se.riv.itintegration.monitoring.PingForConfigurationResponder.v1.ConfigurationType;
 import se.riv.itintegration.monitoring.PingForConfigurationResponder.v1.PingForConfigurationResponseType;
@@ -175,6 +177,11 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
             }
         }
 
+    }
+    
+    @Override
+    public Logger getLogger() {
+        return log;
     }
 
 }

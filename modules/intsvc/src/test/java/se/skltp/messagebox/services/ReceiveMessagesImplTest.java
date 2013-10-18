@@ -30,11 +30,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import se.skltp.messagebox.core.entity.MessageMeta;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReceiveMessagesImplTest extends BaseTestImpl {
@@ -55,6 +57,12 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
         when(wsContext.getMessageContext()).thenReturn(msgContext);
         when(msgContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(servletRequest);
         when(servletRequest.getRequestURI()).thenReturn("/ReceiveMessage/" + targetSystem);
+
+        // We need an instance of MessageMeta for the remaining logic after the create statement
+        MessageMeta mockedMessageMeta = mock(MessageMeta.class);
+        when(mockedMessageMeta.getId()).thenReturn((long) 1);
+        when(messageService.create(anyString(), anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(mockedMessageMeta);
+  
 
         SOAPMessage request = constructCall(targetOrg, serviceContractType, body);
 

@@ -31,6 +31,7 @@ import javax.xml.ws.WebServiceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+
 import se.skltp.messagebox.core.entity.MessageMeta;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
@@ -43,15 +44,18 @@ import se.skltp.messagebox.core.entity.MessageMeta;
         portName = "ReceiveMessage"
 )
 public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMessage> {
-
+    
     private static final Logger log = LoggerFactory.getLogger(ReceiveMessagesImpl.class);
     private static final String ENDPOINT_NAME = "/ReceiveMessage/";
     public static final QName LOGICAL_ADDRESS_QNAME = new QName("urn:riv:itintegration:registry:1", "LogicalAddress");
 
     @Override
     public SOAPMessage invoke(SOAPMessage soapMessage) {
+        
+        String targetSystem = extractTargetSystemFromUrl();
+        
         try {
-            String targetSystem = extractTargetSystemFromUrl();
+            
             String sourceSystem = extractCallingSystemFromRequest();
             String correlationId = extractCorrelationIdFromRequest();
 
@@ -67,13 +71,16 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
 
             MessageMeta message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
-            log.info("Saved " + message);
-
+            String msgId = message.getId().toString();
+            logInfo("Message " + msgId + "saved by " + targetSystem , msgId, this);
+            
             return getReturnCode();
-            // TODO: translate to correct SOAPFault errors!
         } catch (Exception e) {
+            
             // log the error
-            log.error("Error " + e.getMessage(), e);
+            String msg = "Error for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to send message";
+            logError(msg, null, this, e);
+
             // generate a SOAPFAult with the MT0001 error message in the <faultstring> node
             throw new RuntimeException(ReceiveErrorCode.MB0001.toString());
         }
@@ -89,6 +96,11 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
     SOAPMessage getReturnCode() throws SOAPException {
         MessageFactory factory = MessageFactory.newInstance();
         return factory.createMessage();
+    }
+
+    @Override
+    public Logger getLogger() {
+        return log;
     }
 
 }

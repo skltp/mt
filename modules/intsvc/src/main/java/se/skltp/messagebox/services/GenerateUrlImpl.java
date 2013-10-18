@@ -24,6 +24,7 @@ import javax.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import se.riv.itintegration.messagebox.GenerateUrl.v1.GenerateUrlResponderInterface;
 import se.riv.itintegration.messagebox.GenerateUrlResponder.v1.GenerateUrlResponseType;
 import se.riv.itintegration.messagebox.GenerateUrlResponder.v1.GenerateUrlType;
@@ -65,6 +66,12 @@ public class GenerateUrlImpl extends BaseService implements GenerateUrlResponder
         response.setMessageBoxUrl(url);
         return response;
     }
+    
+    @Override
+    public Logger getLogger() {
+        return log;
+    }
+    
 
 }
 

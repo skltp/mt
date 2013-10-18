@@ -21,10 +21,12 @@ package se.skltp.messagebox.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import se.riv.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface;
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
@@ -88,10 +90,16 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
                     }
                 }
             }
+            
+            // TODO -  delete
+//            throw new RuntimeException("THIS IS A RUNTIME EXEPTION");
+            
 
         } catch (Exception e) {
-            // We have no known error cases apart from the fatal kind (database down, basically)
-            log.warn("Fail!", e);
+            
+            String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to list messages"; 
+            logWarn(msg, null, this, e);
+            
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
@@ -119,6 +127,11 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
      */
     private boolean serviceContractsAllows(Set<String> serviceContracts, MessageMeta msg) {
         return serviceContracts.isEmpty() || serviceContracts.contains(msg.getServiceContract());
+    }
+    
+    @Override
+    public Logger getLogger() {
+        return log;
     }
 
 }

@@ -20,30 +20,37 @@ package se.skltp.messagebox.services;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.log4j.Level;
+import org.slf4j.Logger;
 import org.springframework.web.util.UriUtils;
+
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
 import se.skltp.messagebox.core.service.MessageService;
+import se.skltp.messagebox.loghandler.ContextData;
+import se.skltp.messagebox.loghandler.JMSQueueAppender;
+
 
 /**
  * Base class for services
  *
  * @author mats.olsson@callistaenterprise.se
  */
-public class BaseService {
+public abstract class BaseService {
     // the name of the Http-Header for the callings system authentification id
     public static String SERVICE_CONSUMER_HSA_ID_HEADER_NAME = "x-rivta-original-serviceconsumer-hsaid";
     public static String MULÈ_CORRELATION_ID_HEADER_NAME = "x-mule_correlation_id";
     protected MessageService messageService;
     protected WebServiceContext wsContext;
     public static final String COMMON_TARGET_SYSTEM = "Common";
-
+    
 
     @Resource
     public void setWsContext(WebServiceContext wsContext) {
@@ -178,4 +185,85 @@ public class BaseService {
                 throw new RuntimeException("Illegal message status " + status + " found!");
         }
     }
+    
+    
+    /**
+     * Log a custom info message
+     * 
+     * @param message the log message
+     * @param messageId the if of the message that should be logged
+     * @param context reference back to the service that called this method
+     */
+    public void logInfo(String message, String messageId, BaseService context) {
+        log(Level.INFO, message, messageId, context, null);
+    }
+    
+    /**
+     * Log a custom warn message
+     * 
+     * @param message the log message
+     * @param messageId the if of the message that should be logged
+     * @param context reference back to the service that called this method
+     * @param e exception that should be logged as a throwable
+     */
+    public void logWarn(String message, String messageId, BaseService context, Exception e) {
+        log(Level.WARN, message, messageId, context, e);
+    }
+    
+    /**
+     * Log a custom error message
+     * 
+     * @param message the log message
+     * @param messageId the if of the message that should be logged
+     * @param context reference back to the service that called this method
+     * @param e exception that should be logged as a throwable
+     */
+    public void logError(String message, String messageId, BaseService context, Exception e) {
+        log(Level.ERROR, message, messageId, context, e);
+    }
+    
+    
+    /**
+     * Log a custom  message
+     * 
+     * @param l what log level that message should be logged as
+     * @param message the log message
+     * @param messageId the if of the message that should be logged
+     * @param context reference back to the service that called this method
+     * @param e exception that should be logged as a throwable
+     */
+    private void log(Level l, String message, String messageId, BaseService context, Exception e) {
+  
+       ContextData data = new ContextData(extractCorrelationIdFromRequest(), messageId);
+       JMSQueueAppender.setContextData(data);
+
+        Logger logger = context.getLogger();
+        if (logger != null) {
+
+            switch (l.toInt()) {
+
+            case Level.INFO_INT:
+                logger.info(message);
+                break;
+
+            case Level.WARN_INT:
+                logger.warn(message, e);
+                break;
+
+            case Level.ERROR_INT:
+                logger.error(message, e);
+
+            default:
+                break;
+            }
+        }
+   }
+    
+    
+    /**
+     * All subclasses needs to provide this method for allow access to their logger 
+     * 
+     * @return Logger
+     */
+    public abstract Logger getLogger();
 }

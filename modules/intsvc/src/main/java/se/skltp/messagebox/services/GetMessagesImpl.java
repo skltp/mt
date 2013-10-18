@@ -19,10 +19,12 @@
 package se.skltp.messagebox.services;
 
 import java.util.List;
+
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
@@ -55,8 +57,9 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
             List<MessageMeta> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 
             if ( parameters.getMessageIds().size() != messages.size() ) {
-                log.warn("Target system " + targetSystem + " attempted to get non-present messages "
-                        + describeMessageDiffs(parameters.getMessageIds(), messages));
+                String msg = "Target system " + targetSystem + " attempted to get non-present messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
+                logWarn(msg, null, this, null);
+                
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
 
@@ -75,15 +78,29 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
 
                 response.getResponses().add(elem);
             }
+            
+            // Log read messages
+            for(ResponseType elem :  response.getResponses()) {
+                String msgId = String.valueOf(elem.getMessageId());
+                logInfo("Message " + msgId + " was read by " + targetSystem, msgId, this);
+            }
 
         } catch (Exception e) {
-            log.warn("Fail!", e);
+            
+            String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to get messages"; 
+            logWarn(msg, null, this, e);
+            
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
             response.getResponses().clear();
         }
         return response;
+    }
+    
+    @Override
+    public Logger getLogger() {
+        return log;
     }
 
 }

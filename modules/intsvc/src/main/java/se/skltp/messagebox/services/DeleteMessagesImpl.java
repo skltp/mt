@@ -20,11 +20,13 @@ package se.skltp.messagebox.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
@@ -67,8 +69,11 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
 
             List<MessageMeta> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
-                log.warn("Target system " + targetSystem + " attempted to delete non-deletable messages "
-                        + describeMessageDiffs(parameters.getMessageIds(), messages));
+                
+                String msg = "Target system " + targetSystem + "  attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
+                logWarn(msg, null, this, null);
+                
+                
                 // TODO: should we add an "infoId", "infoMessage"? to the result type? Or must reuse errorXxx?
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
@@ -87,11 +92,22 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             } else {
                 response.getResult().setCode(ResultCodeEnum.ERROR);
                 response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
+                
+                // TODO - should this be logged?
                 response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.toString() + " : " + unreadMessageCsv);
+            }
+            
+            // Log deleted messages
+            for ( MessageMeta msg : messages ) {
+                String msgId = String.valueOf(msg.getId());
+                logInfo("Message " + msgId + " was deleted by " + targetSystem, msgId, this);
             }
 
         } catch (Exception e) {
-            log.warn("Fail!", e);
+            
+            String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to delete messages"; 
+            logWarn(msg, null, this, e);
+            
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
@@ -128,4 +144,9 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         return result;
     }
 
+    @Override
+    public Logger getLogger() {
+        return log;
+    }
+    
 }
