@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2013 Inera AB (http://www.inera.se)
+
+    This file is part of Inera MessageService (http://code.google.com/p/inera-message).
+
+    Inera MessageService is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Inera MessageService is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        ">
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+        	<list>
+        		<value>classpath:default.properties</value>
+        	</list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+	<bean id="jmsQueueAppender" class="se.skltp.messagebox.loghandler.JMSQueueAppender">
+<!-- 		<property name="brokerURL" value="tcp://localhost:61616"/> -->
+		<property name="brokerURL">
+			<value>tcp://localhost:61616</value>
+		</property>
+		<property name="infoQueueName" value="MTINFO" />
+		<property name="errorQueueName" value="MTERROR" />
+	</bean>
+	
+<!-- 	<bean id="amqConnectionFactory"  -->
+<!-- 		class="org.apache.activemq.ActiveMQConnectionFactory" -->
+<!--    	 	p:brokerURL="tcp://localhost:61616" /> -->
+	
+	
+
+<!--     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/> -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" />
+		<property name="url" value="jdbc:mysql://localhost:3306/messagebox?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB" />
+		<property name="username" value="messageboxuser" />
+		<property name="password" value="messageboxpassword" />
+	</bean>
+
+	<!-- JPA Entity manager -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="${jpa.showSql}" />
+				<property name="generateDdl" value="true" />
+				<property name="database" value="${jpa.database}" />
+			</bean>
+		</property>
+	</bean>
+	
+	  	<!-- post-processors for all standard annotations -->
+	<context:annotation-config />
+
+	<context:component-scan base-package="se.skltp.messagebox" />
+
+	<tx:annotation-driven />
+	
+</beans>
