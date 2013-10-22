@@ -85,6 +85,8 @@ public class MessageMeta extends AbstractEntity<Long> {
     // Can't trust hibernate NOT to load the message body even if we use lazy annotation, so we disable automatic
     // loading of the messageBody. It will be filled in only if you do a getMessages() field; if used when doing
     // listMessages it will be null.
+    // Note that this makes it possible to have "garbage" MessageBodies lying around if you forget to delete them manually -
+    // the built-in "cascade" relationship can't be used.
     private transient MessageBody messageBody;
 
 
