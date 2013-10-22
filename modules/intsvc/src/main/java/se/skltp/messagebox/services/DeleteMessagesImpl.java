@@ -71,7 +71,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             if ( parameters.getMessageIds().size() != messages.size() ) {
                 
                 String msg = "Target system " + targetSystem + "  attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
-                logWarn(msg, null, this, null);
+                logWarn(getLogger(), msg, null, null, null);
                 
                 
                 // TODO: should we add an "infoId", "infoMessage"? to the result type? Or must reuse errorXxx?
@@ -100,13 +100,13 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             // Log deleted messages
             for ( MessageMeta msg : messages ) {
                 String msgId = String.valueOf(msg.getId());
-                logInfo("Message " + msgId + " was deleted by " + targetSystem, msgId, this);
+                logInfo(getLogger(), "Message " + msgId + " was deleted by " + targetSystem, msgId, msg);
             }
 
         } catch (Exception e) {
             
             String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to delete messages"; 
-            logWarn(msg, null, this, e);
+            logWarn(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());

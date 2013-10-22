@@ -19,12 +19,10 @@
 package se.skltp.messagebox.services;
 
 import java.util.List;
-
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
@@ -58,7 +56,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
 
             if ( parameters.getMessageIds().size() != messages.size() ) {
                 String msg = "Target system " + targetSystem + " attempted to get non-present messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
-                logWarn(msg, null, this, null);
+                logWarn(getLogger(), msg, null, null, null);
                 
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
@@ -77,18 +75,14 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 elem.setMessage(msg.getMessageBody().getText());
 
                 response.getResponses().add(elem);
-            }
-            
-            // Log read messages
-            for(ResponseType elem :  response.getResponses()) {
-                String msgId = String.valueOf(elem.getMessageId());
-                logInfo("Message " + msgId + " was read by " + targetSystem, msgId, this);
+                String msgId = msg.getId().toString();
+                logInfo(getLogger(), "Message " + msgId + " was read by " + targetSystem, msgId, msg);
             }
 
         } catch (Exception e) {
             
             String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to get messages"; 
-            logWarn(msg, null, this, e);
+            logWarn(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());

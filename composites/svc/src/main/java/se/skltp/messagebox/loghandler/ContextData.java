@@ -3,12 +3,14 @@ package se.skltp.messagebox.loghandler;
 public class ContextData {
 
 	public String correlationId;
-	public String messageId;
-	
-	public ContextData(String correlationId, String messageId) {
+    public String originalCorrelationId;
+    public String messageId;
+
+    public ContextData(String correlationId, String originalCorrelationId, String messageId) {
 		this.correlationId = correlationId;
 		this.messageId = messageId;
-	}
+        this.originalCorrelationId = originalCorrelationId;
+    }
 
 	public ContextData() {}
 
@@ -27,5 +29,12 @@ public class ContextData {
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
 	}
-	
+
+    public String getOriginalCorrelationId() {
+        return originalCorrelationId;
+    }
+
+    public void setOriginalCorrelationId(String originalCorrelationId) {
+        this.originalCorrelationId = originalCorrelationId;
+    }
 }

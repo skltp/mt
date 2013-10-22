@@ -98,7 +98,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
         } catch (Exception e) {
             
             String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to list messages"; 
-            logWarn(msg, null, this, e);
+            logWarn(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());

@@ -20,7 +20,6 @@ package se.skltp.messagebox.services;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -29,7 +28,6 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.springframework.web.util.UriUtils;
-
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.messagebox.core.entity.MessageMeta;
 import se.skltp.messagebox.core.entity.MessageStatus;
@@ -50,7 +48,7 @@ public abstract class BaseService {
     protected MessageService messageService;
     protected WebServiceContext wsContext;
     public static final String COMMON_TARGET_SYSTEM = "Common";
-    
+
 
     @Resource
     public void setWsContext(WebServiceContext wsContext) {
@@ -107,6 +105,7 @@ public abstract class BaseService {
         return uf8DecodeUri(encodedHsaId);
         */
     }
+
     protected String extractTargetSystemFromRequest() {
         //
         // INFRA-51: See above,
@@ -116,7 +115,6 @@ public abstract class BaseService {
         // return actual target system
         // return extractCallingSystemFromRequest();
     }
-
 
 
     private String getHeaderValue(String name) {
@@ -167,7 +165,7 @@ public abstract class BaseService {
 
     /**
      * Translates the entity MessageStatus to the schema MessageStatusType.
-     *
+     * <p/>
      * Exist because we don't want the types modules to be dependent on the schema module
      *
      * @param status entity status to translate
@@ -185,84 +183,89 @@ public abstract class BaseService {
                 throw new RuntimeException("Illegal message status " + status + " found!");
         }
     }
-    
-    
+
+
     /**
      * Log a custom info message
-     * 
-     * @param message the log message
-     * @param messageId the if of the message that should be logged
-     * @param context reference back to the service that called this method
+     *
+     * @param logger
+     * @param messageText the log message
+     * @param messageId   the if of the message that should be logged
+     * @param message
      */
-    public void logInfo(String message, String messageId, BaseService context) {
-        log(Level.INFO, message, messageId, context, null);
+    public void logInfo(Logger logger, String messageText, String messageId, MessageMeta message) {
+        log(logger, Level.INFO, messageText, messageId, message, null);
     }
-    
+
     /**
      * Log a custom warn message
-     * 
-     * @param message the log message
-     * @param messageId the if of the message that should be logged
-     * @param context reference back to the service that called this method
-     * @param e exception that should be logged as a throwable
+     *
+     * @param logger
+     * @param messageText the log message
+     * @param messageId   the if of the message that should be logged
+     * @param message
+     * @param e           exception that should be logged as a throwable
      */
-    public void logWarn(String message, String messageId, BaseService context, Exception e) {
-        log(Level.WARN, message, messageId, context, e);
+    public void logWarn(Logger logger, String messageText, String messageId, MessageMeta message, Exception e) {
+        log(logger, Level.WARN, messageText, messageId, message, e);
     }
-    
+
     /**
      * Log a custom error message
-     * 
-     * @param message the log message
-     * @param messageId the if of the message that should be logged
-     * @param context reference back to the service that called this method
-     * @param e exception that should be logged as a throwable
+     *
+     * @param logger
+     * @param messageText the log message
+     * @param messageId   the if of the message that should be logged
+     * @param message
+     * @param e           exception that should be logged as a throwable
      */
-    public void logError(String message, String messageId, BaseService context, Exception e) {
-        log(Level.ERROR, message, messageId, context, e);
+    public void logError(Logger logger, String messageText, String messageId, MessageMeta message, Exception e) {
+        log(logger, Level.ERROR, messageText, messageId, message, e);
     }
-    
-    
+
+
     /**
      * Log a custom  message
-     * 
-     * @param l what log level that message should be logged as
-     * @param message the log message
-     * @param messageId the if of the message that should be logged
-     * @param context reference back to the service that called this method
-     * @param e exception that should be logged as a throwable
+     *
+     * @param logger
+     * @param l           what log level that message should be logged as
+     * @param messageText the log message
+     * @param messageId   the if of the message that should be logged
+     * @param message
+     * @param e           exception that should be logged as a throwable
      */
-    private void log(Level l, String message, String messageId, BaseService context, Exception e) {
-  
-       ContextData data = new ContextData(extractCorrelationIdFromRequest(), messageId);
-       JMSQueueAppender.setContextData(data);
+    private void log(Logger logger, Level l, String messageText, String messageId, MessageMeta message, Exception e) {
 
-        Logger logger = context.getLogger();
-        if (logger != null) {
+        String originalCorrelationId = message != null ? message.getCorrelationId() : null;
+        System.err.println("Orig corrId " + originalCorrelationId);
+        ContextData data = new ContextData(extractCorrelationIdFromRequest(), originalCorrelationId, messageId);
+        JMSQueueAppender.setContextData(data);
+
+        if ( logger != null ) {
 
             switch (l.toInt()) {
 
-            case Level.INFO_INT:
-                logger.info(message);
-                break;
+                case Level.INFO_INT:
+                    logger.info(messageText);
+                    break;
 
-            case Level.WARN_INT:
-                logger.warn(message, e);
-                break;
+                case Level.WARN_INT:
+                    logger.warn(messageText, e);
+                    break;
 
-            case Level.ERROR_INT:
-                logger.error(message, e);
+                case Level.ERROR_INT:
+                    logger.error(messageText, e);
 
-            default:
-                break;
+                default:
+                    break;
             }
         }
-   }
-    
-    
+    }
+
+
     /**
-     * All subclasses needs to provide this method for allow access to their logger 
-     * 
+     * All subclasses needs to provide this method for allow access to their logger
+     *
      * @return Logger
      */
     public abstract Logger getLogger();

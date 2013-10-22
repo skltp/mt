@@ -72,14 +72,14 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             MessageMeta message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
             String msgId = message.getId().toString();
-            logInfo("Message " + msgId + "saved by " + targetSystem , msgId, this);
+            logInfo(getLogger(), "Message " + msgId + " saved by " + targetSystem , msgId, message);
             
             return getReturnCode();
         } catch (Exception e) {
             
             // log the error
             String msg = "Error for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to send message";
-            logError(msg, null, this, e);
+            logError(getLogger(), msg, null, null, e);
 
             // generate a SOAPFAult with the MT0001 error message in the <faultstring> node
             throw new RuntimeException(ReceiveErrorCode.MB0001.toString());

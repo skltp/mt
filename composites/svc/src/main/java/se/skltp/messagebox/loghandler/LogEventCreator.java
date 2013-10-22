@@ -2,20 +2,16 @@ package se.skltp.messagebox.loghandler;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.GregorianCalendar;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
-import org.soitoolkit.commons.logentry.schema.v1.LogEntryType;
-import org.soitoolkit.commons.logentry.schema.v1.LogEvent;
-import org.soitoolkit.commons.logentry.schema.v1.LogLevelType;
-import org.soitoolkit.commons.logentry.schema.v1.LogMessageExceptionType;
-import org.soitoolkit.commons.logentry.schema.v1.LogMessageType;
-import org.soitoolkit.commons.logentry.schema.v1.LogRuntimeInfoType;
+import org.soitoolkit.commons.logentry.schema.v1.*;
 
 public class LogEventCreator {
 
@@ -43,15 +39,31 @@ public class LogEventCreator {
 		
 		// Add runtime related information
 		logEvent.getLogEntry().setRuntimeInfo(assembleLogRuntimeInfo(event, contextData, componentName));
-		
+
+        logEvent.getLogEntry().getExtraInfo().addAll(assembleLogExtraInfo(event, contextData));
+
 		// Add logLevel
 		logEvent.getLogEntry().getMessageInfo().setLevel(assembleLogLevel(event));
 		
 		return logEvent;
 	}
-	
-	
-	private static LogEvent initlizeLogEventStructure() {
+
+    private static Collection<? extends LogEntryType.ExtraInfo> assembleLogExtraInfo(LoggingEvent event, ContextData contextData) {
+        Collection<LogEntryType.ExtraInfo> results = new ArrayList<LogEntryType.ExtraInfo>();
+
+        System.err.println("log " + contextData.getOriginalCorrelationId());
+        if (contextData.getOriginalCorrelationId() != null) {
+            LogEntryType.ExtraInfo info = new LogEntryType.ExtraInfo();
+            info.setName("original-businessCorrelationId");
+            info.setValue(contextData.getOriginalCorrelationId());
+            results.add(info);
+        }
+
+        return results;
+    }
+
+
+    private static LogEvent initlizeLogEventStructure() {
 		LogEvent logEvent  = new LogEvent();
 		LogEntryType logEntry = new LogEntryType();
 
@@ -91,7 +103,7 @@ public class LogEventCreator {
 		runtimeMessage.setComponentId(componentName);
 		runtimeMessage.setHostName(InetAddress.getLocalHost().getHostName());
 		runtimeMessage.setTimestamp(convertTimestampToGregorialCalendar(event));
-		
+
 		return runtimeMessage;
 	}
 	
