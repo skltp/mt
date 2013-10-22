@@ -44,6 +44,18 @@ public class StatusReport implements Comparable<StatusReport> {
         this.oldestMessageDate = oldestMessageDate;
     }
 
+    @Override
+    public String toString() {
+        return "StatusReport{" +
+                "targetSystem='" + targetSystem + '\'' +
+                ", targetOrganization='" + targetOrganization + '\'' +
+                ", serviceContract='" + serviceContract + '\'' +
+                ", messageCount=" + messageCount +
+                ", oldestMessageDate=" + oldestMessageDate +
+                ", totalSize=" + totalSize +
+                '}';
+    }
+
     public String getTargetSystem() {
         return targetSystem;
     }

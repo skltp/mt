@@ -102,6 +102,21 @@ public class Statistic extends AbstractEntity<Long> {
     }
 
     @Override
+    public String toString() {
+        return "Statistic{" +
+                "id=" + id +
+                ", canonicalDayTime=" + canonicalDayTime +
+                ", targetSystem='" + targetSystem + '\'' +
+                ", targetOrganization='" + targetOrganization + '\'' +
+                ", serviceContract='" + serviceContract + '\'' +
+                ", deliveryCount=" + deliveryCount +
+                ", totalSize=" + totalSize +
+                ", totalWaitTimeMs=" + totalWaitTimeMs +
+                ", maxWaitTimeMs=" + maxWaitTimeMs +
+                '}';
+    }
+
+    @Override
     public Long getId() {
         return id;
     }
