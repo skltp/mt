@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
@@ -29,19 +30,26 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 
 	/**
 	 * Send a message
+	 * @throws JMSException 
+	 * @throws InterruptedException 
 	 */
 	@Test
 	@Transactional
-	public void receive_OK() throws SOAPException, MalformedURLException {
-
-		// Insert a message
-
+	public void receive_OK() throws SOAPException, MalformedURLException, JMSException {
+		
         SOAPMessage soapMessage = createIncomingMessage(tkName, targetOrg);
         SOAPMessage response = sendToReceive(soapMessage);
         
         // Should be empty
         assertEquals(0, response.getSOAPBody().getChildNodes().getLength());
+
         
+        // Should be 1 log message on the infoQueue
+        assertEquals(1, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
+        resetNumberOfMessages();
+        
+
         // Check for 1 message
         ListMessagesResponseType listResponse = listMessages(new ListMessagesType());
 
@@ -55,11 +63,16 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         assertEquals(targetOrg, meta.getTargetOrganization());
         assertEquals(tkName, meta.getServiceContractType());
         assertEquals(MessageStatusType.RECEIVED, meta.getStatus());
+        
+        // List should not generate any log messages
+        assertEquals(0, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
 	}
+	
 	
 	@Test
 	@Transactional
-	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException  {
+	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException  {
 		
         SOAPMessage soapMessage;
 		soapMessage = createIncomingMessage(tkName, "");
@@ -71,9 +84,12 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 
 		// There should not be any messages in the database
 		assertEquals(0, countNumberOfMessages());
+		
+		// Should be no info message and two error messages
+        assertEquals(0, countNumberOfLogMessages(infoQueueName));
+        assertEquals(2, countNumberOfLogMessages(errorQueueName));
+        
 	}
-	
-	
 	
 	
 }

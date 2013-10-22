@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
 
+import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 import javax.xml.transform.TransformerException;
 
@@ -31,9 +32,11 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
 	@Transactional
-	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException {
+	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException, JMSException {
 		
-		sendOneMessage();
+		sendOneMessageAndWait();
+		resetNumberOfMessages();
+		
 		long messageIdToFind = getMessageId();
 
 		GetMessagesType getParams = new GetMessagesType();
@@ -58,13 +61,18 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 		assertEquals(tkName, contentNode.getNamespaceURI());
 		assertEquals(TK_CONTENT, contentNode.getTextContent());
 		
+        // Get should only generate one info log message per message
+        assertEquals(1, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
 	}
 	
 
 	@Test
 	@Transactional
-	public void get_message_OK_should_update_message_status_after_read() throws MalformedURLException, SOAPException {
-		sendOneMessage();
+	public void get_message_OK_should_update_message_status_after_read() throws MalformedURLException, SOAPException, JMSException {
+		sendOneMessageAndWait();
+		resetNumberOfMessages();
+		
 		long messageIdToFind = getMessageId();
 		
 		// get 
@@ -76,12 +84,17 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 		ListMessagesResponseType listMessages = listMessages(new ListMessagesType());
 		assertEquals(MessageStatusType.RETRIEVED, listMessages.getMessageMetas().get(0).getStatus());
 		assertEquals(messageIdToFind, listMessages.getMessageMetas().get(0).getMessageId());
+		
+        //  Get should only generate one info log message per message
+        assertEquals(1, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
 	}
 	
 	@Test
 	@Transactional
-	public void get_message_ERR_get_invalid_message_id() throws MalformedURLException, SOAPException {
-		sendOneMessage();
+	public void get_message_ERR_get_invalid_message_id() throws MalformedURLException, SOAPException, JMSException {
+		sendOneMessageAndWait();
+		resetNumberOfMessages();
 		
 		// get 
 		GetMessagesType params = new GetMessagesType();
@@ -91,6 +104,10 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 		// Should return result code  "INFO" 
 		assertEquals(ResultCodeEnum.INFO, messages.getResult().getCode());
 		assertEquals(GetMessagesImpl.INCOMPLETE_ERROR_MESSAGE, messages.getResult().getErrorMessage());
+		
+        // This operation should only result in one error message
+        assertEquals(0, countNumberOfLogMessages(infoQueueName));
+        assertEquals(1, countNumberOfLogMessages(errorQueueName));
 	}
 	
 	

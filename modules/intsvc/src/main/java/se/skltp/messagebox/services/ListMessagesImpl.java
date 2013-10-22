@@ -91,9 +91,6 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
                 }
             }
             
-            // TODO -  delete
-//            throw new RuntimeException("THIS IS A RUNTIME EXEPTION");
-            
 
         } catch (Exception e) {
             

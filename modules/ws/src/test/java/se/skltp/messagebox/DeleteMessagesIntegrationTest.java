@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
 
+import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 
 import org.junit.Test;
@@ -24,8 +25,10 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
 	@Transactional
-	public void delete_OK() throws MalformedURLException, SOAPException {
-		sendOneMessage();
+	public void delete_OK() throws MalformedURLException, SOAPException, JMSException {
+		sendOneMessageAndWait();
+		resetNumberOfMessages();
+		
 		long messageId = getMessageId();
 		
         DeleteMessagesType deleteParams = new DeleteMessagesType();
@@ -38,12 +41,17 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
 		
         // Count number of messages in db - should be zero messages left
         assertEquals(0, countNumberOfMessages());
+        
+        // Should only result in one message in the info log
+        assertEquals(1, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
 	}
 	
 	@Test
 	@Transactional
-	public void delete_ERR_delete_invalid_msg_id() throws MalformedURLException, SOAPException {
-		sendOneMessage();
+	public void delete_ERR_delete_invalid_msg_id() throws MalformedURLException, SOAPException, JMSException {
+		sendOneMessageAndWait();
+		resetNumberOfMessages();
 		
         DeleteMessagesType deleteParams = new DeleteMessagesType();
         deleteParams.getMessageIds().add((long) Integer.MAX_VALUE);
@@ -58,6 +66,10 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
         
         // Count number of messages in db - should still be 1 message left
         assertEquals(1, countNumberOfMessages());
+        
+        // Should only result in one message in the info log
+        assertEquals(0, countNumberOfLogMessages(infoQueueName));
+        assertEquals(1, countNumberOfLogMessages(errorQueueName));
 	}
 	
 }
