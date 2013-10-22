@@ -237,7 +237,6 @@ public abstract class BaseService {
     private void log(Logger logger, Level l, String messageText, String messageId, MessageMeta message, Exception e) {
 
         String originalCorrelationId = message != null ? message.getCorrelationId() : null;
-        System.err.println("Orig corrId " + originalCorrelationId);
         ContextData data = new ContextData(extractCorrelationIdFromRequest(), originalCorrelationId, messageId);
         JMSQueueAppender.setContextData(data);
 

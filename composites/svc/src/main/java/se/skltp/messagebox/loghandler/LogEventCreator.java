@@ -51,7 +51,6 @@ public class LogEventCreator {
     private static Collection<? extends LogEntryType.ExtraInfo> assembleLogExtraInfo(LoggingEvent event, ContextData contextData) {
         Collection<LogEntryType.ExtraInfo> results = new ArrayList<LogEntryType.ExtraInfo>();
 
-        System.err.println("log " + contextData.getOriginalCorrelationId());
         if (contextData.getOriginalCorrelationId() != null) {
             LogEntryType.ExtraInfo info = new LogEntryType.ExtraInfo();
             info.setName("original-businessCorrelationId");
