@@ -25,13 +25,13 @@
     <parent>
         <groupId>se.skltp.mb</groupId>
         <artifactId>message-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>message-webcomp</artifactId>
     <name>message-webcomp</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <build>
         <resources>
