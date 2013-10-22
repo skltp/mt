@@ -91,7 +91,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         PingForConfigurationResponseType response = new PingForConfigurationResponseType();
 
         // Extract the version from the Manifest file
-        response.setVersion("Messagebox " + getClass().getPackage().getImplementationVersion());
+        String version = "Messagebox " + getClass().getPackage().getImplementationVersion();
+        response.setVersion(version);
 
         // current time in required format
         long now = timeService.now();
@@ -103,6 +104,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         response.getConfiguration().addAll(new StatusBuilder(messageService.getStatusReports()).result);
         response.getConfiguration().addAll(new StatsBuilder(statisticService.getStatisticsForTimeSlice(now, now)).result);
 
+
+        log.info("PingForConfig [" + version + "] " + dateTime + ", conf size " + response.getConfiguration().size() );
         // if we get any kind of error, we will generate a SOAP Fault and tomcat will log the error, which is good
         // enough - no need to do any error handling.
 
@@ -119,6 +122,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
     private class StatusBuilder {
 
         List<ConfigurationType> result = new ArrayList<ConfigurationType>();
+        private static final String QUEUE_SIZE_TAG = "-currentQueueSize";
+        private static final String OLDEST_MESSAGE_TAG = "-currentOldestMessage";
 
         public StatusBuilder(List<StatusReport> reports) {
             String receiver = null;
@@ -141,8 +146,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
         private void save(String receiver, long queueSize, Date oldestMessage) {
             if ( receiver != null ) {
-                result.add(conf(receiver + "-queueSize", String.valueOf(queueSize)));
-                result.add(conf(receiver + "-oldestMessage", new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
+                result.add(conf(receiver + QUEUE_SIZE_TAG, String.valueOf(queueSize)));
+                result.add(conf(receiver + OLDEST_MESSAGE_TAG, new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
             }
         }
     }
@@ -150,12 +155,14 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
     private class StatsBuilder {
 
         List<ConfigurationType> result = new ArrayList<ConfigurationType>();
+        private static final String DELIVERY_COUNT_TAG = "-todaysDeliveryCount";
+        private static final String MAX_DELIVERY_TIME_TAG = "-todaysMaxDeliveryTime";
 
-        public StatsBuilder(List<Statistic> reports) {
+        public StatsBuilder(List<Statistic> statistics) {
             String receiver = null;
             long deliveries = 0;
             long maxDeliveryTime = 0;
-            for ( Statistic stat : reports ) {
+            for ( Statistic stat : statistics ) {
                 if ( !stat.getTargetSystem().equals(receiver) ) {
                     save(receiver, deliveries, maxDeliveryTime);
                     receiver = stat.getTargetSystem();
@@ -172,8 +179,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
         private void save(String receiver, long queueSize, long maxDeliveryTime) {
             if ( receiver != null ) {
-                result.add(conf(receiver + "-deliveryCount", String.valueOf(queueSize)));
-                result.add(conf(receiver + "-maxDeliveryTime", new TimeDelta(maxDeliveryTime).toString()));
+                result.add(conf(receiver + DELIVERY_COUNT_TAG, String.valueOf(queueSize)));
+                result.add(conf(receiver + MAX_DELIVERY_TIME_TAG, new TimeDelta(maxDeliveryTime).toString()));
             }
         }
 
