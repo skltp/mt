@@ -19,12 +19,12 @@
 <div class="menu">
 	<ul class="menu">
 		<li class="menu-item">
-			<a  href="#springUrl("/web/")">#springMessage("menu.start")</a>
+			<a  href="#springUrl("/")">#springMessage("menu.start")</a>
 		</li>
 	</ul>
 	<ul class="menu">
 		<li class="menu-item">
-			<a href="#springUrl("/web/stats/")">#springMessage("menu.stats")</a>
+			<a href="#springUrl("/stats/")">#springMessage("menu.stats")</a>
 		</li>
 	</ul>
 </div>
