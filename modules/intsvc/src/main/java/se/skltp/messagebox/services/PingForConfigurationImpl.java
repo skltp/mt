@@ -69,6 +69,10 @@ import se.skltp.messagebox.core.service.TimeService;
         targetNamespace = "urn:riv:itintegration:monitoring:PingForConfiguration:1:rivtabp21",
         wsdlLocation = "schemas/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl")
 public class PingForConfigurationImpl extends BaseService implements PingForConfigurationResponderInterface {
+    public static final String QUEUE_SIZE_TAG = "currentQueueSize";
+    public static final String OLDEST_MESSAGE_TAG = "currentOldestMessage";
+    public static final String DELIVERY_COUNT_TAG = "todaysDeliveryCount";
+    public static final String MAX_DELIVERY_TIME_TAG = "todaysMaxDeliveryTime";
 
     private static final Logger log = LoggerFactory.getLogger(PingForConfigurationImpl.class);
 
@@ -122,8 +126,7 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
     private class StatusBuilder {
 
         List<ConfigurationType> result = new ArrayList<ConfigurationType>();
-        private static final String QUEUE_SIZE_TAG = "-currentQueueSize";
-        private static final String OLDEST_MESSAGE_TAG = "-currentOldestMessage";
+
 
         public StatusBuilder(List<StatusReport> reports) {
             String receiver = null;
@@ -146,8 +149,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
         private void save(String receiver, long queueSize, Date oldestMessage) {
             if ( receiver != null ) {
-                result.add(conf(receiver + QUEUE_SIZE_TAG, String.valueOf(queueSize)));
-                result.add(conf(receiver + OLDEST_MESSAGE_TAG, new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
+                result.add(conf(receiver + "-" +QUEUE_SIZE_TAG, String.valueOf(queueSize)));
+                result.add(conf(receiver + "-" + OLDEST_MESSAGE_TAG, new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
             }
         }
     }
@@ -155,8 +158,7 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
     private class StatsBuilder {
 
         List<ConfigurationType> result = new ArrayList<ConfigurationType>();
-        private static final String DELIVERY_COUNT_TAG = "-todaysDeliveryCount";
-        private static final String MAX_DELIVERY_TIME_TAG = "-todaysMaxDeliveryTime";
+
 
         public StatsBuilder(List<Statistic> statistics) {
             String receiver = null;
@@ -179,8 +181,8 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
         private void save(String receiver, long queueSize, long maxDeliveryTime) {
             if ( receiver != null ) {
-                result.add(conf(receiver + DELIVERY_COUNT_TAG, String.valueOf(queueSize)));
-                result.add(conf(receiver + MAX_DELIVERY_TIME_TAG, new TimeDelta(maxDeliveryTime).toString()));
+                result.add(conf(receiver + "-" + DELIVERY_COUNT_TAG, String.valueOf(queueSize)));
+                result.add(conf(receiver + "-" + MAX_DELIVERY_TIME_TAG, new TimeDelta(maxDeliveryTime).toString()));
             }
         }
 

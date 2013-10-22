@@ -79,10 +79,10 @@ public class PingForConfigurationImplTest extends BaseTestImpl {
         for ( ConfigurationType c : confList ) {
             props.put(c.getName(), c.getValue());
         }
-        assertEquals("1", props.get("rec1-queueSize"));
-        assertEquals("00:15", props.get("rec1-oldestMessage"));
-        assertEquals("1", props.get("rec1-deliveryCount"));
-        assertEquals("02:01", props.get("rec1-maxDeliveryTime"));
+        assertEquals("1", props.get("rec1-" + PingForConfigurationImpl.QUEUE_SIZE_TAG));
+        assertEquals("00:15", props.get("rec1-" + PingForConfigurationImpl.OLDEST_MESSAGE_TAG));
+        assertEquals("1", props.get("rec1-" + PingForConfigurationImpl.DELIVERY_COUNT_TAG));
+        assertEquals("02:01", props.get("rec1-" + PingForConfigurationImpl.MAX_DELIVERY_TIME_TAG));
 
     }
 
