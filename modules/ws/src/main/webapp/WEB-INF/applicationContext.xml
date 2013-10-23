@@ -43,7 +43,7 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 
-	<bean id="jmsQueueAppender" class="se.skltp.messagebox.loghandler.JMSQueueAppender">
+	<bean id="jmsQueueAppender" class="se.skltp.messagebox.svc.loghandler.JMSQueueAppender">
 <!-- 		<property name="brokerURL" value="tcp://localhost:61616"/> -->
 		<property name="brokerURL">
 			<value>tcp://localhost:61616</value>

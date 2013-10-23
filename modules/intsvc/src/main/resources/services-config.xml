@@ -31,12 +31,11 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<bean id="listMessages" class="se.skltp.messagebox.services.ListMessagesImpl"/>
-	<bean id="getMessages" class="se.skltp.messagebox.services.GetMessagesImpl"/>
-	<bean id="deleteMessages" class="se.skltp.messagebox.services.DeleteMessagesImpl"/>
-	<bean id="receiveMessage" class="se.skltp.messagebox.services.ReceiveMessagesImpl"/>
-	<bean id="generateUrl" class="se.skltp.messagebox.services.GenerateUrlImpl"/>
-	<bean id="pingForConfiguration" class="se.skltp.messagebox.services.PingForConfigurationImpl"/>
+	<bean id="listMessages" class="se.skltp.messagebox.intsvc.ListMessagesImpl"/>
+	<bean id="getMessages" class="se.skltp.messagebox.intsvc.GetMessagesImpl"/>
+	<bean id="deleteMessages" class="se.skltp.messagebox.intsvc.DeleteMessagesImpl"/>
+	<bean id="receiveMessage" class="se.skltp.messagebox.intsvc.ReceiveMessagesImpl"/>
+	<bean id="pingForConfiguration" class="se.skltp.messagebox.intsvc.PingForConfigurationImpl"/>
 
   	<jaxws:endpoint id="listMsgs"
                   	implementor="#listMessages"
@@ -51,10 +50,6 @@
     <jaxws:endpoint id="receiveMsgs"
                    	implementor="#receiveMessage"
                    	address="/ReceiveMessage" />
-
-    <jaxws:endpoint id="genUrl"
-                   	implementor="#generateUrl"
-                   	address="/GenerateUrl/1/rivtabp21" />
 
     <jaxws:endpoint id="pingForConfig"
                    	implementor="#pingForConfiguration"
