@@ -18,6 +18,7 @@
  */
 package se.skltp.messagebox.services;
 
+import java.util.Iterator;
 import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.Node;
@@ -47,6 +48,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
     
     private static final Logger log = LoggerFactory.getLogger(ReceiveMessagesImpl.class);
     private static final String ENDPOINT_NAME = "/ReceiveMessage/";
+    public static final QName TO_QNAME = new QName("http://www.w3.org/2005/08/addressing", "To");
     public static final QName LOGICAL_ADDRESS_QNAME = new QName("urn:riv:itintegration:registry:1", "LogicalAddress");
 
     @Override
@@ -66,8 +68,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             String serviceContract = XmlUtils.getFirstElementChild(soapMessage.getSOAPBody()).getNamespaceURI();
             String messageBody = XmlUtils.getDocumentAsString(soapBody);
 
-            Node logicalAddressNode = (Node) soapMessage.getSOAPHeader().getChildElements(LOGICAL_ADDRESS_QNAME).next();
-            String targetOrg = logicalAddressNode.getValue();
+            String targetOrg = extractTargetOrg(soapMessage);
 
             MessageMeta message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
@@ -85,6 +86,19 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             throw new RuntimeException(ReceiveErrorCode.MB0001.toString());
         }
     }
+
+    private String extractTargetOrg(SOAPMessage soapMessage) throws SOAPException {
+        // rivta2.0 uses To, 2.1 uses LogicalAddress
+        Iterator iter = soapMessage.getSOAPHeader().getChildElements(TO_QNAME);
+        if (!iter.hasNext()) {
+            iter = soapMessage.getSOAPHeader().getChildElements(LOGICAL_ADDRESS_QNAME);
+        }
+        if (!iter.hasNext()) {
+            throw new RuntimeException("No address node found in header!");
+        }
+        return ((Node)iter.next()).getValue();
+    }
+
 
     /**
      * The response is ALWAYS completely empty - there is no way to communicate back to the
