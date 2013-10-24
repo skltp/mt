@@ -35,7 +35,7 @@
       <soap:address location="http://localhost:8081/message-ws/ws/ReceiveMessage"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-1</con:endpoint><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-2</con:endpoint><con:endpoint>${endpoint}/ReceiveMessage/${targetSystem}</con:endpoint><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="invoke" bindingOperationName="invoke" type="Request-Response" outputName="invokeResponse" inputName="invoke" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-Question-hsaid-1-org1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-1</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-1</con:endpoint><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-2</con:endpoint><con:endpoint>${endpoint}/ReceiveMessage/${targetSystem}</con:endpoint><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:endpoint>https://192.168.19.10:20000/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</con:endpoint><con:endpoint>${#TestSuite#recEndpoint}/${#TestSuite#endpointTkAnswer}</con:endpoint><con:endpoint>xx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="invoke" bindingOperationName="invoke" type="Request-Response" outputName="invokeResponse" inputName="invoke" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-Question-hsaid-1-org1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/message-ws/ws/ReceiveMessage/hsaid-1</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3">
@@ -242,7 +242,7 @@ xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateRe
       <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21</con:endpoint><con:endpoint>${endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:endpoint>http://localhost:8081/ws/ListMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages" name="ListMessages" bindingOperationName="ListMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/ListMessages/1/rivtabp21</con:endpoint><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:endpoint>http://localhost:8081/ws/ListMessages/1/rivtabp21</con:endpoint><con:endpoint>https:192.168.19.10:20000/vp/itintegration/messagebox/ListMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages" name="ListMessages" bindingOperationName="ListMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
@@ -261,7 +261,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
          <!- -You may enter ANY elements at this point-->
       </urn1:ListMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-hsaid-2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-2" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-hsaid-2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
@@ -272,7 +272,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
       <urn1:ListMessages>
      </urn1:ListMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-TestCase1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-TestCase1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
@@ -498,7 +498,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
       <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21</con:endpoint><con:endpoint>${endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:endpoint>http://localhost:8081/ws/GetMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages" name="GetMessages" bindingOperationName="GetMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/GetMessages/1/rivtabp21</con:endpoint><con:endpoint>${endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:endpoint>http://localhost:8081/ws/GetMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages" name="GetMessages" bindingOperationName="GetMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -510,7 +510,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
          <!--You may enter ANY elements at this point-->
       </urn1:GetMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-TestCase1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request-TestCase1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -700,7 +700,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
       <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21</con:endpoint><con:endpoint>${endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:endpoint>http://localhost:8081/ws/DeleteMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages" name="DeleteMessages" bindingOperationName="DeleteMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="hsaid-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/message-ws/ws/DeleteMessages/1/rivtabp21</con:endpoint><con:endpoint>${endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:endpoint>http://localhost:8081/ws/DeleteMessages/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages" name="DeleteMessages" bindingOperationName="DeleteMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request-hsaid-1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -1762,7 +1762,7 @@ xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterAnswerResponder:1">
   <soapenv:Body>
       <ser:Question>TheQuestion3</ser:Question>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="ListMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="ListMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="ListMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="ListMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
@@ -1818,7 +1818,7 @@ node.appendChild(doc.createTextNode("\n      "))
 request.updateProperty()
 
 // return request.getXml() // debug
-</script></con:config></con:testStep><con:testStep type="request" name="GetMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+</script></con:config></con:testStep><con:testStep type="request" name="GetMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -1869,7 +1869,7 @@ request.updateProperty()
 
 // just for debugging
 return request.getXml()
-</script></con:config></con:testStep><con:testStep type="request" name="DeleteMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="DeleteMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#argetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+</script></con:config></con:testStep><con:testStep type="request" name="DeleteMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="DeleteMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -1966,8 +1966,19 @@ xmlns:ser="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateRe
   <soapenv:Body>
       <ser:Question>TheQuestion1</ser:Question>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>sourceSystem1</con:name><con:value>source1-hsaid</con:value></con:property><con:property><con:name>targetSystem1</con:name><con:value>target1-hsaid</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-localhost-for-c/p</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-test-system-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property><con:property><con:name>endpoint-for-test-vp-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property></con:properties></con:testSuite><con:testSuite name="AcceptanceTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ListTestCase" searchProperties="true" id="cb45fee6-c19c-410d-8263-5465a0db18ec"><con:description>Test the various ways of listing the contents of the database.
-Sets up 4 messages directed to (Mottagning1,Mottagning2) x tjänstekontrakt (Question,Answer)</con:description><con:settings/><con:testStep type="request" name="TP0: SubmitM1(PN-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="TP0: SubmitM1(PN-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>sourceSystem1</con:name><con:value>source1-hsaid</con:value></con:property><con:property><con:name>targetSystem1</con:name><con:value>target1-hsaid</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-localhost-for-c/p</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-test-system-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property><con:property><con:name>endpoint-for-test-vp-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property></con:properties></con:testSuite><con:testSuite name="AcceptanceTestSuite"><con:description>Test-suiten kan konfigureras för att köra mot olika servrar. Man behöver sätta fyra properties för att få det att fungera:
+
+endpoint (används av List/Get/Delete)
+endpointRec (används av mottagaren (ReceiveMessages))
+endpointTkAnswer (för att skicka RecMedCertAnswers)
+endpointTkProcNotify (för att skicka ProcessNotifications)
+
+Det skall finnas property-filer för de olika inställningarna liggande på samma plats som projektfilen. 
+
+Annars klipp/klistra in från någon av local, test, vp-test konfigurationerna.
+
+</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ListTestCase" searchProperties="true" id="cb45fee6-c19c-410d-8263-5465a0db18ec"><con:description>Test the various ways of listing the contents of the database.
+Sets up 4 messages directed to (Mottagning1,Mottagning2) x tjänstekontrakt (Question,Answer)</con:description><con:settings/><con:testStep type="request" name="TP0: SubmitM1(PN-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="TP0: SubmitM1(PN-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkProcNotify}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>Mottagning-1</urn:LogicalAddress>
    </soapenv:Header>
@@ -1999,7 +2010,7 @@ Sets up 4 messages directed to (Mottagning1,Mottagning2) x tjänstekontrakt (Que
          <!--You may enter ANY elements at this point-->
       </urn1:ProcessNotification>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM2(A-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM2(A-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-2" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM2(A-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM2(A-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkAnswer}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
    <soapenv:Header>
       <add:To>Mottagning-1</add:To>
    </soapenv:Header>
@@ -2074,82 +2085,8 @@ Sets up 4 messages directed to (Mottagning1,Mottagning2) x tjänstekontrakt (Que
          <!--You may enter ANY elements at this point-->
       </urn:ReceiveMedicalCertificateAnswer>
    </soapenv:Body>
-</soapenv:Envelope><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
-   <soapenv:Header>
-      <add:To>?</add:To>
-   </soapenv:Header>
-   <soapenv:Body>
-      <urn:ReceiveMedicalCertificateAnswer>
-         <urn:Answer>
-            <urn:vardReferens-id>?</urn:vardReferens-id>
-            <!--Optional:-->
-            <urn:fkReferens-id>?</urn:fkReferens-id>
-            <urn:amne>?</urn:amne>
-            <urn:fraga>
-               <urn1:meddelandeText>?</urn1:meddelandeText>
-               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
-               <!--You may enter ANY elements at this point-->
-            </urn:fraga>
-            <urn:svar>
-               <urn1:meddelandeText>?</urn1:meddelandeText>
-               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
-               <!--You may enter ANY elements at this point-->
-            </urn:svar>
-            <urn:avsantTidpunkt>?</urn:avsantTidpunkt>
-            <!--Zero or more repetitions:-->
-            <urn:fkKontaktInfo>
-               <urn1:kontakt>?</urn1:kontakt>
-               <!--You may enter ANY elements at this point-->
-            </urn:fkKontaktInfo>
-            <urn:adressVard>
-               <urn1:hosPersonal>
-                  <urn2:personal-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
-                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
-                  <!--Optional:-->
-                  <urn2:forskrivarkod>?</urn2:forskrivarkod>
-                  <urn2:enhet>
-                     <urn2:enhets-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
-                     <!--Optional:-->
-                     <urn2:arbetsplatskod validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
-                     <urn2:enhetsnamn>?</urn2:enhetsnamn>
-                     <!--Optional:-->
-                     <urn2:postadress>?</urn2:postadress>
-                     <!--Optional:-->
-                     <urn2:postnummer>?</urn2:postnummer>
-                     <!--Optional:-->
-                     <urn2:postort>?</urn2:postort>
-                     <!--Optional:-->
-                     <urn2:telefonnummer>?</urn2:telefonnummer>
-                     <!--Optional:-->
-                     <urn2:epost>?</urn2:epost>
-                     <!--Optional:-->
-                     <urn2:vardgivare>
-                        <urn2:vardgivare-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
-                        <urn2:vardgivarnamn>?</urn2:vardgivarnamn>
-                        <!--You may enter ANY elements at this point-->
-                     </urn2:vardgivare>
-                     <!--You may enter ANY elements at this point-->
-                  </urn2:enhet>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:hosPersonal>
-               <!--You may enter ANY elements at this point-->
-            </urn:adressVard>
-            <urn:lakarutlatande>
-               <urn1:lakarutlatande-id>?</urn1:lakarutlatande-id>
-               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
-               <urn1:patient>
-                  <urn2:person-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
-                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:patient>
-               <!--You may enter ANY elements at this point-->
-            </urn:lakarutlatande>
-            <!--You may enter ANY elements at this point-->
-         </urn:Answer>
-         <!--You may enter ANY elements at this point-->
-      </urn:ReceiveMedicalCertificateAnswer>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM3(PN-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM3(PN-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-3" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+</soapenv:Envelope>
+]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM3(PN-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM3(PN-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkProcNotify}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>Mottagning-2</urn:LogicalAddress>
    </soapenv:Header>
@@ -2181,7 +2118,7 @@ Sets up 4 messages directed to (Mottagning1,Mottagning2) x tjänstekontrakt (Que
          <!--You may enter ANY elements at this point-->
       </urn1:ProcessNotification>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM4(A-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM4(A-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-4" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM4(A-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM4(A-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkAnswer}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
    <soapenv:Header>
       <add:To>Mottagning-2</add:To>
    </soapenv:Header>
@@ -2256,12 +2193,12 @@ Sets up 4 messages directed to (Mottagning1,Mottagning2) x tjänstekontrakt (Que
          <!--You may enter ANY elements at this point-->
       </urn:ReceiveMedicalCertificateAnswer>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP1: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP1: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP1: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP1: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2287,12 +2224,12 @@ count(//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractT
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'Answer')])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP2: List-Mottagning-1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP2: List-Mottagning-1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+count(//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'Answer')])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP2: List-Mottagning-1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP2: List-Mottagning-1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2311,18 +2248,18 @@ count(//ns3:messageId)</path><content>2</content><allowWildcards>false</allowWil
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP3: List-TkProcNotify"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP3: List-TkProcNotify" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP3: List-TkProcNotify"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP3: List-TkProcNotify" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
          <urn1:serviceContractTypes>
             <urn:ServiceContractNamespace>urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1</urn:ServiceContractNamespace>
-        </urn1:serviceContractTypes>
+        </urn1:serviceContractTypes>  
       </urn1:ListMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
@@ -2337,12 +2274,12 @@ count(//ns3:messageId)</path><content>2</content><allowWildcards>false</allowWil
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count( //ns3:serviceContractType[contains(text(),'ProcessNotification')])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP4: List-Mottagningar"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP4: List-Mottagningar" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+count( //ns3:serviceContractType[contains(text(),'ProcessNotification')])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP4: List-Mottagningar"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP4: List-Mottagningar" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2362,12 +2299,12 @@ count(//ns3:messageId)</path><content>4</content><allowWildcards>false</allowWil
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP5: List-Tks"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP5: List-Tks" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP5: List-Tks"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP5: List-Tks" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2395,12 +2332,12 @@ count( //ns3:serviceContractType[contains(text(),'ProcessNotification')])</path>
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count( //ns3:serviceContractType[contains(text(),'Answer')])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP6: List-Mottagning-1-TkProcNotify"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP6: List-Mottagning-1-TkProcNotify" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+count( //ns3:serviceContractType[contains(text(),'Answer')])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP6: List-Mottagning-1-TkProcNotify"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP6: List-Mottagning-1-TkProcNotify" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2414,7 +2351,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'Question')])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 1 answer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'ProcessNotification')]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 1 answer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
@@ -2422,12 +2359,12 @@ count(//ns3:messageId)</path><content>1</content><allowWildcards>false</allowWil
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP7: List-Mottagning-2-TkAnswer"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP7: List-Mottagning-2-TkAnswer" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP7: List-Mottagning-2-TkAnswer"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP7: List-Mottagning-2-TkAnswer" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2437,11 +2374,11 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
         </urn1:serviceContractTypes>
       </urn1:ListMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Mottagning-1 - tkQuestion"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Mottagning-2 - tkAnswer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:targetOrganization[text()='Mottagning-2'] and //ns3:serviceContractType[contains(text(),'Answer')])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 1 answer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+//ns3:targetOrganization[text()='Mottagning-2'] and //ns3:serviceContractType[contains(text(),'Answer')]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 1 answer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
@@ -2485,20 +2422,22 @@ node.appendChild(doc.createTextNode("\n      "))
 // contents of the request, not just its properties...
 request.updateProperty()
 
-return request.getXml() // debug
-</script></con:config></con:testStep><con:testStep type="request" name="GetMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+//return request.getXml() // debug
+</script></con:config></con:testStep><con:testStep type="request" name="GetMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:GetMessages>
-        <urn1:messageIds>277</urn1:messageIds>
-        <urn1:messageIds>278</urn1:messageIds>
-        <urn1:messageIds>279</urn1:messageIds>
-        <urn1:messageIds>280</urn1:messageIds>
+        <urn1:messageIds>513</urn1:messageIds>
+        <urn1:messageIds>514</urn1:messageIds>
+        <urn1:messageIds>515</urn1:messageIds>
+        <urn1:messageIds>516</urn1:messageIds>
       </urn1:GetMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="TP9: Compare contents"><con:settings/><con:config><script>// Ensure that the contents of the message body matches the original message
+// looks up the original message submitted and uses XmlUnit.Diff.similar() between
+// it and the transmitted message
 
 import org.custommonkey.xmlunit.Diff;
 
@@ -2530,56 +2469,32 @@ response.namespaces["reg"] = "urn:riv:itintegration:registry:1"
 def tkP = "urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1"
 def tkA = "urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1"
 
-
-//def msgStrings = response.getNodeValues("//ns2:ServiceContractNamespace")
-//def msgStrings = response.getNodeValues("//ns1:serviceContractType")
-//def msgStrings = response.getNodeValues("//ns1:ServiceContractType")
-def msgStrings = response.getNodeValues("//get:message")
-
-def originalMsg = []
-def originalMsgNames = [
-	"TP0: SubmitM1(PN-Mottagning-1)",
-	"SubmitM2(A-Mottagning-1)",
-	"SubmitM3(PN-Mottagning-2)",
-	"SubmitM4(A-Mottagning-2)"
-]
-
 def verify(testName, org, tk) {
-	def node = response.getNodeValue(
-		"(//reg:ServiceContractNamespace[text() = \"" + tk + "\"]" +
-		" and //get:targetOrganization[text() = \"" + org + "\"])")
-	log.info node
+	def nodes = response.getNodeValues(
+		"//reg:ServiceContractNamespace[text() = \"" + tk + "\"]" +
+		"/../../get:targetOrganization[text() = \"" + org + "\"]/../get:message")
+	assert nodes.length == 1	
+	def msg = nodes[0]
+
+	def orig = getOriginalMsg(testName)
+	
+	assert new Diff(msg, orig).similar()
+
 }
 
 verify("TP0: SubmitM1(PN-Mottagning-1)", "Mottagning-1", tkP)
+verify("SubmitM2(A-Mottagning-1)", "Mottagning-1", tkA)
+verify("SubmitM3(PN-Mottagning-2)", "Mottagning-2", tkP)
+verify("SubmitM4(A-Mottagning-2)", "Mottagning-2", tkA)
 
+// return "Ok"
 
-
-/*
-
-for (msg in msgStrings) {
-	def msgHolder = groovyUtils.getXmlHolder(msg)
-	def node = skipTextNodes( msgHolder.getDomNode("/").getFirstChild())
-
-	def ns =  node.getNamespaceURI()
-	def origXmlAsString= null
-	if (ns == tkP) {
-		origXmlAsString = msg
-	} else if (ns == tkA ) {
-		origXmlAsString = msg
-	}
-	assert origXmlAsString != null
-	def diff = new Diff(msg, origXmlAsString)
-	// use similar to ignore any ordering differences
-	assert diff.similar();
-}
-*/
-</script></con:config></con:testStep><con:testStep type="request" name="TP10: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP10: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</script></con:config></con:testStep><con:testStep type="request" name="TP10: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP10: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2593,9 +2508,9 @@ declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1'
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:messageId)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP11: PingForConfiguration"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PingForConfigurationResponderBinding</con:interface><con:operation>PingForConfiguration</con:operation><con:request name="TP11: PingForConfiguration" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/PingForConfiguration/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:monitoring:PingForConfigurationResponder:1">
+count(//ns3:messageId)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP11: PingForConfiguration"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PingForConfigurationResponderBinding</con:interface><con:operation>PingForConfiguration</con:operation><con:request name="TP11: PingForConfiguration" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/PingForConfiguration/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:monitoring:PingForConfigurationResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>ignored</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:PingForConfiguration>
@@ -2648,26 +2563,26 @@ node.appendChild(doc.createTextNode("\n      "))
 request.updateProperty()
 
 // just for debugging
-return request.getXml()
-</script></con:config></con:testStep><con:testStep type="request" name="TP12: DeleteMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP12: DeleteMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#argetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+// return request.getXml()
+</script></con:config></con:testStep><con:testStep type="request" name="TP12: DeleteMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP12: DeleteMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:DeleteMessages>
-        <urn1:messageIds>256</urn1:messageIds>
-        <urn1:messageIds>257</urn1:messageIds>
-        <urn1:messageIds>258</urn1:messageIds>
-        <urn1:messageIds>259</urn1:messageIds>
+        <urn1:messageIds>371</urn1:messageIds>
+        <urn1:messageIds>372</urn1:messageIds>
+        <urn1:messageIds>373</urn1:messageIds>
+        <urn1:messageIds>374</urn1:messageIds>
       </urn1:DeleteMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
-//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP13: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP13: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP13: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP13: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2681,9 +2596,9 @@ declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1'
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:messageId)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP14: PingForConfiguration"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PingForConfigurationResponderBinding</con:interface><con:operation>PingForConfiguration</con:operation><con:request name="TP14: PingForConfiguration" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws/PingForConfiguration/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:monitoring:PingForConfigurationResponder:1">
+count(//ns3:messageId)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP14: PingForConfiguration"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PingForConfigurationResponderBinding</con:interface><con:operation>PingForConfiguration</con:operation><con:request name="TP14: PingForConfiguration" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/PingForConfiguration/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:monitoring:PingForConfigurationResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>ignored</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:PingForConfiguration>
@@ -2700,12 +2615,12 @@ declare namespace ns2='urn:riv:itintegration:registry:1';
 count(//ns1:configuration/ns1:name[contains(text(), "currentQueueSize")])</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - deliverys > 0"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:monitoring:PingForConfigurationResponder:1';
 declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns2='urn:riv:itintegration:registry:1';
-count(//ns1:configuration/ns1:name[contains(text(), "todaysDeliveryCount")])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:monitoring:PingForConfigurationResponder:1:PingForConfiguration"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EmptyDatabase" searchProperties="true" id="092be70d-a9ca-4d3f-bf4b-59e4f9326a9a"><con:description>Used to deliver all messages in the database and empty it.</con:description><con:settings/><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+count(//ns1:configuration/ns1:name[contains(text(), "todaysDeliveryCount")])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:monitoring:PingForConfigurationResponder:1:PingForConfiguration"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EmptyDatabase" searchProperties="true" id="092be70d-a9ca-4d3f-bf4b-59e4f9326a9a"><con:description>Used to deliver all messages in the database and empty it.</con:description><con:settings/><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>INERA</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:ListMessages>
@@ -2752,18 +2667,33 @@ node.appendChild(doc.createTextNode("\n      "))
 request.updateProperty()
 
 return request.getXml() // debug
-</script></con:config></con:testStep><con:testStep type="request" name="GetMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+</script></con:config></con:testStep><con:testStep type="request" name="GetMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:GetMessages>
-        <urn1:messageIds>271</urn1:messageIds>
-        <urn1:messageIds>272</urn1:messageIds>
-        <urn1:messageIds>273</urn1:messageIds>
-        <urn1:messageIds>274</urn1:messageIds>
-        <urn1:messageIds>275</urn1:messageIds>
-        <urn1:messageIds>276</urn1:messageIds>
+        <urn1:messageIds>492</urn1:messageIds>
+        <urn1:messageIds>493</urn1:messageIds>
+        <urn1:messageIds>494</urn1:messageIds>
+        <urn1:messageIds>495</urn1:messageIds>
+        <urn1:messageIds>496</urn1:messageIds>
+        <urn1:messageIds>497</urn1:messageIds>
+        <urn1:messageIds>498</urn1:messageIds>
+        <urn1:messageIds>499</urn1:messageIds>
+        <urn1:messageIds>500</urn1:messageIds>
+        <urn1:messageIds>501</urn1:messageIds>
+        <urn1:messageIds>502</urn1:messageIds>
+        <urn1:messageIds>503</urn1:messageIds>
+        <urn1:messageIds>504</urn1:messageIds>
+        <urn1:messageIds>505</urn1:messageIds>
+        <urn1:messageIds>506</urn1:messageIds>
+        <urn1:messageIds>507</urn1:messageIds>
+        <urn1:messageIds>508</urn1:messageIds>
+        <urn1:messageIds>509</urn1:messageIds>
+        <urn1:messageIds>510</urn1:messageIds>
+        <urn1:messageIds>511</urn1:messageIds>
+        <urn1:messageIds>512</urn1:messageIds>
       </urn1:GetMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="ExtractIdsFromGet"><con:settings/><con:config><script>// Extract the ids from the GetMessage step and modify the DeleteMessage
@@ -2806,66 +2736,252 @@ request.updateProperty()
 
 // just for debugging
 return request.getXml()
-</script></con:config></con:testStep><con:testStep type="request" name="DeleteMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="DeleteMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#argetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+</script></con:config></con:testStep><con:testStep type="request" name="DeleteMessages"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="DeleteMessages" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
    <soapenv:Header>
-      <urn:LogicalAddress>?</urn:LogicalAddress>
+      <urn:LogicalAddress>${#TestSuite#messageBoxOrg}</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:DeleteMessages>
-        <urn1:messageIds>271</urn1:messageIds>
-        <urn1:messageIds>272</urn1:messageIds>
-        <urn1:messageIds>273</urn1:messageIds>
-        <urn1:messageIds>274</urn1:messageIds>
-        <urn1:messageIds>275</urn1:messageIds>
-        <urn1:messageIds>276</urn1:messageIds>
+        <urn1:messageIds>492</urn1:messageIds>
+        <urn1:messageIds>493</urn1:messageIds>
+        <urn1:messageIds>494</urn1:messageIds>
+        <urn1:messageIds>495</urn1:messageIds>
+        <urn1:messageIds>496</urn1:messageIds>
+        <urn1:messageIds>497</urn1:messageIds>
+        <urn1:messageIds>498</urn1:messageIds>
+        <urn1:messageIds>499</urn1:messageIds>
+        <urn1:messageIds>500</urn1:messageIds>
+        <urn1:messageIds>501</urn1:messageIds>
+        <urn1:messageIds>502</urn1:messageIds>
+        <urn1:messageIds>503</urn1:messageIds>
+        <urn1:messageIds>504</urn1:messageIds>
+        <urn1:messageIds>505</urn1:messageIds>
+        <urn1:messageIds>506</urn1:messageIds>
+        <urn1:messageIds>507</urn1:messageIds>
+        <urn1:messageIds>508</urn1:messageIds>
+        <urn1:messageIds>509</urn1:messageIds>
+        <urn1:messageIds>510</urn1:messageIds>
+        <urn1:messageIds>511</urn1:messageIds>
+        <urn1:messageIds>512</urn1:messageIds>
       </urn1:DeleteMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
-//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DeleteTest" searchProperties="true" id="c98c89d3-a6e7-48e0-b9e4-968d94e91f2a"><con:settings/><con:testStep type="request" name="TP0: SubmitM1(Q-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="TP0: SubmitM1(Q-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-1" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
-xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-xmlns:urn="urn:riv:itintegration:registry:1"
-xmlns:ser="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1">
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DeleteTest" searchProperties="true" id="c98c89d3-a6e7-48e0-b9e4-968d94e91f2a"><con:settings/><con:testStep type="request" name="TP0: SubmitM1(PN-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="TP0: SubmitM1(PN-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkProcNotify}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>Mottagning-1</urn:LogicalAddress>
-  </soapenv:Header>
-  <soapenv:Body>
-  <!-- TODO: insert correct tk here -->
-      <ser:Question>Question1</ser:Question>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ProcessNotification>
+         <!--1 or more repetitions:-->
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>?</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>?</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>?</urn2:serviceDomain>
+               <urn2:categorization>?</urn2:categorization>
+               <urn2:logicalAddress>?</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>?</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>?</urn2:clinicalProcessInterestId>
+               <!--Optional:-->
+               <urn2:mostRecentContent>?</urn2:mostRecentContent>
+               <urn2:sourceSystem>?</urn2:sourceSystem>
+               <!--Optional:-->
+               <urn2:creationTime>?</urn2:creationTime>
+               <!--Optional:-->
+               <urn2:updateTime>?</urn2:updateTime>
+               <!--Optional:-->
+               <urn2:owner>?</urn2:owner>
+               <!--You may enter ANY elements at this point-->
+            </urn2:engagement>
+            <!--You may enter ANY elements at this point-->
+         </urn1:engagementTransaction>
+         <!--You may enter ANY elements at this point-->
+      </urn1:ProcessNotification>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM2(A-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM2(A-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-2" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
-xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-xmlns:urn="urn:riv:itintegration:registry:1"
-xmlns:ser="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM2(A-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM2(A-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
    <soapenv:Header>
-      <urn:LogicalAddress>Mottagning-1</urn:LogicalAddress>
-  </soapenv:Header>
-  <soapenv:Body>
-  <!-- TODO: insert correct tk here -->
-      <ser:Answer>Answer1</ser:Answer>
+      <add:To>Mottagning-1</add:To>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:ReceiveMedicalCertificateAnswer>
+         <urn:Answer>
+            <urn:vardReferens-id>?</urn:vardReferens-id>
+            <!--Optional:-->
+            <urn:fkReferens-id>?</urn:fkReferens-id>
+            <urn:amne>?</urn:amne>
+            <urn:fraga>
+               <urn1:meddelandeText>?</urn1:meddelandeText>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <!--You may enter ANY elements at this point-->
+            </urn:fraga>
+            <urn:svar>
+               <urn1:meddelandeText>?</urn1:meddelandeText>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <!--You may enter ANY elements at this point-->
+            </urn:svar>
+            <urn:avsantTidpunkt>?</urn:avsantTidpunkt>
+            <!--Zero or more repetitions:-->
+            <urn:fkKontaktInfo>
+               <urn1:kontakt>?</urn1:kontakt>
+               <!--You may enter ANY elements at this point-->
+            </urn:fkKontaktInfo>
+            <urn:adressVard>
+               <urn1:hosPersonal>
+                  <urn2:personal-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
+                  <!--Optional:-->
+                  <urn2:forskrivarkod>?</urn2:forskrivarkod>
+                  <urn2:enhet>
+                     <urn2:enhets-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                     <!--Optional:-->
+                     <urn2:arbetsplatskod validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                     <urn2:enhetsnamn>?</urn2:enhetsnamn>
+                     <!--Optional:-->
+                     <urn2:postadress>?</urn2:postadress>
+                     <!--Optional:-->
+                     <urn2:postnummer>?</urn2:postnummer>
+                     <!--Optional:-->
+                     <urn2:postort>?</urn2:postort>
+                     <!--Optional:-->
+                     <urn2:telefonnummer>?</urn2:telefonnummer>
+                     <!--Optional:-->
+                     <urn2:epost>?</urn2:epost>
+                     <!--Optional:-->
+                     <urn2:vardgivare>
+                        <urn2:vardgivare-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                        <urn2:vardgivarnamn>?</urn2:vardgivarnamn>
+                        <!--You may enter ANY elements at this point-->
+                     </urn2:vardgivare>
+                     <!--You may enter ANY elements at this point-->
+                  </urn2:enhet>
+                  <!--You may enter ANY elements at this point-->
+               </urn1:hosPersonal>
+               <!--You may enter ANY elements at this point-->
+            </urn:adressVard>
+            <urn:lakarutlatande>
+               <urn1:lakarutlatande-id>?</urn1:lakarutlatande-id>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <urn1:patient>
+                  <urn2:person-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
+                  <!--You may enter ANY elements at this point-->
+               </urn1:patient>
+               <!--You may enter ANY elements at this point-->
+            </urn:lakarutlatande>
+            <!--You may enter ANY elements at this point-->
+         </urn:Answer>
+         <!--You may enter ANY elements at this point-->
+      </urn:ReceiveMedicalCertificateAnswer>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM3(Q-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM3(Q-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-3" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
-xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-xmlns:urn="urn:riv:itintegration:registry:1"
-xmlns:ser="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1">
+</soapenv:Envelope>
+]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM3(PN-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM3(PN-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkProcNotify}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>Mottagning-2</urn:LogicalAddress>
-  </soapenv:Header>
-  <soapenv:Body>
-  <!-- TODO: insert correct tk here -->
-      <ser:Question>Question2</ser:Question>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ProcessNotification>
+         <!--1 or more repetitions:-->
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>?</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>?</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>?</urn2:serviceDomain>
+               <urn2:categorization>?</urn2:categorization>
+               <urn2:logicalAddress>?</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>?</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>?</urn2:clinicalProcessInterestId>
+               <!--Optional:-->
+               <urn2:mostRecentContent>?</urn2:mostRecentContent>
+               <urn2:sourceSystem>?</urn2:sourceSystem>
+               <!--Optional:-->
+               <urn2:creationTime>?</urn2:creationTime>
+               <!--Optional:-->
+               <urn2:updateTime>?</urn2:updateTime>
+               <!--Optional:-->
+               <urn2:owner>?</urn2:owner>
+               <!--You may enter ANY elements at this point-->
+            </urn2:engagement>
+            <!--You may enter ANY elements at this point-->
+         </urn1:engagementTransaction>
+         <!--You may enter ANY elements at this point-->
+      </urn1:ProcessNotification>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM4(A-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM4(A-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-mule_correlation_id" value="correlationId-4" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
-xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-xmlns:urn="urn:riv:itintegration:registry:1"
-xmlns:ser="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswer:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM4(A-Mottagning-2)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM4(A-Mottagning-2)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ReceiveMessage/${#TestSuite#targetSystem}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
    <soapenv:Header>
-      <urn:LogicalAddress>Mottagning-2</urn:LogicalAddress>
-  </soapenv:Header>
-  <soapenv:Body>
-  <!-- TODO: insert correct tk here -->
-      <ser:Answer>Answer2</ser:Answer>
+      <add:To>Mottagning-2</add:To>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:ReceiveMedicalCertificateAnswer>
+         <urn:Answer>
+            <urn:vardReferens-id>?</urn:vardReferens-id>
+            <!--Optional:-->
+            <urn:fkReferens-id>?</urn:fkReferens-id>
+            <urn:amne>?</urn:amne>
+            <urn:fraga>
+               <urn1:meddelandeText>?</urn1:meddelandeText>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <!--You may enter ANY elements at this point-->
+            </urn:fraga>
+            <urn:svar>
+               <urn1:meddelandeText>?</urn1:meddelandeText>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <!--You may enter ANY elements at this point-->
+            </urn:svar>
+            <urn:avsantTidpunkt>?</urn:avsantTidpunkt>
+            <!--Zero or more repetitions:-->
+            <urn:fkKontaktInfo>
+               <urn1:kontakt>?</urn1:kontakt>
+               <!--You may enter ANY elements at this point-->
+            </urn:fkKontaktInfo>
+            <urn:adressVard>
+               <urn1:hosPersonal>
+                  <urn2:personal-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
+                  <!--Optional:-->
+                  <urn2:forskrivarkod>?</urn2:forskrivarkod>
+                  <urn2:enhet>
+                     <urn2:enhets-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                     <!--Optional:-->
+                     <urn2:arbetsplatskod validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                     <urn2:enhetsnamn>?</urn2:enhetsnamn>
+                     <!--Optional:-->
+                     <urn2:postadress>?</urn2:postadress>
+                     <!--Optional:-->
+                     <urn2:postnummer>?</urn2:postnummer>
+                     <!--Optional:-->
+                     <urn2:postort>?</urn2:postort>
+                     <!--Optional:-->
+                     <urn2:telefonnummer>?</urn2:telefonnummer>
+                     <!--Optional:-->
+                     <urn2:epost>?</urn2:epost>
+                     <!--Optional:-->
+                     <urn2:vardgivare>
+                        <urn2:vardgivare-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                        <urn2:vardgivarnamn>?</urn2:vardgivarnamn>
+                        <!--You may enter ANY elements at this point-->
+                     </urn2:vardgivare>
+                     <!--You may enter ANY elements at this point-->
+                  </urn2:enhet>
+                  <!--You may enter ANY elements at this point-->
+               </urn1:hosPersonal>
+               <!--You may enter ANY elements at this point-->
+            </urn:adressVard>
+            <urn:lakarutlatande>
+               <urn1:lakarutlatande-id>?</urn1:lakarutlatande-id>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <urn1:patient>
+                  <urn2:person-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
+                  <!--You may enter ANY elements at this point-->
+               </urn1:patient>
+               <!--You may enter ANY elements at this point-->
+            </urn:lakarutlatande>
+            <!--You may enter ANY elements at this point-->
+         </urn:Answer>
+         <!--You may enter ANY elements at this point-->
+      </urn:ReceiveMedicalCertificateAnswer>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
@@ -2892,7 +3008,7 @@ count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>2</content
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'Question')])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="ExtractIdsFromList"><con:settings/><con:config><script>// Extract the ids from the ListMessages step and modify the GetMessages
+//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'ProcessNotification')]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="ExtractIdsFromList"><con:settings/><con:config><script>// Extract the ids from the ListMessages step and modify the GetMessages
 // request
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -2906,7 +3022,7 @@ def i = 1
 for( id in response.getNodeValues( "//ns:messageId" )) {
 	testRunner.testCase.setPropertyValue("msgId" + (i++), id)
 }
-</script></con:config></con:testStep><con:testStep type="request" name="TP1: GetMsg1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="TP1: GetMsg1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+</script></con:config></con:testStep><con:testStep type="request" name="TP1: GetMsg1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="TP1: GetMsg1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -2915,7 +3031,7 @@ for( id in response.getNodeValues( "//ns:messageId" )) {
         <urn1:messageIds>${#TestCase#msgId1}</urn1:messageIds>
        </urn1:GetMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP1.1: GetMsg1+nonexistent"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="TP1.1: GetMsg1+nonexistent" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP1.1: GetMsg1+nonexistent"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="TP1.1: GetMsg1+nonexistent" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -2925,7 +3041,19 @@ for( id in response.getNodeValues( "//ns:messageId" )) {
         <urn1:messageIds>-1</urn1:messageIds>
        </urn1:GetMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP2:DeleteMsg1,Msg2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP2:DeleteMsg1,Msg2" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="x-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#argetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="Result INFO"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+//ns2:code</path><content>INFO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:messageId[text() = ${#TestCase#msgId1}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="1 message"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:messageId)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP2:DeleteMsg1,Msg2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP2:DeleteMsg1,Msg2" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>?</urn:LogicalAddress>
    </soapenv:Header>
@@ -2938,7 +3066,201 @@ for( id in response.getNodeValues( "//ns:messageId" )) {
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
 //ns1:code</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - ErrorId 2"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
-//ns1:errorId</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>msgId1</con:name><con:value>269</con:value></con:property><con:property><con:name>msgId2</con:name><con:value>270</con:value></con:property><con:property><con:name>msgId3</con:name><con:value>271</con:value></con:property><con:property><con:name>msgId4</con:name><con:value>272</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 4" searchProperties="true"><con:settings/><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="xx-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/itintegration/messagebox/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+//ns1:errorId</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP3: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP3: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Result Ok"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 4 answers"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:messageId)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 2 Mottagning-1"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Mottagning-1-tkProcNotify"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'ProcessNotification')]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP4: DeleteMsg1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP4: DeleteMsg1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:DeleteMessages>
+        <urn1:messageIds>${#TestCase#msgId1}</urn1:messageIds>
+      </urn1:DeleteMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - ErrorId 2"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+//ns1:deletedIds</path><content>${#TestCase#msgId1}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP5: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP5: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Result Ok"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 4 answers"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:messageId)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 1 Mottagning-1"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:targetOrganization[text()='Mottagning-1'])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Mottagning-1-tkQuestion"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:targetOrganization[text()='Mottagning-1'] and //ns3:serviceContractType[contains(text(),'Question')])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - 2 Mottagning-2"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:targetOrganization[text()='Mottagning-2'])</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP6: GetMsg2,4"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="TP6: GetMsg2,4" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:GetMessages>
+        <urn1:messageIds>${#TestCase#msgId2}</urn1:messageIds>
+        <urn1:messageIds>${#TestCase#msgId4}</urn1:messageIds>
+       </urn1:GetMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="2 responses"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:responses)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="msg2 present"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:messageId[text() = ${#TestCase#msgId2}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="msg4 present"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:messageId[text() = ${#TestCase#msgId4}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP7: DeleteMsg2,4"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP7: DeleteMsg2,4" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:DeleteMessages>
+        <urn1:messageIds>${#TestCase#msgId2}</urn1:messageIds>
+        <urn1:messageIds>${#TestCase#msgId4}</urn1:messageIds>
+      </urn1:DeleteMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="result OK"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="msg2 deleted"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:deletedIds[text()= ${#TestCase#msgId2}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="msg4 deleted"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:deletedIds[text()= ${#TestCase#msgId4}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="2 responses"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:deletedIds)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP8: List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP8: List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="Result Ok"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="1 answer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:messageId)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Mottagning-2-tkPN"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+//ns3:targetOrganization[text()='Mottagning-2'] and //ns3:serviceContractType[contains(text(),'ProcessNotification')]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP9: GetMsg3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="TP9: GetMsg3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:GetMessages>
+        <urn1:messageIds>${#TestCase#msgId3}</urn1:messageIds>
+      </urn1:GetMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="2 responses"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:responses)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="msg3 present"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:GetMessagesResponder:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:messageId[text() = ${#TestCase#msgId3}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP10: DeleteMsg3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="TP10: DeleteMsg3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:DeleteMessages>
+        <urn1:messageIds>${#TestCase#msgId3}</urn1:messageIds>
+      </urn1:DeleteMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="result OK"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="msg3 deleted"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:deletedIds[text()= ${#TestCase#msgId3}])</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="2 responses"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1';
+declare namespace ns3='urn:riv:itintegration:registry:1';
+declare namespace ns2='urn:riv:itintegration:messagebox:1';
+count(//ns1:deletedIds)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="TP11: List-NoArgs empty"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="TP11: List-NoArgs empty" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:urn="urn:riv:itintegration:registry:1"
+xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>?</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:ListMessages>
+      </urn1:ListMessages>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="Result Ok"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="1 answer"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='urn:riv:itintegration:registry:1';
+declare namespace ns3='urn:riv:itintegration:messagebox:1';
+declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
+count(//ns3:messageId)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>msgId1</con:name><con:value>436</con:value></con:property><con:property><con:name>msgId2</con:name><con:value>437</con:value></con:property><con:property><con:name>msgId3</con:name><con:value>438</con:value></con:property><con:property><con:name>msgId4</con:name><con:value>439</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 4" searchProperties="true" id="da15d7f7-1b63-472b-8044-fe42db856b14"><con:settings/><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
@@ -2953,7 +3275,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:ListMessagesResponder:1">
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:itintegration:messagebox:ListMessagesResponder:1';
-//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetMessage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessage" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="xx-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#targetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/itintegration/messagebox/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
+//ns3:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetMessage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetMessagesResponderBinding</con:interface><con:operation>GetMessages</con:operation><con:request name="GetMessage" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/itintegration/messagebox/GetMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope 
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
@@ -2965,7 +3287,7 @@ xmlns:urn1="urn:riv:itintegration:messagebox:GetMessagesResponder:1">
          <urn1:messageIds>410</urn1:messageIds>
       </urn1:GetMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="DeleteMessage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="DeleteMessage" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="xx-rivta-original-serviceconsumer-hsaid" value="${#TestSuite#argetSystem}" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/itintegration/messagebox/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="DeleteMessage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DeleteMessagesResponderBinding</con:interface><con:operation>DeleteMessages</con:operation><con:request name="DeleteMessage" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/itintegration/messagebox/DeleteMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:urn="urn:riv:itintegration:registry:1"
 xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
@@ -2978,4 +3300,80 @@ xmlns:urn1="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1">
       </urn1:DeleteMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:itintegration:messagebox:1';
-//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>sourceSystem1</con:name><con:value>source1-hsaid</con:value></con:property><con:property><con:name>targetSystem1</con:name><con:value>target1-hsaid</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-localhost-for-c/p</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>endpoint-for-test-system-for c/p</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property><con:property><con:name>endpoint-for-test-vp-for c/p</con:name><con:value>http://192.168.19.10:20000/vp</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+//ns1:code</path><content>OK</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SubmitM2(A-Mottagning-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ReceiveMessageHttpServiceSoapBinding</con:interface><con:operation>invoke</con:operation><con:request name="SubmitM2(A-Mottagning-1)" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpointRec}/${#TestSuite#endpointTkAnswer}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:urn="urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1" xmlns:urn1="urn:riv:insuranceprocess:healthreporting:medcertqa:1" xmlns:urn2="urn:riv:insuranceprocess:healthreporting:2">
+   <soapenv:Header>
+      <add:To>Mottagning-1</add:To>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:ReceiveMedicalCertificateAnswer>
+         <urn:Answer>
+            <urn:vardReferens-id>?</urn:vardReferens-id>
+            <!--Optional:-->
+            <urn:fkReferens-id>?</urn:fkReferens-id>
+            <urn:amne>?</urn:amne>
+            <urn:fraga>
+               <urn1:meddelandeText>?</urn1:meddelandeText>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <!--You may enter ANY elements at this point-->
+            </urn:fraga>
+            <urn:svar>
+               <urn1:meddelandeText>?</urn1:meddelandeText>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <!--You may enter ANY elements at this point-->
+            </urn:svar>
+            <urn:avsantTidpunkt>?</urn:avsantTidpunkt>
+            <!--Zero or more repetitions:-->
+            <urn:fkKontaktInfo>
+               <urn1:kontakt>?</urn1:kontakt>
+               <!--You may enter ANY elements at this point-->
+            </urn:fkKontaktInfo>
+            <urn:adressVard>
+               <urn1:hosPersonal>
+                  <urn2:personal-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
+                  <!--Optional:-->
+                  <urn2:forskrivarkod>?</urn2:forskrivarkod>
+                  <urn2:enhet>
+                     <urn2:enhets-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                     <!--Optional:-->
+                     <urn2:arbetsplatskod validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                     <urn2:enhetsnamn>?</urn2:enhetsnamn>
+                     <!--Optional:-->
+                     <urn2:postadress>?</urn2:postadress>
+                     <!--Optional:-->
+                     <urn2:postnummer>?</urn2:postnummer>
+                     <!--Optional:-->
+                     <urn2:postort>?</urn2:postort>
+                     <!--Optional:-->
+                     <urn2:telefonnummer>?</urn2:telefonnummer>
+                     <!--Optional:-->
+                     <urn2:epost>?</urn2:epost>
+                     <!--Optional:-->
+                     <urn2:vardgivare>
+                        <urn2:vardgivare-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                        <urn2:vardgivarnamn>?</urn2:vardgivarnamn>
+                        <!--You may enter ANY elements at this point-->
+                     </urn2:vardgivare>
+                     <!--You may enter ANY elements at this point-->
+                  </urn2:enhet>
+                  <!--You may enter ANY elements at this point-->
+               </urn1:hosPersonal>
+               <!--You may enter ANY elements at this point-->
+            </urn:adressVard>
+            <urn:lakarutlatande>
+               <urn1:lakarutlatande-id>?</urn1:lakarutlatande-id>
+               <urn1:signeringsTidpunkt>?</urn1:signeringsTidpunkt>
+               <urn1:patient>
+                  <urn2:person-id validTimeLow="?" validTimeHigh="?" controlActRoot="?" controlActExtension="?" nullFlavor="?" flavorId="?" updateMode="?" root="?" extension="?" identifierName="?"/>
+                  <urn2:fullstandigtNamn>?</urn2:fullstandigtNamn>
+                  <!--You may enter ANY elements at this point-->
+               </urn1:patient>
+               <!--You may enter ANY elements at this point-->
+            </urn:lakarutlatande>
+            <!--You may enter ANY elements at this point-->
+         </urn:Answer>
+         <!--You may enter ANY elements at this point-->
+      </urn:ReceiveMedicalCertificateAnswer>
+   </soapenv:Body>
+</soapenv:Envelope>
+]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>endpoint</con:name><con:value>https://192.168.19.10:20000/vp/itintegration/messagebox</con:value></con:property><con:property><con:name>endpointRec</con:name><con:value>https://192.168.19.10:20000/vp</con:value></con:property><con:property><con:name>endpointTkAnswer</con:name><con:value>ReceiveMedicalCertificateAnswer/1/rivtabp20</con:value></con:property><con:property><con:name>endpointTkProcNotify</con:name><con:value>ProcessNotification/1/rivtabp21</con:value></con:property><con:property><con:name>local-endpoint</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>local-endpointRec</con:name><con:value>http://localhost:8081/ws</con:value></con:property><con:property><con:name>local-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>local-endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>test-endpoint</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property><con:property><con:name>test-endpointRec</con:name><con:value>http://192.168.19.11:8080/message/ws</con:value></con:property><con:property><con:name>test-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>test-endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>vp-test-endpoint</con:name><con:value>https://192.168.19.10:20000/vp/itintegration/messagebox</con:value></con:property><con:property><con:name>vp-test-endpointRec</con:name><con:value>https://192.168.19.10:20000/vp</con:value></con:property><con:property><con:name>vp-test-endpointTkAnswer</con:name><con:value>ReceiveMedicalCertificateAnswer/1/rivtabp20</con:value></con:property><con:property><con:name>vp-test-endpointProcNotify</con:name><con:value>ProcessNotification/1/rivtabp21</con:value></con:property><con:property><con:name>messageBoxOrg</con:name><con:value>5565594230</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
