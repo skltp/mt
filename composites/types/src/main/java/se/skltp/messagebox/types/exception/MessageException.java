@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package se.skltp.messagebox.svc.exception;
+package se.skltp.messagebox.types.exception;
 
 /**
  * Service exception. Thrown up to userinterface to translate error messages.

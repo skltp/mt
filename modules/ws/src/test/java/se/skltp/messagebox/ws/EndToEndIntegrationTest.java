@@ -1,19 +1,21 @@
 package se.skltp.messagebox.ws;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.MalformedURLException;
 import java.util.List;
 
-import javax.xml.soap.*;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Node;
-
 import org.w3c.dom.NodeList;
+
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
@@ -24,9 +26,8 @@ import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType
 import se.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.messagebox.ws.base.BaseIntegrationTest;
 import se.skltp.messagebox.intsvc.XmlUtils;
-import static org.junit.Assert.assertEquals;
+import se.skltp.messagebox.ws.base.BaseIntegrationTest;
 
 /**
  * @author mats.olsson@callistaenterprise.se
@@ -43,7 +44,6 @@ public class EndToEndIntegrationTest extends BaseIntegrationTest {
 	 * @throws TransformerException
 	 */
     @Test
-    @Transactional
     public void testReciveListGetDelete() throws SOAPException, MalformedURLException, TransformerException {
         String tkName = "urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1";
         String targetOrg = "targetOrg";

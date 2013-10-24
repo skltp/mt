@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Node;
 
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
@@ -31,11 +30,10 @@ import se.skltp.messagebox.intsvc.XmlUtils;
 public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
-	@Transactional
 	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException, JMSException {
 		
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 		
 		long messageIdToFind = getMessageId();
 
@@ -68,10 +66,9 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 	
 
 	@Test
-	@Transactional
 	public void get_message_OK_should_update_message_status_after_read() throws MalformedURLException, SOAPException, JMSException {
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 		
 		long messageIdToFind = getMessageId();
 		
@@ -91,10 +88,9 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 	}
 	
 	@Test
-	@Transactional
 	public void get_message_ERR_get_invalid_message_id() throws MalformedURLException, SOAPException, JMSException {
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 		
 		// get 
 		GetMessagesType params = new GetMessagesType();

@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
@@ -28,13 +27,14 @@ import se.skltp.messagebox.intsvc.ReceiveErrorCode;
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
 public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 
+	
+	
 	/**
 	 * Send a message
 	 * @throws JMSException 
 	 * @throws InterruptedException 
 	 */
 	@Test
-	@Transactional
 	public void receive_OK() throws SOAPException, MalformedURLException, JMSException {
 		
         SOAPMessage soapMessage = createIncomingMessage(tkName, targetOrg);
@@ -47,7 +47,7 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         // Should be 1 log message on the infoQueue
         assertEquals(1, countNumberOfLogMessages(infoQueueName));
         assertEquals(0, countNumberOfLogMessages(errorQueueName));
-        resetNumberOfMessages();
+        resetNumberOfLoggedMessages();
         
 
         // Check for 1 message
@@ -71,7 +71,6 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 	
 	
 	@Test
-	@Transactional
 	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException  {
 		
         SOAPMessage soapMessage;

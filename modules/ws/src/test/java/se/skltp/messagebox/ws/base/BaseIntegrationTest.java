@@ -11,8 +11,6 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
@@ -27,6 +25,8 @@ import javax.xml.soap.SOAPMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.transaction.BeforeTransaction;
 
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderService;
@@ -46,7 +46,7 @@ import se.riv.itintegration.messagebox.v1.MessageMetaType;
  * Contains convenience methods and settings for integration tests
  * 
  */
-public class BaseIntegrationTest implements MessageListener {
+public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests implements MessageListener {
 
 	private static final String ENDPOINT_URL = "http://localhost:8081/ws";
 	private static final String MT_LOGICAL_ADDRESS = "Inera";
@@ -65,20 +65,19 @@ public class BaseIntegrationTest implements MessageListener {
 	protected int numberOfErrorMessages = 0;
 	protected Connection connection;
 
-	@PersistenceContext
-	EntityManager entityManager;
 	private MessageConsumer infoConsumer;
 	private MessageConsumer errorConsumer;
 	
 
-//	static Session session;
+	@BeforeTransaction
+	public void foo() {
+		deleteFromTables("message_meta", "message_body");
+	}
+	
 
 	@Before
 	public void setup() throws JMSException {
-		entityManager.createQuery("delete from MessageMeta").executeUpdate();
-		entityManager.createQuery("delete from MessageBody").executeUpdate();
-		
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 	}
 	
 	@After
@@ -90,7 +89,6 @@ public class BaseIntegrationTest implements MessageListener {
 		try {
 			Thread.sleep(250);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -126,7 +124,7 @@ public class BaseIntegrationTest implements MessageListener {
 
 	}
 	
-	protected void resetNumberOfMessages() {
+	protected void resetNumberOfLoggedMessages() {
 		numberOfErrorMessages = 0;
 		numberOfInfoMessages = 0;
 	}
@@ -182,8 +180,7 @@ public class BaseIntegrationTest implements MessageListener {
 	 * @return number of messages
 	 */
 	protected int countNumberOfMessages() {
-		Long singleResult = (Long) entityManager.createQuery("SELECT count(*) from MessageMeta").getSingleResult();
-		return singleResult.intValue();
+		return countRowsInTable("message_meta");
 	}
 
 	/**

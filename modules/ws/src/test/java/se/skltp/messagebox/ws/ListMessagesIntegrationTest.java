@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
 import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
@@ -26,11 +25,10 @@ import se.skltp.messagebox.ws.base.BaseIntegrationTest;
 public class ListMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
-	@Transactional
 	public void list_OK() throws MalformedURLException, SOAPException, JMSException {
 
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 		
         // Check for 1 message
         ListMessagesResponseType listResponse = listMessages(new ListMessagesType());
@@ -54,11 +52,10 @@ public class ListMessagesIntegrationTest extends BaseIntegrationTest {
 	}
 	
 	@Test
-	@Transactional
 	public void list_OK_multipleMessages() throws MalformedURLException, SOAPException, JMSException {
 		sendOneMessage();
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 		
         // Check for 2 messages
         ListMessagesResponseType listResponse = listMessages(new ListMessagesType());
@@ -75,7 +72,6 @@ public class ListMessagesIntegrationTest extends BaseIntegrationTest {
 	}
 
 	@Test
-	@Transactional
 	public void list_OK_none_messages() throws MalformedURLException, SOAPException, JMSException {
 		
         // Check for messages

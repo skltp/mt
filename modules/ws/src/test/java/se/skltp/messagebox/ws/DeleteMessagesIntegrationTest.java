@@ -1,6 +1,9 @@
 package se.skltp.messagebox.ws;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.MalformedURLException;
+
 import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 
@@ -8,26 +11,30 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
+import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.messagebox.ws.base.BaseIntegrationTest;
 import se.skltp.messagebox.intsvc.DeleteMessagesImpl;
-
-import static org.junit.Assert.assertEquals;
+import se.skltp.messagebox.ws.base.BaseIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
 public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
-	@Transactional
 	public void delete_OK() throws MalformedURLException, SOAPException, JMSException {
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
-		
+
 		long messageId = getMessageId();
+		
+		// Get Message - cannot delete a message unless it's been retrieved at least once.
+		GetMessagesType getParams = new GetMessagesType();
+		getParams.getMessageIds().add(messageId);
+		getMessages(getParams);
+		
+		resetNumberOfLoggedMessages();
 		
         DeleteMessagesType deleteParams = new DeleteMessagesType();
         deleteParams.getMessageIds().add(messageId);
@@ -46,10 +53,9 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
 	}
 	
 	@Test
-	@Transactional
 	public void delete_ERR_delete_invalid_msg_id() throws MalformedURLException, SOAPException, JMSException {
 		sendOneMessageAndWait();
-		resetNumberOfMessages();
+		resetNumberOfLoggedMessages();
 		
         DeleteMessagesType deleteParams = new DeleteMessagesType();
         deleteParams.getMessageIds().add((long) Integer.MAX_VALUE);
@@ -69,5 +75,7 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         assertEquals(1, countNumberOfLogMessages(errorQueueName));
 	}
+	
+	
 	
 }
