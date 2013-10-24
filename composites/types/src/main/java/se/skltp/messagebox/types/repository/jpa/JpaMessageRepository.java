@@ -65,6 +65,10 @@ public class JpaMessageRepository extends DefaultJpaRepository<MessageMeta, Long
     @Override
     @SuppressWarnings("unchecked")
     public List<MessageMeta> listMessages(String targetSystem, Collection<Long> ids) {
+        if ( ids.isEmpty() ) {
+            // you get an Illegal SQL statement if the set of ids to get is empty
+            return Collections.emptyList();
+        }
         return entityManager.createNamedQuery("Message.listSomeMessages")
                 .setParameter("targetSystem", targetSystem)
                 .setParameter("ids", ids)
