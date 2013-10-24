@@ -32,9 +32,9 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
  * @author mats.olsson@callistaenterprise.se
  */
 @NamedQueries({
-        @NamedQuery(name = "Message.listMessages",
+        @NamedQuery(name = "Message.listAllMessages",
                 query = "select m from MessageMeta m where m.targetSystem = :targetSystem order by m.id asc"),
-        @NamedQuery(name = "Message.getMessages",
+        @NamedQuery(name = "Message.listSomeMessages",
                 query = "select m from MessageMeta m where m.targetSystem = :targetSystem and m.id in (:ids) order by m.id asc"),
         @NamedQuery(name = "Message.deleteMessages",
                 query = "delete from MessageMeta m where m.targetSystem = :targetSystem and m.id in (:ids) and m.status = :status"),

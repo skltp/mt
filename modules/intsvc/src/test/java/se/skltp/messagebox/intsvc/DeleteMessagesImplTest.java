@@ -32,12 +32,14 @@ import se.skltp.messagebox.types.entity.MessageMeta;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteMessagesImplTest extends BaseTestImpl {
 
     private List<MessageMeta> messages;
+    private List<MessageMeta> unreadMessages;
     private DeleteMessagesImpl deleteMessages;
     private String targetSys = BaseService.COMMON_TARGET_SYSTEM;
     private String logicalAddress = "mbox-address";
@@ -49,6 +51,14 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
 
         try {
             messages = Arrays.asList(
+                    createMessage(idCounter++, targetSys, "org1", "tk1", "msg1"),
+                    createMessage(idCounter++, targetSys, "org1", "tk2", "msg2"),
+                    createMessage(idCounter, targetSys, "org2", "tk2", "msg3")
+            );
+            for ( MessageMeta msg : messages ) {
+                msg.setStatusRetrieved(); // mark as delivered so we can delete them
+            }
+            unreadMessages = Arrays.asList(
                     createMessage(idCounter++, targetSys, "org1", "tk1", "msg1"),
                     createMessage(idCounter++, targetSys, "org1", "tk2", "msg2"),
                     createMessage(idCounter, targetSys, "org2", "tk2", "msg3")
@@ -83,10 +93,9 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
     public void testSingleMessageResponse() throws Exception {
 
         Collection<Long> middleEntry = Arrays.asList(1L);
-        when(messageService.getMessages(targetSys, middleEntry)).thenReturn(messages.subList(1, 2));
+        when(messageService.listMessages(targetSys, middleEntry)).thenReturn(messages.subList(1, 2));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(middleEntry);
-        messages.get(1).setStatusRetrieved();
         verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.OK, 1);
 
     }
@@ -103,10 +112,7 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
 
         Collection<Long> allEntries = Arrays.asList(0L, 1L, 2L);
         params.getMessageIds().addAll(allEntries);
-        for ( MessageMeta msg : messages ) {
-            msg.setStatusRetrieved();
-        }
-        when(messageService.getMessages(targetSys, allEntries)).thenReturn(messages);
+        when(messageService.listMessages(targetSys, allEntries)).thenReturn(messages);
         verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.OK, 0, 1, 2);
     }
 
@@ -120,24 +126,37 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
     public void testIncomplete() throws Exception {
 
         Collection<Long> remNonExEntry = Arrays.asList(1L, 4L, 5L);
-        when(messageService.getMessages(targetSys, remNonExEntry)).thenReturn(messages.subList(1, 2));
+        when(messageService.listMessages(targetSys, remNonExEntry)).thenReturn(messages.subList(1, 2));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(remNonExEntry);
-        messages.get(1).setStatusRetrieved(); // mark as delivered
         // an incomplete message returns INFO with an error message
         DeleteMessagesResponseType resp = verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.INFO, 1);
         assertEquals(DeleteMessagesImpl.INCOMPLETE_ERROR_MESSAGE, resp.getResult().getErrorMessage());
     }
 
     /**
+     * Test what happens when the user tries to delete an unread message.
+     */
+    @Test
+    public void testUnreadDeleteFailure() throws Exception {
+        Collection<Long> failEntry = Arrays.asList(99L);
+        when(messageService.listMessages(targetSys, failEntry)).thenReturn(unreadMessages);
+        params.getMessageIds().clear();
+        params.getMessageIds().addAll(failEntry);
+        DeleteMessagesResponseType responseType = deleteMessages.deleteMessages(logicalAddress, params);
+        assertEquals(ResultCodeEnum.ERROR, responseType.getResult().getCode());
+        assertEquals(ErrorCode.UNREAD_DELETE.ordinal(), (long) responseType.getResult().getErrorId());
+        assertTrue(responseType.getResult().getErrorMessage().startsWith(ErrorCode.UNREAD_DELETE.getText()));
+        assertEquals(0, responseType.getDeletedIds().size());
+    }
+
+    /**
      * Test what happens when the message service throws an exception.
-     *
-     * TODO: this is not the final error handling; should generate soap fault
      */
     @Test
     public void testFailure() throws Exception {
         Collection<Long> failEntry = Arrays.asList(99L);
-        when(messageService.getMessages(targetSys, failEntry)).thenThrow(new IllegalStateException("fail"));
+        when(messageService.listMessages(targetSys, failEntry)).thenThrow(new IllegalStateException("fail"));
         params.getMessageIds().clear();
         params.getMessageIds().addAll(failEntry);
         DeleteMessagesResponseType responseType = deleteMessages.deleteMessages(logicalAddress, params);

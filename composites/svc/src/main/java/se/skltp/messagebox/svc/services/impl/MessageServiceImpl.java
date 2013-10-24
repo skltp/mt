@@ -64,6 +64,11 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.listMessages(targetSystem);
     }
 
+    @Override
+    public List<MessageMeta> listMessages(String targetSystem, Collection<Long> ids) {
+        return messageRepository.listMessages(targetSystem, ids);
+    }
+
     public void saveMessage(MessageMeta message) {
         messageRepository.saveMessage(message);
     }

@@ -34,7 +34,7 @@ public interface MessageService {
      * Will load the message bodies for all message metas.
      *
      *
-     * @param targetSystem hsa-id for target system
+     * @param targetSystem
      * @param ids        to get
      * @return list of messages with the given ids belonging to targetSystem
      *         (asking for ids not belonging to the targetSystem will be silently ignored)
@@ -44,10 +44,18 @@ public interface MessageService {
     /**
      * List messages available for the given target system.
      *
-     * @param targetSystem hsa-id for target system.
+     * @param targetSystem
      * @return list of messages
      */
     List<MessageMeta> listMessages(String targetSystem);
+
+    /**
+     * Fetch the meta-data for the given list of messages and targetSystem
+     *
+     * @param targetSystem
+     * @return list of messages
+     */
+    List<MessageMeta> listMessages(String targetSystem, Collection<Long> ids);
 
     /**
      * SaveOrPersist a message.
@@ -61,13 +69,12 @@ public interface MessageService {
     /**
      * Create a message with the given arguments
      *
-     *
      * @param sourceSystem hsa-id of source system
      * @param targetSystem hsa-id of target system
      * @param targetOrganization hsa-id of target org
      * @param serviceContract of message
      * @param messageBody message body
-     * @param correlationId
+     * @param correlationId  mule correlation id for the mule-message that delivered this message
      * @return created message, with arrival time set to TimeService.now() and status {@link se.skltp.messagebox.types.entity.MessageStatus#RECEIVED}
      */
     MessageMeta create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageBody, String correlationId);

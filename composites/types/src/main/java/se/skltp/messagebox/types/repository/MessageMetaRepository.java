@@ -45,6 +45,8 @@ public interface MessageMetaRepository extends Repository<MessageMeta, Long> {
 
     List<MessageMeta> listMessages(String targetSystem);
 
+    List<MessageMeta> listMessages(String targetSystem, Collection<Long> ids);
+
     int deleteMessages(String targetSystem, Set<Long> ids);
 
     /**
@@ -100,4 +102,5 @@ public interface MessageMetaRepository extends Repository<MessageMeta, Long> {
      * @param ids
      */
     int deleteMessageBodies(String targetSystem, Set<Long> ids);
+
 }

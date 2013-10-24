@@ -52,10 +52,11 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
         response.getResult().setCode(ResultCodeEnum.OK);
 
         String targetSystem = extractTargetSystemFromRequest();
+        String callingSystem = extractCallingSystemFromRequest();
 
         try {
 
-            // the returned list of messages are based on the targetSystem (ie, the callers HSA-ID)
+            // the returned list of messages are based on the targetSystem
             //
             // The caller can constrain the list by specifying an exact organization id
             // and/or specifying a list of service contract types to be included.
@@ -94,7 +95,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
 
         } catch (Exception e) {
             
-            String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to list messages"; 
+            String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to list messages";
             logWarn(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);

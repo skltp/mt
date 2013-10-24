@@ -57,8 +57,17 @@ public class JpaMessageRepository extends DefaultJpaRepository<MessageMeta, Long
     @Override
     @SuppressWarnings("unchecked")
     public List<MessageMeta> listMessages(String targetSystem) {
-        return entityManager.createNamedQuery("Message.listMessages")
+        return entityManager.createNamedQuery("Message.listAllMessages")
                 .setParameter("targetSystem", targetSystem)
+                .getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<MessageMeta> listMessages(String targetSystem, Collection<Long> ids) {
+        return entityManager.createNamedQuery("Message.listSomeMessages")
+                .setParameter("targetSystem", targetSystem)
+                .setParameter("ids", ids)
                 .getResultList();
     }
 

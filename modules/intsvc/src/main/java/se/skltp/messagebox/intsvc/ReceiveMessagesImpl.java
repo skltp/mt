@@ -55,6 +55,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
     public SOAPMessage invoke(SOAPMessage soapMessage) {
         
         String targetSystem = extractTargetSystemFromUrl();
+        String callingSystem = extractCallingSystemFromRequest();
         
         try {
             
@@ -73,13 +74,13 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             MessageMeta message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
             String msgId = message.getId().toString();
-            logInfo(getLogger(), "Message " + msgId + " saved by " + targetSystem , msgId, message);
+            logInfo(getLogger(), "Message " + msgId + " saved by " + callingSystem , msgId, message);
             
             return getReturnCode();
         } catch (Exception e) {
             
             // log the error
-            String msg = "Error for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to send message";
+            String msg = "Error for ServiceConsumer " + callingSystem + " when trying to send message";
             logError(getLogger(), msg, null, null, e);
 
             // generate a SOAPFAult with the MT0001 error message in the <faultstring> node

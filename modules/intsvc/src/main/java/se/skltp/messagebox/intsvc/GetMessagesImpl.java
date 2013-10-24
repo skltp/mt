@@ -49,13 +49,14 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
         response.getResult().setCode(ResultCodeEnum.OK);
 
         String targetSystem = extractTargetSystemFromRequest();
+        String callingSystem = extractCallingSystemFromRequest();
 
         try {
 
             List<MessageMeta> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 
             if ( parameters.getMessageIds().size() != messages.size() ) {
-                String msg = "Target system " + targetSystem + " attempted to get non-present messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
+                String msg = "Caller " + callingSystem + " attempted to get non-present messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
                 logWarn(getLogger(), msg, null, null, null);
                 
                 response.getResult().setCode(ResultCodeEnum.INFO);
@@ -76,12 +77,12 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
 
                 response.getResponses().add(elem);
                 String msgId = msg.getId().toString();
-                logInfo(getLogger(), "Message " + msgId + " was read by " + targetSystem, msgId, msg);
+                logInfo(getLogger(), "Message " + msgId + " was read by " + callingSystem, msgId, msg);
             }
 
         } catch (Exception e) {
             
-            String msg = "Exception for ServiceConsumer " + extractCallingSystemFromRequest() + " when trying to get messages"; 
+            String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to get messages";
             logWarn(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);
