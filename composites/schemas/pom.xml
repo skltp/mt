@@ -25,12 +25,12 @@
     <parent>
         <groupId>se.skltp.mb</groupId>
         <artifactId>message-parent</artifactId>
-        <version>1.0-RC1</version>
+        <version>1.0-RC2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>message-schemas</artifactId>
-    <version>1.0-RC1</version>
+    <version>1.0-RC2-SNAPSHOT</version>
     <name>message-schemas</name>
 
     <properties>

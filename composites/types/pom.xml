@@ -24,14 +24,14 @@
     <parent>
         <groupId>se.skltp.mb</groupId>
         <artifactId>message-parent</artifactId>
-        <version>1.0-RC1</version>
+        <version>1.0-RC2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>message-types</artifactId>
     <name>message-types</name>
     <packaging>jar</packaging>
-    <version>1.0-RC1</version>
+    <version>1.0-RC2-SNAPSHOT</version>
 
     <dependencies>
 
