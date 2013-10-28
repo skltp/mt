@@ -5,13 +5,20 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.GregorianCalendar;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
-import org.soitoolkit.commons.logentry.schema.v1.*;
+import org.soitoolkit.commons.logentry.schema.v1.LogEntryType;
+import org.soitoolkit.commons.logentry.schema.v1.LogEvent;
+import org.soitoolkit.commons.logentry.schema.v1.LogLevelType;
+import org.soitoolkit.commons.logentry.schema.v1.LogMessageExceptionType;
+import org.soitoolkit.commons.logentry.schema.v1.LogMessageType;
+import org.soitoolkit.commons.logentry.schema.v1.LogMetadataInfoType;
+import org.soitoolkit.commons.logentry.schema.v1.LogRuntimeInfoType;
 
 public class LogEventCreator {
 
@@ -45,6 +52,9 @@ public class LogEventCreator {
 		// Add logLevel
 		logEvent.getLogEntry().getMessageInfo().setLevel(assembleLogLevel(event));
 		
+		// Add logging class
+		logEvent.getLogEntry().getMetadataInfo().setLoggerName(event.getLoggerName());
+		
 		return logEvent;
 	}
 
@@ -68,6 +78,7 @@ public class LogEventCreator {
 
 		logEvent.setLogEntry(logEntry);
 		logEntry.setMessageInfo(new LogMessageType());
+		logEntry.setMetadataInfo(new LogMetadataInfoType());
 		
 		return logEvent;
 	}
