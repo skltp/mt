@@ -102,7 +102,10 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
             response.getMessageMetas().clear();
+        } finally {
+            resetLogContext();
         }
+        
         return response;
     }
 

@@ -19,7 +19,13 @@
 package se.skltp.messagebox.intsvc;
 
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -28,12 +34,13 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.springframework.web.util.UriUtils;
+
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
-import se.skltp.messagebox.types.entity.MessageMeta;
-import se.skltp.messagebox.types.entity.MessageStatus;
-import se.skltp.messagebox.svc.services.MessageService;
 import se.skltp.messagebox.svc.loghandler.ContextData;
 import se.skltp.messagebox.svc.loghandler.JMSQueueAppender;
+import se.skltp.messagebox.svc.services.MessageService;
+import se.skltp.messagebox.types.entity.MessageMeta;
+import se.skltp.messagebox.types.entity.MessageStatus;
 
 
 /**
@@ -268,4 +275,15 @@ public abstract class BaseService {
      * @return Logger
      */
     public abstract Logger getLogger();
+
+    
+    /**
+     * Reset the "data channel" so that we don't polute between calls.
+     */
+    public void resetLogContext() {
+        try {
+            JMSQueueAppender.setContextData(new ContextData());
+        } catch (Exception e) {
+        }
+    }
 }

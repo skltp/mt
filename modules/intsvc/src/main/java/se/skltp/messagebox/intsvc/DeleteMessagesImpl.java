@@ -20,11 +20,13 @@ package se.skltp.messagebox.intsvc;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
@@ -116,6 +118,8 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
+        } finally {
+            resetLogContext();
         }
         return response;
     }

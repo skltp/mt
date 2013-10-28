@@ -19,10 +19,12 @@
 package se.skltp.messagebox.intsvc;
 
 import java.util.List;
+
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
@@ -89,7 +91,10 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
             response.getResponses().clear();
+        } finally {
+            resetLogContext();
         }
+        
         return response;
     }
     

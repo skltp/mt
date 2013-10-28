@@ -91,7 +91,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 			
 		} catch (Exception e) {
 			logger.warn("Could not log message to queue", e);
-		}
+		} 
 	}
 
 
