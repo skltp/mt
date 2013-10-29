@@ -19,7 +19,7 @@
     <groupId>se.skltp.mb</groupId>
     <artifactId>mb-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-RC2</version>
+    <version>1.0-RC2-SNAPSHOT</version>
     <name>${project.artifactId}</name>
 
     <parent>
@@ -427,8 +427,7 @@ encoding/<project>=UTF-8]]>
         <connection>scm:git:https://code.google.com/p/inera-message/</connection>
         <developerConnection>scm:git:https://code.google.com/p/inera-message/</developerConnection>
         <url>http://code.google.com/p/inera-message/source/browse</url>
-      <tag>mb-parent-1.0.0-RC2</tag>
-  </scm>
+    </scm>
 
 
     <modules>
