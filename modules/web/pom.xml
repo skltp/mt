@@ -60,13 +60,13 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>message-intsvc</artifactId>
+            <artifactId>mb-intsvc</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>message-webcomp</artifactId>
+            <artifactId>mb-webcomp</artifactId>
             <version>${project.version}</version>
         </dependency>
 
