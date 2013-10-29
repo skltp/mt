@@ -33,7 +33,7 @@
   	<!-- post-processors for all standard annotations -->
 	<context:annotation-config />
 
-	<context:component-scan base-package="se.skltp.messagebox.types" />
+	<context:component-scan base-package="se.skltp.mb.types" />
 
 	<tx:annotation-driven />
 	

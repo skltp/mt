@@ -19,7 +19,7 @@
  *   Boston, MA 02111-1307  USA
  */
 
-package se.skltp.messagebox.fitnesse;
+package se.skltp.mb.fitnesse;
 
 import java.util.ArrayList;
 

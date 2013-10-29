@@ -1,7 +1,7 @@
-package se.skltp.messagebox.web.spec
+package se.skltp.mb.web.spec
 
 import geb.Browser
-import se.skltp.messagebox.web.pages.*
+import se.skltp.mb.web.pages.*
 import MainPage
 import HandleUsersPage
 import LoginPage

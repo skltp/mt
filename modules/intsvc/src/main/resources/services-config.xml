@@ -31,11 +31,11 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<bean id="listMessages" class="se.skltp.messagebox.intsvc.ListMessagesImpl"/>
-	<bean id="getMessages" class="se.skltp.messagebox.intsvc.GetMessagesImpl"/>
-	<bean id="deleteMessages" class="se.skltp.messagebox.intsvc.DeleteMessagesImpl"/>
-	<bean id="receiveMessage" class="se.skltp.messagebox.intsvc.ReceiveMessagesImpl"/>
-	<bean id="pingForConfiguration" class="se.skltp.messagebox.intsvc.PingForConfigurationImpl"/>
+	<bean id="listMessages" class="se.skltp.mb.intsvc.ListMessagesImpl"/>
+	<bean id="getMessages" class="se.skltp.mb.intsvc.GetMessagesImpl"/>
+	<bean id="deleteMessages" class="se.skltp.mb.intsvc.DeleteMessagesImpl"/>
+	<bean id="receiveMessage" class="se.skltp.mb.intsvc.ReceiveMessagesImpl"/>
+	<bean id="pingForConfiguration" class="se.skltp.mb.intsvc.PingForConfigurationImpl"/>
 
   	<jaxws:endpoint id="listMsgs"
                   	implementor="#listMessages"
