@@ -29,9 +29,9 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>message-schemas</artifactId>
+    <artifactId>mb-schemas</artifactId>
     <version>1.0-RC2-SNAPSHOT</version>
-    <name>message-schemas</name>
+    <name>${project.artifactId}</name>
 
     <properties>
         <schema.path>src/main/resources/schemas</schema.path>

@@ -23,13 +23,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>se.skltp.mb</groupId>
-        <artifactId>message-parent</artifactId>
+        <artifactId>mb-parent</artifactId>
         <version>1.0-RC2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>message-webcomp</artifactId>
-    <name>message-webcomp</name>
+    <artifactId>mb-webcomp</artifactId>
+    <name>${project.artifactId}</name>
     <version>1.0-RC2-SNAPSHOT</version>
 
     <build>
@@ -55,14 +55,14 @@
         <!-- i core ligger alla entiteter osv -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>message-types</artifactId>
+            <artifactId>mb-types</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- internal services -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>message-svc</artifactId>
+            <artifactId>mb-svc</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -13,14 +13,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>se.skltp.mb</groupId>
-        <artifactId>message-parent</artifactId>
+        <artifactId>mb-parent</artifactId>
         <version>1.0-RC2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>message-ws</artifactId>
+    <artifactId>mb-services</artifactId>
     <version>1.0-RC2-SNAPSHOT</version>
-    <name>message-ws</name>
+    <name>${project.artifactId}</name>
     <packaging>war</packaging>
 
 
@@ -34,7 +34,7 @@
 
 
     <build>
-        <finalName>message</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -81,7 +81,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>message-intsvc</artifactId>
+            <artifactId>mb-intsvc</artifactId>
             <version>${project.version}</version>
         </dependency>
 

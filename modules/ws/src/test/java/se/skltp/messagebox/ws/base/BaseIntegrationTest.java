@@ -3,9 +3,24 @@ package se.skltp.messagebox.ws.base;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import javax.jms.*;
+
+import javax.jms.Connection;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.Session;
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPBodyElement;
+import javax.xml.soap.SOAPConnection;
+import javax.xml.soap.SOAPConnectionFactory;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPHeaderElement;
+import javax.xml.soap.SOAPMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.After;
@@ -13,6 +28,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
+
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
 import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderService;
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
@@ -34,7 +50,7 @@ import se.riv.itintegration.messagebox.v1.MessageMetaType;
 @Ignore
 public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests implements MessageListener {
 
-	private static final String ENDPOINT_URL = "http://localhost:8081/ws";
+	private static final String ENDPOINT_URL = "http://localhost:8081";
 	private static final String MT_LOGICAL_ADDRESS = "Inera";
 	protected static final String TK_CONTENT = "content";
 	protected static final String TK_NODE_NAME = "Question";
