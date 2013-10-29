@@ -21,6 +21,7 @@ package se.skltp.messagebox.svc.services;
 import java.util.Collection;
 import java.util.List;
 
+import se.skltp.messagebox.svc.exception.UnreadDeleteException;
 import se.skltp.messagebox.types.StatusReport;
 import se.skltp.messagebox.types.entity.MessageMeta;
 
@@ -85,8 +86,9 @@ public interface MessageService {
      * @param targetSystem all messages must have this targetSystem
      * @param now current time (to determine delivery time for statistic purposes)
      * @param messages to delete
+     * @throws UnreadDeleteException if any messages to be deleted haven't been read yet
      */
-    void deleteMessages(String targetSystem, long now, List<MessageMeta> messages);
+    void deleteMessages(String targetSystem, long now, List<MessageMeta> messages) throws UnreadDeleteException;
 
 
     /**

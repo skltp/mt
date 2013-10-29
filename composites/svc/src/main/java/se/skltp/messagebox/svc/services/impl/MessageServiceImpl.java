@@ -18,16 +18,14 @@
  */
 package se.skltp.messagebox.svc.services.impl;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import se.skltp.messagebox.types.StatusReport;
+import se.skltp.messagebox.svc.exception.UnreadDeleteException;import se.skltp.messagebox.types.StatusReport;
 import se.skltp.messagebox.types.entity.MessageMeta;
+import se.skltp.messagebox.types.entity.MessageStatus;
 import se.skltp.messagebox.types.repository.MessageMetaRepository;
 import se.skltp.messagebox.svc.services.MessageService;
 import se.skltp.messagebox.svc.services.StatisticService;
@@ -78,7 +76,19 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.create(sourceSystem, targetSystem, targetOrganization, serviceContract, messageBody, correlationId);
     }
 
-    public void deleteMessages(String targetSystem, long now, List<MessageMeta> messages) {
+    public void deleteMessages(String targetSystem, long now, List<MessageMeta> messages)throws UnreadDeleteException {
+        // count unread messages and throw an exception if we find any
+        List<MessageMeta> unread = new ArrayList<MessageMeta>();
+        for ( MessageMeta message : messages ) {
+            if ( message.getStatus() != MessageStatus.RETRIEVED ) {
+                unread.add(message);
+            }
+        }
+        if (unread.size() > 0) {
+            throw new UnreadDeleteException(unread);
+        }
+
+        // delete them
         Set<Long> ids = new HashSet<Long>();
         for ( MessageMeta msg : messages ) {
             ids.add(msg.getId());

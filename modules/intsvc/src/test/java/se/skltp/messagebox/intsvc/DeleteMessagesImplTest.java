@@ -32,7 +32,6 @@ import se.skltp.messagebox.types.entity.MessageMeta;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -132,22 +131,6 @@ public class DeleteMessagesImplTest extends BaseTestImpl {
         // an incomplete message returns INFO with an error message
         DeleteMessagesResponseType resp = verifyResponse(messages, deleteMessages.deleteMessages(logicalAddress, params), ResultCodeEnum.INFO, 1);
         assertEquals(DeleteMessagesImpl.INCOMPLETE_ERROR_MESSAGE, resp.getResult().getErrorMessage());
-    }
-
-    /**
-     * Test what happens when the user tries to delete an unread message.
-     */
-    @Test
-    public void testUnreadDeleteFailure() throws Exception {
-        Collection<Long> failEntry = Arrays.asList(99L);
-        when(messageService.listMessages(targetSys, failEntry)).thenReturn(unreadMessages);
-        params.getMessageIds().clear();
-        params.getMessageIds().addAll(failEntry);
-        DeleteMessagesResponseType responseType = deleteMessages.deleteMessages(logicalAddress, params);
-        assertEquals(ResultCodeEnum.ERROR, responseType.getResult().getCode());
-        assertEquals(ErrorCode.UNREAD_DELETE.ordinal(), (long) responseType.getResult().getErrorId());
-        assertTrue(responseType.getResult().getErrorMessage().startsWith(ErrorCode.UNREAD_DELETE.getText()));
-        assertEquals(0, responseType.getDeletedIds().size());
     }
 
     /**

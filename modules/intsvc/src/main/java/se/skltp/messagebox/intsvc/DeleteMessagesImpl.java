@@ -32,6 +32,7 @@ import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessages
 import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
 import se.riv.itintegration.messagebox.v1.ResultType;
+import se.skltp.messagebox.svc.exception.UnreadDeleteException;
 import se.skltp.messagebox.types.entity.MessageMeta;
 import se.skltp.messagebox.types.entity.MessageStatus;
 import se.skltp.messagebox.types.services.TimeService;
@@ -64,25 +65,15 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         String callingSystem = extractCallingSystemFromRequest();
 
         try {
-            // TODO: How to handle attempting to delete messages that have not been read yet?
-            // how do we signal that error to the user? It is not incomplete in the ordinary sense - this
-            // is a bug in the calling code system and must be signaled as a hard error..
-
             List<MessageMeta> messages = messageService.listMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
 
                 String msg = "Caller " + callingSystem + "  attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
                 logWarn(getLogger(), msg, null, null, null);
 
-
-                // TODO: should we add an "infoId", "infoMessage"? to the result type? Or must reuse errorXxx?
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
             }
-
-            String unreadMessageCsv = checkUnreadMessages(messages);
-
-            if ( unreadMessageCsv == null ) {
                 // none unread, delete them all!
                 messageService.deleteMessages(targetSystem, timeService.now(), messages);
 
@@ -97,19 +88,18 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
                     logInfo(getLogger(), "Message " + msgId + " was deleted by " + callingSystem, msgId, msg);
                 }
 
-            } else {
-                response.getResult().setCode(ResultCodeEnum.ERROR);
-                response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
-                response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + unreadMessageCsv);
-
-                // Log at warning level that someone tried to do something silly
-                for ( MessageMeta msg : messages ) {
-                    String msgId = String.valueOf(msg.getId());
-                    logWarn(getLogger(), callingSystem + " attempted to delete unread message " + msgId, msgId, msg, null);
-                }
             }
 
+        catch (UnreadDeleteException e) {
+            response.getResult().setCode(ResultCodeEnum.ERROR);
+            response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
+            response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
 
+            // Log at warning level that someone tried to do something silly
+            for ( MessageMeta msg : e.getUnreadMessages() ) {
+                String msgId = String.valueOf(msg.getId());
+                logWarn(getLogger(), callingSystem + " attempted to delete unread message " + msgId, msgId, msg, null);
+            }
         } catch (Exception e) {
 
             String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to delete messages";
@@ -124,34 +114,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         return response;
     }
 
-    /**
-     * Returns a comma-separated-values list of unread message ids in the messages list, or null if none are unread.
-     *
-     * @param messages to check for status
-     * @return null or a csv-list of message ids
-     */
-    private String checkUnreadMessages(List<MessageMeta> messages) {
-        String result = null;
-        // make sure all the messages have been read
-        List<MessageMeta> unread = new ArrayList<MessageMeta>();
-        for ( MessageMeta message : messages ) {
-            if ( message.getStatus() != MessageStatus.RETRIEVED ) {
-                unread.add(message);
-            }
-        }
-        if ( !unread.isEmpty() ) {
-            StringBuilder sb = new StringBuilder();
-            for ( MessageMeta msg : unread ) {
-                if ( sb.length() > 0 ) {
-                    sb.append(",");
-                }
-                sb.append(msg.getId());
-            }
-            result = sb.toString();
 
-        }
-        return result;
-    }
 
     @Override
     public Logger getLogger() {

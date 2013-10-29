@@ -28,9 +28,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import se.skltp.messagebox.types.services.TimeService;
+import se.skltp.messagebox.svc.exception.UnreadDeleteException;
 import se.skltp.messagebox.svc.services.MessageService;
 import se.skltp.messagebox.types.entity.MessageMeta;
+import se.skltp.messagebox.types.services.TimeService;
 
 import static org.junit.Assert.fail;
 
@@ -51,15 +52,30 @@ public class MessageServiceTest extends JpaRepositoryTestBase {
     private String correlationId = "correlationId";
 
     @Test
-    public void deleteFailWrongStatus() throws Exception {
-        MessageMeta message = messageService.create("sourceId", "targetSys", "targetOrg", "serviceContrakt", "webcall body", correlationId);
+    public void deleteFailNotFound() throws Exception {
+        MessageMeta message = messageService.create("sourceSys", "targetSys", "targetOrg", "serviceContrakt", "webcall body", correlationId);
+        message.setStatusRetrieved();
 
         entityManager.flush();
 
         try {
-            messageService.deleteMessages("careUnit", timeService.now(), Collections.singletonList(message));
+            messageService.deleteMessages("wrongTargetSystem", timeService.now(), Collections.singletonList(message));
             fail("Expected IllegalStateException");
         } catch (IllegalStateException e) {
+            // Expected
+        }
+    }
+
+    @Test
+    public void deleteFailWrongStatus() throws Exception {
+        MessageMeta message = messageService.create("sourceSys", "targetSys", "targetOrg", "serviceContrakt", "webcall body", correlationId);
+
+        entityManager.flush();
+
+        try {
+            messageService.deleteMessages("targetSys", timeService.now(), Collections.singletonList(message));
+            fail("Expected IllegalStateException");
+        } catch (UnreadDeleteException e) {
             // Expected
         }
     }
