@@ -42,7 +42,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 	
 	
 	/**
-	 * Used by logging methods in se.skltp.messagebox.svc.services for pushing data to this class
+	 * Used by logging methods in {@link se.skltp.mb.svc.services} for pushing data to this class
 	 */
 	private static final ThreadLocal<ContextData> contextData = new ThreadLocal<ContextData>() {
 		
