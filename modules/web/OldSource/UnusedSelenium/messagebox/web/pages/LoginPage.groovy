@@ -1,4 +1,4 @@
-package se.skltp.messagebox.web.pages
+package se.skltp.mb.web.pages
 
 
 import geb.Page;

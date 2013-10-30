@@ -52,7 +52,7 @@
 
   <Resource name="jdbc/MessageboxDataSource" auth="Container" type="javax.sql.DataSource"
                username="messageboxuser" password="messageboxpassword"
-               driverClassName="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"
+               driverClassName="com.mysql.jdbc.Driver"
                url="jdbc:mysql://localhost:3306/messagebox?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB"
                maxActive="100" maxIdle="30" maxWait="10000"
           />

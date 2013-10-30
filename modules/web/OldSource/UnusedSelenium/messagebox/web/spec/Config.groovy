@@ -1,4 +1,4 @@
-package se.skltp.messagebox.web.spec
+package se.skltp.mb.web.spec
 
 class Config {
 

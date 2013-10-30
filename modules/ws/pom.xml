@@ -41,7 +41,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <contextPath>${artifactId}</contextPath>
+                    <contextPath>${project.artifactId}</contextPath>
                     <systemProperties>
                         <systemProperty>
                             <name>jetty.port</name>

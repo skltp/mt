@@ -1,4 +1,4 @@
-package se.skltp.messagebox.fitnesse;
+package se.skltp.mb.fitnesse;
 
 //import fitlibrary.DoFixture;
 

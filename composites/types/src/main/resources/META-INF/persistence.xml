@@ -26,9 +26,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
 	<persistence-unit name="messagebox" >
-		<class>se.skltp.messagebox.types.entity.MessageMeta</class>
-        <class>se.skltp.messagebox.types.entity.Statistic</class>
-		<class>se.skltp.messagebox.types.entity.SystemProperty</class>
+		<class>se.skltp.mb.types.entity.MessageMeta</class>
+        <class>se.skltp.mb.types.entity.Statistic</class>
+		<class>se.skltp.mb.types.entity.SystemProperty</class>
 		<properties>
 			<property name="hbm2ddl.auto" value="create"/>
 		</properties>
