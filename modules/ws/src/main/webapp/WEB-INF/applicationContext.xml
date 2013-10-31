@@ -58,7 +58,15 @@
 	
 	
 
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/>
+<!--     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/> -->
+    <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" />
+		<property name="url" value="jdbc:mysql://localhost:3306/messagebox?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB" />
+		<property name="username" value="messageboxuser" />
+		<property name="password" value="messageboxpassword" />
+	</bean>
+    
 
 	<!-- JPA Entity manager -->
 	<bean id="entityManagerFactory"

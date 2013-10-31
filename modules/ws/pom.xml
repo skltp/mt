@@ -29,6 +29,8 @@
         <!-- This example has no unit tests, just integration tests -->
         <skipTests>true</skipTests>
         <checkstyle.basedir>${project.basedir}/..</checkstyle.basedir>
+        
+        <jetty.version>8.1.13.v20130916</jetty.version>
 
     </properties>
 
@@ -78,6 +80,24 @@
 
 
     <dependencies>
+    
+    
+	<!-- Jetty and family -->
+	<!-- Jetty needs to be the first dependency otherwise we get a securityexception -->
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-server</artifactId>
+		<version>${jetty.version}</version>
+		<scope>test</scope>
+		<!-- <type>jar</type> -->
+	</dependency>
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-webapp</artifactId>
+		<version>${jetty.version}</version>
+		<scope>test</scope>
+		<!-- <type>jar</type> -->
+	</dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -138,7 +158,14 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.8.0</version>
+            <scope>test</scope>
+        </dependency>
 
+        
     </dependencies>
 
     <profiles>

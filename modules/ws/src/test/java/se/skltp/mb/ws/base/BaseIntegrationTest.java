@@ -23,8 +23,13 @@ import javax.xml.soap.SOAPHeaderElement;
 import javax.xml.soap.SOAPMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.BrokerService;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
@@ -63,12 +68,59 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected static final String brokerURL="tcp://localhost:61616";
 	protected static final String errorQueueName = "MT_DEFAULT_ERROR";
 	protected static final String infoQueueName = "MT_DEFAULT_INFO";
+	
 	protected int numberOfInfoMessages = 0;
 	protected int numberOfErrorMessages = 0;
 	protected Connection connection;
 
 	private MessageConsumer infoConsumer;
 	private MessageConsumer errorConsumer;
+	
+	protected static BrokerService broker;
+	protected static Server server;
+	
+	@BeforeClass
+	public static void startJetty() throws Exception {
+	
+		System.err.println("SETTING UP");
+		server = new Server(8081);
+
+		WebAppContext context = new WebAppContext();
+		context.setDescriptor("/WEB-INF/web.xml");
+		context.setResourceBase("src/main/webapp");
+		context.setContextPath("/");
+		
+		server.setHandler(context);
+		server.start();
+		// server.join(); // Is this needed or not?
+
+	}
+
+
+	@AfterClass
+	public static void stopJetty() throws Exception {
+		System.err.println("TEARING DOWN JETTY");
+		server.stop();
+	}
+
+	
+	@BeforeClass
+	public static void startAMQ() {
+//		broker = new BrokerService();
+	//		try {
+	//			broker.addConnector("tcp://localhost:62626");
+	//			broker.start();
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//			System.out.println("COULD NOT SETUP BROKER");
+	//		}
+	}
+
+	@BeforeClass
+	public static void stopAMQ() throws Exception {
+//		broker.stop();
+	}
+
 	
 
 	@BeforeTransaction

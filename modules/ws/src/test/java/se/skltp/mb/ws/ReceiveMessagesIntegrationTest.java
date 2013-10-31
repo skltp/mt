@@ -19,15 +19,14 @@ import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType
 import se.riv.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.mb.ws.base.BaseIntegrationTest;
 import se.skltp.mb.intsvc.ReceiveErrorCode;
+import se.skltp.mb.ws.base.BaseIntegrationTest;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
 public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 
-	
 	
 	/**
 	 * Send a message
@@ -42,14 +41,13 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         
         // Should be empty
         assertEquals(0, response.getSOAPBody().getChildNodes().getLength());
-
         
+
         // Should be 1 log message on the infoQueue
         assertEquals(1, countNumberOfLogMessages(infoQueueName));
         assertEquals(0, countNumberOfLogMessages(errorQueueName));
         resetNumberOfLoggedMessages();
         
-
         // Check for 1 message
         ListMessagesResponseType listResponse = listMessages(new ListMessagesType());
 
@@ -67,6 +65,7 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         // List should not generate any log messages
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         assertEquals(0, countNumberOfLogMessages(errorQueueName));
+
 	}
 	
 	
