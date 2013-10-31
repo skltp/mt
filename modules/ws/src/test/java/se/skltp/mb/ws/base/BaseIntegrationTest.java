@@ -65,7 +65,8 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected static final String targetOrg = "targetOrg";
 	
 	// ActiveMQ
-	protected static final String brokerURL="tcp://localhost:61616";
+//	protected static final String brokerURL="tcp://localhost:61616";
+	protected static final String brokerURL="tcp://localhost:62626";
 	protected static final String errorQueueName = "MT_DEFAULT_ERROR";
 	protected static final String infoQueueName = "MT_DEFAULT_INFO";
 	
@@ -73,8 +74,8 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected int numberOfErrorMessages = 0;
 	protected Connection connection;
 
-	private MessageConsumer infoConsumer;
-	private MessageConsumer errorConsumer;
+	protected MessageConsumer infoConsumer;
+	protected MessageConsumer errorConsumer;
 	
 	protected static BrokerService broker;
 	protected static Server server;
@@ -85,6 +86,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		System.err.println("SETTING UP");
 		server = new Server(8081);
 
+		// Working direcory when runnning tests needs to be modules/ws
 		WebAppContext context = new WebAppContext();
 		context.setDescriptor("/WEB-INF/web.xml");
 		context.setResourceBase("src/main/webapp");
@@ -92,8 +94,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		
 		server.setHandler(context);
 		server.start();
-		// server.join(); // Is this needed or not?
-
 	}
 
 
@@ -105,11 +105,15 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 
 	
 	@BeforeClass
-	public static void startAMQ() {
-//		broker = new BrokerService();
+	public static void startAMQ() throws Exception {
+		broker = new BrokerService();
+		
+		broker.addConnector("tcp://localhost:62626");
+		broker.start();
+		
 	//		try {
-	//			broker.addConnector("tcp://localhost:62626");
-	//			broker.start();
+	//			
+	//			
 	//		} catch (Exception e) {
 	//			e.printStackTrace();
 	//			System.out.println("COULD NOT SETUP BROKER");
@@ -118,7 +122,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 
 	@BeforeClass
 	public static void stopAMQ() throws Exception {
-//		broker.stop();
+		broker.stop();
 	}
 
 	
@@ -143,6 +147,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		try {
 			Thread.sleep(250);
 		} catch (InterruptedException e) {
+			System.err.println("FOOBAR123");
 			e.printStackTrace();
 		}
 	}
@@ -171,8 +176,10 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 			errorConsumer = session.createConsumer(errorDest);
 			errorConsumer.setMessageListener(this);
 			
+			System.err.println("DONE WOTH CONNECTIONS");
 			
 		} catch (JMSException e) {
+			System.err.println("GOT A JMS EXCEPTION!!!!!");
 			e.printStackTrace();
 		}
 
