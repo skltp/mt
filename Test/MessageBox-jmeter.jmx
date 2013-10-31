@@ -7,14 +7,19 @@
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
-          <elementProp name="HOST_old" elementType="Argument">
-            <stringProp name="Argument.name">HOST_old</stringProp>
-            <stringProp name="Argument.value">https://192.168.19.10:20000</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="HOST" elementType="Argument">
             <stringProp name="Argument.name">HOST</stringProp>
-            <stringProp name="Argument.value">http://192.168.19.11:8080</stringProp>
+            <stringProp name="Argument.value">http://192.168.19.11:8080/mb-services</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="HOST_VP_TEST" elementType="Argument">
+            <stringProp name="Argument.name">HOST_VP_TEST</stringProp>
+            <stringProp name="Argument.value">https://192.168.19.10:20000/</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="HOST_VP" elementType="Argument">
+            <stringProp name="Argument.name">HOST_VP</stringProp>
+            <stringProp name="Argument.value">https:192.158.19.10:20000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -22,7 +27,7 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Messagebox" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Messagebox - VP" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -37,6 +42,15 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">x-rivta-original-serviceconsumer-hsaid</stringProp>
+              <stringProp name="Header.value">Thread-${__threadNum}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
           <stringProp name="calcMode">all active threads in current thread group</stringProp>
           <doubleProp>
@@ -55,7 +69,7 @@
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="SoapSampler.URL_DATA">${HOST}/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;add:To&gt;Mottagning-1&lt;/add:To&gt;
@@ -144,7 +158,7 @@
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="SoapSampler.URL_DATA">${HOST}/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;add:To&gt;Mottagning-2&lt;/add:To&gt;
@@ -234,7 +248,7 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="SoapSampler.URL_DATA">${HOST}/vp/itintegration/messagebox/ListMessages/1/rivtabp21</stringProp>
+          <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/itintegration/messagebox/ListMessages/1/rivtabp21</stringProp>
           <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -251,38 +265,6 @@
           <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
         </SoapSampler>
         <hashTree>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-            <boolProp name="ResultCollector.error_logging">false</boolProp>
-            <objProp>
-              <name>saveConfig</name>
-              <value class="SampleSaveConfiguration">
-                <time>true</time>
-                <latency>true</latency>
-                <timestamp>true</timestamp>
-                <success>true</success>
-                <label>true</label>
-                <code>true</code>
-                <message>true</message>
-                <threadName>true</threadName>
-                <dataType>true</dataType>
-                <encoding>false</encoding>
-                <assertions>true</assertions>
-                <subresults>true</subresults>
-                <responseData>false</responseData>
-                <samplerData>false</samplerData>
-                <xml>false</xml>
-                <fieldNames>false</fieldNames>
-                <responseHeaders>false</responseHeaders>
-                <requestHeaders>false</requestHeaders>
-                <responseDataOnError>false</responseDataOnError>
-                <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-                <assertionsResultsToSave>0</assertionsResultsToSave>
-                <bytes>true</bytes>
-              </value>
-            </objProp>
-            <stringProp name="filename"></stringProp>
-          </ResultCollector>
-          <hashTree/>
           <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="XPath Extractor" enabled="true">
             <stringProp name="XPathExtractor.default"></stringProp>
             <stringProp name="XPathExtractor.refname">listedMessagesId</stringProp>
@@ -294,25 +276,7 @@
             <stringProp name="Sample.scope">all</stringProp>
           </XPathExtractor>
           <hashTree/>
-          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="false">
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <boolProp name="resetInterpreter">false</boolProp>
-            <stringProp name="script">int number = Integer.parseInt(vars.get(&quot;listedMessagesId_matchNr&quot;));
-StringBuilder builder = new StringBuilder();
-for(int i=0;i&lt;number;i++) {
-   builder.append( &quot;&lt;urn1:messageIds&gt;&quot; + vars.get(&quot;listedMessagesId_&quot;+(i+1)) +  &quot;&lt;/urn1:messageIds&gt;&quot;);
-}
-vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
-          </BeanShellPostProcessor>
-          <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-          <boolProp name="displayJMeterProperties">true</boolProp>
-          <boolProp name="displayJMeterVariables">true</boolProp>
-          <boolProp name="displaySystemProperties">true</boolProp>
-        </DebugSampler>
-        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -360,7 +324,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="SoapSampler.URL_DATA">${HOST}/vp/itintegration/messagebox/GetMessages/1/rivtabp21</stringProp>
+              <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/itintegration/messagebox/GetMessages/1/rivtabp21</stringProp>
               <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -376,44 +340,6 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
               <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
             </SoapSampler>
-            <hashTree/>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-              <boolProp name="displayJMeterProperties">false</boolProp>
-              <boolProp name="displayJMeterVariables">true</boolProp>
-              <boolProp name="displaySystemProperties">false</boolProp>
-            </DebugSampler>
-            <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>false</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -432,7 +358,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="SoapSampler.URL_DATA">${HOST}/vp/itintegration/messagebox/DeleteMessages/1/rivtabp21</stringProp>
+              <stringProp name="SoapSampler.URL_DATA">${HOST}/HOST_VP/itintegration/messagebox/DeleteMessages/1/rivtabp21</stringProp>
               <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -449,54 +375,13 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
             </SoapSampler>
             <hashTree/>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-              <boolProp name="displayJMeterProperties">false</boolProp>
-              <boolProp name="displayJMeterVariables">true</boolProp>
-              <boolProp name="displaySystemProperties">false</boolProp>
-            </DebugSampler>
-            <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>false</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
-            <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
-          <stringProp name="FileSaver.filename">/Users/patrik/callista2/lasttester/jmetererrors</stringProp>
-          <boolProp name="FileSaver.errorsonly">true</boolProp>
-          <boolProp name="FileSaver.skipautonumber">false</boolProp>
-          <boolProp name="FileSaver.skipsuffix">false</boolProp>
-          <boolProp name="FileSaver.successonly">false</boolProp>
-          <boolProp name="FileSaver.addTimstamp">true</boolProp>
-        </ResultSaver>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+          <boolProp name="displayJMeterProperties">true</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">true</boolProp>
+        </DebugSampler>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -529,6 +414,15 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
+        <hashTree/>
+        <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
+          <stringProp name="FileSaver.filename">/Users/patrik/callista2/lasttester/jmetererrors</stringProp>
+          <boolProp name="FileSaver.errorsonly">true</boolProp>
+          <boolProp name="FileSaver.skipautonumber">false</boolProp>
+          <boolProp name="FileSaver.skipsuffix">false</boolProp>
+          <boolProp name="FileSaver.successonly">false</boolProp>
+          <boolProp name="FileSaver.addTimstamp">true</boolProp>
+        </ResultSaver>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">true</boolProp>
@@ -599,17 +493,26 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">10</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <longProp name="ThreadGroup.start_time">1382605195000</longProp>
         <longProp name="ThreadGroup.end_time">1382605195000</longProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration">43200</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">x-rivta-original-serviceconsumer-hsaid</stringProp>
+              <stringProp name="Header.value">Thread-${__threadNum}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
           <stringProp name="calcMode">all active threads in current thread group</stringProp>
           <doubleProp>
@@ -628,7 +531,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="SoapSampler.URL_DATA">${HOST}/message/ws/ReceiveMessages/1/rivtabp21</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">${HOST}/ReceiveMessages/1/rivtabp21</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;add:To&gt;Mottagning-1&lt;/add:To&gt;
@@ -717,7 +620,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="SoapSampler.URL_DATA">${HOST}/message/ws/ReceiveMessages1/rivtabp21</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">${HOST}/ReceiveMessages/1/rivtabp21</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;add:To&gt;Mottagning-2&lt;/add:To&gt;
@@ -807,7 +710,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="SoapSampler.URL_DATA">${HOST}/message/ws/ListMessages/1/rivtabp21</stringProp>
+          <stringProp name="SoapSampler.URL_DATA">${HOST}/ListMessages/1/rivtabp21</stringProp>
           <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -824,38 +727,6 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
         </SoapSampler>
         <hashTree>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-            <boolProp name="ResultCollector.error_logging">false</boolProp>
-            <objProp>
-              <name>saveConfig</name>
-              <value class="SampleSaveConfiguration">
-                <time>true</time>
-                <latency>true</latency>
-                <timestamp>true</timestamp>
-                <success>true</success>
-                <label>true</label>
-                <code>true</code>
-                <message>true</message>
-                <threadName>true</threadName>
-                <dataType>true</dataType>
-                <encoding>false</encoding>
-                <assertions>true</assertions>
-                <subresults>true</subresults>
-                <responseData>false</responseData>
-                <samplerData>false</samplerData>
-                <xml>false</xml>
-                <fieldNames>false</fieldNames>
-                <responseHeaders>false</responseHeaders>
-                <requestHeaders>false</requestHeaders>
-                <responseDataOnError>false</responseDataOnError>
-                <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-                <assertionsResultsToSave>0</assertionsResultsToSave>
-                <bytes>true</bytes>
-              </value>
-            </objProp>
-            <stringProp name="filename"></stringProp>
-          </ResultCollector>
-          <hashTree/>
           <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="XPath Extractor" enabled="true">
             <stringProp name="XPathExtractor.default"></stringProp>
             <stringProp name="XPathExtractor.refname">listedMessagesId</stringProp>
@@ -867,57 +738,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
             <stringProp name="Sample.scope">all</stringProp>
           </XPathExtractor>
           <hashTree/>
-          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="false">
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <boolProp name="resetInterpreter">false</boolProp>
-            <stringProp name="script">int number = Integer.parseInt(vars.get(&quot;listedMessagesId_matchNr&quot;));
-StringBuilder builder = new StringBuilder();
-for(int i=0;i&lt;number;i++) {
-   builder.append( &quot;&lt;urn1:messageIds&gt;&quot; + vars.get(&quot;listedMessagesId_&quot;+(i+1)) +  &quot;&lt;/urn1:messageIds&gt;&quot;);
-}
-vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
-          </BeanShellPostProcessor>
-          <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-          <boolProp name="displayJMeterProperties">true</boolProp>
-          <boolProp name="displayJMeterVariables">true</boolProp>
-          <boolProp name="displaySystemProperties">true</boolProp>
-        </DebugSampler>
-        <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>false</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
         <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="ForEach Controller - getMessages" enabled="true">
           <stringProp name="ForeachController.inputVal">listedMessagesId</stringProp>
           <stringProp name="ForeachController.returnVal">idToGet</stringProp>
@@ -933,7 +754,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="SoapSampler.URL_DATA">${HOST}/message/ws/GetMessages/1/rivtabp21</stringProp>
+              <stringProp name="SoapSampler.URL_DATA">${HOST}/GetMessages/1/rivtabp21</stringProp>
               <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -949,44 +770,6 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
               <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
             </SoapSampler>
-            <hashTree/>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-              <boolProp name="displayJMeterProperties">false</boolProp>
-              <boolProp name="displayJMeterVariables">true</boolProp>
-              <boolProp name="displaySystemProperties">false</boolProp>
-            </DebugSampler>
-            <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>false</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -1005,7 +788,7 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="SoapSampler.URL_DATA">${HOST}/message/ws/DeleteMessages/1/rivtabp21</stringProp>
+              <stringProp name="SoapSampler.URL_DATA">${HOST}/DeleteMessages/1/rivtabp21</stringProp>
               <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -1062,14 +845,11 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
-          <stringProp name="FileSaver.filename">/Users/patrik/callista2/lasttester/jmetererrors</stringProp>
-          <boolProp name="FileSaver.errorsonly">true</boolProp>
-          <boolProp name="FileSaver.skipautonumber">false</boolProp>
-          <boolProp name="FileSaver.skipsuffix">false</boolProp>
-          <boolProp name="FileSaver.successonly">false</boolProp>
-          <boolProp name="FileSaver.addTimstamp">true</boolProp>
-        </ResultSaver>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+          <boolProp name="displayJMeterProperties">true</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">true</boolProp>
+        </DebugSampler>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -1102,6 +882,15 @@ vars.put(&quot;jiddder&quot;, builder.toString());</stringProp>
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
+        <hashTree/>
+        <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
+          <stringProp name="FileSaver.filename">/Users/patrik/callista2/lasttester/jmetererrors</stringProp>
+          <boolProp name="FileSaver.errorsonly">true</boolProp>
+          <boolProp name="FileSaver.skipautonumber">false</boolProp>
+          <boolProp name="FileSaver.skipsuffix">false</boolProp>
+          <boolProp name="FileSaver.successonly">false</boolProp>
+          <boolProp name="FileSaver.addTimstamp">true</boolProp>
+        </ResultSaver>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">true</boolProp>
