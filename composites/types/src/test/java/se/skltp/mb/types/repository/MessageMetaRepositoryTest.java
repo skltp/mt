@@ -52,11 +52,11 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
     @PersistenceContext
     EntityManager entityManager;
 
-    private String correlationId = "correlationId";
+    private String corrId = "correlationId";
 
     @Test
     public void testPersist() throws Exception {
-        messageRepository.create("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body", correlationId);
+        messageRepository.create("sourceId", "hsaId", "orgId", "serviceContrakt", "webcall body", corrId);
 
         entityManager.flush();
         entityManager.clear();
@@ -68,7 +68,7 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
     @Test
     public void testListMessages() throws Exception {
         String targetSystem = "targetSystemHsaId";
-        messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", correlationId);
+        messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", corrId);
 
         entityManager.flush();
         entityManager.clear();
@@ -83,7 +83,7 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
     public void testGetMessages() throws Exception {
         Set<Long> ids = new HashSet<Long>();
         String targetSystem = "targetSystemHsaId";
-        MessageMeta message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", correlationId);
+        MessageMeta message = messageRepository.create("sourceId", targetSystem, "orgId", "serviceContrakt", "webcall body", corrId);
         ids.add(message.getId());
 
         entityManager.flush();
@@ -109,7 +109,7 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
         Set<Long> ids = new HashSet<Long>();
         String targetSystem = "targetSys";
         for(int i = 0 ; i < 5 ; i++) {
-            MessageMeta message = messageRepository.create("sourceId", targetSystem, "org-1", "serviceContract", "webcallcontent", correlationId);
+            MessageMeta message = messageRepository.create("sourceId", targetSystem, "org-1", "serviceContract", "webcallcontent", corrId);
             entityManager.persist(message);
             ids.add(message.getId());
         }
@@ -179,8 +179,8 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
     @Test
     public void testStatusReporting() throws Exception {
         // Create a bunch of messages with various systems, organizations, serviceContracts and times
-        String targetSys1 = "hsaId1";
-        String targetSys2 = "hsaId2";
+        String ts1 = "hsaId1";
+        String ts2 = "hsaId2";
         String org1 = "org1";
         String org2 = "org2";
         String org3 = "org3";
@@ -191,13 +191,14 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
         Date time2 = new Date(timeService.now() - 3600 * 1000 * 2);
         Date time3 = new Date(timeService.now() - 3600 * 1000 * 3);
 
-        messageRepository.create("sourceId", targetSys2, org2, sc1, body, correlationId, MessageStatus.RECEIVED, time2);
-        messageRepository.create("sourceId", targetSys1, org1, sc1, body, correlationId, MessageStatus.RECEIVED, time3);
-        messageRepository.create("sourceId", targetSys1, org1, sc2, body, correlationId, MessageStatus.RECEIVED, time2);
-        messageRepository.create("sourceId", targetSys2, org3, sc1, body, correlationId, MessageStatus.RECEIVED, time2);
-        messageRepository.create("sourceId", targetSys1, org1, sc1, body, correlationId, MessageStatus.RECEIVED, time1);
-        messageRepository.create("sourceId", targetSys2, org3, sc2, body, correlationId, MessageStatus.RECEIVED, time1);
-        messageRepository.create("sourceId", targetSys2, org3, sc2, body, correlationId, MessageStatus.RECEIVED, time3);
+        String srcId = "sourceId";
+        messageRepository.create(srcId, ts2, org2, sc1, body, corrId, MessageStatus.RETRIEVED, time2);
+        messageRepository.create(srcId, ts1, org1, sc1, body, corrId, MessageStatus.RECEIVED, time3);
+        messageRepository.create(srcId, ts1, org1, sc2, body, corrId, MessageStatus.RECEIVED, time2);
+        messageRepository.create(srcId, ts2, org3, sc1, body, corrId, MessageStatus.RECEIVED, time2);
+        messageRepository.create(srcId, ts1, org1, sc1, body, corrId, MessageStatus.RETRIEVED, time1);
+        messageRepository.create(srcId, ts2, org3, sc2, body, corrId, MessageStatus.RECEIVED, time1);
+        messageRepository.create(srcId, ts2, org3, sc2, body, corrId, MessageStatus.RECEIVED, time3);
 
         // Get the status reports. The status reports are sorted, so we know what each slot in the
         // list should contain.
@@ -207,48 +208,53 @@ public class MessageMetaRepositoryTest extends JpaRepositoryTestBase {
         // system, org and service contracts are 1/1/1, 2 messages and oldest time is time3
         // 1/1/1, 2 msg, time3
         StatusReport sr = reports.get(0);
-        assertEquals(targetSys1, sr.getTargetSystem());
+        assertEquals(ts1, sr.getTargetSystem());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());
         assertEquals(time3, sr.getOldestMessageDate());
+        assertEquals(1, sr.getRetrievedCount());
 
         // 1/1/2, 1 msg, time2
         sr = reports.get(1);
-        assertEquals(targetSys1, sr.getTargetSystem());
+        assertEquals(ts1, sr.getTargetSystem());
         assertEquals(org1, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
         assertEquals(time2, sr.getOldestMessageDate());
+        assertEquals(0, sr.getRetrievedCount());
 
         // 2/2/1, 1 msg, time2
         sr = reports.get(2);
-        assertEquals(targetSys2, sr.getTargetSystem());
+        assertEquals(ts2, sr.getTargetSystem());
         assertEquals(org2, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
         assertEquals(time2, sr.getOldestMessageDate());
+        assertEquals(1, sr.getRetrievedCount());
 
         // 2/3/1, 1 msg, time2
         sr = reports.get(3);
-        assertEquals(targetSys2, sr.getTargetSystem());
+        assertEquals(ts2, sr.getTargetSystem());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc1, sr.getServiceContract());
         assertEquals(1, sr.getMessageCount());
         assertEquals(time2, sr.getOldestMessageDate());
+        assertEquals(0, sr.getRetrievedCount());
 
         // 2/3/2, 2 msg, time3
         sr = reports.get(4);
-        assertEquals(targetSys2, sr.getTargetSystem());
+        assertEquals(ts2, sr.getTargetSystem());
         assertEquals(org3, sr.getTargetOrganization());
         assertEquals(sc2, sr.getServiceContract());
         assertEquals(2, sr.getMessageCount());
         assertEquals(time3, sr.getOldestMessageDate());
+        assertEquals(0, sr.getRetrievedCount());
 
     }
 
     private Set<Long> createMessage(String systemId) {
-        MessageMeta message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", correlationId);
+        MessageMeta message = messageRepository.create("sourceId", systemId, "orgId", "serviceContrakt", "webcall body", corrId);
 
         entityManager.flush();
         entityManager.clear();

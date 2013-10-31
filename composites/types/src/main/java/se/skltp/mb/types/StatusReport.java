@@ -32,14 +32,23 @@ public class StatusReport implements Comparable<StatusReport> {
     private String targetOrganization;
     private String serviceContract;
     private long messageCount;
+    private long retrievedCount;
     private Date oldestMessageDate;
     private long totalSize;
 
-    public StatusReport(String targetSystem, String targetOrganization, String serviceContract, long messageCount, long totalSize, Date oldestMessageDate) {
+    public StatusReport(
+            String targetSystem,
+            String targetOrganization,
+            String serviceContract,
+            long messageCount,
+            long retrievedCount,
+            long totalSize,
+            Date oldestMessageDate) {
         this.targetSystem = targetSystem;
         this.targetOrganization = targetOrganization;
         this.serviceContract = serviceContract;
         this.messageCount = messageCount;
+        this.retrievedCount = retrievedCount;
         this.totalSize = totalSize;
         this.oldestMessageDate = oldestMessageDate;
     }
@@ -51,6 +60,7 @@ public class StatusReport implements Comparable<StatusReport> {
                 ", targetOrganization='" + targetOrganization + '\'' +
                 ", serviceContract='" + serviceContract + '\'' +
                 ", messageCount=" + messageCount +
+                ", retrievedCount=" + retrievedCount +
                 ", oldestMessageDate=" + oldestMessageDate +
                 ", totalSize=" + totalSize +
                 '}';
@@ -116,5 +126,9 @@ public class StatusReport implements Comparable<StatusReport> {
 
     public long getTotalSize() {
         return totalSize;
+    }
+
+    public long getRetrievedCount() {
+        return retrievedCount;
     }
 }

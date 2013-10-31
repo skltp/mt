@@ -106,19 +106,20 @@ public class JpaMessageRepository extends DefaultJpaRepository<MessageMeta, Long
 
     @Override
     public List<StatusReport> getStatusReports() {
-        //noinspection unchecked
         return entityManager.createQuery(
-                "select "
-                        + "new se.skltp.mb.types.StatusReport(" +
+                "select " +
+                        "new se.skltp.mb.types.StatusReport(" +
                         "m.targetSystem," +
                         " m.targetOrganization," +
                         " m.serviceContract," +
                         " count(m.serviceContract)," +
+                        " sum(case when m.status = :status then 1 else 0 end), " +
                         " sum(m.messageBodySize)," +
-                        " min(m.arrived)) "
-                        + "from MessageMeta m group by m.targetSystem, m.targetOrganization, m.serviceContract"
-                        + " order by m.targetSystem, m.targetOrganization, m.serviceContract",
+                        " min(m.arrived))" +
+                        " from MessageMeta m group by m.targetSystem, m.targetOrganization, m.serviceContract" +
+                        " order by m.targetSystem, m.targetOrganization, m.serviceContract",
                 StatusReport.class)
+                .setParameter("status", MessageStatus.RETRIEVED)
                 .getResultList();
     }
 

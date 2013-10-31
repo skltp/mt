@@ -77,14 +77,16 @@ public class MainController {
 
         private String targetSystem;
         private String targetOrganization;
+        private long retrievedCount;
         private ServiceContractView serviceContract;
         private long messageCount;
         private long totalSize;
         private Date oldestMessageDate;
 
-        public StatusReportView(String targetSystem, String targetOrganization, String serviceContract, long messageCount, long totalSize, Date oldestMessageDate) {
+        public StatusReportView(String targetSystem, String targetOrganization, String serviceContract, long messageCount, long retrievedCount, long totalSize, Date oldestMessageDate) {
             this.targetSystem = targetSystem;
             this.targetOrganization = targetOrganization;
+            this.retrievedCount = retrievedCount;
             this.serviceContract = new ServiceContractView(serviceContract);
             this.messageCount = messageCount;
             this.totalSize = totalSize;
@@ -97,6 +99,7 @@ public class MainController {
                     r.getTargetOrganization(),
                     r.getServiceContract(),
                     r.getMessageCount(),
+                    r.getRetrievedCount(),
                     r.getTotalSize(),
                     r.getOldestMessageDate());
         }
@@ -110,6 +113,7 @@ public class MainController {
          */
         public void merge(StatusReport other) {
             this.messageCount += other.getMessageCount();
+            this.retrievedCount += other.getRetrievedCount();
             this.totalSize += other.getTotalSize();
             this.oldestMessageDate = new Date(Math.min(this.oldestMessageDate.getTime(), other.getOldestMessageDate().getTime()));
         }
@@ -135,6 +139,10 @@ public class MainController {
             return oldestMessageDate;
         }
 
+        public long getRetrievedCount() {
+            return retrievedCount;
+        }
+
         public ByteSizeView getTotalSize() {
             return new ByteSizeView(totalSize);
         }
@@ -148,11 +156,11 @@ public class MainController {
         }
 
         static StatusReportView createRec(StatusReport r) {
-            return new StatusReportView(r.getTargetSystem(), "", "", 0, 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getTargetSystem(), "", "", 0, 0, 0, r.getOldestMessageDate());
         }
 
         static StatusReportView createOrg(StatusReport r) {
-            return new StatusReportView(r.getTargetSystem(), r.getTargetOrganization(), "", 0, 0, r.getOldestMessageDate());
+            return new StatusReportView(r.getTargetSystem(), r.getTargetOrganization(), "", 0, 0, 0, r.getOldestMessageDate());
         }
 
     }
