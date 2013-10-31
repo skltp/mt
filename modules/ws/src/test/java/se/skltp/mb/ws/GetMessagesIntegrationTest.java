@@ -3,6 +3,7 @@ package se.skltp.mb.ws;
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 
 import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
@@ -30,7 +31,7 @@ import se.skltp.mb.intsvc.XmlUtils;
 public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
-	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException, JMSException {
+	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException, JMSException, SQLException {
 		
 		sendOneMessageAndWait();
 		resetNumberOfLoggedMessages();
@@ -50,6 +51,9 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 		assertEquals(messageIdToFind, responseType.getMessageId());
 		assertEquals(targetOrg, responseType.getTargetOrganization());
 		assertEquals(tkName, responseType.getServiceContractType().getServiceContractNamespace());
+		
+		// Should be one message left in DB
+		assertEquals(1, countNumberOfMessages());
 
 		// Verify that the sent message is the same as the one we got
 		Node node = XmlUtils.getStringAsDom(responseType.getMessage()).getNode();

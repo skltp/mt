@@ -3,6 +3,7 @@ package se.skltp.mb.ws;
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.jms.JMSException;
@@ -31,10 +32,11 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 	/**
 	 * Send a message
 	 * @throws JMSException 
+	 * @throws SQLException 
 	 * @throws InterruptedException 
 	 */
 	@Test
-	public void receive_OK() throws SOAPException, MalformedURLException, JMSException {
+	public void receive_OK() throws SOAPException, MalformedURLException, JMSException, SQLException {
 		
         SOAPMessage soapMessage = createIncomingMessage(tkName, targetOrg);
         SOAPMessage response = sendToReceive(soapMessage);
@@ -42,10 +44,12 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         // Should be empty
         assertEquals(0, response.getSOAPBody().getChildNodes().getLength());
         
-
-        // Should be 1 log message on the infoQueue
+        // Should be 1 log message on the infoQueue and none in the errorQueue
         assertEquals(1, countNumberOfLogMessages(infoQueueName));
         assertEquals(0, countNumberOfLogMessages(errorQueueName));
+
+        // The DB should contain one message
+        assertEquals(1, countNumberOfMessages());
         resetNumberOfLoggedMessages();
         
         // Check for 1 message
@@ -62,15 +66,15 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         assertEquals(tkName, meta.getServiceContractType());
         assertEquals(MessageStatusType.RECEIVED, meta.getStatus());
         
+        
         // List should not generate any log messages
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         assertEquals(0, countNumberOfLogMessages(errorQueueName));
-
 	}
 	
 	
 	@Test
-	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException  {
+	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException, SQLException  {
 		
         SOAPMessage soapMessage;
 		soapMessage = createIncomingMessage(tkName, "");

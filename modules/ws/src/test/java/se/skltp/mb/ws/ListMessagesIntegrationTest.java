@@ -24,6 +24,7 @@ import se.skltp.mb.ws.base.BaseIntegrationTest;
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
 public class ListMessagesIntegrationTest extends BaseIntegrationTest {
 
+	
 	@Test
 	public void list_OK() throws MalformedURLException, SOAPException, JMSException {
 

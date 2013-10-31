@@ -3,6 +3,7 @@ package se.skltp.mb.ws;
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 
 import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
@@ -24,7 +25,7 @@ import se.skltp.mb.ws.base.BaseIntegrationTest;
 public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
-	public void delete_OK() throws MalformedURLException, SOAPException, JMSException {
+	public void delete_OK() throws MalformedURLException, SOAPException, JMSException, SQLException {
 		sendOneMessageAndWait();
 
 		long messageId = getMessageId();
@@ -53,7 +54,7 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
 	}
 	
 	@Test
-	public void delete_ERR_delete_invalid_msg_id() throws MalformedURLException, SOAPException, JMSException {
+	public void delete_ERR_delete_invalid_msg_id() throws MalformedURLException, SOAPException, JMSException, SQLException {
 		sendOneMessageAndWait();
 		resetNumberOfLoggedMessages();
 		
@@ -75,7 +76,6 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         assertEquals(1, countNumberOfLogMessages(errorQueueName));
 	}
-	
 	
 	
 }

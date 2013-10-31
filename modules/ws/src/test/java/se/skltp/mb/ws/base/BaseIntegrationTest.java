@@ -2,6 +2,10 @@ package se.skltp.mb.ws.base;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.jms.Connection;
@@ -56,6 +60,7 @@ import se.riv.itintegration.messagebox.v1.MessageMetaType;
 public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests implements MessageListener {
 
 	private static final String ENDPOINT_URL = "http://localhost:8081";
+	private static final int ENDPOINT_PORT = 8081;
 	private static final String MT_LOGICAL_ADDRESS = "Inera";
 	protected static final String TK_CONTENT = "content";
 	protected static final String TK_NODE_NAME = "Question";
@@ -65,8 +70,8 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected static final String targetOrg = "targetOrg";
 	
 	// ActiveMQ
-//	protected static final String brokerURL="tcp://localhost:61616";
-	protected static final String brokerURL="tcp://localhost:62626";
+	protected static final String brokerURL="tcp://localhost:61616";
+//	protected static final String brokerURL="tcp://localhost:62626";
 	protected static final String errorQueueName = "MT_DEFAULT_ERROR";
 	protected static final String infoQueueName = "MT_DEFAULT_INFO";
 	
@@ -79,12 +84,14 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	
 	protected static BrokerService broker;
 	protected static Server server;
+	private java.sql.Connection dbConnection;
+	
 	
 	@BeforeClass
 	public static void startJetty() throws Exception {
 	
 		System.err.println("SETTING UP");
-		server = new Server(8081);
+		server = new Server(ENDPOINT_PORT);
 
 		// Working direcory when runnning tests needs to be modules/ws
 		WebAppContext context = new WebAppContext();
@@ -104,32 +111,26 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	}
 
 	
-	@BeforeClass
+//	@BeforeClass
 	public static void startAMQ() throws Exception {
 		broker = new BrokerService();
 		
 		broker.addConnector("tcp://localhost:62626");
 		broker.start();
-		
-	//		try {
-	//			
-	//			
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//			System.out.println("COULD NOT SETUP BROKER");
-	//		}
 	}
 
-	@BeforeClass
+//	@BeforeClass
 	public static void stopAMQ() throws Exception {
 		broker.stop();
 	}
 
-	
 
-	@BeforeTransaction
-	public void foo() {
-		deleteFromTables("message_meta", "message_body");
+	@BeforeTransaction	
+	public void truncateTables() throws SQLException {
+		Statement statement = dbConnection.createStatement();
+		statement.execute("DELETE FROM message_meta");
+		statement.execute("DELETE FROM message_body");
+		statement.close();
 	}
 	
 
@@ -138,16 +139,19 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		resetNumberOfLoggedMessages();
 	}
 	
+	
 	@After
-	public void tearDown() throws JMSException {
+	public void tearDown() throws JMSException, SQLException {
 		infoConsumer.close();
 		errorConsumer.close();
 		connection.stop();
 		
+		// close down the db connection
+		dbConnection.close();
+		
 		try {
 			Thread.sleep(250);
 		} catch (InterruptedException e) {
-			System.err.println("FOOBAR123");
 			e.printStackTrace();
 		}
 	}
@@ -183,6 +187,12 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 			e.printStackTrace();
 		}
 
+		// Set up DB-connection
+		try {
+			dbConnection = DriverManager.getConnection("jdbc:hsqldb:mem:.", "sa","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void resetNumberOfLoggedMessages() {
@@ -239,9 +249,15 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	/**
 	 * Counts the number of messages in the message_meta table.
 	 * @return number of messages
+	 * @throws SQLException 
 	 */
-	protected int countNumberOfMessages() {
-		return countRowsInTable("message_meta");
+	protected int countNumberOfMessages() throws SQLException {
+		
+		Statement statement = dbConnection.createStatement();
+		ResultSet executeQuery = statement.executeQuery("SELECT count(*) FROM message_meta");
+		executeQuery.next();
+
+		return executeQuery.getInt(1);
 	}
 
 	/**
