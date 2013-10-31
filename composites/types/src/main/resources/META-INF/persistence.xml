@@ -30,7 +30,7 @@
         <class>se.skltp.mb.types.entity.Statistic</class>
 		<class>se.skltp.mb.types.entity.SystemProperty</class>
 		<properties>
-			<property name="hbm2ddl.auto" value="create"/>
+			<property name="hbm2ddl.auto" value="validate"/>
 		</properties>
 	</persistence-unit>
 
