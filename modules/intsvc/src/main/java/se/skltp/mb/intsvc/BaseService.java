@@ -18,14 +18,7 @@
  */
 package se.skltp.mb.intsvc;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -33,8 +26,6 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
-import org.springframework.web.util.UriUtils;
-
 import se.riv.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.mb.svc.loghandler.ContextData;
 import se.skltp.mb.svc.loghandler.JMSQueueAppender;
@@ -154,22 +145,6 @@ public abstract class BaseService {
         return sorted;
     }
 
-    protected String uf8DecodeUri(String encodedHsaId) {
-        try {
-            return UriUtils.decode(encodedHsaId, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    protected String utf8EncodeUriFragment(String consumerHsaId) {
-        try {
-            return UriUtils.encodeFragment(consumerHsaId, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);   // not reachable, tied to "utf-8"
-        }
-    }
-
     /**
      * Translates the entity MessageStatus to the schema MessageStatusType.
      * <p/>
@@ -276,14 +251,11 @@ public abstract class BaseService {
      */
     public abstract Logger getLogger();
 
-    
+
     /**
      * Reset the "data channel" so that we don't polute between calls.
      */
     public void resetLogContext() {
-        try {
-            JMSQueueAppender.setContextData(new ContextData());
-        } catch (Exception e) {
-        }
+        JMSQueueAppender.setContextData(new ContextData());
     }
 }
