@@ -10,14 +10,14 @@
 	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
 	the specific language governing permissions and limitations under the License. -->
 <xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
-           xmlns:mb='urn:riv:itintegration:messagebox:1'
+           xmlns:mb='urn:riv:infrastructure:itintegration:messagebox:1'
            xmlns:reg='urn:riv:itintegration:registry:1'
-           xmlns:tns='urn:riv:itintegration:messagebox:ListMessagesResponder:1'
-           targetNamespace='urn:riv:itintegration:messagebox:ListMessagesResponder:1'
+           xmlns:tns='urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1'
+           targetNamespace='urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1'
            elementFormDefault='qualified' attributeFormDefault='unqualified'
            version='1.0'>
-    <xs:import schemaLocation='../../core_components/itintegration_messagebox_1.0.xsd'
-               namespace='urn:riv:itintegration:messagebox:1'/>
+    <xs:import schemaLocation='../../core_components/infrastructure_itintegration_messagebox_1.0.xsd'
+               namespace='urn:riv:infrastructure:itintegration:messagebox:1'/>
     <xs:element name='ListMessages' type='tns:ListMessagesType'/>
     <xs:element name='ListMessagesResponse' type='tns:ListMessagesResponseType'/>
 

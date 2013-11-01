@@ -13,11 +13,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
-import se.riv.itintegration.messagebox.v1.MessageMetaType;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.ws.base.BaseIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)

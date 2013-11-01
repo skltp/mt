@@ -16,15 +16,16 @@
  KIND, either express or implied. See the License for the
  specific language governing permissions and limitations
  under the License.
- -->		
+ -->
 <xs:schema
         xmlns:xs='http://www.w3.org/2001/XMLSchema'
-        xmlns:tns='urn:riv:itintegration:messagebox:1'
+        xmlns:tns='urn:riv:infrastructure:itintegration:messagebox:1'
         xmlns:reg='urn:riv:itintegration:registry:1'
-        targetNamespace='urn:riv:itintegration:messagebox:1'
+        targetNamespace='urn:riv:infrastructure:itintegration:messagebox:1'
         elementFormDefault='qualified'
         attributeFormDefault='unqualified'
-        version='1.0'>
+        version='1.0'
+        >
 
     <xs:annotation>
         <xs:documentation>
@@ -36,23 +37,23 @@
 
     <xs:complexType name="MessageMetaType">
         <xs:sequence>
-            <xs:element name="messageId" type="xs:long" />
-            <xs:element name="targetOrganization" type="reg:LogicalAddressType" />
-            <xs:element name="serviceContractType" type="xs:string" />
-            <xs:element name="messageSize" type="xs:long" />
-            <xs:element name="arrivalTime" type="xs:dateTime" />
+            <xs:element name="messageId" type="xs:long"/>
+            <xs:element name="targetOrganization" type="reg:LogicalAddressType"/>
+            <xs:element name="serviceContractType" type="xs:string"/>
+            <xs:element name="messageSize" type="xs:long"/>
+            <xs:element name="arrivalTime" type="xs:dateTime"/>
             <xs:element name="status" type="tns:MessageStatusType"/>
 
-            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
 
     <xs:simpleType name="MessageStatusType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="RECEIVED" />
-            <xs:enumeration value="RETRIEVED" />
-            <xs:enumeration value="DELETED" />
+            <xs:enumeration value="RECEIVED"/>
+            <xs:enumeration value="RETRIEVED"/>
+            <xs:enumeration value="DELETED"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -65,10 +66,10 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="code" type="tns:ResultCodeEnum" />
-            <xs:element name="errorId" type="xs:int" minOccurs="0" maxOccurs="1" />
-            <xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1" />
-            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="code" type="tns:ResultCodeEnum"/>
+            <xs:element name="errorId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 

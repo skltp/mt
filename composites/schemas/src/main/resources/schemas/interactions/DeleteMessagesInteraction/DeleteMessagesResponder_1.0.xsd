@@ -18,13 +18,13 @@
  under the License.
  -->
 <xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
-           xmlns:mb='urn:riv:itintegration:messagebox:1'
-           xmlns:tns='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1'
-           targetNamespace='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1'
+           xmlns:mb='urn:riv:infrastructure:itintegration:messagebox:1'
+           xmlns:tns='urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1'
+           targetNamespace='urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1'
            elementFormDefault='qualified'
            attributeFormDefault='unqualified' version='1.0'>
-    <xs:import schemaLocation='../../core_components/itintegration_messagebox_1.0.xsd'
-               namespace='urn:riv:itintegration:messagebox:1'/>
+    <xs:import schemaLocation='../../core_components/infrastructure_itintegration_messagebox_1.0.xsd'
+               namespace='urn:riv:infrastructure:itintegration:messagebox:1'/>
     <xs:element name='DeleteMessages' type='tns:DeleteMessagesType'/>
     <xs:element name='DeleteMessagesResponse' type='tns:DeleteMessagesResponseType'/>
 

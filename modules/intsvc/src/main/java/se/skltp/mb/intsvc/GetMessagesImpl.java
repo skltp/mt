@@ -25,19 +25,19 @@ import javax.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultType;
 import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.mb.types.entity.MessageMeta;
 
 @WebService(serviceName = "GetMessagesResponderService",
-        endpointInterface = "se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface",
+        endpointInterface = "se.riv.infrastructure.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface",
         portName = "GetMessagesResponderPort",
-        targetNamespace = "urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21",
+        targetNamespace = "urn:riv:infrastructure:itintegration:messagebox:GetMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/GetMessagesInteraction/GetMessagesInteraction_1.0_rivtabp21.wsdl")
 public class GetMessagesImpl extends BaseService implements GetMessagesResponderInterface {
 

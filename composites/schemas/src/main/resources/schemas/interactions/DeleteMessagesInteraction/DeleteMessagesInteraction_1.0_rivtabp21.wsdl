@@ -17,22 +17,22 @@
  specific language governing permissions and limitations
  under the License.
  -->		
-<wsdl:definitions name='DeleteMessagesInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1' xmlns:tjsi='urn:riv:itintegration:messagebox:DeleteMessagesInitiator:1' xmlns:tns='urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21' targetNamespace='urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
+<wsdl:definitions name='DeleteMessagesInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1' xmlns:tjsi='urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesInitiator:1' xmlns:tns='urn:riv:infrastructure:itintegration:messagebox:DeleteMessages:1:rivtabp21' targetNamespace='urn:riv:infrastructure:itintegration:messagebox:DeleteMessages:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
   <xs:annotation>
     <xs:documentation>
 			 Tjänsteinteraktionens namn: DeleteMessagesInteraction
 			 Beskrivning: 
 			   Delete messages from the messagebox
 			 Revisioner: 
-			 Tjänstedomän: itintegration:messagebox
+			 Tjänstedomän: infrastructure:itintegration:messagebox
 			 Tjänsteinteraktionstyp: Fråga-Svar
 			 WS-profil: RIVTABP21
 			 Förvaltas av: Sveriges Kommuner och Landsting
 			 </xs:documentation>
   </xs:annotation>
   <wsdl:types>
-    <xs:schema targetNamespace='urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21'>
-      <xs:import schemaLocation='DeleteMessagesResponder_1.0.xsd' namespace='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1' />
+    <xs:schema targetNamespace='urn:riv:infrastructure:itintegration:messagebox:DeleteMessages:1:rivtabp21'>
+      <xs:import schemaLocation='DeleteMessagesResponder_1.0.xsd' namespace='urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1' />
       <xs:import schemaLocation='../../core_components/itintegration_registry_1.0.xsd' namespace='urn:riv:itintegration:registry:1' />
     </xs:schema>
   </wsdl:types>
@@ -54,7 +54,7 @@
   <wsdl:binding name='DeleteMessagesResponderBinding' type='tns:DeleteMessagesResponderInterface'>
     <soap:binding style='document' transport='http://schemas.xmlsoap.org/soap/http' />
     <wsdl:operation name='DeleteMessages'>
-      <soap:operation soapAction='urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages' style='document' />
+      <soap:operation soapAction='urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages' style='document' />
       <wsdl:input>
         <soap:header use='literal' message='tns:DeleteMessagesRequest' part='LogicalAddress' />
         <soap:body use='literal' parts='parameters' />

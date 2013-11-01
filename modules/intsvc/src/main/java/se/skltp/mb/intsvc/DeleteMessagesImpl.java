@@ -26,19 +26,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultType;
 import se.skltp.mb.svc.exception.UnreadDeleteException;
 import se.skltp.mb.types.entity.MessageMeta;
 import se.skltp.mb.types.services.TimeService;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
-        endpointInterface = "se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface",
+        endpointInterface = "se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface",
         portName = "DeleteMessagesResponderPort",
-        targetNamespace = "urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21",
+        targetNamespace = "urn:riv:infrastructure:itintegration:messagebox:DeleteMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/DeleteMessagesInteraction/DeleteMessagesInteraction_1.0_rivtabp21.wsdl")
 public class DeleteMessagesImpl extends BaseService implements DeleteMessagesResponderInterface {
 

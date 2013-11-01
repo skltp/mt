@@ -26,7 +26,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.skltp.mb.svc.loghandler.ContextData;
 import se.skltp.mb.svc.loghandler.JMSQueueAppender;
 import se.skltp.mb.svc.services.MessageService;
