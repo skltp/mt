@@ -70,8 +70,8 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected static final String targetOrg = "targetOrg";
 	
 	// ActiveMQ
-	protected static final String brokerURL="tcp://localhost:61616";
-//	protected static final String brokerURL="tcp://localhost:62626";
+//	protected static final String brokerURL="tcp://localhost:61616";
+	protected static final String brokerURL="tcp://localhost:62626";
 	protected static final String errorQueueName = "MT_DEFAULT_ERROR";
 	protected static final String infoQueueName = "MT_DEFAULT_INFO";
 	
@@ -111,7 +111,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	}
 
 	
-//	@BeforeClass
+	@BeforeClass
 	public static void startAMQ() throws Exception {
 		broker = new BrokerService();
 		
@@ -119,7 +119,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		broker.start();
 	}
 
-//	@BeforeClass
+	@AfterClass
 	public static void stopAMQ() throws Exception {
 		broker.stop();
 	}
