@@ -125,7 +125,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 
 	@BeforeTransaction
 	public void foo() {
-		deleteFromTables("message_meta", "message_body");
+		deleteFromTables( "message_body", "message_meta");
 	}
 	
 
