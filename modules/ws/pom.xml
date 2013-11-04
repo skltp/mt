@@ -25,13 +25,8 @@
 
 
     <properties>
-
-        <!-- This example has no unit tests, just integration tests -->
-        <skipTests>true</skipTests>
         <checkstyle.basedir>${project.basedir}/..</checkstyle.basedir>
-        
         <jetty.version>8.1.13.v20130916</jetty.version>
-
     </properties>
 
 

@@ -114,7 +114,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	@BeforeClass
 	public static void startAMQ() throws Exception {
 		broker = new BrokerService();
-		
+		broker.setDataDirectory("/tmp/mt-activemq/");
 		broker.addConnector("tcp://localhost:62626");
 		broker.start();
 	}
