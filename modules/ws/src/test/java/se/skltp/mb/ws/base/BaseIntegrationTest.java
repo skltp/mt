@@ -96,9 +96,8 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		// Working direcory when runnning tests needs to be modules/ws
 		WebAppContext context = new WebAppContext();
 		context.setDescriptor("/WEB-INF/web.xml");
-		context.setResourceBase("src/main/webapp");
+		context.setResourceBase("src/test/webapp");
 		context.setContextPath("/");
-		
 		server.setHandler(context);
 		server.start();
 	}

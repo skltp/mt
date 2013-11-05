@@ -43,28 +43,13 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 
-	<bean id="jmsQueueAppender" class="se.skltp.mb.svc.loghandler.JMSQueueAppender">
-<!-- 		<property name="brokerURL" value="tcp://localhost:61616"/> -->
-		<property name="brokerURL">
-			<value>tcp://localhost:61616</value>
-		</property>
-		<property name="infoQueueName" value="MTINFO" />
-		<property name="errorQueueName" value="MTERROR" />
-	</bean>
 	
-<!-- 	<bean id="amqConnectionFactory"  -->
-<!-- 		class="org.apache.activemq.ActiveMQConnectionFactory" -->
-<!--    	 	p:brokerURL="tcp://localhost:61616" /> -->
-	
-	
-
-<!--     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/> -->
-    <bean id="dataSource"
+	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" />
-		<property name="url" value="jdbc:mysql://localhost:3306/messagebox?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB" />
-		<property name="username" value="messageboxuser" />
-		<property name="password" value="messageboxpassword" />
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:.;hsqldb.tx=mvcc" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
 	</bean>
     
 
@@ -74,10 +59,12 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="${jpa.showSql}" />
+				<property name="showSql" value="false" />
 				<property name="generateDdl" value="true" />
-				<property name="database" value="${jpa.database}" />
+				<property name="database" value="HSQL" />
 			</bean>
 		</property>
 	</bean>
+
+	
 </beans>
