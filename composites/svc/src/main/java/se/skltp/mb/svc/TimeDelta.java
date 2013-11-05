@@ -81,11 +81,9 @@ public class TimeDelta {
         if ( days > 0 ) {
             sb.append(days).append("d ");
         }
-        if ( days > 0 || hours > 0 ) {
-            sb.append(pad(hours, "00"));
-        }
+        sb.append(pad(hours, "00"));
         if ( precision.ordinal() <= Precision.min.ordinal() ) {
-            if (sb.length() > 0) {
+            if ( sb.length() > 0 ) {
                 sb.append(":");
             }
             sb.append(pad(minutes, "00"));
