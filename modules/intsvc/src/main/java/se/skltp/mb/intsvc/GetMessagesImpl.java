@@ -85,7 +85,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
         } catch (Exception e) {
             
             String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to get messages";
-            logWarn(getLogger(), msg, null, null, e);
+            logError(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());

@@ -93,7 +93,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
             response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
 
-            // Log at warning level that someone tried to do something silly
+            // Log at warning level that the user tried to do something silly
             for ( MessageMeta msg : e.getUnreadMessages() ) {
                 String msgId = String.valueOf(msg.getId());
                 logWarn(getLogger(), callingSystem + " attempted to delete unread message " + msgId, msgId, msg, null);
@@ -101,7 +101,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         } catch (Exception e) {
 
             String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to delete messages";
-            logWarn(getLogger(), msg, null, null, e);
+            logError(getLogger(), msg, null, null, e);
 
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
