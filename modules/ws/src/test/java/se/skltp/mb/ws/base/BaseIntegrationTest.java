@@ -1,5 +1,6 @@
 package se.skltp.mb.ws.base;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.DriverManager;
@@ -134,13 +135,17 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	
 
 	@Before
-	public void setup() throws JMSException {
+	public void setup() throws JMSException, IOException {
+		broker.deleteAllMessages();
 		resetNumberOfLoggedMessages();
 	}
 	
 	
 	@After
-	public void tearDown() throws JMSException, SQLException {
+	public void tearDown() throws JMSException, SQLException, IOException {
+		
+		broker.deleteAllMessages();
+		
 		infoConsumer.close();
 		errorConsumer.close();
 		connection.stop();
