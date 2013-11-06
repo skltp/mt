@@ -71,7 +71,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected static final String targetOrg = "targetOrg";
 	
 	// ActiveMQ
-//	protected static final String brokerURL="tcp://localhost:61616";
 	protected static final String brokerURL="tcp://localhost:62626";
 	protected static final String errorQueueName = "MT_DEFAULT_ERROR";
 	protected static final String infoQueueName = "MT_DEFAULT_INFO";
@@ -91,7 +90,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	@BeforeClass
 	public static void startJetty() throws Exception {
 	
-		System.err.println("SETTING UP");
 		server = new Server(ENDPOINT_PORT);
 
 		// Working direcory when runnning tests needs to be modules/ws
@@ -106,7 +104,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 
 	@AfterClass
 	public static void stopJetty() throws Exception {
-		System.err.println("TEARING DOWN JETTY");
 		server.stop();
 	}
 
@@ -115,7 +112,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	public static void startAMQ() throws Exception {
 		broker = new BrokerService();
 		broker.setDataDirectory("/tmp/mt-activemq/");
-		broker.addConnector("tcp://localhost:62626");
+		broker.addConnector(brokerURL);
 		broker.start();
 	}
 
@@ -156,7 +153,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 		try {
 			Thread.sleep(250);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -184,10 +180,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 			errorConsumer = session.createConsumer(errorDest);
 			errorConsumer.setMessageListener(this);
 			
-			System.err.println("DONE WOTH CONNECTIONS");
-			
 		} catch (JMSException e) {
-			System.err.println("GOT A JMS EXCEPTION!!!!!");
 			e.printStackTrace();
 		}
 
