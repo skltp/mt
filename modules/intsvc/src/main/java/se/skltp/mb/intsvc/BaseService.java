@@ -206,6 +206,7 @@ public abstract class BaseService {
     }
 
 
+
     /**
      * Log a custom  message
      *
@@ -253,9 +254,9 @@ public abstract class BaseService {
 
 
     /**
-     * Reset the "data channel" so that we don't polute between calls.
+     * Reset the "data channel" so that we don't pollute the thread.
      */
     public void resetLogContext() {
-        JMSQueueAppender.setContextData(new ContextData());
+        JMSQueueAppender.setContextData(null);
     }
 }
