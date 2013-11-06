@@ -59,12 +59,12 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21=se.riv.itintegration.messagebox.ListMessages.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:ListMessages:1:rivtabp21=se.riv.infrastructure.itintegration.messagebox.ListMessages.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:1=se.riv.itintegration.messagebox.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:1=se.riv.infrastructure.itintegration.messagebox.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -74,15 +74,7 @@
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:itintegration:messagebox:ListMessagesResponder:1=se.riv.itintegration.messagebox.ListMessagesResponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
+                                            urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1=se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1
                                         </extraarg>
                                         <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
                                     </extraargs>
@@ -97,12 +89,12 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:GetMessages:1:rivtabp21=se.riv.itintegration.messagebox.GetMessages.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:GetMessages:1:rivtabp21=se.riv.infrastructure.itintegration.messagebox.GetMessages.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:1=se.riv.itintegration.messagebox.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:1=se.riv.infrastructure.itintegration.messagebox.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -112,15 +104,7 @@
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:itintegration:messagebox:GetMessagesResponder:1=se.riv.itintegration.messagebox.GetMessagesResponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
+                                            urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1=se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1
                                         </extraarg>
                                         <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
                                     </extraargs>
@@ -135,12 +119,12 @@
                                         Note: be careful when changing this - must be in sync for all
                                         schemas generations in this namespace!
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21=se.riv.itintegration.messagebox.DeleteMessages.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:DeleteMessages:1:rivtabp21=se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:riv:itintegration:messagebox:1=se.riv.itintegration.messagebox.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:1=se.riv.infrastructure.itintegration.messagebox.v1
                                         </extraarg>
 
                                         <extraarg>-p</extraarg>
@@ -150,58 +134,13 @@
 
                                         <extraarg>-p</extraarg>
                                         <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
+                                            urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1=se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1
                                         </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:itintegration:messagebox:DeleteMessagesResponder:1=se.riv.itintegration.messagebox.DeleteMessagesResponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
+
                                         <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
                                     </extraargs>
                                     <wsdl>
                                         ${schema.path}/interactions/DeleteMessagesInteraction/DeleteMessagesInteraction_1.0_rivtabp21.wsdl
-                                    </wsdl>
-                                </wsdlOption>
-
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        Note: be careful when changing this - must be in sync for all
-                                        schemas generations in this namespace!
-                                        <extraarg>
-                                            urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21=se.riv.itintegration.messagebox.GenerateUrl.v1
-                                        </extraarg>
-
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:itintegration:messagebox:1=se.riv.itintegration.messagebox.v1
-                                        </extraarg>
-
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1
-                                        </extraarg>
-
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:iso:21090:dt:1=iso.v21090.dt.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            urn:riv:itintegration:messagebox:GenerateUrlResponder:1=se.riv.itintegration.messagebox.GenerateUrlResponder.v1
-                                        </extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>
-                                            http://www.w3.org/2005/08/addressing=org.w3.wsaddressing10
-                                        </extraarg>
-                                        <extraarg>-xjc-b,${basedir}/src/main/resources/jaxb-bindings.xjb</extraarg>
-                                    </extraargs>
-                                    <wsdl>
-                                        ${schema.path}/interactions/GenerateUrlInteraction/GenerateUrlInteraction_1.0_rivtabp21.wsdl
                                     </wsdl>
                                 </wsdlOption>
 
@@ -235,7 +174,7 @@
                                         </extraarg>
                                     </extraargs>
                                     <wsdl>
-                                        ${schema.path}/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl
+                                        ${schema.path}/external/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl
                                     </wsdl>
                                 </wsdlOption>
 

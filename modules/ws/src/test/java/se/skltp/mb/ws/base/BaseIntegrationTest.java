@@ -39,19 +39,19 @@ import org.junit.Ignore;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
-import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
-import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderService;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
-import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
-import se.riv.itintegration.messagebox.GetMessages.v1.GetMessagesResponderService;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
-import se.riv.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface;
-import se.riv.itintegration.messagebox.ListMessages.v1.ListMessagesResponderService;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
-import se.riv.itintegration.messagebox.v1.MessageMetaType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderService;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.GetMessages.v1.GetMessagesResponderService;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.ListMessages.v1.ListMessagesResponderService;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
 
 /**
  * Contains convenience methods and settings for integration tests
@@ -125,8 +125,8 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	@BeforeTransaction	
 	public void truncateTables() throws SQLException {
 		Statement statement = dbConnection.createStatement();
-		statement.execute("DELETE FROM message_meta");
 		statement.execute("DELETE FROM message_body");
+		statement.execute("DELETE FROM message_meta");
 		statement.close();
 	}
 	

@@ -44,7 +44,8 @@
 			#foreach( $report in $reports )
 			<tr #if($count%2==0)class="evenRow linkedTableRow"#else class="oddRow linkedTableRow"#end>
 		  		<td title="#springMessage('common.targetSys.tooltip')">
-                      #if($report.targetOrganization.length() == 0)$report.targetSystem#end</td>
+                      <!-- #if($report.targetOrganization.length() == 0)$report.targetSystem#end</td> -->
+                      #if($report.targetOrganization.length() == 0)Total#end</td>
 		  		<td title="#springMessage('common.targetOrg.tooltip')">
                       #if($report.serviceContract.toString().length()==0)$report.targetOrganization#end</td>
                 <td title="$report.serviceContract.fullName">$report.serviceContract</td>

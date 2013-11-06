@@ -17,46 +17,46 @@
  specific language governing permissions and limitations
  under the License.
  -->		
-<wsdl:definitions name='GenerateUrlInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:itintegration:messagebox:GenerateUrlResponder:1' xmlns:tjsi='urn:riv:itintegration:messagebox:GenerateUrlInitiator:1' xmlns:tns='urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21' targetNamespace='urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
+<wsdl:definitions name='GetMessagesInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1' xmlns:tjsi='urn:riv:infrastructure:itintegration:messagebox:GetMessagesInitiator:1' xmlns:tns='urn:riv:infrastructure:itintegration:messagebox:GetMessages:1:rivtabp21' targetNamespace='urn:riv:infrastructure:itintegration:messagebox:GetMessages:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
   <xs:annotation>
     <xs:documentation>
-			 Tjänsteinteraktionens namn: GenerateUrlInteraction
+			 Tjänsteinteraktionens namn: GetMessagesInteraction
 			 Beskrivning: 
-			   Genererar URL för användning av meddelandetjänsten given HSA-ID för en List/Get/Delete konsument
+			   Get messages from the messagebox
 			 Revisioner: 
-			 Tjänstedomän: itintegration:messagebox
+			 Tjänstedomän: infrastructure:itintegration:messagebox
 			 Tjänsteinteraktionstyp: Fråga-Svar
 			 WS-profil: RIVTABP21
 			 Förvaltas av: Sveriges Kommuner och Landsting
 			 </xs:documentation>
   </xs:annotation>
   <wsdl:types>
-    <xs:schema targetNamespace='urn:riv:itintegration:messagebox:GenerateUrl:1:rivtabp21'>
-      <xs:import schemaLocation='GenerateUrlResponder_1.0.xsd' namespace='urn:riv:itintegration:messagebox:GenerateUrlResponder:1' />
+    <xs:schema targetNamespace='urn:riv:infrastructure:itintegration:messagebox:GetMessages:1:rivtabp21'>
+      <xs:import schemaLocation='GetMessagesResponder_1.0.xsd' namespace='urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1' />
       <xs:import schemaLocation='../../core_components/itintegration_registry_1.0.xsd' namespace='urn:riv:itintegration:registry:1' />
     </xs:schema>
   </wsdl:types>
-  <wsdl:message name='GenerateUrlRequest'>
+  <wsdl:message name='GetMessagesRequest'>
     <wsdl:part name='LogicalAddress' element='itr:LogicalAddress'>
       <wsdl:documentation>The organisation number of the National Service Platform</wsdl:documentation>
     </wsdl:part>
-    <wsdl:part name='parameters' element='tjsr:GenerateUrl' />
+    <wsdl:part name='parameters' element='tjsr:GetMessages' />
   </wsdl:message>
-  <wsdl:message name='GenerateUrlResponse'>
-    <wsdl:part name='parameters' element='tjsr:GenerateUrlResponse' />
+  <wsdl:message name='GetMessagesResponse'>
+    <wsdl:part name='parameters' element='tjsr:GetMessagesResponse' />
   </wsdl:message>
-  <wsdl:portType name='GenerateUrlResponderInterface'>
-    <wsdl:operation name='GenerateUrl'>
-      <wsdl:input message='tns:GenerateUrlRequest' />
-      <wsdl:output message='tns:GenerateUrlResponse' />
+  <wsdl:portType name='GetMessagesResponderInterface'>
+    <wsdl:operation name='GetMessages'>
+      <wsdl:input message='tns:GetMessagesRequest' />
+      <wsdl:output message='tns:GetMessagesResponse' />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name='GenerateUrlResponderBinding' type='tns:GenerateUrlResponderInterface'>
+  <wsdl:binding name='GetMessagesResponderBinding' type='tns:GetMessagesResponderInterface'>
     <soap:binding style='document' transport='http://schemas.xmlsoap.org/soap/http' />
-    <wsdl:operation name='GenerateUrl'>
-      <soap:operation soapAction='urn:riv:itintegration:messagebox:GenerateUrlResponder:1:GenerateUrl' style='document' />
+    <wsdl:operation name='GetMessages'>
+      <soap:operation soapAction='urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1:GetMessages' style='document' />
       <wsdl:input>
-        <soap:header use='literal' message='tns:GenerateUrlRequest' part='LogicalAddress' />
+        <soap:header use='literal' message='tns:GetMessagesRequest' part='LogicalAddress' />
         <soap:body use='literal' parts='parameters' />
       </wsdl:input>
       <wsdl:output>
@@ -64,8 +64,8 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name='GenerateUrlResponderService'>
-    <wsdl:port name='GenerateUrlResponderPort' binding='tns:GenerateUrlResponderBinding'>
+  <wsdl:service name='GetMessagesResponderService'>
+    <wsdl:port name='GetMessagesResponderPort' binding='tns:GetMessagesResponderBinding'>
       <soap:address location='http://tempuri.org' />
     </wsdl:port>
   </wsdl:service>

@@ -27,19 +27,19 @@ import javax.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.riv.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
-import se.riv.itintegration.messagebox.v1.MessageMetaType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultType;
 import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.mb.types.entity.MessageMeta;
 
 @WebService(serviceName = "ListMessagesResponderService",
-        endpointInterface = "se.riv.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface",
+        endpointInterface = "se.riv.infrastructure.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface",
         portName = "ListMessagesResponderPort",
-        targetNamespace = "urn:riv:itintegration:messagebox:ListMessages:1:rivtabp21",
+        targetNamespace = "urn:riv:infrastructure:itintegration:messagebox:ListMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/ListMessagesInteraction/ListMessagesInteraction_1.0_rivtabp21.wsdl")
 public class ListMessagesImpl extends BaseService implements ListMessagesResponderInterface {
 
@@ -96,7 +96,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
         } catch (Exception e) {
             
             String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to list messages";
-            logWarn(getLogger(), msg, null, null, e);
+            logError(getLogger(), msg, null, null, e);
             
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());

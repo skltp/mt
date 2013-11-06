@@ -249,7 +249,7 @@
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/itintegration/messagebox/ListMessages/1/rivtabp21</stringProp>
-          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
@@ -260,7 +260,7 @@
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
           <stringProp name="SoapSampler.xml_data_file"></stringProp>
-          <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages</stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1:ListMessages</stringProp>
           <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
         </SoapSampler>
@@ -325,7 +325,7 @@
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
               <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/itintegration/messagebox/GetMessages/1/rivtabp21</stringProp>
-              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
+              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
@@ -359,7 +359,7 @@
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
               <stringProp name="SoapSampler.URL_DATA">${HOST}/HOST_VP/itintegration/messagebox/DeleteMessages/1/rivtabp21</stringProp>
-              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
+              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
@@ -370,7 +370,7 @@
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
               <stringProp name="SoapSampler.xml_data_file"></stringProp>
-              <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages</stringProp>
+              <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages</stringProp>
               <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
               <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
             </SoapSampler>
@@ -711,7 +711,7 @@
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="SoapSampler.URL_DATA">${HOST}/ListMessages/1/rivtabp21</stringProp>
-          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
@@ -722,7 +722,7 @@
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
           <stringProp name="SoapSampler.xml_data_file"></stringProp>
-          <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:itintegration:messagebox:ListMessagesResponder:1:ListMessages</stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1:ListMessages</stringProp>
           <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
         </SoapSampler>
@@ -755,7 +755,7 @@
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
               <stringProp name="SoapSampler.URL_DATA">${HOST}/GetMessages/1/rivtabp21</stringProp>
-              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
+              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
@@ -789,7 +789,7 @@
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
               <stringProp name="SoapSampler.URL_DATA">${HOST}/DeleteMessages/1/rivtabp21</stringProp>
-              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
+              <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
@@ -800,7 +800,7 @@
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
               <stringProp name="SoapSampler.xml_data_file"></stringProp>
-              <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages</stringProp>
+              <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1:DeleteMessages</stringProp>
               <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
               <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
             </SoapSampler>

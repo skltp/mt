@@ -39,7 +39,7 @@ import se.skltp.mb.types.entity.MessageMeta;
 @ServiceMode(value = Service.Mode.MESSAGE)
 @WebServiceProvider(
         /* this is an any-input-service, so we just leave out the wsdl (?)
-        targetNamespace = "urn:riv:itintegration:messagebox:ReceiveMessage:1:rivtabp21",
+        targetNamespace = "urn:riv:infrastructure:itintegration:messagebox:ReceiveMessage:1:rivtabp21",
         wsdlLocation = "schemas/interactions/ReceiveMessageInteraction/ReceiveMessageInteraction_1.0_rivtabp21.wsdl",
         */
         serviceName = "ReceiveMessageHttpService",
@@ -48,7 +48,6 @@ import se.skltp.mb.types.entity.MessageMeta;
 public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMessage> {
     
     private static final Logger log = LoggerFactory.getLogger(ReceiveMessagesImpl.class);
-    private static final String ENDPOINT_NAME = "/ReceiveMessage/";
     public static final QName TO_QNAME = new QName("http://www.w3.org/2005/08/addressing", "To");
     public static final QName LOGICAL_ADDRESS_QNAME = new QName("urn:riv:itintegration:registry:1", "LogicalAddress");
 

@@ -1,24 +1,19 @@
 package se.skltp.mb.svc.loghandler;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
-import org.soitoolkit.commons.logentry.schema.v1.LogEntryType;
-import org.soitoolkit.commons.logentry.schema.v1.LogEvent;
-import org.soitoolkit.commons.logentry.schema.v1.LogLevelType;
-import org.soitoolkit.commons.logentry.schema.v1.LogMessageExceptionType;
-import org.soitoolkit.commons.logentry.schema.v1.LogMessageType;
-import org.soitoolkit.commons.logentry.schema.v1.LogMetadataInfoType;
-import org.soitoolkit.commons.logentry.schema.v1.LogRuntimeInfoType;
+import org.soitoolkit.commons.logentry.schema.v1.*;
 
 public class LogEventCreator {
 
@@ -84,16 +79,19 @@ public class LogEventCreator {
 	}
 	
 	
-	private static LogMessageExceptionType assembleLogMessageException(LoggingEvent event) {
+	@SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    private static LogMessageExceptionType assembleLogMessageException(LoggingEvent event) {
 	
 		LogMessageExceptionType exceptionMessage = new LogMessageExceptionType();
 		exceptionMessage.setExceptionClass(event.getThrowableInformation().getThrowable().getClass().toString());
-		
-		String trace = "";
-		for(StackTraceElement el : event.getThrowableInformation().getThrowable().getStackTrace()) {
-			trace = trace + el.toString() + "\n";
-		}
-		exceptionMessage.setExceptionMessage(trace);
+
+		StringWriter writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        event.getThrowableInformation().getThrowable().printStackTrace(printWriter);
+        printWriter.close();
+        // add "\n" to start the stacktrace on a new line in the activeMQ web console - no need to scroll to
+        // see it any longer!
+		exceptionMessage.setExceptionMessage("\n" + writer.getBuffer().toString());
 		
 		return exceptionMessage;
 	}

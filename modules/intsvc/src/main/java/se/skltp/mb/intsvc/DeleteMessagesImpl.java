@@ -26,19 +26,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
-import se.riv.itintegration.messagebox.v1.ResultType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultType;
 import se.skltp.mb.svc.exception.UnreadDeleteException;
 import se.skltp.mb.types.entity.MessageMeta;
 import se.skltp.mb.types.services.TimeService;
 
 @WebService(serviceName = "DeleteMessagesResponderService",
-        endpointInterface = "se.riv.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface",
+        endpointInterface = "se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface",
         portName = "DeleteMessagesResponderPort",
-        targetNamespace = "urn:riv:itintegration:messagebox:DeleteMessages:1:rivtabp21",
+        targetNamespace = "urn:riv:infrastructure:itintegration:messagebox:DeleteMessages:1:rivtabp21",
         wsdlLocation = "schemas/interactions/DeleteMessagesInteraction/DeleteMessagesInteraction_1.0_rivtabp21.wsdl")
 public class DeleteMessagesImpl extends BaseService implements DeleteMessagesResponderInterface {
 
@@ -93,7 +93,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
             response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
 
-            // Log at warning level that someone tried to do something silly
+            // Log at warning level that the user tried to do something silly
             for ( MessageMeta msg : e.getUnreadMessages() ) {
                 String msgId = String.valueOf(msg.getId());
                 logWarn(getLogger(), callingSystem + " attempted to delete unread message " + msgId, msgId, msg, null);
@@ -101,7 +101,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         } catch (Exception e) {
 
             String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to delete messages";
-            logWarn(getLogger(), msg, null, null, e);
+            logError(getLogger(), msg, null, null, e);
 
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());

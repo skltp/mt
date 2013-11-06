@@ -16,16 +16,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
-import se.riv.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
-import se.riv.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
-import se.riv.itintegration.messagebox.v1.MessageMetaType;
-import se.riv.itintegration.messagebox.v1.MessageStatusType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
+import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.intsvc.XmlUtils;
 import se.skltp.mb.ws.base.BaseIntegrationTest;
 

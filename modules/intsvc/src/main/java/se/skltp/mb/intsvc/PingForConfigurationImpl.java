@@ -67,7 +67,7 @@ import se.skltp.mb.types.services.TimeService;
         endpointInterface = "se.riv.itintegration.monitoring.PingForConfiguration.v1.PingForConfigurationResponderInterface",
         portName = "PingForConfigurationResponderPort",
         targetNamespace = "urn:riv:itintegration:monitoring:PingForConfiguration:1:rivtabp21",
-        wsdlLocation = "schemas/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl")
+        wsdlLocation = "schemas/external/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl")
 public class PingForConfigurationImpl extends BaseService implements PingForConfigurationResponderInterface {
     public static final String QUEUE_SIZE_TAG = "currentQueueSize";
     public static final String OLDEST_MESSAGE_TAG = "currentOldestMessage";

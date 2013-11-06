@@ -35,7 +35,8 @@
 		  	#set($count=0)
 			#foreach( $s in $statistics )
 			<tr #if($count%2==0)class="evenRow linkedTableRow"#else class="oddRow linkedTableRow"#end>
-		  		<td title="#springMessage('common.targetSys.tooltip')">#if($s.targetOrganization.length() == 0)$s.targetSystem#end</td>
+		  		<!--<td title="#springMessage('common.targetSys.tooltip')">#if($s.targetOrganization.length() == 0)$s.targetSystem#end</td>-->
+		  		<td title="#springMessage('common.targetSys.tooltip')">#if($s.targetOrganization.length() == 0)Total#end</td>
                 <td title="#springMessage('common.targetOrg.tooltip')">#if($s.serviceContract.toString().length() == 0)$s.targetOrganization#end</td>
 		  		<td title="$s.serviceContract.fullName">$s.serviceContract</td>
 		  		<td title="#springMessage('statistic.deliveryCount.tooltip')">$s.deliveryCount</td>

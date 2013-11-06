@@ -25,10 +25,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
-import se.riv.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
-import se.riv.itintegration.messagebox.v1.ResultCodeEnum;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
+import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
+import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.types.entity.MessageMeta;
 
 import static org.junit.Assert.assertEquals;
