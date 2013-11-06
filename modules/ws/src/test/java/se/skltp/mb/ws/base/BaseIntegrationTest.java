@@ -310,7 +310,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected int countNumberOfLogMessages(String queueName) throws JMSException {
 		
 		//Give the message some time to get to the consumer.
-		try { Thread.sleep(200); } catch (InterruptedException e) {}
+		try { Thread.sleep(500); } catch (InterruptedException e) {}
 		
 		if (infoQueueName.equals(queueName)) {
 			return numberOfInfoMessages;
