@@ -166,9 +166,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 			connection.start();
 			
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			
-	        connection = connectionFactory.createConnection();
-	        connection.start();
 
 	        // Listen on the infoQueue
 			Destination infoDest = session.createQueue(infoQueueName);
