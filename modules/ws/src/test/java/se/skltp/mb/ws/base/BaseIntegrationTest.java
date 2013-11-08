@@ -58,7 +58,7 @@ import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
  * 
  */
 @Ignore
-public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests implements MessageListener {
+public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	private static final String ENDPOINT_URL = "http://localhost:8081";
 	private static final int ENDPOINT_PORT = 8081;
@@ -71,7 +71,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	protected static final String targetOrg = "targetOrg";
 	
 	// ActiveMQ
-	protected static final String brokerURL="tcp://localhost:62626";
+	protected static final String brokerURL="vm://localhost";
 	protected static final String errorQueueName = "MT_DEFAULT_ERROR";
 	protected static final String infoQueueName = "MT_DEFAULT_INFO";
 	
@@ -111,7 +111,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	@BeforeClass
 	public static void startAMQ() throws Exception {
 		broker = new BrokerService();
-		broker.setDataDirectory("/tmp/mt-activemq/");
+//		broker.setDataDirectory("/tmp/mt-activemq/");
 		broker.addConnector(brokerURL);
 		broker.start();
 	}
@@ -133,7 +133,6 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 
 	@Before
 	public void setup() throws JMSException, IOException {
-		broker.deleteAllMessages();
 		resetNumberOfLoggedMessages();
 	}
 	
@@ -141,45 +140,14 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	@After
 	public void tearDown() throws JMSException, SQLException, IOException {
 		
-		broker.deleteAllMessages();
-		
-		infoConsumer.close();
-		errorConsumer.close();
-		connection.stop();
+//		connection.stop();
 		
 		// close down the db connection
 		dbConnection.close();
-		
-		try {
-			Thread.sleep(250);
-		} catch (InterruptedException e) {
-		}
 	}
 	
 	
 	public BaseIntegrationTest() {
-		
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
-
-		try {
-			connection = connectionFactory.createConnection();
-			connection.start();
-			
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-	        // Listen on the infoQueue
-			Destination infoDest = session.createQueue(infoQueueName);
-			infoConsumer = session.createConsumer(infoDest);
-			infoConsumer.setMessageListener(this);
-			
-			// Listen on the errorQueue
-			Destination errorDest = session.createQueue(errorQueueName) ;
-			errorConsumer = session.createConsumer(errorDest);
-			errorConsumer.setMessageListener(this);
-			
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
 
 		// Set up DB-connection
 		try {
@@ -190,6 +158,14 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	}
 	
 	protected void resetNumberOfLoggedMessages() {
+		
+		try {
+			countNumberOfLogMessages(infoQueueName);
+			countNumberOfLogMessages(errorQueueName);
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		
 		numberOfErrorMessages = 0;
 		numberOfInfoMessages = 0;
 	}
@@ -304,32 +280,31 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
 	
 	protected int countNumberOfLogMessages(String queueName) throws JMSException {
 		
-		//Give the message some time to get to the consumer.
-		try { Thread.sleep(500); } catch (InterruptedException e) {}
-		
-		if (infoQueueName.equals(queueName)) {
-			return numberOfInfoMessages;
-		} else if (errorQueueName.equals(queueName)) {
-			return numberOfErrorMessages;
-		} else {
-			return -1;
-		}
-	}
-	
-
-	@Override
-	public void onMessage(Message message) {
-		
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
+		int msgCount = 0;
 		try {
-			String queueName = message.getJMSDestination().toString();
-			if (queueName.endsWith(infoQueueName)) {
-				numberOfInfoMessages++;
-			} else if (queueName.endsWith(errorQueueName)) {
-				numberOfErrorMessages++;
+			Connection conn = connectionFactory.createConnection();
+			conn.start();
+			
+			Session session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+			MessageConsumer tmpConsumer = session.createConsumer(session.createQueue(queueName));
+			
+			 Message message = null;
+			
+			while((message = tmpConsumer.receive(200) ) != null ) {
+				msgCount++;
 			}
+			
+			tmpConsumer.close();
+
 		} catch (JMSException e) {
+			System.err.println("WE GOT A JMSEXCEPTION (1111)");
 			e.printStackTrace();
 		}
+		
+		return msgCount;
 	}
+	
 
 }

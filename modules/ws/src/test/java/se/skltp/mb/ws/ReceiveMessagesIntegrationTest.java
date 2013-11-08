@@ -90,7 +90,6 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 		// Should be no info message and two error messages
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         assertEquals(2, countNumberOfLogMessages(errorQueueName));
-        
 	}
 	
 	
