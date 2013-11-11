@@ -9,6 +9,7 @@ import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 import javax.xml.transform.TransformerException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,6 +32,7 @@ import se.skltp.mb.intsvc.XmlUtils;
 public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 
 	@Test
+	@Ignore
 	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException, JMSException, SQLException {
 		
 		sendOneMessageAndWait();
@@ -66,10 +68,16 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
         // Get should only generate one info log message per message
         assertEquals(1, countNumberOfLogMessages(infoQueueName));
         assertEquals(0, countNumberOfLogMessages(errorQueueName));
+        
+        // Fetch the message two times again
+        getResponse = getMessages(getParams);
+        getResponse = getMessages(getParams);
+        assertEquals(2, countNumberOfLogMessages(infoQueueName));
 	}
 	
 
 	@Test
+	@Ignore
 	public void get_message_OK_should_update_message_status_after_read() throws MalformedURLException, SOAPException, JMSException {
 		sendOneMessageAndWait();
 		resetNumberOfLoggedMessages();
@@ -93,6 +101,7 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
 	
 	@Test
 	public void get_message_ERR_get_invalid_message_id() throws MalformedURLException, SOAPException, JMSException {
+		System.err.println("START OF TEST");
 		sendOneMessageAndWait();
 		resetNumberOfLoggedMessages();
 		
@@ -108,6 +117,7 @@ public class GetMessagesIntegrationTest extends BaseIntegrationTest {
         // This operation should only result in one error message
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         assertEquals(1, countNumberOfLogMessages(errorQueueName));
+        System.err.println("END OF TEST");
 	}
 	
 	

@@ -4,6 +4,7 @@ package se.skltp.mb.svc.loghandler;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import javax.jms.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -79,8 +80,11 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
         // TODO - This should be done in log4.properties
         // Do not process events that originates from this class
         if ( isLogEventFromThisClass(event) ) {
+        	System.err.println("YYY: Got log message from myself: " + event.getMessage().toString());
             return;
         }
+        
+        System.err.println("XXX: Got log messsage: " + event.getMessage().toString());
 
         try {
             LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get(), componentName);
@@ -89,7 +93,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
             logToQueue(queue, marshall(logEvent));
 
         } catch (Exception e) {
-            logger.warn("Could not log message to queue", e);
+        	logger.warn("BBB: Could not log message to queue", e);
         }
     }
 
@@ -102,8 +106,10 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
      */
     private void logToQueue(String queue, String xml) {
 
+    	 Session session = null;
+    	
         try {
-            Session session = getSession();
+            session = getSession();
             Destination dest;
             dest = session.createQueue(queue);
             MessageProducer producer = session.createProducer(dest);
@@ -116,12 +122,29 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
             session.close();
 
         } catch (JMSException e) {
-            logger.error("Could not log to " + queue + "!", e);
-
             // Force a new connection to be made on the next request
             if ( connection != null ) {
+            	
+            	try {
+					connection.close();
+				} catch (JMSException e1) {
+				}
+            	
                 connection = null;
             }
+        	
+        	
+            logger.error("AAA: Could not log to " + queue + "!", e);
+
+
+        } finally {
+        	try {
+        		if (session != null ){
+				session.close();
+        		}
+			} catch (JMSException e) {
+				session = null;
+			}
         }
     }
 

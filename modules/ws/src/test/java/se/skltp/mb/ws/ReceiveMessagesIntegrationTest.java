@@ -10,6 +10,7 @@ import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,6 +37,7 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 	 * @throws InterruptedException 
 	 */
 	@Test
+	@Ignore
 	public void receive_OK() throws SOAPException, MalformedURLException, JMSException, SQLException {
 		
         SOAPMessage soapMessage = createIncomingMessage(tkName, targetOrg);
@@ -75,21 +77,33 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 	
 	@Test
 	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException, SQLException  {
-		
+		System.err.println("ZZZ: TEST START");
         SOAPMessage soapMessage;
 		soapMessage = createIncomingMessage(tkName, "");
 		SOAPMessage response = sendToReceive(soapMessage);
+		
+		System.err.println("ZZZ: 1 - SENT MESSAGE");
 		
 		// Should get a soap fault with error code MB00001
 		String faultString = response.getSOAPPart().getEnvelope().getBody().getFault().getFaultString();
 		assertEquals(ReceiveErrorCode.MB0001.toString(), faultString);
 
+		System.err.println("ZZZ: 2 - ASSERTED FAULTSTRING");
+		
 		// There should not be any messages in the database
 		assertEquals(0, countNumberOfMessages());
 		
+		System.err.println("ZZZ: 3 - COUNTED NUMBER OF MESSAGES");
+		
 		// Should be no info message and two error messages
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
+        System.err.println("ZZZ: 4 - COUNTED NUMBER OF LOGMESSAGES ON INFO QUEUE");
+        
         assertEquals(2, countNumberOfLogMessages(errorQueueName));
+        System.err.println("ZZZ: 5 - COUNTED NUMBER OF LOGMESSAGES ON ERROR QUEUE");
+        
+		System.err.println("ZZZ: TEST STOP");        
+
 	}
 	
 	
