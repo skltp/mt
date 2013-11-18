@@ -63,9 +63,10 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         try {
             List<MessageMeta> messages = messageService.listMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
-
-                String msg = "Caller " + callingSystem + "  attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
-                logWarn(getLogger(), msg, null, null, null);
+                if ( log.isWarnEnabled() ) {
+                    String msg = "Caller " + callingSystem + "  attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
+                    logWarn(getLogger(), msg, null, null, null);
+                }
 
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
@@ -76,12 +77,10 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             List<Long> responseIds = response.getDeletedIds();
             for ( MessageMeta msg : messages ) {
                 responseIds.add(msg.getId());
-            }
-
-            // Log deleted messages
-            for ( MessageMeta msg : messages ) {
-                String msgId = String.valueOf(msg.getId());
-                logInfo(getLogger(), "Message " + msgId + " was deleted by " + callingSystem, msgId, msg);
+                if ( log.isInfoEnabled() ) {
+                    String msgId = String.valueOf(msg.getId());
+                    logInfo(getLogger(), "Message " + msgId + " was deleted by " + callingSystem, msgId, msg);
+                }
             }
 
         } catch (UnreadDeleteException e) {
@@ -89,16 +88,19 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
             response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
 
-            // Log at warning level that the user tried to do something silly
-            for ( MessageMeta msg : e.getUnreadMessages() ) {
-                String msgId = String.valueOf(msg.getId());
-                logWarn(getLogger(), callingSystem + " attempted to delete unread message " + msgId, msgId, msg, null);
+            if ( log.isWarnEnabled() ) {
+                // Log at warning level that the user tried to do something silly
+                for ( MessageMeta msg : e.getUnreadMessages() ) {
+                    String msgId = String.valueOf(msg.getId());
+                    logWarn(getLogger(), callingSystem + " attempted to delete unread message " + msgId, msgId, msg, null);
+                }
             }
         } catch (Exception e) {
 
-            String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to delete messages";
-            logError(getLogger(), msg, null, null, e);
-
+            if ( log.isErrorEnabled() ) {
+                String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to delete messages";
+                logError(getLogger(), msg, null, null, e);
+            }
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());

@@ -21,12 +21,10 @@ package se.skltp.mb.intsvc;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import se.riv.infrastructure.itintegration.messagebox.ListMessages.v1.ListMessagesResponderInterface;
 import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesResponseType;
 import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
@@ -91,13 +89,14 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
                     }
                 }
             }
-            
+
 
         } catch (Exception e) {
-            
-            String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to list messages";
-            logError(getLogger(), msg, null, null, e);
-            
+
+            if ( log.isErrorEnabled() ) {
+                String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to list messages";
+                logError(getLogger(), msg, null, null, e);
+            }
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
@@ -105,7 +104,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
         } finally {
             resetLogContext();
         }
-        
+
         return response;
     }
 
@@ -121,7 +120,6 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
     }
 
     /**
-     *
      * @param serviceContracts
      * @param msg
      * @return
@@ -129,7 +127,7 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
     private boolean serviceContractsAllows(Set<String> serviceContracts, MessageMeta msg) {
         return serviceContracts.isEmpty() || serviceContracts.contains(msg.getServiceContract());
     }
-    
+
     @Override
     public Logger getLogger() {
         return log;

@@ -19,7 +19,6 @@
 package se.skltp.mb.intsvc;
 
 import java.util.Iterator;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.Node;
@@ -33,7 +32,6 @@ import javax.xml.ws.WebServiceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-
 import se.skltp.mb.types.entity.MessageMeta;
 
 @ServiceMode(value = Service.Mode.MESSAGE)
@@ -46,19 +44,19 @@ import se.skltp.mb.types.entity.MessageMeta;
         portName = "ReceiveMessage"
 )
 public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMessage> {
-    
+
     private static final Logger log = LoggerFactory.getLogger(ReceiveMessagesImpl.class);
     public static final QName TO_QNAME = new QName("http://www.w3.org/2005/08/addressing", "To");
     public static final QName LOGICAL_ADDRESS_QNAME = new QName("urn:riv:itintegration:registry:1", "LogicalAddress");
 
     @Override
     public SOAPMessage invoke(SOAPMessage soapMessage) {
-        
+
         String targetSystem = extractTargetSystemFromUrl();
         String callingSystem = extractCallingSystemFromRequest();
-        
+
         try {
-            
+
             String sourceSystem = extractCallingSystemFromRequest();
             String correlationId = extractCorrelationIdFromRequest();
 
@@ -73,15 +71,18 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
 
             MessageMeta message = messageService.create(sourceSystem, targetSystem, targetOrg, serviceContract, messageBody, correlationId);
 
-            String msgId = message.getId().toString();
-            logInfo(getLogger(), "Message " + msgId + " saved by " + callingSystem , msgId, message);
-            
+            if ( log.isInfoEnabled() ) {
+                String msgId = message.getId().toString();
+                logInfo(getLogger(), "Message " + msgId + " saved by " + callingSystem, msgId, message);
+            }
+
             return getReturnCode();
         } catch (Exception e) {
-            
-            // log the error
-            String msg = "Error for ServiceConsumer " + callingSystem + " when trying to send message";
-            logError(getLogger(), msg, null, null, e);
+
+            if ( log.isErrorEnabled() ) {
+                String msg = "Error for ServiceConsumer " + callingSystem + " when trying to send message";
+                logError(getLogger(), msg, null, null, e);
+            }
 
             // generate a SOAPFAult with the MT0001 error message in the <faultstring> node
             throw new RuntimeException(ReceiveErrorCode.MB0001.toString());
@@ -93,13 +94,13 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
     private String extractTargetOrg(SOAPMessage soapMessage) throws SOAPException {
         // rivta2.0 uses To, 2.1 uses LogicalAddress
         Iterator iter = soapMessage.getSOAPHeader().getChildElements(TO_QNAME);
-        if (!iter.hasNext()) {
+        if ( !iter.hasNext() ) {
             iter = soapMessage.getSOAPHeader().getChildElements(LOGICAL_ADDRESS_QNAME);
         }
-        if (!iter.hasNext()) {
+        if ( !iter.hasNext() ) {
             throw new RuntimeException("No address node found in header!");
         }
-        return ((Node)iter.next()).getValue();
+        return ((Node) iter.next()).getValue();
     }
 
 

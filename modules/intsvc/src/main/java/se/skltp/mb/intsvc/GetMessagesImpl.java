@@ -19,12 +19,10 @@
 package se.skltp.mb.intsvc;
 
 import java.util.List;
-
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import se.riv.infrastructure.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface;
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
@@ -58,9 +56,11 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
             List<MessageMeta> messages = messageService.getMessages(targetSystem, parameters.getMessageIds());
 
             if ( parameters.getMessageIds().size() != messages.size() ) {
-                String msg = "Caller " + callingSystem + " attempted to get non-present messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
-                logWarn(getLogger(), msg, null, null, null);
-                
+                if ( log.isWarnEnabled() ) {
+                    String msg = "Caller " + callingSystem + " attempted to get non-present messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
+                    logWarn(getLogger(), msg, null, null, null);
+                }
+
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
 
@@ -78,15 +78,19 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 elem.setMessage(msg.getMessageBody().getText());
 
                 response.getResponses().add(elem);
-                String msgId = msg.getId().toString();
-                logInfo(getLogger(), "Message " + msgId + " was read by " + callingSystem, msgId, msg);
+                if ( log.isInfoEnabled() ) {
+                    String msgId = msg.getId().toString();
+                    logInfo(getLogger(), "Message " + msgId + " was read by " + callingSystem, msgId, msg);
+                }
             }
 
         } catch (Exception e) {
-            
-            String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to get messages";
-            logError(getLogger(), msg, null, null, e);
-            
+
+            if ( log.isErrorEnabled() ) {
+                String msg = "Exception for ServiceConsumer " + callingSystem + " when trying to get messages";
+                logError(getLogger(), msg, null, null, e);
+            }
+
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
             response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
@@ -94,10 +98,10 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
         } finally {
             resetLogContext();
         }
-        
+
         return response;
     }
-    
+
     @Override
     public Logger getLogger() {
         return log;
