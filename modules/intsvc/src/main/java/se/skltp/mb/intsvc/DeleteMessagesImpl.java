@@ -19,13 +19,11 @@
 package se.skltp.mb.intsvc;
 
 import java.util.List;
-
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
 import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
@@ -72,23 +70,21 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
                 response.getResult().setCode(ResultCodeEnum.INFO);
                 response.getResult().setErrorMessage(INCOMPLETE_ERROR_MESSAGE);
             }
-                // none unread, delete them all!
-                messageService.deleteMessages(targetSystem, timeService.now(), messages);
+            // none unread, delete them all!
+            messageService.deleteMessages(targetSystem, timeService.now(), messages);
 
-                List<Long> responseIds = response.getDeletedIds();
-                for ( MessageMeta msg : messages ) {
-                    responseIds.add(msg.getId());
-                }
-
-                // Log deleted messages
-                for ( MessageMeta msg : messages ) {
-                    String msgId = String.valueOf(msg.getId());
-                    logInfo(getLogger(), "Message " + msgId + " was deleted by " + callingSystem, msgId, msg);
-                }
-
+            List<Long> responseIds = response.getDeletedIds();
+            for ( MessageMeta msg : messages ) {
+                responseIds.add(msg.getId());
             }
 
-        catch (UnreadDeleteException e) {
+            // Log deleted messages
+            for ( MessageMeta msg : messages ) {
+                String msgId = String.valueOf(msg.getId());
+                logInfo(getLogger(), "Message " + msgId + " was deleted by " + callingSystem, msgId, msg);
+            }
+
+        } catch (UnreadDeleteException e) {
             response.getResult().setCode(ResultCodeEnum.ERROR);
             response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
             response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
@@ -111,7 +107,6 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
         }
         return response;
     }
-
 
 
     @Override
