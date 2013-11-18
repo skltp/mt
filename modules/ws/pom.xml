@@ -8,7 +8,8 @@
 	more details. * * You should have received a copy of the GNU Lesser General 
 	Public * License along with this library; if not, write to the * Free Software 
 	Foundation, Inc., 59 Temple Place, Suite 330, * * Boston, MA 02111-1307 USA -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -26,7 +27,6 @@
 
     <properties>
         <checkstyle.basedir>${project.basedir}/..</checkstyle.basedir>
-        <jetty.version>8.1.13.v20130916</jetty.version>
     </properties>
 
 
@@ -75,24 +75,21 @@
 
 
     <dependencies>
-    
-    
-	<!-- Jetty and family -->
-	<!-- Jetty needs to be the first dependency otherwise we get a securityexception -->
-	<dependency>
-		<groupId>org.eclipse.jetty</groupId>
-		<artifactId>jetty-server</artifactId>
-		<version>${jetty.version}</version>
-		<scope>test</scope>
-		<!-- <type>jar</type> -->
-	</dependency>
-	<dependency>
-		<groupId>org.eclipse.jetty</groupId>
-		<artifactId>jetty-webapp</artifactId>
-		<version>${jetty.version}</version>
-		<scope>test</scope>
-		<!-- <type>jar</type> -->
-	</dependency>
+
+
+        <!-- Jetty and family -->
+        <!-- Jetty needs to be the first dependency otherwise we get a securityexception -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -156,17 +153,16 @@
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
-            <version>5.8.0</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <scope>test</scope>
         </dependency>
 
-        
+
     </dependencies>
 
     <profiles>
