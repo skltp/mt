@@ -49,9 +49,9 @@ import se.skltp.mb.types.services.TimeService;
  * service, and make sure it is still running.
  * <p/>
  * We summarize the information we show on the website, ie status on the current message queue and statistics for
- * how much we have delivered today, and send it back on a per-receiver basis. This means that we send back 2 property
- * variables (-queueSize and -oldestMessage) for each receiver with un-delivered messages, and two more for each
- * receiver that has taken deliveres of message today.
+ * how much we have delivered today, and send it back on a per-targetSystem basis. This means that we send back 2 property
+ * variables (-currentQueueSize and -currentOldestMessage) for each targetSystem with un-delivered messages, and two more for each
+ * targetSystem that has taken deliveres of message today.
  * <p/>
  * We should perhaps keep track of the last time a target system has made a "List" request with us so we can report
  * that.
@@ -129,13 +129,13 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
 
         public StatusBuilder(List<StatusReport> reports) {
-            String receiver = null;
+            String targetSystem = null;
             long queueSize = 0;
             Date oldestMessage = new Date(timeService.now());
             for ( StatusReport report : reports ) {
-                if ( !report.getTargetSystem().equals(receiver) ) {
-                    save(receiver, queueSize, oldestMessage);
-                    receiver = report.getTargetSystem();
+                if ( !report.getTargetSystem().equals(targetSystem) ) {
+                    save(targetSystem, queueSize, oldestMessage);
+                    targetSystem = report.getTargetSystem();
                     queueSize = 0;
                     oldestMessage = new Date(timeService.now());
                 }
@@ -144,13 +144,13 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
                     oldestMessage = report.getOldestMessageDate();
                 }
             }
-            save(receiver, queueSize, oldestMessage);
+            save(targetSystem, queueSize, oldestMessage);
         }
 
-        private void save(String receiver, long queueSize, Date oldestMessage) {
-            if ( receiver != null ) {
-                result.add(conf(receiver + "-" +QUEUE_SIZE_TAG, String.valueOf(queueSize)));
-                result.add(conf(receiver + "-" + OLDEST_MESSAGE_TAG, new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
+        private void save(String targetSystem, long queueSize, Date oldestMessage) {
+            if ( targetSystem != null ) {
+                result.add(conf(targetSystem + "-" +QUEUE_SIZE_TAG, String.valueOf(queueSize)));
+                result.add(conf(targetSystem + "-" + OLDEST_MESSAGE_TAG, new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
             }
         }
     }
@@ -161,13 +161,13 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
 
 
         public StatsBuilder(List<Statistic> statistics) {
-            String receiver = null;
+            String targetSystem = null;
             long deliveries = 0;
             long maxDeliveryTime = 0;
             for ( Statistic stat : statistics ) {
-                if ( !stat.getTargetSystem().equals(receiver) ) {
-                    save(receiver, deliveries, maxDeliveryTime);
-                    receiver = stat.getTargetSystem();
+                if ( !stat.getTargetSystem().equals(targetSystem) ) {
+                    save(targetSystem, deliveries, maxDeliveryTime);
+                    targetSystem = stat.getTargetSystem();
                     deliveries = 0;
                     maxDeliveryTime = 0;
                 }
@@ -175,14 +175,14 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
                 maxDeliveryTime = Math.max(maxDeliveryTime, stat.getMaxWaitTimeMs());
 
             }
-            save(receiver, deliveries, maxDeliveryTime);
+            save(targetSystem, deliveries, maxDeliveryTime);
 
         }
 
-        private void save(String receiver, long queueSize, long maxDeliveryTime) {
-            if ( receiver != null ) {
-                result.add(conf(receiver + "-" + DELIVERY_COUNT_TAG, String.valueOf(queueSize)));
-                result.add(conf(receiver + "-" + MAX_DELIVERY_TIME_TAG, new TimeDelta(maxDeliveryTime).toString()));
+        private void save(String targetSystem, long queueSize, long maxDeliveryTime) {
+            if ( targetSystem != null ) {
+                result.add(conf(targetSystem + "-" + DELIVERY_COUNT_TAG, String.valueOf(queueSize)));
+                result.add(conf(targetSystem + "-" + MAX_DELIVERY_TIME_TAG, new TimeDelta(maxDeliveryTime).toString()));
             }
         }
 
