@@ -28,7 +28,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mb-types</artifactId>
+    <artifactId>mb-composite-types</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <version>1.0.0-RC4-SNAPSHOT</version>

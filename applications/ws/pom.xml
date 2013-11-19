@@ -19,7 +19,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mb-services</artifactId>
+    <artifactId>mb-application-ws</artifactId>
     <version>1.0.0-RC4-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>war</packaging>
@@ -31,7 +31,7 @@
 
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>mb-services</finalName>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>

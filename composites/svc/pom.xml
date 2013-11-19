@@ -29,7 +29,7 @@
     </parent>
 
 
-    <artifactId>mb-svc</artifactId>
+    <artifactId>mb-composite-svc</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <version>1.0.0-RC4-SNAPSHOT</version>

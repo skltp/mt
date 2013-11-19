@@ -444,9 +444,9 @@ encoding/<project>=UTF-8]]>
         <module>composites/schemas</module>
         <module>composites/types</module>
         <module>composites/svc</module>
-        <module>composites/webcomp</module>
-        <module>modules/web</module>
+        <module>modules/webcomp</module>
         <module>modules/intsvc</module>
-        <module>modules/ws</module>
+        <module>applications/web</module>
+        <module>applications/ws</module>
     </modules>
 </project>

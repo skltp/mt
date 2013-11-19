@@ -1,10 +1,7 @@
 package se.skltp.mb.ws;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.MalformedURLException;
 import java.sql.SQLException;
-
 import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 import javax.xml.transform.TransformerException;
@@ -14,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Node;
-
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.ResponseType;
@@ -22,9 +18,11 @@ import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.L
 import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.ListMessagesType;
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.mb.ws.base.BaseIntegrationTest;
 import se.skltp.mb.intsvc.GetMessagesImpl;
 import se.skltp.mb.intsvc.XmlUtils;
+import se.skltp.mb.ws.base.BaseIntegrationTest;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")

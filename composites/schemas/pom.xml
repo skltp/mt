@@ -29,7 +29,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mb-schemas</artifactId>
+    <artifactId>mb-composite-schemas</artifactId>
     <version>1.0.0-RC4-SNAPSHOT</version>
     <name>${project.artifactId}</name>
 
@@ -37,7 +37,6 @@
         <schema.path>src/main/resources/schemas</schema.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <generated-sources>${basedir}/src/main/generated</generated-sources>
     </properties>
 
     <build>
@@ -50,7 +49,6 @@
                         <id>generate-sources</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <sourceRoot>${generated-sources}</sourceRoot>
                             <wsdlOptions>
 
                                 <wsdlOption>
