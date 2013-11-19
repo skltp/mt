@@ -16,7 +16,7 @@ import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.L
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.mb.intsvc.ReceiveErrorCode;
+import se.skltp.mb.intsvc.ReceiveErrorCodes;
 import se.skltp.mb.ws.base.BaseIntegrationTest;
 
 import static org.junit.Assert.assertEquals;
@@ -80,7 +80,7 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 		
 		// Should get a soap fault with error code MB00001
 		String faultString = response.getSOAPPart().getEnvelope().getBody().getFault().getFaultString();
-		assertEquals(ReceiveErrorCode.MB0001.toString(), faultString);
+		assertEquals(ReceiveErrorCodes.MB0001.toString(), faultString);
 
 		// There should not be any messages in the database
 		assertEquals(0, countNumberOfMessages());
@@ -89,7 +89,7 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
         // TODO: Varying test; 2 when run as a single test, 1 when run as part of
         // a multi-class test. Something wrong with the embedded environment setup
-        // assertEquals(1, countNumberOfLogMessages(errorQueueName));
+        assertEquals(1, countNumberOfLogMessages(errorQueueName));
         
 	}
 	

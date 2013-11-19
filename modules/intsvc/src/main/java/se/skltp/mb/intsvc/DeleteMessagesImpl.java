@@ -85,8 +85,8 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
 
         } catch (UnreadDeleteException e) {
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorId(ErrorCode.UNREAD_DELETE.ordinal());
-            response.getResult().setErrorMessage(ErrorCode.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
+            response.getResult().setErrorId(ErrorCodes.UNREAD_DELETE.ordinal());
+            response.getResult().setErrorMessage(ErrorCodes.UNREAD_DELETE.getText() + " : " + e.getUnreadIdsAsCsv());
 
             if ( log.isWarnEnabled() ) {
                 // Log at warning level that the user tried to do something silly
@@ -102,8 +102,8 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
                 logError(getLogger(), msg, null, null, e);
             }
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
-            response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
+            response.getResult().setErrorId(ErrorCodes.INTERNAL.ordinal());
+            response.getResult().setErrorMessage(ErrorCodes.INTERNAL.toString());
         } finally {
             resetLogContext();
         }

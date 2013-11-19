@@ -50,7 +50,6 @@
             <artifactId>dao-framework-jpa</artifactId>
         </dependency>
 
-
         <!-- TEST SCOPE -->
 
         <dependency>

@@ -136,6 +136,12 @@
             </dependency>
 
             <dependency>
+              <groupId>org.soitoolkit.commons.components</groupId>
+              <artifactId>soitoolkit-commons-schemas</artifactId>
+              <version>0.4.1</version>
+            </dependency>
+
+            <dependency>
                 <groupId>se.vgregion.daoframework</groupId>
                 <artifactId>dao-framework-jpa</artifactId>
                 <version>3.5</version>

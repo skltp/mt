@@ -171,7 +171,7 @@ public class ListMessagesImplTest extends BaseTestImpl {
         ListMessagesResponseType response = impl.listMessages("mbox-address", params);
 
         assertEquals(ResultCodeEnum.ERROR, response.getResult().getCode());
-        assertEquals(ErrorCode.INTERNAL.toString(), response.getResult().getErrorMessage());
+        assertEquals(ErrorCodes.INTERNAL.toString(), response.getResult().getErrorMessage());
         assertEquals(0, response.getMessageMetas().size());
     }
 

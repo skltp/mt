@@ -15,7 +15,7 @@ import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.intsvc.DeleteMessagesImpl;
-import se.skltp.mb.intsvc.ErrorCode;
+import se.skltp.mb.intsvc.ErrorCodes;
 import se.skltp.mb.ws.base.BaseIntegrationTest;
 
 import static org.junit.Assert.assertEquals;
@@ -66,7 +66,7 @@ public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
         DeleteMessagesResponseType deleteResponse = deleteMessages(deleteParams);
 
         assertEquals(ResultCodeEnum.ERROR, deleteResponse.getResult().getCode());
-        assertEquals(ErrorCode.UNREAD_DELETE.ordinal(), (int) deleteResponse.getResult().getErrorId());
+        assertEquals(ErrorCodes.UNREAD_DELETE.ordinal(), (int) deleteResponse.getResult().getErrorId());
         assertEquals(0, deleteResponse.getDeletedIds().size());
 
         // Count number of messages in db - should be one message left

@@ -130,7 +130,7 @@ public class GetMessagesImplTest extends BaseTestImpl {
         GetMessagesResponseType resp = getMessagesImpl.getMessages(logicalAddress, params);
 
         assertEquals(ResultCodeEnum.ERROR, resp.getResult().getCode());
-        assertEquals(ErrorCode.INTERNAL.toString(), resp.getResult().getErrorMessage());
+        assertEquals(ErrorCodes.INTERNAL.toString(), resp.getResult().getErrorMessage());
         assertEquals(0, resp.getResponses().size());
     }
 

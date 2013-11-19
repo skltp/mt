@@ -8,7 +8,7 @@ package se.skltp.mb.intsvc;
  *
  * @author mats.olsson@callistaenterprise.se
  */
-public enum ReceiveErrorCode {
+public enum ReceiveErrorCodes {
 
     /**
      * Generic error.
@@ -17,7 +17,7 @@ public enum ReceiveErrorCode {
 
     private final String message;
 
-    ReceiveErrorCode(String message) {
+    ReceiveErrorCodes(String message) {
         this.message = message;
     }
 

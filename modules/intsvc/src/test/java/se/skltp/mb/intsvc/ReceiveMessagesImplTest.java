@@ -125,7 +125,7 @@ public class ReceiveMessagesImplTest extends BaseTestImpl {
             impl.invoke(request);
             fail("Expected RuntimeException!");
         } catch (RuntimeException e) {
-            assertEquals(ReceiveErrorCode.MB0001.toString(), e.getMessage());
+            assertEquals(ReceiveErrorCodes.MB0001.toString(), e.getMessage());
             // TODO: Should verify that an error event is logged to the error queue
         }
     }

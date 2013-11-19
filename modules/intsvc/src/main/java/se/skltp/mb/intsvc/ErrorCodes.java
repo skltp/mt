@@ -5,7 +5,7 @@ package se.skltp.mb.intsvc;
  *
  * @author mats.olsson@callistaenterprise.se
  */
-public enum ErrorCode {
+public enum ErrorCodes {
 
     OK("Not an error"), // to get the ordinal() right - zero is not an error
     INTERNAL("Internal error"),
@@ -13,7 +13,7 @@ public enum ErrorCode {
 
     private String text;
 
-    ErrorCode(String text) {
+    ErrorCodes(String text) {
         this.text = text;
     }
 

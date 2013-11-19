@@ -85,7 +85,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
             }
 
             // generate a SOAPFAult with the MT0001 error message in the <faultstring> node
-            throw new RuntimeException(ReceiveErrorCode.MB0001.toString());
+            throw new RuntimeException(ReceiveErrorCodes.MB0001.toString());
         } finally {
             resetLogContext();
         }

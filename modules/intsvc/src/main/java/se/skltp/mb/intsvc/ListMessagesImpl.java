@@ -98,8 +98,8 @@ public class ListMessagesImpl extends BaseService implements ListMessagesRespond
                 logError(getLogger(), msg, null, null, e);
             }
             response.getResult().setCode(ResultCodeEnum.ERROR);
-            response.getResult().setErrorId(ErrorCode.INTERNAL.ordinal());
-            response.getResult().setErrorMessage(ErrorCode.INTERNAL.toString());
+            response.getResult().setErrorId(ErrorCodes.INTERNAL.ordinal());
+            response.getResult().setErrorMessage(ErrorCodes.INTERNAL.toString());
             response.getMessageMetas().clear();
         } finally {
             resetLogContext();

@@ -175,7 +175,7 @@
                                         ${schema.path}/external/interactions/PingForConfigurationInteraction/PingForConfigurationInteraction_1.0_rivtabp21.wsdl
                                     </wsdl>
                                 </wsdlOption>
-
+                                  <!--
 								<wsdlOption>
 									<wsdl>${schema.path}/v1/jaxb-gen-only.wsdl</wsdl>
 									<extraargs>
@@ -184,7 +184,7 @@
 										<extraarg>urn:org.soitoolkit.commons.logentry.schema:v1=org.soitoolkit.commons.logentry.schema.v1</extraarg>
 									</extraargs>
 								</wsdlOption>
-
+                                      -->
                             </wsdlOptions>
 
                         </configuration>
