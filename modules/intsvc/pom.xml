@@ -29,7 +29,7 @@
     </parent>
 
 
-    <artifactId>mb-intsvc</artifactId>
+    <artifactId>mb-modules-intsvc</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <version>1.0.0-RC4-SNAPSHOT</version>
@@ -38,19 +38,19 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mb-types</artifactId>
+            <artifactId>mb-composite-types</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mb-svc</artifactId>
+            <artifactId>mb-composite-svc</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mb-schemas</artifactId>
+            <artifactId>mb-composite-schemas</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -28,7 +28,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mb-webcomp</artifactId>
+    <artifactId>mb-modules-webcomp</artifactId>
     <name>${project.artifactId}</name>
     <version>1.0.0-RC4-SNAPSHOT</version>
 
@@ -52,17 +52,10 @@
 
     <dependencies>
 
-        <!-- i core ligger alla entiteter osv -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>mb-types</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- internal services -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mb-svc</artifactId>
+            <artifactId>mb-composite-svc</artifactId>
             <version>${project.version}</version>
         </dependency>
 

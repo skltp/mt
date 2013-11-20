@@ -84,7 +84,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mb-intsvc</artifactId>
+            <artifactId>mb-modules-intsvc</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -38,7 +38,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mb-types</artifactId>
+            <artifactId>mb-composite-types</artifactId>
             <version>${project.version}</version>
         </dependency>
 
