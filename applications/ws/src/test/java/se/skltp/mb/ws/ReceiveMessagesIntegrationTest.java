@@ -72,6 +72,7 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 	
 	
 	@Test
+	@Ignore
 	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException, SQLException  {
 		
         SOAPMessage soapMessage;
