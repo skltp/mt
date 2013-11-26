@@ -25,12 +25,12 @@
     <parent>
         <groupId>se.skltp.mb</groupId>
         <artifactId>mb-parent</artifactId>
-        <version>1.0.0-RC6-SNAPSHOT</version>
+        <version>1.0.0-RC6</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>mb-composite-schemas</artifactId>
-    <version>1.0.0-RC6-SNAPSHOT</version>
+    <version>1.0.0-RC6</version>
     <name>${project.artifactId}</name>
 
     <properties>
