@@ -26,6 +26,7 @@
 
     <properties>
         <checkstyle.basedir>${project.basedir}/..</checkstyle.basedir>
+                <skipTests>true</skipTests>
     </properties>
 
 
