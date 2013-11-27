@@ -37,15 +37,6 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-        	<list>
-        		<value>classpath:default.properties</value>
-        	</list>
-        </property>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-    </bean>
 
 	
 	<bean id="dataSource"
@@ -63,7 +54,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="${jpa.showSql}" />
+				<property name="showSql" value="false" />
 				<property name="generateDdl" value="true" />
 				<property name="database" value="HSQL" />
 			</bean>
