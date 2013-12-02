@@ -33,6 +33,20 @@ import se.skltp.mb.svc.exception.UnreadDeleteException;
 import se.skltp.mb.types.entity.MessageMeta;
 import se.skltp.mb.types.services.TimeService;
 
+/**
+ * Deletes the requested messages.
+ * <p/>
+ * Only read (ie fetched via GetMessages) messages can be deleted.
+ * <p/>
+ * Returns
+ * <ul>
+ * <li>{@link ResultCodeEnum#ERROR}, errorId = 1 on an {@link ErrorCodes#INTERNAL}</li>
+ * <li>{@link ResultCodeEnum#ERROR}, errorId = 2 on an {@link ErrorCodes#UNREAD_DELETE} error</li>
+ * <li>{@link ResultCodeEnum#OK} if all messages are deleted</li>
+ * <li>{@link ResultCodeEnum#INFO} if not all messages are found (ie, have already been deleted)</li>
+ * </ul>
+ * <p/>
+ */
 @WebService(serviceName = "DeleteMessagesResponderService",
         endpointInterface = "se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface",
         portName = "DeleteMessagesResponderPort",

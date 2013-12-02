@@ -25,9 +25,10 @@ import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 
 /**
  * Meta-data about a message.
- *
- * To avoid loading the message body (which can be large) we
- *
+ * <p/>
+ * To avoid loading the message body (which can be large) we keep the message body separate from
+ * data about the message. This means that when listing and deleting messages, we don't need to load the
+ * actual message body.
  *
  * @author mats.olsson@callistaenterprise.se
  */

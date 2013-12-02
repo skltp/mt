@@ -34,7 +34,7 @@ public interface TimeService {
     long now();
 
     /**
-     * As now, but returns a date for the current time.
+     * As {@link #now()}, but returns a date for the current time.
      *
      * @return now as a date
      */

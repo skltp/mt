@@ -34,6 +34,11 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import se.skltp.mb.types.entity.MessageMeta;
 
+/**
+ * Generic endpoint capable of handling any service contract.
+ * <p/>
+ * Extracts message body and metadata and stores it for later List/Get/Delete use.
+ */
 @ServiceMode(value = Service.Mode.MESSAGE)
 @WebServiceProvider(
         /* this is an any-input-service, so we just leave out the wsdl (?)

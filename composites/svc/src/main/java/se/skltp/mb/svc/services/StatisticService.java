@@ -24,6 +24,8 @@ import se.skltp.mb.types.entity.MessageMeta;
 import se.skltp.mb.types.entity.Statistic;
 
 /**
+ * Stores daily usage statistics.
+ *
  * @author mats.olsson@callistaenterprise.se
  */
 public interface StatisticService {

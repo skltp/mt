@@ -32,6 +32,17 @@ import se.riv.infrastructure.itintegration.messagebox.v1.ResultType;
 import se.riv.itintegration.registry.v1.ServiceContractType;
 import se.skltp.mb.types.entity.MessageMeta;
 
+/**
+ * Returns the requested messages.
+ * <p/>
+ * Returns
+ * <ul>
+ * <li>{@link ResultCodeEnum#ERROR} on an internal error</li>
+ * <li>{@link ResultCodeEnum#OK} if all messages are found</li>
+ * <li>{@link ResultCodeEnum#INFO} if not all messages are found</li>
+ * </ul>
+ * <p/>
+ */
 @WebService(serviceName = "GetMessagesResponderService",
         endpointInterface = "se.riv.infrastructure.itintegration.messagebox.GetMessages.v1.GetMessagesResponderInterface",
         portName = "GetMessagesResponderPort",

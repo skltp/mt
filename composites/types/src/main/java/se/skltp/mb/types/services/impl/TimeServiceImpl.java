@@ -24,6 +24,10 @@ import org.springframework.stereotype.Service;
 import se.skltp.mb.types.services.TimeService;
 
 /**
+ * Production implementation of TimeService.
+ * <p/>
+ * Uses System.currentTimeMillis()
+ *
  * @author mats.olsson@callistaenterprise.se
  */
 @Service

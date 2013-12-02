@@ -24,7 +24,7 @@ import javax.persistence.*;
 import se.vgregion.dao.domain.patterns.entity.AbstractEntity;
 
 /**
- * Log statistics information about retrieved messages per targetSystem
+ * Log statistics information about retrieved messages per targetSystem and day
  *
  * @author mats.olsson@callistaenterprise.se
  */
