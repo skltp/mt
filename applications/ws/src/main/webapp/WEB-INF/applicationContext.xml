@@ -21,55 +21,40 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+
+
         http://www.springframework.org/schema/jee
         http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
 
-	<bean id="jmsQueueAppender" class="se.skltp.mb.svc.loghandler.JMSQueueAppender">
-<!-- 		<property name="brokerURL" value="tcp://localhost:61616"/> -->
-		<property name="brokerURL">
-			<value>tcp://localhost:61616</value>
-		</property>
-		<property name="infoQueueName" value="MTINFO" />
-		<property name="errorQueueName" value="MTERROR" />
-	</bean>
-	
-<!-- 	<bean id="amqConnectionFactory"  -->
-<!-- 		class="org.apache.activemq.ActiveMQConnectionFactory" -->
-<!--    	 	p:brokerURL="tcp://localhost:61616" /> -->
-	
-	
+    <bean id="jmsQueueAppender" class="se.skltp.mb.svc.loghandler.JMSQueueAppender">
+        <property name="brokerURL">
+            <value>tcp://localhost:61616</value>
+        </property>
+        <property name="infoQueueName" value="MTINFO"/>
+        <property name="errorQueueName" value="MTERROR"/>
+    </bean>
 
-<!--     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/> -->
-    <bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" />
-		<property name="url" value="jdbc:mysql://localhost:3306/messagebox?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB" />
-		<property name="username" value="messageboxuser" />
-		<property name="password" value="messageboxpassword" />
-	</bean>
-    
 
-	<!-- JPA Entity manager -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="false" />
-				<property name="generateDdl" value="true" />
-				<property name="database" value="MYSQL" />
-			</bean>
-		</property>
-	</bean>
+    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/>
+
+    <!-- JPA Entity manager -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="false"/>
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
+    </bean>
 
 </beans>
