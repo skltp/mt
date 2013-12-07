@@ -133,7 +133,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 
     private Session getSessionWithRetry() throws JMSException {
         Session session = null;
-        int numRetries = 2;
+        int numRetries = 1;
         int retryCount = 0;
         while ( session == null && retryCount <= numRetries ) {
             try {
@@ -142,11 +142,6 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
                 if ( retryCount++ < numRetries ) {
                     // force a reconnect
                     connection = null;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e1) {
-                        throw new RuntimeException(e1);
-                    }
                 } else {
                     throw e;
                 }
