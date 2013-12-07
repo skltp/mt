@@ -1,10 +1,8 @@
 package se.skltp.mb.ws;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.MalformedURLException;
 import java.util.List;
-
+import javax.jms.JMSException;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
@@ -15,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesResponseType;
 import se.riv.infrastructure.itintegration.messagebox.DeleteMessagesResponder.v1.DeleteMessagesType;
 import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.GetMessagesResponseType;
@@ -28,6 +25,8 @@ import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.intsvc.XmlUtils;
 import se.skltp.mb.ws.base.BaseIntegrationTest;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author mats.olsson@callistaenterprise.se
@@ -44,10 +43,9 @@ public class EndToEndIntegrationTest extends BaseIntegrationTest {
 	 * @throws TransformerException
 	 */
     @Test
-    public void testReciveListGetDelete() throws SOAPException, MalformedURLException, TransformerException {
+    public void testReciveListGetDelete() throws SOAPException, MalformedURLException, TransformerException, JMSException {
         String tkName = "urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1";
         String targetOrg = "targetOrg";
-
         // Insert a message
 
         SOAPMessage soapMessage = createIncomingMessage(tkName, targetOrg);
@@ -112,5 +110,8 @@ public class EndToEndIntegrationTest extends BaseIntegrationTest {
 
         assertEquals(ResultCodeEnum.OK, listResponse.getResult().getCode());
         assertEquals(0, listResponse.getMessageMetas().size());
+
+        assertEquals(3, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
     }
 }

@@ -8,7 +8,6 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
 import org.junit.Test;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -73,9 +72,11 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 	
 	
 	@Test
-	@Ignore
-	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException, SQLException  {
-		
+	public void receive_ERR_r2_should_return_soap_fault() throws MalformedURLException, SOAPException, JMSException, SQLException, InterruptedException {
+
+        assertEquals(0, countNumberOfLogMessages(infoQueueName));
+        assertEquals(0, countNumberOfLogMessages(errorQueueName));
+
         SOAPMessage soapMessage;
 		soapMessage = createIncomingMessage(tkName, "");
 		SOAPMessage response = sendToReceive(soapMessage);
@@ -89,10 +90,8 @@ public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
 		
 		// Should be no info message and two error messages
         assertEquals(0, countNumberOfLogMessages(infoQueueName));
-        // TODO: Varying test; 2 when run as a single test, 1 when run as part of
-        // a multi-class test. Something wrong with the embedded environment setup
-        assertEquals(1, countNumberOfLogMessages(errorQueueName));
-        
+        assertEquals(2, countNumberOfLogMessages(errorQueueName));
+
 	}
 	
 	
