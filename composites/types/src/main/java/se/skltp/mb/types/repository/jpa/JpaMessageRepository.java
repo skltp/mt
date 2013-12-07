@@ -125,7 +125,7 @@ public class JpaMessageRepository extends DefaultJpaRepository<MessageMeta, Long
 
     @Override
     public MessageMeta create(String sourceSystem, String targetSystem, String targetOrganization, String serviceContract, String messageText, String correlationId) {
-        return create(sourceSystem,targetSystem,targetOrganization,serviceContract,messageText,correlationId,MessageStatus.RECEIVED, timeService.date());
+        return create(sourceSystem, targetSystem, targetOrganization, serviceContract, messageText, correlationId, MessageStatus.RECEIVED, timeService.date());
     }
 
     @Override

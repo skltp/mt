@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.ConnectionFailedException;
 import org.apache.log4j.Appender;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
@@ -75,11 +76,11 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
      * Append event to queue
      */
     protected void append(LoggingEvent event) {
-
         // TODO - This should be done in log4.properties
         // Do not process events that originates from this class
         if ( isLogEventFromThisClass(event) ) {
             return;
+
         }
 
         try {
@@ -89,6 +90,8 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
             logToQueue(queue, marshall(logEvent));
 
         } catch (Exception e) {
+            System.err.println("### JMSQ: failed logging " + e);
+            e.printStackTrace();
             logger.warn("Could not log message to queue", e);
         }
     }
@@ -103,7 +106,8 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
     private void logToQueue(String queue, String xml) {
 
         try {
-            Session session = getSession();
+            Session session = getSessionWithRetry();
+
             Destination dest;
             dest = session.createQueue(queue);
             MessageProducer producer = session.createProducer(dest);
@@ -116,6 +120,8 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
             session.close();
 
         } catch (JMSException e) {
+            System.err.println("Could not log to " + queue + "! : " + e);
+            e.printStackTrace();
             logger.error("Could not log to " + queue + "!", e);
 
             // Force a new connection to be made on the next request
@@ -123,6 +129,30 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
                 connection = null;
             }
         }
+    }
+
+    private Session getSessionWithRetry() throws JMSException {
+        Session session = null;
+        int numRetries = 2;
+        int retryCount = 0;
+        while ( session == null && retryCount <= numRetries ) {
+            try {
+                session = getSession();
+            } catch (ConnectionFailedException e) {
+                if ( retryCount++ < numRetries ) {
+                    // force a reconnect
+                    connection = null;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e1) {
+                        throw new RuntimeException(e1);
+                    }
+                } else {
+                    throw e;
+                }
+            }
+        }
+        return session;
     }
 
     /**

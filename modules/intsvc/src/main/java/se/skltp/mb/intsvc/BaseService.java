@@ -241,6 +241,8 @@ public abstract class BaseService {
                 default:
                     break;
             }
+        } else {
+            System.err.println("Null logger when trying to log " + messageText);
         }
     }
 

@@ -27,9 +27,7 @@ import javax.xml.soap.SOAPBodyElement;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -95,5 +93,28 @@ public class XmlUtils {
         DOMResult result = new DOMResult();
         tf.newTransformer().transform(txtSrc, result);
         return result;
+    }
+
+
+
+    /**
+     * Format the xml-text string in a human-readable fashion.
+     *
+     * @param text xml-document text
+     * @return formatted xml-document
+     * @throws TransformerException
+     */
+    public static String prettyFormatXmlText(String text) throws TransformerException {
+        // Instantiate transformer input
+        Source xmlInput = new StreamSource(new StringReader(text));
+        StreamResult xmlOutput = new StreamResult(new StringWriter());
+
+        // Configure transformer
+        Transformer transformer = TransformerFactory.newInstance().newTransformer(); // An identity transformer
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+        transformer.transform(xmlInput, xmlOutput);
+
+        return xmlOutput.getWriter().toString();
     }
 }
