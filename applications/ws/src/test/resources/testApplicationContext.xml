@@ -38,7 +38,7 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
@@ -48,7 +48,6 @@
 	</bean>
     
 
-	<!-- JPA Entity manager -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -60,12 +59,5 @@
 			</bean>
 		</property>
 	</bean>
-	
-	  	<!-- post-processors for all standard annotations -->
-	<context:annotation-config />
 
-	<context:component-scan base-package="se.skltp.mb" />
-
-	<tx:annotation-driven />
-	
 </beans>

@@ -43,7 +43,10 @@ public class EndToEndIntegrationTest extends BaseIntegrationTest {
 	 * @throws TransformerException
 	 */
     @Test
-    public void testReciveListGetDelete() throws SOAPException, MalformedURLException, TransformerException, JMSException {
+    public void testReceiveListGetDelete() throws SOAPException, MalformedURLException, TransformerException, JMSException {
+
+        resetNumberOfLoggedMessages();
+
         String tkName = "urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1";
         String targetOrg = "targetOrg";
         // Insert a message
