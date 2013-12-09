@@ -38,6 +38,9 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
+                    <webApp>
+                        <jettyEnvXml>src/main/jetty/jetty-env.xml</jettyEnvXml>
+                    </webApp>
                     <systemProperties>
                         <systemProperty>
                             <name>jetty.port</name>
@@ -49,6 +52,30 @@
                         </systemProperty>
                     </systemProperties>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-log4j-resource</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/environment</directory>
+                                    <includes>
+                                        <include>log4j.properties</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

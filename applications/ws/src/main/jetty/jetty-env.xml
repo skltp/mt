@@ -21,6 +21,8 @@
 -->
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
 
+
+<!-- Jetty-specific context used from maven (mvn jetty:run). Sets up the database connection. -->
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
     <!-- Setup the datasource -->
