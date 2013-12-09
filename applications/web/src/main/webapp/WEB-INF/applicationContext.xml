@@ -31,15 +31,6 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:default.properties</value>
-            </list>
-        </property>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-    </bean>
-
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/>
 
     <!-- JPA Entity manager -->
