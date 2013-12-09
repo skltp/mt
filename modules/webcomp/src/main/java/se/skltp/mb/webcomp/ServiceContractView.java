@@ -33,7 +33,8 @@ public class ServiceContractView {
         this.serviceContract = shortName = serviceContract;
         String[] parts = serviceContract.split(":");
         if ( parts.length > 2 ) {
-            shortName = parts[parts.length - 2];
+            // the local name and the version
+            shortName = parts[parts.length - 2] + ":" + parts[parts.length-1];
         }
     }
 
