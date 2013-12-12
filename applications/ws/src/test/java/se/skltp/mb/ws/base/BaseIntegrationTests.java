@@ -170,11 +170,8 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
             errorConsumer = session.createConsumer(errorDest);
             errorConsumer.setMessageListener(this);
 
-            setupJndiEnvironment();
         } catch (JMSException e) {
             e.printStackTrace();
-        } catch (NamingException e) {
-            throw new RuntimeException(e);
         }
 
         // Set up DB-connection
@@ -185,11 +182,15 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
         }
     }
 
-    private void setupJndiEnvironment() throws NamingException {
-        SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
-        Object config = applicationContext.getBean("jmsConfig");
-        builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
-        builder.activate();
+    protected void setupJndiEnvironment() {
+        try {
+            SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
+            Object config = applicationContext.getBean("jmsConfig");
+            builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
+            builder.activate();
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected void resetNumberOfLoggedMessages() {
