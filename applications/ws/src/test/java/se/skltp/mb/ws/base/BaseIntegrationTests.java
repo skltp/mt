@@ -19,7 +19,10 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.broker.BrokerService;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
@@ -71,8 +74,6 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
     private java.sql.Connection dbConnection;
     public boolean showMessage = false;
 
-    private SimpleNamingContextBuilder builder;
-
     @BeforeClass
     public static void startJetty() throws Exception {
 
@@ -89,7 +90,10 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
 
     @AfterClass
     public static void stopJetty() throws Exception {
-        server.stop();
+        if ( server != null ) {
+            server.stop();
+            server = null;
+        }
     }
 
 
@@ -103,7 +107,10 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
 
     @AfterClass
     public static void stopAMQ() throws Exception {
-        broker.stop();
+        if ( broker != null ) {
+            broker.stop();
+            broker = null;
+        }
     }
 
 
@@ -120,21 +127,6 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
     public void setup() throws JMSException, IOException {
         broker.deleteAllMessages();
         resetNumberOfLoggedMessages();
-
-        setupJndiEnvironment();
-    }
-
-    private void setupJndiEnvironment() {
-        if ( builder == null ) {
-            builder = new SimpleNamingContextBuilder();
-            Object config = applicationContext.getBean("jmsConfig");
-            builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
-            try {
-                builder.activate();
-            } catch (NamingException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
 
@@ -158,6 +150,7 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
 
 
     public BaseIntegrationTests() {
+        System.err.println("Creating " + getClass().getName());
 
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
 
@@ -177,8 +170,11 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
             errorConsumer = session.createConsumer(errorDest);
             errorConsumer.setMessageListener(this);
 
+            setupJndiEnvironment();
         } catch (JMSException e) {
             e.printStackTrace();
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
         }
 
         // Set up DB-connection
@@ -187,6 +183,13 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupJndiEnvironment() throws NamingException {
+        SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
+        Object config = applicationContext.getBean("jmsConfig");
+        builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
+        builder.activate();
     }
 
     protected void resetNumberOfLoggedMessages() {
