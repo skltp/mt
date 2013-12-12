@@ -33,6 +33,15 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
+    <bean id="jmsConfig" class="se.skltp.mb.svc.loghandler.ConfigBean">
+        <property name="errorQueueName" value="MT_DEFAULT_ERROR"/>
+        <property name="infoQueueName" value="MT_DEFAULT_INFO"/>
+        <property name="brokerURL" value="tcp://localhost:62626"/>
+        <property name="componentName" value="Messagebox"/>
+        <property name="errorThreshold" value="WARNING"/>
+        <property name="infoThreshold" value="INFO"/>
+        <property name="active" value="true"/>
+    </bean>
 
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">

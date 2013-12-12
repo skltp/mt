@@ -20,13 +20,13 @@ import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.intsvc.GetMessagesImpl;
 import se.skltp.mb.intsvc.XmlUtils;
-import se.skltp.mb.ws.base.BaseIntegrationTest;
+import se.skltp.mb.ws.base.BaseIntegrationTests;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
-public class GetMessagesIntegrationTest extends BaseIntegrationTest {
+public class GetMessagesIntegrationTest extends BaseIntegrationTests {
 
 	@Test
 	public void get_message_OK() throws MalformedURLException, SOAPException, TransformerException, JMSException, SQLException {

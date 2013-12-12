@@ -18,11 +18,11 @@ import se.riv.infrastructure.itintegration.messagebox.ListMessagesResponder.v1.L
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
-import se.skltp.mb.ws.base.BaseIntegrationTest;
+import se.skltp.mb.ws.base.BaseIntegrationTests;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
-public class ListMessagesIntegrationTest extends BaseIntegrationTest {
+public class ListMessagesIntegrationTest extends BaseIntegrationTests {
 
 	
 	@Test

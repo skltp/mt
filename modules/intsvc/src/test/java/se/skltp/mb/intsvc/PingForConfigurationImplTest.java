@@ -57,10 +57,11 @@ public class PingForConfigurationImplTest extends BaseTestImpl {
         impl.setTimeService(timeService);
 
         List<Statistic> statistics = new ArrayList<Statistic>();
-        statistics.add(new Statistic("rec1", "org1", "sc1", 0));
+        String targSys = "TargSys";
+        statistics.add(new Statistic(targSys, "Org1", "Sc1", 0));
         statistics.get(0).addDelivery(1000, 121000);   // 1000 bytes, 02:01
         List<StatusReport> reports = new ArrayList<StatusReport>();
-        reports.add(new StatusReport("rec1", "org1", "sc1", 1, 1, 1000, new Date(timeService.now() - 15000))); // 00:15
+        reports.add(new StatusReport(targSys, "org1", "sc1", 1, 1, 1000, new Date(timeService.now() - 15000))); // 00:15
 
         when(statisticService.getStatisticsForTimeSlice(anyLong(), anyLong())).thenReturn(statistics);
         when(messageService.getStatusReports()).thenReturn(reports);
@@ -79,10 +80,10 @@ public class PingForConfigurationImplTest extends BaseTestImpl {
         for ( ConfigurationType c : confList ) {
             props.put(c.getName(), c.getValue());
         }
-        assertEquals("1", props.get("rec1-" + PingForConfigurationImpl.QUEUE_SIZE_TAG));
-        assertEquals("00:00:15", props.get("rec1-" + PingForConfigurationImpl.OLDEST_MESSAGE_TAG));
-        assertEquals("1", props.get("rec1-" + PingForConfigurationImpl.DELIVERY_COUNT_TAG));
-        assertEquals("00:02:01", props.get("rec1-" + PingForConfigurationImpl.MAX_DELIVERY_TIME_TAG));
+        assertEquals("1", props.get(targSys + "-" + PingForConfigurationImpl.QUEUE_SIZE_TAG));
+        assertEquals("00:00:15", props.get(targSys + "-" + PingForConfigurationImpl.OLDEST_MESSAGE_TAG));
+        assertEquals("1", props.get(targSys + "-" + PingForConfigurationImpl.DELIVERY_COUNT_TAG));
+        assertEquals("00:02:01", props.get(targSys + "-" + PingForConfigurationImpl.MAX_DELIVERY_TIME_TAG));
 
     }
 

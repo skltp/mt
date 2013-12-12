@@ -16,13 +16,13 @@ import se.riv.infrastructure.itintegration.messagebox.GetMessagesResponder.v1.Ge
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.intsvc.DeleteMessagesImpl;
 import se.skltp.mb.intsvc.ErrorCodes;
-import se.skltp.mb.ws.base.BaseIntegrationTest;
+import se.skltp.mb.ws.base.BaseIntegrationTests;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
-public class DeleteMessagesIntegrationTest extends BaseIntegrationTest {
+public class DeleteMessagesIntegrationTest extends BaseIntegrationTests {
 
     @Test
     public void delete_OK() throws MalformedURLException, SOAPException, JMSException, SQLException {

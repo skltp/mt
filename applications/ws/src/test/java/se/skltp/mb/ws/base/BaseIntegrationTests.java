@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.jms.*;
+import javax.naming.NamingException;
 import javax.xml.namespace.QName;
 import javax.xml.soap.*;
 import javax.xml.transform.TransformerException;
@@ -19,6 +20,7 @@ import org.apache.activemq.broker.BrokerService;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.*;
+import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import se.riv.infrastructure.itintegration.messagebox.DeleteMessages.v1.DeleteMessagesResponderInterface;
@@ -39,10 +41,9 @@ import se.skltp.mb.intsvc.XmlUtils;
 /**
  * Contains convenience methods and settings for integration tests
  */
-@Ignore
-public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests implements MessageListener {
+public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4SpringContextTests implements MessageListener {
 
-    private static final Logger LOG = Logger.getLogger(BaseIntegrationTest.class.getName());
+    private static final Logger LOG = Logger.getLogger(BaseIntegrationTests.class.getName());
     private static final String ENDPOINT_URL = "http://localhost:8081";
     private static final int ENDPOINT_PORT = 8081;
     private static final String MT_LOGICAL_ADDRESS = "Inera";
@@ -70,6 +71,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
     private java.sql.Connection dbConnection;
     public boolean showMessage = false;
 
+    private SimpleNamingContextBuilder builder;
 
     @BeforeClass
     public static void startJetty() throws Exception {
@@ -81,9 +83,9 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
         context.setResourceBase("src/test/embedded-webapp");
         context.setContextPath("/");
         server.setHandler(context);
+
         server.start();
     }
-
 
     @AfterClass
     public static void stopJetty() throws Exception {
@@ -118,6 +120,21 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
     public void setup() throws JMSException, IOException {
         broker.deleteAllMessages();
         resetNumberOfLoggedMessages();
+
+        setupJndiEnvironment();
+    }
+
+    private void setupJndiEnvironment() {
+        if ( builder == null ) {
+            builder = new SimpleNamingContextBuilder();
+            Object config = applicationContext.getBean("jmsConfig");
+            builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
+            try {
+                builder.activate();
+            } catch (NamingException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 
@@ -140,7 +157,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
     }
 
 
-    public BaseIntegrationTest() {
+    public BaseIntegrationTests() {
 
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
 
@@ -314,7 +331,7 @@ public class BaseIntegrationTest extends AbstractTransactionalJUnit4SpringContex
             try {
                 String text = XmlUtils.prettyFormatXmlText(txtMsg.getText());
 
-                LOG.info("--- Message in " + Thread.currentThread().getName() + " ----:\n" + text+ "\n----------");
+                LOG.info("--- Message in " + Thread.currentThread().getName() + " ----:\n" + text + "\n----------");
             } catch (JMSException e) {
                 throw new RuntimeException(e);
             } catch (TransformerException e) {

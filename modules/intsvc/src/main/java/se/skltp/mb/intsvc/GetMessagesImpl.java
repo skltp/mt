@@ -91,7 +91,7 @@ public class GetMessagesImpl extends BaseService implements GetMessagesResponder
                 response.getResponses().add(elem);
                 if ( log.isInfoEnabled() ) {
                     String msgId = msg.getId().toString();
-                    logInfo(getLogger(), "Message " + msgId + " was read by " + callingSystem, msgId, msg);
+                    logInfo(getLogger(), identifyMsg(msg) + " was read by " + callingSystem, msgId, msg);
                 }
             }
 

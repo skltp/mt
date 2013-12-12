@@ -77,4 +77,11 @@
       <res-auth>Container</res-auth>
     </resource-ref>
 
+    <!-- jms config -->
+    <resource-env-ref>
+        <description>Object factory for JMS ConfigBean.</description>
+        <resource-env-ref-name>bean/MessageboxJmsConfig</resource-env-ref-name>
+        <resource-env-ref-type>se.skltp.mb.svc.loghandler.ConfigBean</resource-env-ref-type>
+    </resource-env-ref>
+
 </web-app>

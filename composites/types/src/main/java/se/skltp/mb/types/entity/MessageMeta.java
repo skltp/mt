@@ -163,4 +163,5 @@ public class MessageMeta extends AbstractEntity<Long> {
     public void setMessageBody(MessageBody messageBody) {
         this.messageBody = messageBody;
     }
+
 }

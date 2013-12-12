@@ -78,7 +78,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
             List<MessageMeta> messages = messageService.listMessages(targetSystem, parameters.getMessageIds());
             if ( parameters.getMessageIds().size() != messages.size() ) {
                 if ( log.isWarnEnabled() ) {
-                    String msg = "Caller " + callingSystem + "  attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
+                    String msg = "Caller " + callingSystem + " attempted to delete non-deletable messages " + describeMessageDiffs(parameters.getMessageIds(), messages);
                     logWarn(getLogger(), msg, null, null, null);
                 }
 
@@ -93,7 +93,7 @@ public class DeleteMessagesImpl extends BaseService implements DeleteMessagesRes
                 responseIds.add(msg.getId());
                 if ( log.isInfoEnabled() ) {
                     String msgId = String.valueOf(msg.getId());
-                    logInfo(getLogger(), "Message " + msgId + " was deleted by " + callingSystem, msgId, msg);
+                    logInfo(getLogger(), identifyMsg(msg) + " was deleted by " + callingSystem, msgId, msg);
                 }
             }
 

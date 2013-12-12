@@ -33,15 +33,6 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <bean id="jmsQueueAppender" class="se.skltp.mb.svc.loghandler.JMSQueueAppender">
-        <property name="brokerURL">
-            <value>tcp://localhost:61616</value>
-        </property>
-        <property name="infoQueueName" value="MTINFO"/>
-        <property name="errorQueueName" value="MTERROR"/>
-    </bean>
-
-
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/MessageboxDataSource"/>
 
     <!-- JPA Entity manager -->

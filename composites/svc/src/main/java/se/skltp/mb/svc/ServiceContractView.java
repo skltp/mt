@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package se.skltp.mb.webcomp;
+package se.skltp.mb.svc;
 
 /**
  * Human-readable view of a service contract namespace.
@@ -29,7 +29,10 @@ public class ServiceContractView {
     String serviceContract;
     String shortName;
 
-    ServiceContractView(String serviceContract) {
+    public ServiceContractView(String serviceContract) {
+        if (serviceContract == null) {
+            serviceContract = "<NULL SERVICECONTRACT!>";
+        }
         this.serviceContract = shortName = serviceContract;
         String[] parts = serviceContract.split(":");
         if ( parts.length > 2 ) {

@@ -78,7 +78,7 @@ public class ReceiveMessagesImpl extends BaseService implements Provider<SOAPMes
 
             if ( log.isInfoEnabled() ) {
                 String msgId = message.getId().toString();
-                logInfo(getLogger(), "Message " + msgId + " saved by " + callingSystem, msgId, message);
+                logInfo(getLogger(), identifyMsg(message) + " saved by " + callingSystem, msgId, message);
             }
 
             return getReturnCode();

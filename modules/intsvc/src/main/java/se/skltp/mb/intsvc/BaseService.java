@@ -27,6 +27,7 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
+import se.skltp.mb.svc.ServiceContractView;
 import se.skltp.mb.svc.loghandler.ContextData;
 import se.skltp.mb.svc.loghandler.JMSQueueAppender;
 import se.skltp.mb.svc.services.MessageService;
@@ -260,5 +261,9 @@ public abstract class BaseService {
      */
     public void resetLogContext() {
         JMSQueueAppender.setContextData(null);
+    }
+
+    protected String identifyMsg(MessageMeta msg) {
+        return "Msg[id " + msg.getId() + ", corr " + msg.getCorrelationId() + ", " + new ServiceContractView(msg.getServiceContract()) + " sent by " + msg.getSourceSystem() + " to " + msg.getTargetOrganization() + "(" + msg.getTargetSystem() + ")]";
     }
 }

@@ -38,4 +38,22 @@
         </Arg>
     </New>
 
+    <!-- Setup the config  -->
+    <New id="MessageboxJmsConfig" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>bean/MessageboxJmsConfig</Arg>
+        <Arg>
+            <New class="se.skltp.mb.svc.loghandler.ConfigBean">
+                <Set name="errorQueueName">MT_DEFAULT_ERROR</Set>
+                <Set name="infoQueueName">MT_DEFAULT_INFO</Set>
+                <Set name="brokerURL">tcp://localhost:61616</Set>
+                <Set name="componentName">Messagebox</Set>
+                <Set name="errorThreshold">WARNING</Set>
+                <Set name="infoThreshold">INFO</Set>
+                <Set name="active">true</Set>
+
+            </New>
+        </Arg>
+    </New>
+
 </Configure>

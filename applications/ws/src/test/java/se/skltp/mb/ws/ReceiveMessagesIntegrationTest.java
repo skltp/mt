@@ -17,14 +17,14 @@ import se.riv.infrastructure.itintegration.messagebox.v1.MessageMetaType;
 import se.riv.infrastructure.itintegration.messagebox.v1.MessageStatusType;
 import se.riv.infrastructure.itintegration.messagebox.v1.ResultCodeEnum;
 import se.skltp.mb.intsvc.ReceiveErrorCodes;
-import se.skltp.mb.ws.base.BaseIntegrationTest;
+import se.skltp.mb.ws.base.BaseIntegrationTests;
 
 import static org.junit.Assert.assertEquals;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
-public class ReceiveMessagesIntegrationTest extends BaseIntegrationTest {
+public class ReceiveMessagesIntegrationTest extends BaseIntegrationTests {
 
 	
 	/**

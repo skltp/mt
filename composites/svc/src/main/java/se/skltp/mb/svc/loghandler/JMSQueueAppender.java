@@ -5,6 +5,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.jms.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -29,12 +32,6 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 
     private Connection connection;
 
-    // Settings
-    private String brokerURL;
-    private String infoQueueName;
-    private String errorQueueName;
-    private String componentName;
-
 
     /**
      * Used by logging methods in {@link se.skltp.mb.svc.services} for pushing data to this class
@@ -46,6 +43,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
         }
 
     };
+    private ConfigBean config;
 
     public static void setContextData(ContextData data) {
         if ( contextData != null ) {
@@ -71,27 +69,57 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
         return false;
     }
 
+    private ConfigBean getConfig() {
+
+        if ( config == null ) {
+            try {
+                Context initCtx = new InitialContext();
+                Context envCtx = (Context) initCtx.lookup("java:comp/env");
+                config = (ConfigBean) envCtx.lookup("bean/MessageboxJmsConfig");
+            } catch (NamingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return config;
+    }
+
+    public String getComponentName() {
+        return getConfig().getComponentName();
+    }
+
+    public String getBrokerURL() {
+        return getConfig().getBrokerURL();
+    }
+
+    public String getInfoQueueName() {
+        return getConfig().getInfoQueueName();
+    }
+
+    public String getErrorQueueName() {
+        return getConfig().getErrorQueueName();
+    }
 
     /**
      * Append event to queue
      */
     protected void append(LoggingEvent event) {
-        // TODO - This should be done in log4.properties
+        if ( !Boolean.parseBoolean(getConfig().getActive()) ) {
+            return;
+        }
+
         // Do not process events that originates from this class
         if ( isLogEventFromThisClass(event) ) {
             return;
-
         }
 
         try {
-            LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get(), componentName);
+            LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get(), getComponentName());
             String queue = getQueueName(logEvent.getLogEntry().getMessageInfo().getLevel());
-
-            logToQueue(queue, marshall(logEvent));
+            if ( queue != null ) {
+                logToQueue(queue, marshall(logEvent));
+            }
 
         } catch (Exception e) {
-            System.err.println("### JMSQ: failed logging " + e);
-            e.printStackTrace();
             logger.warn("Could not log message to queue", e);
         }
     }
@@ -160,7 +188,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 
         if ( connection == null ) {
 
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
+            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(getBrokerURL());
 
             connection = connectionFactory.createConnection();
             connection.start();
@@ -204,41 +232,33 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
 
 
     /**
-     * Get the corresponding queue (name) for this log level
+     * Get the corresponding queue (name) for this log level, or null.
      *
-     * @param level
-     * @return the queue name
+     * @param level log level
+     * @return the queue name or null if the message should not be logged
      */
     private String getQueueName(LogLevelType level) {
 
-        if ( errorLevels.contains(level) ) {
-            return errorQueueName;
-        } else {
-            return infoQueueName;
+        if ( level.compareTo(getConfigThreshold(getConfig().getErrorThreshold())) <= 0 ) {
+            return getErrorQueueName();
+        } else if ( level.compareTo(getConfigThreshold(getConfig().getInfoThreshold())) <= 0 ) {
+            return getInfoQueueName();
         }
+        return null;
     }
 
-
-    // Setters
-
-    public void setBrokerURL(String brokerURL) {
-        this.brokerURL = brokerURL;
-    }
-
-    public void setInfoQueueName(String infoQueueName) {
-        this.infoQueueName = infoQueueName;
-    }
-
-    public void setErrorQueueName(String errorQueueName) {
-        this.errorQueueName = errorQueueName;
-    }
-
-    public String getComponentName() {
-        return componentName;
-    }
-
-    public void setComponentName(String componentName) {
-        this.componentName = componentName;
+    private LogLevelType getConfigThreshold(String threshold) {
+        try {
+            return LogLevelType.valueOf(threshold);
+        } catch (IllegalArgumentException e) {
+            StringBuilder sb = new StringBuilder();
+            for ( LogLevelType value : LogLevelType.values() ) {
+                sb.append(value).append(",");
+            }
+            String msg = "'" + threshold + "' is not a valid threshold log level. Must be one of " + sb.toString();
+            System.err.println(msg);
+            throw new IllegalArgumentException(msg);
+        }
     }
 
 

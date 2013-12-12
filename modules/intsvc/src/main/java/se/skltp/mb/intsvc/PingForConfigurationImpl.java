@@ -105,11 +105,14 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
         response.setPingDateTime(dateTime);
 
         // we extract some info from the status reports and todays delivery stats
-        response.getConfiguration().addAll(new StatusBuilder(messageService.getStatusReports()).result);
-        response.getConfiguration().addAll(new StatsBuilder(statisticService.getStatisticsForTimeSlice(now, now)).result);
+        StatusBuilder statusBuilder = new StatusBuilder(messageService.getStatusReports());
+        StatsBuilder statsBuilder = new StatsBuilder(statisticService.getStatisticsForTimeSlice(now, now));
 
+        response.getConfiguration().addAll(statusBuilder.result);
+        response.getConfiguration().addAll(statsBuilder.result);
 
-        log.info("PingForConfig [" + version + "] " + dateTime + ", conf size " + response.getConfiguration().size() );
+        log.info("PingForConfig [" + version + "] " + dateTime +
+                ", " + response.getConfiguration().size() + " configuration entries reported");
         // if we get any kind of error, we will generate a SOAP Fault and tomcat will log the error, which is good
         // enough - no need to do any error handling.
 
@@ -153,6 +156,18 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
                 result.add(conf(targetSystem + "-" + OLDEST_MESSAGE_TAG, new TimeDelta(timeService.now() - oldestMessage.getTime()).toString()));
             }
         }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for ( ConfigurationType v : result ) {
+                if (sb.length() > 0) {
+                    sb.append(", ");
+                }
+                sb.append(v.getName()).append("='").append(v.getValue()).append("'");
+            }
+            return sb.toString();
+        }
     }
 
     private class StatsBuilder {
@@ -184,6 +199,17 @@ public class PingForConfigurationImpl extends BaseService implements PingForConf
                 result.add(conf(targetSystem + "-" + DELIVERY_COUNT_TAG, String.valueOf(queueSize)));
                 result.add(conf(targetSystem + "-" + MAX_DELIVERY_TIME_TAG, new TimeDelta(maxDeliveryTime).toString()));
             }
+        }
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for ( ConfigurationType v : result ) {
+                if (sb.length() > 0) {
+                    sb.append(", ");
+                }
+                sb.append(v.getName()).append("='").append(v.getValue()).append("'");
+            }
+            return sb.toString();
         }
 
     }

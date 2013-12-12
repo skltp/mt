@@ -13,7 +13,6 @@ public class ContextData {
     }
 
 	public ContextData() {}
-
 	public String getCorrelationId() {
 		return correlationId;
 	}
