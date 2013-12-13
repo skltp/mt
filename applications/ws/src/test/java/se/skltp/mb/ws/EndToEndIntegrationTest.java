@@ -45,7 +45,6 @@ public class EndToEndIntegrationTest extends BaseIntegrationTests {
     @Test
     public void testReceiveListGetDelete() throws SOAPException, MalformedURLException, TransformerException, JMSException {
 
-        setupJndiEnvironment();
         resetNumberOfLoggedMessages();
 
         String tkName = "urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateQuestion:1";

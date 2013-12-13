@@ -127,6 +127,7 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
     public void setup() throws JMSException, IOException {
         broker.deleteAllMessages();
         resetNumberOfLoggedMessages();
+        setupJndiEnvironment();
     }
 
 
@@ -184,6 +185,7 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
 
     protected void setupJndiEnvironment() {
         try {
+            System.err.println("########## setupJndiEnvironment");
             SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
             Object config = applicationContext.getBean("jmsConfig");
             builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
