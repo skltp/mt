@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.4" jmeter="2.9 r1437961">
+<jmeterTestPlan version="1.2" properties="2.5" jmeter="2.10 r1533061">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -19,7 +19,7 @@
           </elementProp>
           <elementProp name="HOST_VP" elementType="Argument">
             <stringProp name="Argument.name">HOST_VP</stringProp>
-            <stringProp name="Argument.value">https:192.158.19.10:20000</stringProp>
+            <stringProp name="Argument.value">https://qa.esb.ntjp.sjunet.org:20000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -27,32 +27,27 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Messagebox - VP" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Messagebox - VP" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">10</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
         <longProp name="ThreadGroup.start_time">1382605195000</longProp>
         <longProp name="ThreadGroup.end_time">1382605195000</longProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration">3600</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-          <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">x-rivta-original-serviceconsumer-hsaid</stringProp>
-              <stringProp name="Header.value">Thread-${__threadNum}</stringProp>
-            </elementProp>
-          </collectionProp>
+          <collectionProp name="HeaderManager.headers"/>
         </HeaderManager>
         <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <intProp name="calcMode">2</intProp>
           <doubleProp>
             <name>throughput</name>
             <value>300.0</value>
@@ -72,96 +67,7 @@
             <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
-      &lt;add:To&gt;Mottagning-1&lt;/add:To&gt;
-   &lt;/soapenv:Header&gt;
-   &lt;soapenv:Body&gt;
-      &lt;urn:ReceiveMedicalCertificateAnswer&gt;
-         &lt;urn:Answer&gt;
-            &lt;urn:vardReferens-id&gt;?&lt;/urn:vardReferens-id&gt;
-            &lt;!--Optional:--&gt;
-            &lt;urn:fkReferens-id&gt;${__BeanShell(UUID.randomUUID().toString())}&lt;/urn:fkReferens-id&gt;
-            &lt;urn:amne&gt;?&lt;/urn:amne&gt;
-            &lt;urn:fraga&gt;
-               &lt;urn1:meddelandeText&gt;?&lt;/urn1:meddelandeText&gt;
-               &lt;urn1:signeringsTidpunkt&gt;?&lt;/urn1:signeringsTidpunkt&gt;
-               &lt;!--You may enter ANY elements at this point--&gt;
-            &lt;/urn:fraga&gt;
-            &lt;urn:svar&gt;
-               &lt;urn1:meddelandeText&gt;${__BeanShell(UUID.randomUUID().toString())}&lt;/urn1:meddelandeText&gt;
-              &lt;urn1:signeringsTidpunkt&gt;?&lt;/urn1:signeringsTidpunkt&gt;
-               &lt;!--You may enter ANY elements at this point--&gt;
-            &lt;/urn:svar&gt;
-            &lt;urn:avsantTidpunkt&gt;?&lt;/urn:avsantTidpunkt&gt;
-            &lt;!--Zero or more repetitions:--&gt;
-            &lt;urn:fkKontaktInfo&gt;
-               &lt;urn1:kontakt&gt;?&lt;/urn1:kontakt&gt;
-               &lt;!--You may enter ANY elements at this point--&gt;
-            &lt;/urn:fkKontaktInfo&gt;
-            &lt;urn:adressVard&gt;
-               &lt;urn1:hosPersonal&gt;
-                  &lt;urn2:personal-id validTimeLow=&quot;?&quot; validTimeHigh=&quot;?&quot; controlActRoot=&quot;?&quot; controlActExtension=&quot;?&quot; nullFlavor=&quot;?&quot; flavorId=&quot;?&quot; updateMode=&quot;?&quot; root=&quot;?&quot; extension=&quot;?&quot; identifierName=&quot;?&quot;/&gt;
-                  &lt;!--Optional:--&gt;
-                  &lt;urn2:fullstandigtNamn&gt;?&lt;/urn2:fullstandigtNamn&gt;
-                  &lt;!--Optional:--&gt;
-                  &lt;urn2:forskrivarkod&gt;12345&lt;/urn2:forskrivarkod&gt;
-                  &lt;urn2:enhet&gt;
-                     &lt;urn2:enhets-id validTimeLow=&quot;?&quot; validTimeHigh=&quot;?&quot; controlActRoot=&quot;?&quot; controlActExtension=&quot;?&quot; nullFlavor=&quot;?&quot; flavorId=&quot;?&quot; updateMode=&quot;?&quot; root=&quot;?&quot; extension=&quot;?&quot; identifierName=&quot;?&quot;/&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:arbetsplatskod validTimeLow=&quot;?&quot; validTimeHigh=&quot;?&quot; controlActRoot=&quot;?&quot; controlActExtension=&quot;?&quot; nullFlavor=&quot;?&quot; flavorId=&quot;?&quot; updateMode=&quot;?&quot; root=&quot;?&quot; extension=&quot;?&quot; identifierName=&quot;?&quot;/&gt;
-                     &lt;urn2:enhetsnamn&gt;?&lt;/urn2:enhetsnamn&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:postadress&gt;?&lt;/urn2:postadress&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:postnummer&gt;?&lt;/urn2:postnummer&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:postort&gt;?&lt;/urn2:postort&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:telefonnummer&gt;?&lt;/urn2:telefonnummer&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:epost&gt;?&lt;/urn2:epost&gt;
-                     &lt;!--Optional:--&gt;
-                     &lt;urn2:vardgivare&gt;
-                        &lt;urn2:vardgivare-id validTimeLow=&quot;?&quot; validTimeHigh=&quot;?&quot; controlActRoot=&quot;?&quot; controlActExtension=&quot;?&quot; nullFlavor=&quot;?&quot; flavorId=&quot;?&quot; updateMode=&quot;?&quot; root=&quot;?&quot; extension=&quot;?&quot; identifierName=&quot;?&quot;/&gt;
-                        &lt;urn2:vardgivarnamn&gt;?&lt;/urn2:vardgivarnamn&gt;
-                        &lt;!--You may enter ANY elements at this point--&gt;
-                     &lt;/urn2:vardgivare&gt;
-                     &lt;!--You may enter ANY elements at this point--&gt;
-                  &lt;/urn2:enhet&gt;
-                  &lt;!--You may enter ANY elements at this point--&gt;
-               &lt;/urn1:hosPersonal&gt;
-               &lt;!--You may enter ANY elements at this point--&gt;
-            &lt;/urn:adressVard&gt;
-            &lt;urn:lakarutlatande&gt;
-               &lt;urn1:lakarutlatande-id&gt;?&lt;/urn1:lakarutlatande-id&gt;
-               &lt;urn1:signeringsTidpunkt&gt;?&lt;/urn1:signeringsTidpunkt&gt;
-               &lt;urn1:patient&gt;
-                  &lt;urn2:person-id validTimeLow=&quot;?&quot; validTimeHigh=&quot;?&quot; controlActRoot=&quot;?&quot; controlActExtension=&quot;?&quot; nullFlavor=&quot;?&quot; flavorId=&quot;?&quot; updateMode=&quot;?&quot; root=&quot;?&quot; extension=&quot;?&quot; identifierName=&quot;?&quot;/&gt;
-                  &lt;!--Optional:--&gt;
-                  &lt;urn2:fullstandigtNamn&gt;?&lt;/urn2:fullstandigtNamn&gt;
-                  &lt;!--You may enter ANY elements at this point--&gt;
-               &lt;/urn1:patient&gt;
-               &lt;!--You may enter ANY elements at this point--&gt;
-            &lt;/urn:lakarutlatande&gt;
-            &lt;!--You may enter ANY elements at this point--&gt;
-         &lt;/urn:Answer&gt;
-         &lt;!--You may enter ANY elements at this point--&gt;
-      &lt;/urn:ReceiveMedicalCertificateAnswer&gt;
-   &lt;/soapenv:Body&gt;
-&lt;/soapenv:Envelope&gt;</stringProp>
-            <stringProp name="SoapSampler.xml_data_file"></stringProp>
-            <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1</stringProp>
-            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
-          </SoapSampler>
-          <hashTree/>
-          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="ReceiveMedicalCertificateAnswer to ReceiveMessage" enabled="true">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-            <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/ReceiveMedicalCertificateAnswer/1/rivtabp20</stringProp>
-            <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
-   &lt;soapenv:Header&gt;
-      &lt;add:To&gt;Mottagning-2&lt;/add:To&gt;
+      &lt;add:To&gt;MT-test-1&lt;/add:To&gt;
    &lt;/soapenv:Header&gt;
    &lt;soapenv:Body&gt;
       &lt;urn:ReceiveMedicalCertificateAnswer&gt;
@@ -248,14 +154,14 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/itintegration/messagebox/ListMessages/1/rivtabp21</stringProp>
+          <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/infrastructure/itintegration/messagebox/ListMessages/1/rivtabp21</stringProp>
           <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
    &lt;/soapenv:Header&gt;
    &lt;soapenv:Body&gt;
       &lt;urn1:ListMessages&gt;
-&lt;urn1:targetOrganizations&gt;Mottagning-1&lt;/urn1:targetOrganizations&gt;
+&lt;urn1:targetOrganizations&gt;MT-test-1&lt;/urn1:targetOrganizations&gt;
       &lt;/urn1:ListMessages&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
@@ -277,38 +183,6 @@
           </XPathExtractor>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>false</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
         <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="ForEach Controller - getMessages" enabled="true">
           <stringProp name="ForeachController.inputVal">listedMessagesId</stringProp>
           <stringProp name="ForeachController.returnVal">idToGet</stringProp>
@@ -324,7 +198,7 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/itintegration/messagebox/GetMessages/1/rivtabp21</stringProp>
+              <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/infrastructure/itintegration/messagebox/GetMessages/1/rivtabp21</stringProp>
               <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -336,8 +210,8 @@
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
               <stringProp name="SoapSampler.xml_data_file"></stringProp>
-              <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
-              <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+              <stringProp name="SoapSampler.SOAP_ACTION">urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1:GetMessages</stringProp>
+              <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
               <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
             </SoapSampler>
             <hashTree/>
@@ -358,7 +232,7 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="SoapSampler.URL_DATA">${HOST}/HOST_VP/itintegration/messagebox/DeleteMessages/1/rivtabp21</stringProp>
+              <stringProp name="SoapSampler.URL_DATA">${HOST_VP}/vp/infrastructure/itintegration/messagebox/DeleteMessages/1/rivtabp21</stringProp>
               <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:urn=&quot;urn:riv:itintegration:registry:1&quot; xmlns:urn1=&quot;urn:riv:infrastructure:itintegration:messagebox:DeleteMessagesResponder:1&quot;&gt;
    &lt;soapenv:Header&gt;
       &lt;urn:LogicalAddress&gt;5565594230&lt;/urn:LogicalAddress&gt;
@@ -416,7 +290,7 @@
         </ResultCollector>
         <hashTree/>
         <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
-          <stringProp name="FileSaver.filename">/Users/patrik/callista2/lasttester/jmetererrors</stringProp>
+          <stringProp name="FileSaver.filename">/tmp/inera-message/lasttester/jmetererrors</stringProp>
           <boolProp name="FileSaver.errorsonly">true</boolProp>
           <boolProp name="FileSaver.skipautonumber">false</boolProp>
           <boolProp name="FileSaver.skipsuffix">false</boolProp>
@@ -453,7 +327,7 @@
               <bytes>true</bytes>
             </value>
           </objProp>
-          <stringProp name="filename">/Users/patrik/callista2/lasttester/jmeter</stringProp>
+          <stringProp name="filename">/tmp/inera-message/lasttester/jmeter</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
@@ -485,11 +359,11 @@
               <bytes>true</bytes>
             </value>
           </objProp>
-          <stringProp name="filename">/Users/patrik/callista2/lasttester/jmeter_aggrergated</stringProp>
+          <stringProp name="filename">/tmp/inera-message/lasttester/jmeter_aggregated</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Messagebox - tomcat" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Messagebox - tomcat" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -514,7 +388,7 @@
         </HeaderManager>
         <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
-          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <intProp name="calcMode">2</intProp>
           <doubleProp>
             <name>throughput</name>
             <value>600.0</value>
@@ -534,7 +408,7 @@
             <stringProp name="SoapSampler.URL_DATA">${HOST}/ReceiveMessages/1/rivtabp21</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
-      &lt;add:To&gt;Mottagning-1&lt;/add:To&gt;
+      &lt;add:To&gt;MT-test-1&lt;/add:To&gt;
    &lt;/soapenv:Header&gt;
    &lt;soapenv:Body&gt;
       &lt;urn:ReceiveMedicalCertificateAnswer&gt;
@@ -623,7 +497,7 @@
             <stringProp name="SoapSampler.URL_DATA">${HOST}/ReceiveMessages/1/rivtabp21</stringProp>
             <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:add=&quot;http://www.w3.org/2005/08/addressing&quot; xmlns:urn=&quot;urn:riv:insuranceprocess:healthreporting:ReceiveMedicalCertificateAnswerResponder:1&quot; xmlns:urn1=&quot;urn:riv:insuranceprocess:healthreporting:medcertqa:1&quot; xmlns:urn2=&quot;urn:riv:insuranceprocess:healthreporting:2&quot;&gt;
    &lt;soapenv:Header&gt;
-      &lt;add:To&gt;Mottagning-2&lt;/add:To&gt;
+      &lt;add:To&gt;MT-test-2&lt;/add:To&gt;
    &lt;/soapenv:Header&gt;
    &lt;soapenv:Body&gt;
       &lt;urn:ReceiveMedicalCertificateAnswer&gt;
@@ -717,7 +591,7 @@
    &lt;/soapenv:Header&gt;
    &lt;soapenv:Body&gt;
       &lt;urn1:ListMessages&gt;
-&lt;urn1:targetOrganizations&gt;Mottagning-1&lt;/urn1:targetOrganizations&gt;
+&lt;urn1:targetOrganizations&gt;MT-test-1&lt;/urn1:targetOrganizations&gt;
       &lt;/urn1:ListMessages&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</stringProp>
@@ -884,7 +758,7 @@
         </ResultCollector>
         <hashTree/>
         <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
-          <stringProp name="FileSaver.filename">/Users/patrik/callista2/lasttester/jmetererrors</stringProp>
+          <stringProp name="FileSaver.filename">/tmp/inera-message/lasttester/jmetererrors</stringProp>
           <boolProp name="FileSaver.errorsonly">true</boolProp>
           <boolProp name="FileSaver.skipautonumber">false</boolProp>
           <boolProp name="FileSaver.skipsuffix">false</boolProp>
@@ -921,7 +795,7 @@
               <bytes>true</bytes>
             </value>
           </objProp>
-          <stringProp name="filename">/Users/patrik/callista2/lasttester/jmeter</stringProp>
+          <stringProp name="filename">/tmp/inera-message/lasttester/jmeter</stringProp>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
@@ -953,7 +827,7 @@
               <bytes>true</bytes>
             </value>
           </objProp>
-          <stringProp name="filename">/Users/patrik/callista2/lasttester/jmeter_aggrergated</stringProp>
+          <stringProp name="filename">/tmp/inera-message/lasttester/jmeter_aggrergated</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
