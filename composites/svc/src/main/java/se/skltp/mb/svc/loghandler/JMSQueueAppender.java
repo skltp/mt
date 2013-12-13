@@ -77,7 +77,7 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
                 Context envCtx = (Context) initCtx.lookup("java:comp/env");
                 config = (ConfigBean) envCtx.lookup("bean/MessageboxJmsConfig");
             } catch (NamingException e) {
-                throw new RuntimeException(e);
+                throw new ConfigException(e);
             }
         }
         return config;
@@ -103,24 +103,28 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
      * Append event to queue
      */
     protected void append(LoggingEvent event) {
-        if ( !Boolean.parseBoolean(getConfig().getActive()) ) {
-            return;
-        }
-
-        // Do not process events that originates from this class
-        if ( isLogEventFromThisClass(event) ) {
-            return;
-        }
-
         try {
-            LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get(), getComponentName());
-            String queue = getQueueName(logEvent.getLogEntry().getMessageInfo().getLevel());
-            if ( queue != null ) {
-                logToQueue(queue, marshall(logEvent));
+            if ( !Boolean.parseBoolean(getConfig().getActive()) ) {
+                return;
             }
 
-        } catch (Exception e) {
-            logger.warn("Could not log message to queue", e);
+            // Do not process events that originates from this class
+            if ( isLogEventFromThisClass(event) ) {
+                return;
+            }
+
+            try {
+                LogEvent logEvent = LogEventCreator.createLogEvent(event, contextData.get(), getComponentName());
+                String queue = getQueueName(logEvent.getLogEntry().getMessageInfo().getLevel());
+                if ( queue != null ) {
+                    logToQueue(queue, marshall(logEvent));
+                }
+
+            } catch (Exception e) {
+                logger.warn("Could not log message to queue", e);
+            }
+        } catch (ConfigException e) {
+            System.err.println("Unable to access config, not logging " + event.getRenderedMessage());
         }
     }
 
@@ -258,6 +262,13 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
             String msg = "'" + threshold + "' is not a valid threshold log level. Must be one of " + sb.toString();
             System.err.println(msg);
             throw new IllegalArgumentException(msg);
+        }
+    }
+
+    private static class ConfigException extends RuntimeException {
+
+        public ConfigException(NamingException e) {
+            super(e);
         }
     }
 
