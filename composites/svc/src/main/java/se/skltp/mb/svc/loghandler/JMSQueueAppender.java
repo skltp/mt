@@ -152,8 +152,6 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
             session.close();
 
         } catch (JMSException e) {
-            System.err.println("Could not log to " + queue + "! : " + e);
-            e.printStackTrace();
             logger.error("Could not log to " + queue + "!", e);
 
             // Force a new connection to be made on the next request
@@ -260,7 +258,6 @@ public class JMSQueueAppender extends AppenderSkeleton implements Appender {
                 sb.append(value).append(",");
             }
             String msg = "'" + threshold + "' is not a valid threshold log level. Must be one of " + sb.toString();
-            System.err.println(msg);
             throw new IllegalArgumentException(msg);
         }
     }

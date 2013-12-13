@@ -151,8 +151,6 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
 
 
     public BaseIntegrationTests() {
-        System.err.println("Creating " + getClass().getName());
-
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
 
         try {
@@ -185,7 +183,6 @@ public abstract class BaseIntegrationTests extends AbstractTransactionalJUnit4Sp
 
     protected void setupJndiEnvironment() {
         try {
-            System.err.println("########## setupJndiEnvironment");
             SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
             Object config = applicationContext.getBean("jmsConfig");
             builder.bind("java:comp/env/bean/MessageboxJmsConfig", config);
