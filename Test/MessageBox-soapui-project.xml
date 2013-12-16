@@ -1815,6 +1815,111 @@ return request.getXml() // debug
    </soapenv:Header>
    <soapenv:Body>
       <urn1:GetMessages>
+        <urn1:messageIds>59021</urn1:messageIds>
+        <urn1:messageIds>59022</urn1:messageIds>
+        <urn1:messageIds>59031</urn1:messageIds>
+        <urn1:messageIds>59040</urn1:messageIds>
+        <urn1:messageIds>59048</urn1:messageIds>
+        <urn1:messageIds>59049</urn1:messageIds>
+        <urn1:messageIds>59050</urn1:messageIds>
+        <urn1:messageIds>59057</urn1:messageIds>
+        <urn1:messageIds>59058</urn1:messageIds>
+        <urn1:messageIds>59059</urn1:messageIds>
+        <urn1:messageIds>59060</urn1:messageIds>
+        <urn1:messageIds>59064</urn1:messageIds>
+        <urn1:messageIds>59065</urn1:messageIds>
+        <urn1:messageIds>59066</urn1:messageIds>
+        <urn1:messageIds>59067</urn1:messageIds>
+        <urn1:messageIds>59068</urn1:messageIds>
+        <urn1:messageIds>59069</urn1:messageIds>
+        <urn1:messageIds>59070</urn1:messageIds>
+        <urn1:messageIds>59073</urn1:messageIds>
+        <urn1:messageIds>59074</urn1:messageIds>
+        <urn1:messageIds>59075</urn1:messageIds>
+        <urn1:messageIds>59076</urn1:messageIds>
+        <urn1:messageIds>59077</urn1:messageIds>
+        <urn1:messageIds>59078</urn1:messageIds>
+        <urn1:messageIds>59079</urn1:messageIds>
+        <urn1:messageIds>59080</urn1:messageIds>
+        <urn1:messageIds>59082</urn1:messageIds>
+        <urn1:messageIds>59083</urn1:messageIds>
+        <urn1:messageIds>59084</urn1:messageIds>
+        <urn1:messageIds>59085</urn1:messageIds>
+        <urn1:messageIds>59086</urn1:messageIds>
+        <urn1:messageIds>59087</urn1:messageIds>
+        <urn1:messageIds>59088</urn1:messageIds>
+        <urn1:messageIds>59089</urn1:messageIds>
+        <urn1:messageIds>59090</urn1:messageIds>
+        <urn1:messageIds>59091</urn1:messageIds>
+        <urn1:messageIds>59092</urn1:messageIds>
+        <urn1:messageIds>59093</urn1:messageIds>
+        <urn1:messageIds>59094</urn1:messageIds>
+        <urn1:messageIds>59095</urn1:messageIds>
+        <urn1:messageIds>59096</urn1:messageIds>
+        <urn1:messageIds>59097</urn1:messageIds>
+        <urn1:messageIds>59099</urn1:messageIds>
+        <urn1:messageIds>59100</urn1:messageIds>
+        <urn1:messageIds>59101</urn1:messageIds>
+        <urn1:messageIds>59102</urn1:messageIds>
+        <urn1:messageIds>59103</urn1:messageIds>
+        <urn1:messageIds>59104</urn1:messageIds>
+        <urn1:messageIds>59110</urn1:messageIds>
+        <urn1:messageIds>59111</urn1:messageIds>
+        <urn1:messageIds>59112</urn1:messageIds>
+        <urn1:messageIds>59113</urn1:messageIds>
+        <urn1:messageIds>59120</urn1:messageIds>
+        <urn1:messageIds>59121</urn1:messageIds>
+        <urn1:messageIds>59122</urn1:messageIds>
+        <urn1:messageIds>59123</urn1:messageIds>
+        <urn1:messageIds>59127</urn1:messageIds>
+        <urn1:messageIds>59128</urn1:messageIds>
+        <urn1:messageIds>59129</urn1:messageIds>
+        <urn1:messageIds>59130</urn1:messageIds>
+        <urn1:messageIds>59131</urn1:messageIds>
+        <urn1:messageIds>59132</urn1:messageIds>
+        <urn1:messageIds>59133</urn1:messageIds>
+        <urn1:messageIds>59134</urn1:messageIds>
+        <urn1:messageIds>59135</urn1:messageIds>
+        <urn1:messageIds>59136</urn1:messageIds>
+        <urn1:messageIds>59137</urn1:messageIds>
+        <urn1:messageIds>59138</urn1:messageIds>
+        <urn1:messageIds>59139</urn1:messageIds>
+        <urn1:messageIds>59140</urn1:messageIds>
+        <urn1:messageIds>59141</urn1:messageIds>
+        <urn1:messageIds>59142</urn1:messageIds>
+        <urn1:messageIds>59143</urn1:messageIds>
+        <urn1:messageIds>59144</urn1:messageIds>
+        <urn1:messageIds>59145</urn1:messageIds>
+        <urn1:messageIds>59146</urn1:messageIds>
+        <urn1:messageIds>59147</urn1:messageIds>
+        <urn1:messageIds>59148</urn1:messageIds>
+        <urn1:messageIds>59149</urn1:messageIds>
+        <urn1:messageIds>59150</urn1:messageIds>
+        <urn1:messageIds>59151</urn1:messageIds>
+        <urn1:messageIds>59152</urn1:messageIds>
+        <urn1:messageIds>59153</urn1:messageIds>
+        <urn1:messageIds>59154</urn1:messageIds>
+        <urn1:messageIds>59155</urn1:messageIds>
+        <urn1:messageIds>59156</urn1:messageIds>
+        <urn1:messageIds>59157</urn1:messageIds>
+        <urn1:messageIds>59158</urn1:messageIds>
+        <urn1:messageIds>59159</urn1:messageIds>
+        <urn1:messageIds>59160</urn1:messageIds>
+        <urn1:messageIds>59161</urn1:messageIds>
+        <urn1:messageIds>59162</urn1:messageIds>
+        <urn1:messageIds>59163</urn1:messageIds>
+        <urn1:messageIds>59164</urn1:messageIds>
+        <urn1:messageIds>59165</urn1:messageIds>
+        <urn1:messageIds>59166</urn1:messageIds>
+        <urn1:messageIds>59167</urn1:messageIds>
+        <urn1:messageIds>59168</urn1:messageIds>
+        <urn1:messageIds>59169</urn1:messageIds>
+        <urn1:messageIds>59170</urn1:messageIds>
+        <urn1:messageIds>59171</urn1:messageIds>
+        <urn1:messageIds>59172</urn1:messageIds>
+        <urn1:messageIds>59173</urn1:messageIds>
+        <urn1:messageIds>59174</urn1:messageIds>
+        <urn1:messageIds>59175</urn1:messageIds>
       </urn1:GetMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="ExtractIdsFromGet"><con:settings/><con:config><script>// Extract the ids from the GetMessage step and modify the DeleteMessage
@@ -1863,6 +1968,111 @@ return request.getXml()
    </soapenv:Header>
    <soapenv:Body>
       <urn1:DeleteMessages>
+        <urn1:messageIds>59021</urn1:messageIds>
+        <urn1:messageIds>59022</urn1:messageIds>
+        <urn1:messageIds>59031</urn1:messageIds>
+        <urn1:messageIds>59040</urn1:messageIds>
+        <urn1:messageIds>59048</urn1:messageIds>
+        <urn1:messageIds>59049</urn1:messageIds>
+        <urn1:messageIds>59050</urn1:messageIds>
+        <urn1:messageIds>59057</urn1:messageIds>
+        <urn1:messageIds>59058</urn1:messageIds>
+        <urn1:messageIds>59059</urn1:messageIds>
+        <urn1:messageIds>59060</urn1:messageIds>
+        <urn1:messageIds>59064</urn1:messageIds>
+        <urn1:messageIds>59065</urn1:messageIds>
+        <urn1:messageIds>59066</urn1:messageIds>
+        <urn1:messageIds>59067</urn1:messageIds>
+        <urn1:messageIds>59068</urn1:messageIds>
+        <urn1:messageIds>59069</urn1:messageIds>
+        <urn1:messageIds>59070</urn1:messageIds>
+        <urn1:messageIds>59073</urn1:messageIds>
+        <urn1:messageIds>59074</urn1:messageIds>
+        <urn1:messageIds>59075</urn1:messageIds>
+        <urn1:messageIds>59076</urn1:messageIds>
+        <urn1:messageIds>59077</urn1:messageIds>
+        <urn1:messageIds>59078</urn1:messageIds>
+        <urn1:messageIds>59079</urn1:messageIds>
+        <urn1:messageIds>59080</urn1:messageIds>
+        <urn1:messageIds>59082</urn1:messageIds>
+        <urn1:messageIds>59083</urn1:messageIds>
+        <urn1:messageIds>59084</urn1:messageIds>
+        <urn1:messageIds>59085</urn1:messageIds>
+        <urn1:messageIds>59086</urn1:messageIds>
+        <urn1:messageIds>59087</urn1:messageIds>
+        <urn1:messageIds>59088</urn1:messageIds>
+        <urn1:messageIds>59089</urn1:messageIds>
+        <urn1:messageIds>59090</urn1:messageIds>
+        <urn1:messageIds>59091</urn1:messageIds>
+        <urn1:messageIds>59092</urn1:messageIds>
+        <urn1:messageIds>59093</urn1:messageIds>
+        <urn1:messageIds>59094</urn1:messageIds>
+        <urn1:messageIds>59095</urn1:messageIds>
+        <urn1:messageIds>59096</urn1:messageIds>
+        <urn1:messageIds>59097</urn1:messageIds>
+        <urn1:messageIds>59099</urn1:messageIds>
+        <urn1:messageIds>59100</urn1:messageIds>
+        <urn1:messageIds>59101</urn1:messageIds>
+        <urn1:messageIds>59102</urn1:messageIds>
+        <urn1:messageIds>59103</urn1:messageIds>
+        <urn1:messageIds>59104</urn1:messageIds>
+        <urn1:messageIds>59110</urn1:messageIds>
+        <urn1:messageIds>59111</urn1:messageIds>
+        <urn1:messageIds>59112</urn1:messageIds>
+        <urn1:messageIds>59113</urn1:messageIds>
+        <urn1:messageIds>59120</urn1:messageIds>
+        <urn1:messageIds>59121</urn1:messageIds>
+        <urn1:messageIds>59122</urn1:messageIds>
+        <urn1:messageIds>59123</urn1:messageIds>
+        <urn1:messageIds>59127</urn1:messageIds>
+        <urn1:messageIds>59128</urn1:messageIds>
+        <urn1:messageIds>59129</urn1:messageIds>
+        <urn1:messageIds>59130</urn1:messageIds>
+        <urn1:messageIds>59131</urn1:messageIds>
+        <urn1:messageIds>59132</urn1:messageIds>
+        <urn1:messageIds>59133</urn1:messageIds>
+        <urn1:messageIds>59134</urn1:messageIds>
+        <urn1:messageIds>59135</urn1:messageIds>
+        <urn1:messageIds>59136</urn1:messageIds>
+        <urn1:messageIds>59137</urn1:messageIds>
+        <urn1:messageIds>59138</urn1:messageIds>
+        <urn1:messageIds>59139</urn1:messageIds>
+        <urn1:messageIds>59140</urn1:messageIds>
+        <urn1:messageIds>59141</urn1:messageIds>
+        <urn1:messageIds>59142</urn1:messageIds>
+        <urn1:messageIds>59143</urn1:messageIds>
+        <urn1:messageIds>59144</urn1:messageIds>
+        <urn1:messageIds>59145</urn1:messageIds>
+        <urn1:messageIds>59146</urn1:messageIds>
+        <urn1:messageIds>59147</urn1:messageIds>
+        <urn1:messageIds>59148</urn1:messageIds>
+        <urn1:messageIds>59149</urn1:messageIds>
+        <urn1:messageIds>59150</urn1:messageIds>
+        <urn1:messageIds>59151</urn1:messageIds>
+        <urn1:messageIds>59152</urn1:messageIds>
+        <urn1:messageIds>59153</urn1:messageIds>
+        <urn1:messageIds>59154</urn1:messageIds>
+        <urn1:messageIds>59155</urn1:messageIds>
+        <urn1:messageIds>59156</urn1:messageIds>
+        <urn1:messageIds>59157</urn1:messageIds>
+        <urn1:messageIds>59158</urn1:messageIds>
+        <urn1:messageIds>59159</urn1:messageIds>
+        <urn1:messageIds>59160</urn1:messageIds>
+        <urn1:messageIds>59161</urn1:messageIds>
+        <urn1:messageIds>59162</urn1:messageIds>
+        <urn1:messageIds>59163</urn1:messageIds>
+        <urn1:messageIds>59164</urn1:messageIds>
+        <urn1:messageIds>59165</urn1:messageIds>
+        <urn1:messageIds>59166</urn1:messageIds>
+        <urn1:messageIds>59167</urn1:messageIds>
+        <urn1:messageIds>59168</urn1:messageIds>
+        <urn1:messageIds>59169</urn1:messageIds>
+        <urn1:messageIds>59170</urn1:messageIds>
+        <urn1:messageIds>59171</urn1:messageIds>
+        <urn1:messageIds>59172</urn1:messageIds>
+        <urn1:messageIds>59173</urn1:messageIds>
+        <urn1:messageIds>59174</urn1:messageIds>
+        <urn1:messageIds>59175</urn1:messageIds>
       </urn1:DeleteMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:infrastructure:itintegration:messagebox:1';
@@ -2318,10 +2528,10 @@ request.updateProperty()
    </soapenv:Header>
    <soapenv:Body>
       <urn1:GetMessages>
-        <urn1:messageIds>620</urn1:messageIds>
-        <urn1:messageIds>621</urn1:messageIds>
-        <urn1:messageIds>622</urn1:messageIds>
-        <urn1:messageIds>623</urn1:messageIds>
+        <urn1:messageIds>58923</urn1:messageIds>
+        <urn1:messageIds>58924</urn1:messageIds>
+        <urn1:messageIds>58925</urn1:messageIds>
+        <urn1:messageIds>58926</urn1:messageIds>
       </urn1:GetMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:infrastructure:itintegration:messagebox:GetMessagesResponder:1:GetMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="TP9: Compare contents"><con:settings/><con:config><script>// Ensure that the contents of the message body matches the original message
@@ -2459,10 +2669,10 @@ request.updateProperty()
    </soapenv:Header>
    <soapenv:Body>
       <urn1:DeleteMessages>
-        <urn1:messageIds>620</urn1:messageIds>
-        <urn1:messageIds>621</urn1:messageIds>
-        <urn1:messageIds>622</urn1:messageIds>
-        <urn1:messageIds>623</urn1:messageIds>
+        <urn1:messageIds>58923</urn1:messageIds>
+        <urn1:messageIds>58924</urn1:messageIds>
+        <urn1:messageIds>58925</urn1:messageIds>
+        <urn1:messageIds>58926</urn1:messageIds>
       </urn1:DeleteMessages>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns1='urn:riv:infrastructure:itintegration:messagebox:1';
@@ -2998,7 +3208,7 @@ declare namespace ns1='urn:riv:infrastructure:itintegration:messagebox:ListMessa
 declare namespace ns2='urn:riv:itintegration:registry:1';
 declare namespace ns3='urn:riv:infrastructure:itintegration:messagebox:1';
 declare namespace ns1='urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1';
-count(//ns3:messageId)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>msgId1</con:name><con:value>624</con:value></con:property><con:property><con:name>msgId2</con:name><con:value>625</con:value></con:property><con:property><con:name>msgId3</con:name><con:value>626</con:value></con:property><con:property><con:name>msgId4</con:name><con:value>627</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ErrorTest [MANUAL]" searchProperties="true" id="1e126c5b-3e66-4c75-b5fc-9cf2038c238b" disabled="true"><con:description>Testar vad som händer när databasen är nere.
+count(//ns3:messageId)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:infrastructure:itintegration:messagebox:ListMessagesResponder:1:ListMessages"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>msgId1</con:name><con:value>55947</con:value></con:property><con:property><con:name>msgId2</con:name><con:value>55948</con:value></con:property><con:property><con:name>msgId3</con:name><con:value>55949</con:value></con:property><con:property><con:name>msgId4</con:name><con:value>55950</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ErrorTest [MANUAL]" searchProperties="true" id="1e126c5b-3e66-4c75-b5fc-9cf2038c238b" disabled="true"><con:description>Testar vad som händer när databasen är nere.
 
 Förväntat resultat är att alla anrop skall få ett svar som indikerar tekniskt fel.
 
@@ -3235,4 +3445,4 @@ Gå tillbaka till Månadsstatistik och kontrollera att antal levererade medeland
       </urn:ReceiveMedicalCertificateAnswer>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>messageBoxOrg</con:name><con:value>5565594230</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>https://81.89.154.14/mb-application-ws</con:value></con:property><con:property><con:name>endpointRec</con:name><con:value>https://81.89.154.14/mb-application-ws</con:value></con:property><con:property><con:name>endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>endpointPFC</con:name><con:value>https://81.89.154.14/mb-application-ws</con:value></con:property><con:property><con:name>local-endpoint</con:name><con:value>http://localhost:8081</con:value></con:property><con:property><con:name>local-endpointRec</con:name><con:value>http://localhost:8081</con:value></con:property><con:property><con:name>local-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>local-endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>local-endpointPFC</con:name><con:value>http://localhost:8081</con:value></con:property><con:property><con:name>test-endpoint</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>test-endpointRec</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>test-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>test-endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>test-endpointPFC</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>vp-test-endpoint</con:name><con:value>https://192.168.19.10:20000/vp/infrastructure/itintegration/messagebox</con:value></con:property><con:property><con:name>vp-test-endpointRec</con:name><con:value>https://192.168.19.10:20000/vp</con:value></con:property><con:property><con:name>vp-test-endpointTkAnswer</con:name><con:value>ReceiveMedicalCertificateAnswer/1/rivtabp20</con:value></con:property><con:property><con:name>vp-test-endpointProcNotify</con:name><con:value>ProcessNotification/1/rivtabp21</con:value></con:property><con:property><con:name>vp-test-endpointPFC</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>qa-endpoint</con:name><con:value>http://192.168.16.211:8080/mb-application-ws</con:value></con:property><con:property><con:name>qa-endpointRec</con:name><con:value>http://192.168.16.211:8080/mb-application-ws</con:value></con:property><con:property><con:name>qa-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>qa-endpointProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>qa-endpointPFC</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://services.messagebox.skltp.se/ReceiveMessagesImpl/invoke"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>messageBoxOrg</con:name><con:value>5565594230</con:value></con:property><con:property><con:name>endpoint</con:name><con:value>https://qa.esb.ntjp.sjunet.org:20000/vp/infrastructure/itintegration/messagebox</con:value></con:property><con:property><con:name>endpointRec</con:name><con:value>https://qa.esb.ntjp.sjunet.org:20000/vp</con:value></con:property><con:property><con:name>endpointTkAnswer</con:name><con:value>ReceiveMedicalCertificateAnswer/1/rivtabp20</con:value></con:property><con:property><con:name>endpointTkProcNotify</con:name><con:value>ProcessNotification/1/rivtabp21</con:value></con:property><con:property><con:name>endpointPFC</con:name><con:value>http://192.168.16.211:8080/mb-application-ws</con:value></con:property><con:property><con:name>local-endpoint</con:name><con:value>http://localhost:8081</con:value></con:property><con:property><con:name>local-endpointRec</con:name><con:value>http://localhost:8081</con:value></con:property><con:property><con:name>local-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>local-endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>local-endpointPFC</con:name><con:value>http://localhost:8081</con:value></con:property><con:property><con:name>test-endpoint</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>test-endpointRec</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>test-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>test-endpointTkProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>test-endpointPFC</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>vp-test-endpoint</con:name><con:value>https://192.168.19.10:20000/vp/infrastructure/itintegration/messagebox</con:value></con:property><con:property><con:name>vp-test-endpointRec</con:name><con:value>https://192.168.19.10:20000/vp</con:value></con:property><con:property><con:name>vp-test-endpointTkAnswer</con:name><con:value>ReceiveMedicalCertificateAnswer/1/rivtabp20</con:value></con:property><con:property><con:name>vp-test-endpointProcNotify</con:name><con:value>ProcessNotification/1/rivtabp21</con:value></con:property><con:property><con:name>vp-test-endpointPFC</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property><con:property><con:name>qa-endpoint</con:name><con:value>http://192.168.16.211:8080/mb-application-ws</con:value></con:property><con:property><con:name>qa-endpointRec</con:name><con:value>http://192.168.16.211:8080/mb-application-ws</con:value></con:property><con:property><con:name>qa-endpointTkAnswer</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>qa-endpointProcNotify</con:name><con:value>ReceiveMessage</con:value></con:property><con:property><con:name>qa-endpointPFC</con:name><con:value>http://192.168.19.11:8080/mb-application-ws</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
