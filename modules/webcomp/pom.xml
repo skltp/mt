@@ -24,13 +24,13 @@
     <parent>
         <groupId>se.skltp.mb</groupId>
         <artifactId>mb-parent</artifactId>
-        <version>1.0.0-RC8-SNAPSHOT</version>
+        <version>1.0.0-RC8</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>mb-modules-webcomp</artifactId>
     <name>${project.artifactId}</name>
-    <version>1.0.0-RC8-SNAPSHOT</version>
+    <version>1.0.0-RC8</version>
 
     <build>
         <resources>
