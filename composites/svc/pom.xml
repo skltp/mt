@@ -24,7 +24,7 @@
     <parent>
         <groupId>se.skltp.mb</groupId>
         <artifactId>mb-parent</artifactId>
-        <version>1.0.0-RC8</version>
+        <version>1.0.0-RC9-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -32,7 +32,7 @@
     <artifactId>mb-composite-svc</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <version>1.0.0-RC8</version>
+    <version>1.0.0-RC9-SNAPSHOT</version>
 
     <dependencies>
 
