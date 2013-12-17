@@ -1753,9 +1753,8 @@ endpointPFC (används av PingForConfiguration)
 endpointTkAnswer (för att skicka RecMedCertAnswers)
 endpointTkProcNotify (för att skicka ProcessNotifications)
 
-Det skall finnas property-filer för de olika inställningarna liggande på samma plats som projektfilen. 
+Det skall finnas property-filer för  olika servrar (tex local, test, qa, vp-test, vp-qa)  liggande på samma plats som projektfilen. 
 
-Annars klipp/klistra in från någon av local, test, vp-test konfigurationerna.
 
 </con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EmptyDatabase" searchProperties="true" id="092be70d-a9ca-4d3f-bf4b-59e4f9326a9a"><con:description>Used to deliver all messages in the database and empty it.</con:description><con:settings/><con:testStep type="request" name="List-NoArgs"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ListMessagesResponderBinding</con:interface><con:operation>ListMessages</con:operation><con:request name="List-NoArgs" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#endpoint}/ListMessages/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope
 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
