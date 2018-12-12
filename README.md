@@ -1,2 +1,2 @@
 # mt
-Meddelandetjänsten
+DEPRECATED - The project is not used 
